@@ -1,0 +1,13 @@
+<h1 id="arm64-study">arm64 study</h1>
+<h2 id="compiler-code">compiler code</h2>
+<p>change to directory arm64_code make</p>
+<h2 id="run">run</h2>
+<p>qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r</p>
+<p>mkdir /mnt<br />
+mount -t 9p -o trans=virtio r /mnt<br />
+cd /mnt<br />
+./hello1<br />
+./hello2<br />
+./hello3</p>
+<h2 id="clean">clean</h2>
+<p>clean</p>

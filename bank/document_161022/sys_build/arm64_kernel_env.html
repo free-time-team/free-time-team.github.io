@@ -1,0 +1,53 @@
+<h1 id="arm64-kernel">arm64 kernel</h1>
+<h2 id="install-qemu">install qemu</h2>
+<h3 id="for-mint">For Mint</h3>
+<pre><code>sudo apt-get install qemu-system-arm  </code></pre>
+<h3 id="install-from-source-code">install from source code</h3>
+<pre><code>git clone http://git.qemu.org/git/qemu.git  
+cd qemu  
+./configure --help  
+./configure --target-list=aarch64-softmmu  
+make  
+sudo make install  </code></pre>
+<h2 id="install-toolchain">install toolchain</h2>
+<p>cd ~<br />
+mkdir bin<br />
+cd bin<br />
+wget http://releases.linaro.org/14.09/components/toolchain/binaries/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz<br />
+tar -Jxf gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz<br />
+rm gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz<br />
+cd gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin/<br />
+pwd<br />
+edit file ~/.profile, add the following content,</p>
+<pre><code>PATH=&quot;$PATH:/home/zzy/bin/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin&quot;</code></pre>
+<p>reboot PC <!-- source ~/.profile !--> <!--
+## build rootfs  
+$ git clone git://git.buildroot.net/buildroot buildroot.git  
+  $ cd buildroot.git  
+  $ make menuconfig  
+
+  Configure it  
+
+  * Target Options -> Target Architecture(AArch64)  
+  * Toolchain -> Toolchain type (External toolchain)  
+  * Toolchain -> Toolchain (Linaro AArch64 14.02)  
+  * System configuration -> Run a getty (login prompt) after boot  
+    (BR2_TARGET_GENERIC_GETTY)  
+  * System configuration -> getty options -> TTY Port (ttyAMA0)  
+    (BR2_TARGET_GENERIC_GETTY_PORT)  
+  * Target Packages -> Show packages that are also provided by busybox  
+    (BR2_PACKAGE_BUSYBOX_SHOW_OTHERS)  
+  * Filesystem images -> cpio the root filesystem (for use as an initial RAM  
+    filesystem) (BR2_TARGET_ROOTFS_CPIO)  
+    $ make  
+!--></p>
+<h2 id="build-kernel">build kernel</h2>
+<p>make directory for work, and change to it.<br />
+git clone https://github.com/sys-build/kern4.1_arm64_env.git<br />
+cd kern4.1_arm64_env/linux-4.1.16/<br />
+chage &quot;CONFIG_INITRAMFS_SOURCE&quot; to the right directory<br />
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out zzy_defconfig<br />
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image</p>
+<!--
+http://blog.sina.com.cn/s/blog_858820890102vs7p.html
+!-->

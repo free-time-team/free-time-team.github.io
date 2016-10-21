@@ -1,0 +1,12 @@
+<h1 id="cd-alias">cd alias</h1>
+<p>alias ..=&quot;cd ..&quot;<br />
+alias ..2=&quot;cd ../..&quot;<br />
+alias ..3=&quot;cd ../../..&quot;<br />
+alias ..4=&quot;cd ../../../..&quot;<br />
+alias ..5=&quot;cd ../../../../..&quot;<br />
+alias ..6=&quot;cd ../../../../../..&quot;<br />
+alias ..7=&quot;cd ../../../../../../..&quot;<br />
+alias ..8=&quot;cd ../../../../../../../..&quot;<br />
+alias ..9=&quot;cd ../../../../../../../../..&quot;</p>
+<h1 id="mkdircd">mkdircd</h1>
+<p>function mkdircd () { mkdir -p &quot;<span class="math inline">$@&quot; &amp;&amp; eval cd &quot;\&quot;\$$</span>#&quot;&quot;; }</p>

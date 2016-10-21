@@ -1,0 +1,35 @@
+<h1 id="hexedit">hexedit</h1>
+<h2 id="open">open</h2>
+<pre><code>hexedit file_name</code></pre>
+<h2 id="close">close</h2>
+<pre><code>ctrl+x</code></pre>
+<h2 id="ofen-used">ofen used</h2>
+<pre><code>&lt;:  go to start of the file
+&gt; :  go to end of the file
+Right:  next character
+Left:   previous character
+Down:   next line
+Up:     previous line
+Home:   beginning of line
+End:    end of line
+PUp:    page forward
+PDown:  page backward</code></pre>
+<h2 id="reference">reference</h2>
+<pre><code>http://linux.die.net/man/1/hexedit
+http://blog.csdn.net/dssxk/article/details/7998743 // 命令集</code></pre>
+<h1 id="bvi">bvi</h1>
+<h2 id="open-1">open</h2>
+<pre><code>bvi test.iso</code></pre>
+<h2 id="search-binary">search binary</h2>
+<pre><code>Additional search commands: Similar to the text search commands there are additional   
+hex-search functions &#39;\&#39; and &#39;#&#39; which allow to search for any byte value.
+Example:  &quot;\62 76  69&quot;
+will search for the string &quot;bvi&quot;.  Spaces between hex value are optional,
+so searching for &quot;6775636B6573&quot; will   find &quot;guckes&quot;.</code></pre>
+<h2 id="commands">commands</h2>
+<pre><code>: command
+  set cm=16</code></pre>
+<h2 id="help">help</h2>
+<pre><code>man bvi
+bvi help
+note: cannot handle large file</code></pre>

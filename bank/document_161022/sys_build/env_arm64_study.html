@@ -1,0 +1,8 @@
+<h1 id="arm64-study-environment">arm64 study environment</h1>
+<h2 id="install-toolchain">install toolchain</h2>
+<p>sudo apt-get install g++-aarch64-linux-gnu</p>
+<h2 id="get-code">get code</h2>
+<p>git clone https://github.com/sys-build/env_arm64_study.git</p>
+<h2 id="build-run">build &amp; run</h2>
+<p>aarch64-linux-gnu-gcc -o main hello.s main.c -static<br />
+qemu-aarch64 main</p>

@@ -1,0 +1,41 @@
+<h1 id="制作mint-linux-u盘启动盘">制作mint linux u盘启动盘</h1>
+<p>sudo dd if=virtual_platform/00environment/linuxmint-17.3-cinnamon-64bit.iso of=/dev/sdc bs=8M;sync<br />
+注意: virtual_platform/00environment/linuxmint-17.3-cinnamon-64bit.iso 替换成iso镜象所在的全路径<br />
+/dev/sdc 替换成u盘对应的设备名</p>
+<h2 id="mint-17-support">Mint 17 support</h2>
+<p>Mint 17 LTS (Long Term Support till 2019)</p>
+<h1 id="install-more-tools">install more tools</h1>
+<p><strong>simple edit:</strong> sudo apt-get install gedit<br />
+<strong>vim:</strong> sudo apt-get install vim<br />
+<strong>git:</strong> sudo apt-get install git<br />
+<strong>ctags:</strong> sudo apt-get install ctags<br />
+<strong>cscope:</strong> sudo apt-get install cscope<br />
+<strong>basic development:</strong> sudo apt-get install build-essential<br />
+<strong>Google chrome:</strong> sudo apt-get install chromium-browser<br />
+<strong>ssh:</strong> sudo apt-get install openssh-server openssh-client<br />
+<strong>Atom:</strong> https://atom.io/<br />
+<strong>wiznote:</strong></p>
+<pre><code>sudo add-apt-repository ppa:wiznote-team  
+sudo apt-get update  
+sudo apt-get install wiznote  </code></pre>
+<h1 id="install-pinyin-input-method">install pinyin input method</h1>
+<p>Menu -&gt; Preferences -&gt; Input method<br />
+install all Fcitx package</p>
+<p>Intall the optional components<br />
+Input method -&gt; Fcitx</p>
+<p>Reset PC<br />
+Configure Current Input Method -&gt; Addon -&gt; Google pinyin</p>
+<p>Reset PC<br />
+Input Method -&gt; Google Pinyin</p>
+<p>Reset PC</p>
+<h1 id="install-iptux">install iptux</h1>
+<p>https://community.linuxmint.com/software/view/iptux</p>
+<h2 id="mint-安装中文输入法">mint 安装中文输入法</h2>
+<p>http://m.blog.csdn.net/article/details?id=51555466</p>
+<h1 id="change-apt-source">change apt source</h1>
+<p>Menu -&gt; Preferences -&gt; System Settings -&gt; Software Sources ## change to ustc source http://mirrors.ustc.edu.cn/linuxmint<br />
+http://mirrors.ustc.edu.cn/ubuntu<br />
+## update source sudo apt-get update</p>
+<h1 id="the-more-mint-document">the more mint document</h1>
+<p>mint user guide: <a href="https://www.linuxmint.com/documentation/user-guide/Cinnamon/english_18.0.pdf">English version</a><br />
+mint user guide: <a href="https://www.linuxmint.com/documentation/user-guide/Cinnamon/chinese_16.0.pdf">Chinese verson</a></p>

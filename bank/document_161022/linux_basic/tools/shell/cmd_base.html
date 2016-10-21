@@ -1,0 +1,164 @@
+<h1 id="list-subdirectory-total-size-by-sort">list subdirectory total size by sort</h1>
+<p>du -sh * | sort -rh</p>
+<h1 id="hotkeys">Hotkeys</h1>
+<p>F11: swich among full command screen and ordinary command screen<br />
+Ctrl+u: Erase the whole current line and move the cursor to the beginning of the current line.</p>
+<h1 id="chownchmod">chown/chmod</h1>
+<p>Use the chown command to change file owner and group information. Use the chmod command to change file access permissions such as read, write, and access.<br />
+chown owner-user file<br />
+chown owner-user:owner-group file<br />
+chown owner-user:owner-group directory<br />
+chown options owner-user:owner-group file</p>
+<h1 id="nautilus">nautilus</h1>
+<p>nautilus . // 文件管理窗口</p>
+<h1 id="ls">ls</h1>
+<p>$ ls -l<br />
+total 600<br />
+-rw-r--r-- 1 test users 18693 Nov 8 00:36 COPYING</p>
+<h1 id="change-mode">change mode</h1>
+<p>chown -R test:users test<br />
+chmod -R u+rwx test</p>
+<h1 id="wc">wc</h1>
+<p>-c #print the byte counts<br />
+-m #print the character counts<br />
+-l #print the newline counts<br />
+-L #print the length of the longest line<br />
+-w #print the word counts<br />
+--help #display this help and exit</p>
+<h1 id="head">head</h1>
+<p>// Display the first fifteen lines of myfile.txt.<br />
+head -15 myfile.txt</p>
+<p>reference<br />
+http://www.linfo.org/head.html<br />
+http://www.cnblogs.com/peida/archive/2012/11/06/2756278.html<br />
+http://www.computerhope.com/unix/uhead.htm<br />
+http://my.oschina.net/lovedreamland/blog/366349</p>
+<h1 id="tail">tail</h1>
+<p>tail -f a.log</p>
+<h1 id="scp">scp</h1>
+<p>$ scp<br />
+usage: scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]<br />
+[-l limit] [-o ssh_option] [-P port] [-S program]<br />
+[[user@]host1:]file1 ... [[user@]host2:]file2<br />
+// cp remote file to local<br />
+scp user@ip:~/a.sh ~/share<br />
+// cp local file to remote<br />
+scp minicom.log user@ip:~/BuildCode/BuildCode</p>
+<h1 id="file">file</h1>
+<p>Identify a file’s type by examining specific fields within the file</p>
+<h1 id="dd">dd</h1>
+<p>dd if=input.bin of=output.bin ibs=1 count=281542 skip=17408<br />
+if=file 输入文件名　标准输入确省<br />
+of=file 输出文件名，标准输出确省<br />
+ibs=n 输入块大小，n字节（默认512）<br />
+count 只复制由count参数指定数量的输入块<br />
+skip=n 拷贝之前越过n个输入块</p>
+<p>obs=n 输出块大小,n字节（默认512）<br />
+bs=n 同时设置输入输出块大小<br />
+cbs=n 转换缓冲区大小<br />
+files=n 在中断之前拷贝和转换n个输入文件<br />
+oseek=n 拷贝之前从输出文件开始查找n个块<br />
+iseek 拷贝之前从输入文件开始查找n个块<br />
+seek=n 等同于oseek<br />
+cono=ascic 将EBCDIC码转换为ASCII<br />
+ebcdic ASCII-&gt;;EBCDIC<br />
+ibm ASCII转换为EBCDIC码时轻微不同的映象<br />
+blolk 将新栈中断的ASCII码记录转换为固定长度<br />
+unblock 将固定长度的ASCII码记录转换为新行中断记录<br />
+lcase 变换字将至低等情况<br />
+ucase 变换字将至高等情况<br />
+swab 交换每对字节<br />
+noerrir 出错时不停止处理<br />
+sync 将每个块填充到ibs</p>
+<h1 id="nautilus-1">nautilus</h1>
+<p>view the directory<br />
+nautilus ~</p>
+<h1 id="history">history</h1>
+<p>list history command list</p>
+<h1 id="man">man</h1>
+<p>Use n and Shift+n for the next and previous matches. hit /, and type your search pattern. Patterns can be regular expressions, for example, you could search for the word &quot;option&quot; by typing /[Oo]ption Or find all of the long arguments with /(--)[a-Z] To cancel the search, hit Ctrl+C.</p>
+<h1 id="ls-1">ls</h1>
+<p>ls -lh -h, --human-readable with -l, print sizes in human readable format (e.g., 1K 234M 2G)</p>
+<p>.html5sum // check file.html5 value md5sum file_name md5sum -c.html5sums</p>
+<h1 id="sha1sum">sha1sum</h1>
+<p>the same as.html5sum</p>
+<h1 id="rename">rename</h1>
+<p>// 批量修改文件名 rename -v 's/[Linux英文原版图书系列].//' *.pdf</p>
+<p>// 当前文件夹下所有名字为 xxx_check 的目录重命名为 xxx</p>
+<h1 id="find">find</h1>
+<p>find . -maxdepth 1 -type d | grep &quot;_check&quot; | xargs rename 's/_check//'</p>
+<p>There are four parts to this substitute command s Substitute command /../../ Delimiter one Regular Expression Pattern Search Pattern ONE Replacement string</p>
+<p>find find . -name &quot;init.project.rc&quot; find . -name &quot;<em>[Ww][Aa][Tt][Cc]<a href="#dd">Hh</a>[Oo][Gg]</em>&quot; &gt; watchdog_doc.txt find . -type d -name &quot;code&quot; find ./ -name &quot;.git&quot; | xargs rm -rf // delete all .git directory find ~ -maxdepth 1 -name &quot;.*&quot; // only search user home directory</p>
+<h1 id="disk-tools">disk tools</h1>
+<p>sudo fdisk -l df -l parted</p>
+<h1 id="du">du</h1>
+<p>du -sh // total disk usage size of current directory<br />
+du -sh * // total disk usage size of every file and every subdirectory of current directory<br />
+http://www.tecmint.com/check-linux-disk-usage-of-files-and-directories/</p>
+<h1 id="grep">grep</h1>
+<p>grep ENABLE_SSDTESTD -nir .<br />
+match [KEY]<br />
+grep &quot;[KEY]&quot;<br />
+-s: ignor prompt infomation</p>
+<p>grep mulitple words<br />
+//In this example, search warning, error, and critical words in a text log file called /var/log/messages, enter:<br />
+grep 'warning|error|critical' /var/log/messages<br />
+//To just match words, add -w swith:<br />
+grep -w 'warning|error|critical' /var/log/messages<br />
+//egrep command can skip the above syntax and use the following syntax:<br />
+egrep -w 'warning|error|critical' /var/log/messages<br />
+//I recommend that you pass the -i (ignore case) and --color option as follows:<br />
+egrep -wi --color 'warning|error|critical' /var/log/messages<br />
+http://www.cyberciti.biz/faq/searching-multiple-words-string-using-grep/</p>
+<p>&quot;&quot; // 加前后边界，精确匹配 “abc”<br />
+-i // 不区分大小写<br />
+-I // 不搜索二进制文件</p>
+<p>// 搜索包含 arch_reset 但是不包含 charger<br />
+grep &quot;arch_reset&quot; . -nr | grep -v &quot;charger&quot;</p>
+<h1 id="ln">ln</h1>
+<p>ln -s /media/disk2 /home/user_name/disk2</p>
+<h1 id="kill">kill</h1>
+<p>kill libreoffice<br />
+ps -e | grep soffice.bin<br />
+kill pid<br />
+kill goagent in ubuntu<br />
+netstat -nap | grep &quot;py&quot;<br />
+kill -9 <process id></p>
+<h1 id="hexdump">hexdump</h1>
+<p>hexdump -C vmlinux_l50 | more<br />
+-C Canonical hex+ASCII display. Display the input offset in hexadecimal, followed by sixteen space-separated, two column, hexadecimal bytes, followed by the same sixteen<br />
+bytes in %_p format enclosed in ``|'' characters.</p>
+<h1 id="tar">tar</h1>
+<p>tar -cvf /tmp/etc.tar /etc // just tar, not compression<br />
+tar -zcvf /tmp/etc.tar.gz /etc // gzip compression<br />
+tar -jcvf /tmp/etc.tar.bz2 /etc // bzip2 compression<br />
+tar -zxvf /tmp/etc.tar.gz // decompress etc.tar.gz file<br />
+tar -zxvf /tmp/etc.tar.gz etc/passwd // 将 /tmp/etc.tar.gz 内的 etc/passwd 解开而已,etc.tar.gz 内的根目录 / 是被拿掉了<br />
+tar -zxvpf /tmp/etc.tar.gz /etc // -p 保留原本文件属性<br />
+split -d -b 100m a.tar.gz // 切割压缩包<br />
+cat x* &gt; a.tar.gz // 切割后的分卷合并</p>
+<p>//decompress to directory<br />
+mkdir aaa<br />
+tar -zxf a.tar.gz -C aaa // decompress a.tar to directory aaa</p>
+<p>// decompress to separate directory<br />
+for A in ./1/1.tar.gz ./2/2.tar.gz ; do echo $(dirname $A); tar -zxf $A -C $(dirname $A); done</p>
+<h1 id="zipunzip">zip/unzip</h1>
+<p>install: sudo apt-get install zip<br />
+zip a.zip 1.txt 2.txt 3.txt<br />
+zip -r a.zip 1.txt 2.txt dir<br />
+unzip a.zip<br />
+zip -r zzy_config.zip .gitconfig .git-template .ssh/ .vim .vimrc // backup my configs</p>
+<h1 id="find-rm">find &amp; rm</h1>
+<p>// 查找所有.git目录，并且删除<br />
+find . -name .git -type d -print -exec rm -rf {} ;</p>
+<p>.html5sums // create.html5sums<br />
+find . -type f -print0 | xargs -0.html5sum &gt;.html5sums<br />
+// check.html5sums<br />
+md5sum -c checksums_backup.html5<br />
+http://info.michael-simons.eu/2008/10/25/recursively.html5sum-all-files-in-a-directory-tree/</p>
+<h1 id="reference">reference</h1>
+<p>[1] http://www.cnblogs.com/peida/archive/2012/12/18/2822758.html<br />
+[2] http://hi.baidu.com/microji/item/8bb148143a912326f7625c03<br />
+[3] http://www.tecmint.com/history-command-examples/<br />
+[5] http://linux.die.net/man/2/stat //linux die 上查找 stat函数<br />
+[6] http://zhangyu.blog.51cto.com/197148/137069 // dd 命令用法</p>

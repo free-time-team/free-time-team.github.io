@@ -1,0 +1,71 @@
+<h1 id="arm32-study-environment">arm32 study environment</h1>
+<h2 id="install-qemu">install qemu</h2>
+<p>sudo apt-get install qemu</p>
+<h2 id="install-toolchain">install toolchain</h2>
+<p>sudo apt-get install g++-arm-linux-gnueabi<br />
+<!--
+sudo apt-get install libc6-dev-armel-cross  
+!--></p>
+<h2 id="get-code">get code</h2>
+<p>git clone https://github.com/sys-build/embedded_env_arm32.git</p>
+<h2 id="compiler-run">compiler &amp; run</h2>
+<p>arm-linux-gnueabi-gcc -o hello hello.s main.c -static<br />
+qemu-arm hello</p>
+<h2 id="debug">debug</h2>
+<p>qemu-arm -g 1234 hello<br />
+$ arm-none-eabi-gdb<br />
+(gdb) target remote :1234<br />
+Remote debugging using :1234<br />
+warning: A handler for the OS ABI &quot;GNU/Linux&quot; is not built into this configuration<br />
+of GDB. Attempting to continue with the default armv5t settings.</p>
+<p>0x0001044c in _start ()<br />
+(gdb) file ./hello<br />
+A program is being debugged already.<br />
+Are you sure you want to change the file? (y or n) y<br />
+Reading symbols from /home/zzy/sda7/virtual_platform/02codebase/02sys_build/embedded_env_arm32/hello...(no debugging symbols found)...done.<br />
+(gdb) b add<br />
+Breakpoint 1 at 0x105b4<br />
+(gdb) c<br />
+Continuing.</p>
+<p>Breakpoint 1, 0x000105b4 in add ()<br />
+(gdb) info r<br />
+r0 0x3 3<br />
+r1 0xf6fff064 -150998940<br />
+r2 0xf6fff06c -150998932<br />
+r3 0x105c4 67012<br />
+r4 0xf6ffef28 -150999256<br />
+r5 0x10d48 68936<br />
+r6 0x0 0<br />
+r7 0x0 0<br />
+r8 0x0 0<br />
+r9 0x0 0<br />
+r10 0x96f6c 618348<br />
+r11 0xf6ffef14 -150999276<br />
+r12 0x0 0<br />
+sp 0xf6ffef10 0xf6ffef10<br />
+lr 0x105d4 67028<br />
+pc 0x105b4 0x105b4 <add><br />
+cpsr 0x60000010 1610612752<br />
+(gdb) s<br />
+Single stepping until exit from function add,<br />
+which has no line number information.<br />
+0x000105d4 in main ()<br />
+(gdb) info r<br />
+r0 0x3 3<br />
+r1 0x1 1<br />
+r2 0x2 2<br />
+r3 0x105c4 67012<br />
+r4 0xf6ffef28 -150999256<br />
+r5 0x10d48 68936<br />
+r6 0x0 0<br />
+r7 0x0 0<br />
+r8 0x0 0<br />
+r9 0x0 0<br />
+r10 0x96f6c 618348<br />
+r11 0xf6ffef14 -150999276<br />
+r12 0x0 0<br />
+sp 0xf6ffef10 0xf6ffef10<br />
+lr 0x105d4 67028<br />
+pc 0x105d4 0x105d4 <main+16><br />
+cpsr 0x60000010 1610612752<br />
+(gdb)</p>

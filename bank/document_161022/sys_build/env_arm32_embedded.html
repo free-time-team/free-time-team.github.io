@@ -1,0 +1,28 @@
+<h1 id="embedded-environment-for-arm32">embedded environment for arm32</h1>
+<h2 id="install-qemu">install qemu</h2>
+<p>sudo apt-get install qemu</p>
+<h2 id="install-toolchain">install toolchain</h2>
+<!--
+wget -c  http://releases.linaro.org/14.09/components/toolchain/binaries/gcc-linaro-arm-none-eabi-4.9-2014.09_linux.tar.xz  
+tar -Jxf gcc-linaro-arm-none-eabi-4.9-2014.09_linux.tar.xz  
+PATH="$PATH:/home/zzy/bin/gcc-linaro-arm-none-eabi-4.9-2014.09_linux/bin"  
+!-->
+<p>sudo apt-get insatll gcc-arm-linux-gnueabi<br />
+sudo apt-get install libc6-dev-armel-cross</p>
+<h2 id="get-code">get code</h2>
+<p>git clone https://github.com/sys-build/embedded_env_arm32.git</p>
+<h2 id="build">build</h2>
+<p>arm-linux-gnueabi-as -o test.o test.s<br />
+arm-linux-gnueabi-ld -Ttext=0x0 -o test.elf test.o<br />
+arm-linux-gnueabi-nm test.elf<br />
+arm-linux-gnueabi-objcopy -O binary test.elf test.bin<br />
+dd if=/dev/zero of=flash.bin bs=4096 count=4096<br />
+dd if=test.bin of=flash.bin bs=4096 conv=notrunc</p>
+<h2 id="run-in-qemu">run in qemu</h2>
+<p>qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null</p>
+<h2 id="qemu-commands">qemu commands</h2>
+<p>help // help info<br />
+info registers // review registers<br />
+quit // quit<br />
+xp /fmt address // dump memory<br />
+system_reset // reset</p>

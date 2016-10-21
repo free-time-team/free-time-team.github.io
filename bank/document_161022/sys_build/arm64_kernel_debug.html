@@ -1,0 +1,80 @@
+<h2 id="run-the-kernel-with-rootfs-on-arm64-qemu">run the kernel with rootfs on arm64 qemu</h2>
+<p>cd ..<br />
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot;</p>
+<h2 id="quit">quit</h2>
+<p>C a c // press Ctrl+a and then press c -&gt; quit arm64 linux<br />
+quit // quit qemu</p>
+<h2 id="debug">debug</h2>
+<p>step debug<br />
+start one console type following command<br />
+// start kernel and stop the first instruction<br />
+$ qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -s -S</p>
+<p>start another console type the following commands<br />
+// start gdb and load vmlinux<br />
+$ aarch64-linux-gnu-gdb<br />
+(gdb) file out/vmlinux<br />
+Reading symbols from /media/disk2/03study/kern4.1_arm64_env/out/vmlinux...done.</p>
+<p>(gdb) directory linux-4.1.16/<br />
+// read source code<br />
+Source directories searched: /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16:<span class="math inline"><em>c</em><em>d</em><em>i</em><em>r</em>:</span>cwd</p>
+<p>(gdb) target remote localhost:1234<br />
+// access qemu guest<br />
+Remote debugging using localhost:1234<br />
+0x0000000040000000 in ?? ()</p>
+<p>(gdb) break start_kernel<br />
+Breakpoint 2 at 0xffffffc0007ed5d8: file /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c, line 493.<br />
+(gdb) c<br />
+Continuing.</p>
+<p>Breakpoint 2, start_kernel () at /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c:493<br />
+493 {<br />
+(gdb) list<br />
+488 vmalloc_init();<br />
+489 ioremap_huge_init();<br />
+490 }</p>
+<p>(gdb) s<br />
+502 set_task_stack_end_magic(&amp;init_task);<br />
+(gdb) info r<br />
+x0 0x34d5d91d 886429981<br />
+x1 0x40b68000 1085702144<br />
+x2 0x40 64<br />
+x3 0x3f 63<br />
+x4 0xffffffc000ac7000 -274866606080<br />
+x5 0xffffffc00081f000 -274869391360<br />
+x6 0xffffffc000aca000 -274866593792<br />
+x7 0xffffffc000b624a8 -274865970008<br />
+x8 0x0 0<br />
+x9 0x1124 4388<br />
+x10 0x34b5193519 226376627481<br />
+x11 0x0 0<br />
+x12 0x0 0<br />
+x13 0x16 22<br />
+x14 0x0 0</p>
+<p>dmesg log have no timestamp<br />
+echo Y &gt; /sys/module/printk/parameters/time</p>
+<p>gdb study<br />
+// todo</p>
+<h2 id="my-kernel-code">my kernel code</h2>
+<p>git clone https://github.com/zzyjsjcom/zzy_kernel_code.git</p>
+<!--
+git clone https://github.com/shihyu/GDB.git // GDB/data/快快樂樂學GDB_by_Jserv  
+http://wiki.ubuntu.org.cn/index.php?title=%E7%94%A8GDB%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F&variant=zh-hans  
+
+todo  
+//build busybox  
+//make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig  
+//  1. static compile, BusyboxSettings->Build options->BuildBusybox as a static binary  
+//  2. cancel, Networkingutilities->iptunel  
+//  3. cancel, Networkingutilities->inetd  
+//make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-  
+//make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- install  
+
+resource  
+http://stenliao.blogspot.tw/2014/10/run-aarch64-linux-on-qemu.html  
+http://www.bennee.com/~alex/blog/2014/05/09/running-linux-in-qemus-aarch64-system-emulation-mode/  
+http://suihkulokki.blogspot.tw/2014/08/testing-qemu-21-arm64-support.html  
+http://blog.chinaunix.net/uid-25272011-id-3250053.html  
+http://blog.csdn.net/jefbai/article/details/44901447  
+http://www.tqcto.com/article/system/5715.html // make rootfs  
+http://stenliao.blogspot.tw/2014/10/how-to-trace-aarch64-linux-kernel-with.html // step debug  
+http://gogojesseco.blogspot.tw/2014_05_01_archive.html // step debug  
+-->
