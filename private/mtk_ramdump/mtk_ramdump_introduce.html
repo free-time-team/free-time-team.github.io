@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for program, version version.
+
+Copyright (C) years copyright-owner.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>mtk ramdump introduce</title>
+
+<meta name="description" content="mtk ramdump introduce">
+<meta name="keywords" content="mtk ramdump introduce">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<h1 class="settitle" align="center">mtk ramdump introduce</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-MTK-3level-page-table" href="#mtk-3level-page-table">1 MTK 3level page table</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Chapter1-Section-1" href="#Chapter1-Section">1.1 Chapter1 Section</a>
+    <ul class="no-bullet">
+      <li><a name="toc-First-Chapter-First-Second-First-subsection" href="#First-Chapter-First-Second-First-subsection">1.1.1 First Chapter First Second First subsection</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Ramdump-to-usb" href="#ramdump-to-usb">2 Ramdump to usb</a></li>
+  <li><a name="toc-DDR-test-in-lk" href="#ddr-test">3 DDR test in lk</a></li>
+  <li><a name="toc-Critical-issues" href="#critical-issues">4 Critical issues</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Twice-reset-in-lk" href="#twice-reset-in-lk">4.1 Twice reset in lk</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#mtk-3level-page-table" accesskey="n" rel="next">mtk 3level page table</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Main-index"></a>
+<h1 class="top">Main index</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#mtk-3level-page-table" accesskey="1">mtk 3level page table</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">MTK 3level page table implementation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#ramdump-to-usb" accesskey="2">ramdump to usb</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#ddr-test" accesskey="3">ddr test</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#critical-issues" accesskey="4">critical issues</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="mtk-3level-page-table"></a>
+<div class="header">
+<p>
+Next: <a href="#ramdump-to-usb" accesskey="n" rel="next">ramdump to usb</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="MTK-3level-page-table"></a>
+<h2 class="chapter">1 MTK 3level page table</h2>
+
+<p>todo
+</p><div class="example">
+<pre class="example">patch: <a href="http://git.htc.com:8081/#/c/831208/">http://git.htc.com:8081/#/c/831208/</a>
+test: <a href="./mtk_ramdump_introduce.log">log</a>
+</pre></div>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Chapter1-Section" accesskey="1">Chapter1 Section</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="Chapter1-Section"></a>
+<div class="header">
+<p>
+Up: <a href="#mtk-3level-page-table" accesskey="u" rel="up">mtk 3level page table</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Chapter1-Section-1"></a>
+<h3 class="section">1.1 Chapter1 Section</h3>
+
+<p>test1
+</p>
+<a name="First-Chapter-First-Second-First-subsection"></a>
+<h4 class="subsection">1.1.1 First Chapter First Second First subsection</h4>
+
+<p>test1
+</p>
+<hr>
+<a name="ramdump-to-usb"></a>
+<div class="header">
+<p>
+Next: <a href="#ddr-test" accesskey="n" rel="next">ddr test</a>, Previous: <a href="#mtk-3level-page-table" accesskey="p" rel="prev">mtk 3level page table</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Ramdump-to-usb"></a>
+<h2 class="chapter">2 Ramdump to usb</h2>
+
+<p>todo
+</p>
+<hr>
+<a name="ddr-test"></a>
+<div class="header">
+<p>
+Next: <a href="#critical-issues" accesskey="n" rel="next">critical issues</a>, Previous: <a href="#ramdump-to-usb" accesskey="p" rel="prev">ramdump to usb</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="DDR-test-in-lk"></a>
+<h2 class="chapter">3 DDR test in lk</h2>
+
+<p>todo
+</p>
+<hr>
+<a name="critical-issues"></a>
+<div class="header">
+<p>
+Previous: <a href="#ddr-test" accesskey="p" rel="prev">ddr test</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Critical-issues"></a>
+<h2 class="chapter">4 Critical issues</h2>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#twice-reset-in-lk" accesskey="1">twice reset in lk</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="twice-reset-in-lk"></a>
+<div class="header">
+<p>
+Up: <a href="#critical-issues" accesskey="u" rel="up">critical issues</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Twice-reset-in-lk"></a>
+<h3 class="section">4.1 Twice reset in lk</h3>
+
+<dl compact="compact">
+<dt><b>symptom</b></dt>
+<dd><p>decompress kernel image fail after enable the 3 level page table in LK 
+</p>
+</dd>
+<dt><b>Root cause</b></dt>
+<dd><p>scratch area will map in platform init &ndash;&gt; minidump remap scratch for dumping &ndash;&gt; decompress kernel will use scratch area but already remap by minidump flow, so fail 
+</p>
+</dd>
+</dl>
+
+<p><b>Code review</b>
+</p><table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">kmain
+  -&gt; create bootstrap2 thread
+  -&gt; bootstrap2
+    -&gt; platform_init
+      -&gt; boot_mode_select (boot_mode.c)
+        -&gt; kedump_mini (app/mt_boot/aee/KEDump.c)
+          -&gt; LOG(&quot;kedump mini start\n&quot;);
+          -&gt; kedump_to_expdb (./app/mt_boot/aee/KEDump.c)
+            -&gt; kedump_elf_hdr (app/mt_boot/aee/KEDump.c)
+            -&gt; kedump_mini_rdump (app/mt_boot/aee/KEDump.c)
+              -&gt; kedump_dev_write (app/mt_boot/aee/KEDump.c)
+</pre></div>
+</td></tr></table>
+
+<p>So the address SCRATCH_ADDR will be corruption.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"> 23 SCRATCH_ADDR     := 0x46900000
+ 24 SCRATCH_SIZE     := 0x08000000 # 128MB
+...
+466 void *target_get_scratch_address(void)
+467 {
+468         return ((void *)SCRATCH_ADDR);
+469 }
+...
+215 static unsigned long long kedump_dev_write (unsigned long long offset, uint64_t data, unsigned long sz)
+216 {       
+217         unsigned long long size_wrote = 0;
+218         vaddr_t vaddr = (uint32_t)data;
+219         vaddr_t memsrc = vaddr;
+220         uint8_t *trunk = malloc(TRUNK);
+221         unsigned long rest = sz;
+222         if (trunk == NULL) {
+223                 LOG(&quot;kedump: malloc failed\n&quot;);
+224                 return 0;
+225         }
+226         LOG(&quot;kedump: offset %llx data 0x%p size 0x%lx\n&quot;, offset, data, sz);
+227 #ifdef MTK_3LEVEL_PAGETABLE
+228         {
+229                 int ret;
+230                 uint64_t start = ROUNDDOWN((uint64_t)data, (uint64_t)SECTION_SIZE);
+231                 vaddr = ROUNDUP((vaddr_t)target_get_scratch_address(), SECTION_SIZE);
+232                 uint32_t secsize = ROUNDUP((uint32_t)(data - start + sz), SECTION_SIZE);
+233                 if (start &gt;= DRAM_PHY_ADDR) {
+234                         /* minirdump: minirdump will dump memory in DRAM, we must allocate it first */
+235 
+236                         int map_ok = arch_mmu_map((uint64_t) start, vaddr,
+237                                      MMU_MEMORY_TYPE_NORMAL_WRITE_BACK | MMU_MEMORY_AP_P_RW_U_NA, secsize);
+238                         if (map_ok != NO_ERROR)
+239                                 LOG(&quot;kedump: map error\n&quot;);
+240                         memsrc = vaddr + (uint32_t)(data - start);
+241                 }
+242                 LOG(&quot;kedump: start:0x%llx, vaddr:0x%x, secsize:0x%x, memsrc:0x%x\n&quot;, start, vaddr, secsize, memsrc);
+243         }
+244 #endif
+</pre></div>
+</td></tr></table>
+
+<p><b>PATCH</b>
+</p><table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"> 16 diff --git a/app/mt_boot/mt_boot.c b/app/mt_boot/mt_boot.c
+ 17 index f0b6e02..e9ad47e 100644
+ 18 --- a/app/mt_boot/mt_boot.c
+ 19 +++ b/app/mt_boot/mt_boot.c
+ 20 @ -609,6 +609,7 @ int boot_linux_fdt(void *kernel, unsigned *tags,
+ 21                 unsigned char *magic;
+ 22                 unsigned int addr;
+ 23                 unsigned int zimage_addr = (unsigned int)target_get_scratch_address();
+ 24 +               arch_mmu_map(SCRATCH_ADDR, SCRATCH_ADDR, MMU_MEMORY_TYPE_NORMAL_WRITE_BACK | MMU_MEMORY_AP_P_RW_U_NA, 0x9000000);
+ 25                 /* to boot k64*/
+ 26                 dprintf(INFO,&quot;64 bits kernel\n&quot;);
+</pre></div>
+</td></tr></table>
+
+<hr>
+
+
+
+</body>
+</html>
