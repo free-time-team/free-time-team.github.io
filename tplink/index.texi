@@ -41,19 +41,19 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
-* First Chapter::  first chapter
-* Second Chapter:: second chapter
+* Introduction::  first chapter
+* Projects:: second chapter
 @c * Copying::  free time team
 @end menu
 
-@node First Chapter
-@chapter First Chapter
+@node Introduction
+@chapter Introduction
 
-first chapter
+todo introduction
 
-@node Second Chapter
-@chapter Second Chapter
+@node Projects
+@chapter Projects
 
-second chapter
+TL-WR741N @url{tl_wr741n.html, tl wr741n page}
 
 @bye
