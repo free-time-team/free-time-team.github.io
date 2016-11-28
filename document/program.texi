@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Document
+@settitle Program
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,56 +35,49 @@ Published by
 
 @ifnottex
 @node Top
-@top Document
+@top Program
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::  first chapter
-* Main index:: second chapter
+* Index::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
-
-@node Main index
-@chapter Main index
+@node Index
+@chapter Index
 
 @itemize @bullet
-@item
-@b{Ubuntu introduction} @url{ubuntu_introduction.html,view}
+@item @b{ARM} @url{program/arm.html,view}
 @end itemize
 
 @itemize @bullet
-@item
-@b{Linux basic} @url{linux_basic.html,view}
+@item @b{Python} @url{program/python.html, view}
 @end itemize
 
 @itemize @bullet
-@item
-@b{Essential tools} @url{essential_tools.html, view}
+@item @b{Matlab} @url{program/matlab.html,view}
 @end itemize
 
 @itemize @bullet
-@item
-@b{System development} @url{system_development.html, view}
+@item @b{Java} @url{program/java.html,view}
 @end itemize
 
 @itemize @bullet
-@item
-@b{Program} @url{program.html, view}
+@item @b{Android} @url{program/android.html,view}
 @end itemize
 
 @itemize @bullet
-@item
-@b{Open source} @url{open_source.html, view}
+@item @b{Linux} @url{program/linux.html,view}
 @end itemize
 
 @itemize @bullet
-@item
-@b{Computer vision} @url{computer_vision.html, view}
+@item @b{C/CPP} @url{program/c_cpp.html,view}
+@end itemize
+
+@itemize @bullet
+@item @b{R Language} @url{program/r_language.html,view}
 @end itemize
 
 @bye

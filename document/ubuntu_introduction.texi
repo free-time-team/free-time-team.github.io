@@ -1,0 +1,114 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Ubuntu introduction
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by 
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Ubuntu introduction
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Introduction::  first chapter
+@c * Copying::  free time team
+@end menu
+
+@node Introduction
+@chapter Introduction
+
+@example
+??mint linux u????
+
+sudo dd if=virtual_platform/00environment/linuxmint-17.3-cinnamon-64bit.iso of=/dev/sdc bs=8M;sync
+??: virtual_platform/00environment/linuxmint-17.3-cinnamon-64bit.iso ???iso????????
+/dev/sdc ???u??????? [abc]http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
+
+Mint 17 support
+
+Mint 17 LTS (Long Term Support till 2019)
+
+install more tools
+
+simple edit: sudo apt-get install gedit
+vim: sudo apt-get install vim
+git: sudo apt-get install git
+ctags: sudo apt-get install ctags
+cscope: sudo apt-get install cscope
+basic development: sudo apt-get install build-essential
+Google chrome: sudo apt-get install chromium-browser
+ssh: sudo apt-get install openssh-server openssh-client
+Atom: https://atom.io/
+wiznote:
+
+sudo add-apt-repository ppa:wiznote-team  
+sudo apt-get update  
+sudo apt-get install wiznote  
+install pinyin input method
+
+Menu -> Preferences -> Input method
+install all Fcitx package
+
+Intall the optional components
+Input method -> Fcitx
+
+Reset PC
+Configure Current Input Method -> Addon -> Google pinyin
+
+Reset PC
+Input Method -> Google Pinyin
+
+Reset PC
+
+install iptux
+
+https://community.linuxmint.com/software/view/iptux
+
+mint ???????
+
+http://m.blog.csdn.net/article/details?id=51555466
+
+change apt source
+
+Menu -> Preferences -> System Settings -> Software Sources ## change to ustc source http://mirrors.ustc.edu.cn/linuxmint
+http://mirrors.ustc.edu.cn/ubuntu
+## update source sudo apt-get update
+
+the more mint document
+
+mint user guide: English version
+mint user guide: Chinese verson
+@end example
+
+@bye

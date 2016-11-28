@@ -1,0 +1,373 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle System development
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by 
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top System development
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* arm64 kerenel environment::
+* arm64 kerenel debug::
+* arm64 study::
+* arm64 study environment::
+* arm32 study environment::
+* arm32 embedded environment::
+* os diy::
+@c * Copying::  free time team
+@end menu
+
+@node arm64 kerenel environment
+@chapter arm64 kerenel environment
+
+@example
+install qemu
+
+For Mint
+
+sudo apt-get install qemu-system-arm  
+install from source code
+
+git clone http://git.qemu.org/git/qemu.git  
+cd qemu  
+./configure --help  
+./configure --target-list=aarch64-softmmu  
+make  
+sudo make install  
+install toolchain
+
+cd ~
+mkdir bin
+cd bin
+wget http://releases.linaro.org/14.09/components/toolchain/binaries/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+tar -Jxf gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+rm gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+cd gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin/
+pwd
+edit file ~/.profile, add the following content,
+
+PATH="$PATH:/home/zzy/bin/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin"
+reboot PC
+build kernel
+
+make directory for work, and change to it.
+git clone https://github.com/sys-build/kern4.1_arm64_env.git
+cd kern4.1_arm64_env/linux-4.1.16/
+chage "CONFIG_INITRAMFS_SOURCE" to the right directory
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out zzy_defconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
+@end example
+
+@node arm64 kerenel debug
+@chapter arm64 kerenel debug
+
+@example
+
+run the kernel with rootfs on arm64 qemu
+
+cd ..
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0"
+
+quit
+
+C a c // press Ctrl+a and then press c -> quit arm64 linux
+quit // quit qemu
+
+debug
+
+step debug
+start one console type following command
+// start kernel and stop the first instruction
+$ qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0" -s -S
+
+start another console type the following commands
+// start gdb and load vmlinux
+$ aarch64-linux-gnu-gdb
+(gdb) file out/vmlinux
+Reading symbols from /media/disk2/03study/kern4.1_arm64_env/out/vmlinux...done.
+
+(gdb) directory linux-4.1.16/
+// read source code
+Source directories searched: /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16:cdir:cwd
+
+(gdb) target remote localhost:1234
+// access qemu guest
+Remote debugging using localhost:1234
+0x0000000040000000 in ?? ()
+
+(gdb) break start_kernel
+Breakpoint 2 at 0xffffffc0007ed5d8: file /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c, line 493.
+(gdb) c
+Continuing.
+
+Breakpoint 2, start_kernel () at /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c:493
+493 @{
+(gdb) list
+488 vmalloc_init();
+489 ioremap_huge_init();
+490 @}
+
+(gdb) s
+502 set_task_stack_end_magic(&init_task);
+(gdb) info r
+x0 0x34d5d91d 886429981
+x1 0x40b68000 1085702144
+x2 0x40 64
+x3 0x3f 63
+x4 0xffffffc000ac7000 -274866606080
+x5 0xffffffc00081f000 -274869391360
+x6 0xffffffc000aca000 -274866593792
+x7 0xffffffc000b624a8 -274865970008
+x8 0x0 0
+x9 0x1124 4388
+x10 0x34b5193519 226376627481
+x11 0x0 0
+x12 0x0 0
+x13 0x16 22
+x14 0x0 0
+
+dmesg log have no timestamp
+echo Y > /sys/module/printk/parameters/time
+
+gdb study
+// todo
+
+my kernel code
+
+git clone https://github.com/zzyjsjcom/zzy_kernel_code.git
+
+@end example
+
+@node arm64 study
+@chapter arm64 study
+
+@example
+arm64 study
+
+compiler code
+
+change to directory arm64_code make
+
+run
+
+qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0" -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
+
+mkdir /mnt
+mount -t 9p -o trans=virtio r /mnt
+cd /mnt
+./hello1
+./hello2
+./hello3
+
+clean
+
+clean
+@end example
+
+@node arm64 study environment
+@chapter arm64 study environment
+
+@example
+arm64 study environment
+
+install toolchain
+
+sudo apt-get install g++-aarch64-linux-gnu
+
+get code
+
+git clone https://github.com/sys-build/env_arm64_study.git
+
+build & run
+
+aarch64-linux-gnu-gcc -o main hello.s main.c -static
+qemu-aarch64 main
+@end example
+
+@node arm32 study environment
+@chapter arm32 study environment
+
+@example
+arm32 study environment
+
+install qemu
+
+sudo apt-get install qemu
+
+install toolchain
+
+sudo apt-get install g++-arm-linux-gnueabi
+get code
+
+git clone https://github.com/sys-build/embedded_env_arm32.git
+
+compiler & run
+
+arm-linux-gnueabi-gcc -o hello hello.s main.c -static
+qemu-arm hello
+
+debug
+
+qemu-arm -g 1234 hello
+$ arm-none-eabi-gdb
+(gdb) target remote :1234
+Remote debugging using :1234
+warning: A handler for the OS ABI "GNU/Linux" is not built into this configuration
+of GDB. Attempting to continue with the default armv5t settings.
+
+0x0001044c in _start ()
+(gdb) file ./hello
+A program is being debugged already.
+Are you sure you want to change the file? (y or n) y
+Reading symbols from /home/zzy/sda7/virtual_platform/02codebase/02sys_build/embedded_env_arm32/hello...(no debugging symbols found)...done.
+(gdb) b add
+Breakpoint 1 at 0x105b4
+(gdb) c
+Continuing.
+
+Breakpoint 1, 0x000105b4 in add ()
+(gdb) info r
+r0 0x3 3
+r1 0xf6fff064 -150998940
+r2 0xf6fff06c -150998932
+r3 0x105c4 67012
+r4 0xf6ffef28 -150999256
+r5 0x10d48 68936
+r6 0x0 0
+r7 0x0 0
+r8 0x0 0
+r9 0x0 0
+r10 0x96f6c 618348
+r11 0xf6ffef14 -150999276
+r12 0x0 0
+sp 0xf6ffef10 0xf6ffef10
+lr 0x105d4 67028
+pc 0x105b4 0x105b4 
+cpsr 0x60000010 1610612752
+(gdb) s
+Single stepping until exit from function add,
+which has no line number information.
+0x000105d4 in main ()
+(gdb) info r
+r0 0x3 3
+r1 0x1 1
+r2 0x2 2
+r3 0x105c4 67012
+r4 0xf6ffef28 -150999256
+r5 0x10d48 68936
+r6 0x0 0
+r7 0x0 0
+r8 0x0 0
+r9 0x0 0
+r10 0x96f6c 618348
+r11 0xf6ffef14 -150999276
+r12 0x0 0
+sp 0xf6ffef10 0xf6ffef10
+lr 0x105d4 67028
+pc 0x105d4 0x105d4 
+cpsr 0x60000010 1610612752
+(gdb)
+@end example
+
+@node arm32 embedded environment
+@chapter arm32 embedded environment
+
+@example
+embedded environment for arm32
+
+install qemu
+
+sudo apt-get install qemu
+
+install toolchain
+
+sudo apt-get insatll gcc-arm-linux-gnueabi
+sudo apt-get install libc6-dev-armel-cross
+
+get code
+
+git clone https://github.com/sys-build/embedded_env_arm32.git
+
+build
+
+arm-linux-gnueabi-as -o test.o test.s
+arm-linux-gnueabi-ld -Ttext=0x0 -o test.elf test.o
+arm-linux-gnueabi-nm test.elf
+arm-linux-gnueabi-objcopy -O binary test.elf test.bin
+dd if=/dev/zero of=flash.bin bs=4096 count=4096
+dd if=test.bin of=flash.bin bs=4096 conv=notrunc
+
+run in qemu
+
+qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+
+qemu commands
+
+help // help info
+info registers // review registers
+quit // quit
+xp /fmt address // dump memory
+system_reset // reset
+@end example
+
+@node os diy
+@chapter os diy
+
+@example
+os diy
+
+install tools
+
+sudo apt-get install qemu sudo apt-get install nasm
+
+get code
+
+git clone https://github.com/sys-build/os_diy.git
+
+compiler and run
+
+cd os_diy/01_30days/day01/hello2
+make
+qemu-system-i386 os.img
+
+clean
+
+Ctrl+C to exit
+make clean
+@end example
+
+@bye

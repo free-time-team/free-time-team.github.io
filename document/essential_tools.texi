@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Document
+@settitle Essential tools
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,56 +35,47 @@ Published by
 
 @ifnottex
 @node Top
-@top Document
+@top Essential tools
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
 * Introduction::  first chapter
-* Main index:: second chapter
 @c * Copying::  free time team
 @end menu
 
 @node Introduction
 @chapter Introduction
 
-@node Main index
-@chapter Main index
+@example
+source code
 
-@itemize @bullet
-@item
-@b{Ubuntu introduction} @url{ubuntu_introduction.html,view}
-@end itemize
+git clone https://github.com/prj-common/00tools.git
 
-@itemize @bullet
-@item
-@b{Linux basic} @url{linux_basic.html,view}
-@end itemize
+basic libs
 
-@itemize @bullet
-@item
-@b{Essential tools} @url{essential_tools.html, view}
-@end itemize
+libs/lib_base
 
-@itemize @bullet
-@item
-@b{System development} @url{system_development.html, view}
-@end itemize
+character encode/decode
 
-@itemize @bullet
-@item
-@b{Program} @url{program.html, view}
-@end itemize
+libs/lib_char_code
 
-@itemize @bullet
-@item
-@b{Open source} @url{open_source.html, view}
-@end itemize
+crc algorithm
 
-@itemize @bullet
-@item
-@b{Computer vision} @url{computer_vision.html, view}
-@end itemize
+libs/lib_crc
+
+encryption/decryption algorithm
+
+libs/lib_encrypt
+
+hash algorithm
+
+libs/lib_hash
+
+zlib
+
+libs/lib_zlib123
+@end example
 
 @bye
