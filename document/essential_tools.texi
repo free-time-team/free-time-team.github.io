@@ -48,33 +48,66 @@ This manual is for program, version version.
 @node Introduction
 @chapter Introduction
 
+@itemize
+@item
+@b{source code}
+@end itemize
+
 @example
-source code
+git clone @url{https://github.com/prj-common/00tools.git, https://github.com/prj-common/00tools.git}
+@end example
 
-git clone https://github.com/prj-common/00tools.git
+@itemize
+@item
+@b{basic libs}
+@end itemize
 
-basic libs
-
+@example
 libs/lib_base
+@end example
 
-character encode/decode
+@itemize
+@item
+@b{character encode/decode}
+@end itemize
 
+@example
 libs/lib_char_code
+@end example
 
-crc algorithm
+@itemize
+@item
+@b{crc algorithm}
+@end itemize
 
+@example
 libs/lib_crc
+@end example
 
-encryption/decryption algorithm
+@itemize
+@item
+@b{encryption/decryption algorithm}
+@end itemize
 
+@example
 libs/lib_encrypt
+@end example
 
-hash algorithm
+@itemize
+@item
+@b{hash algorithm}
+@end itemize
 
+@example
 libs/lib_hash
+@end example
 
-zlib
+@itemize
+@item
+@b{zlib}
+@end itemize
 
+@example
 libs/lib_zlib123
 @end example
 
