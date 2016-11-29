@@ -41,11 +41,150 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::  first chapter
+* Editor::  first chapter
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node Editor
+@chapter Editor
+
+@menu
+* sed::
+* vim::
+* LaTex::
+* texinfo::
+* markdown::
+@c * copying:: free time team
+@end menu
+
+@node sed
+@section sed
+
+@menu
+* learning materials for sed::
+* often used command for sed::
+@c * copying:: free time team
+@end menu
+
+@node learning materials for sed
+@subsection learning materials for sed
+
+@node often used command for sed
+@subsection often used command for sed
+
+@node vim
+@section vim
+
+@menu
+* learning materials for vim::
+* often used command for vim::
+@c * copying:: free  time team
+@end menu
+
+@node learning materials for vim
+@subsection learning materials for vim
+
+@node often used command for vim
+@subsection often used command for vim
+
+@node LaTex
+@section LaTex
+
+@menu
+* learning materials for LaTex::
+* often used command for LaTex::
+@c * copying:: free time team
+@end menu
+
+@node learning materials for LaTex
+@subsection learning materials for LaTex
+
+@node often used command for LaTex
+@subsection often used command for LaTex
+
+@node texinfo
+@section texinfo
+
+@menu
+* learning materials for texinfo::
+* often used command for texinfo::
+@c * Copying:: free time team
+@end menu
+
+@node learning materials for texinfo
+@subsection learning materials for texinfo
+@itemize @bullet
+@item
+@b{Reference} @url{http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html, texinfo document}
+@end itemize
+
+@node often used command for texinfo
+@subsection often used command for texinfo
+
+@itemize @bullet
+@item
+@b{comment}
+@end itemize
+
+@example
+@@c this is comment
+@end example
+
+@itemize @bullet
+@item
+@b{box}
+@end itemize
+
+@example
+@@cartouche
+@@example
+text @@c box example
+@@end example
+@@end cartouche
+@end example
+
+@itemize @bullet
+@item
+@b{bold}
+@end itemize
+
+@example
+@@b@{text@}
+@end example
+
+@itemize @bullet
+@item
+@b{url}
+@end itemize
+
+@example
+@@url@{url link, text@}
+@end example
+
+@itemize @bullet
+@item
+@b{item}
+@end itemize
+
+@example
+@@itemize @@bullet
+@@item
+item test
+@@end itemize
+@end example
+
+@node markdown
+@section markdown
+
+@menu
+* learning materials for markdown::
+* often used command for markdown::
+@end menu
+
+@node learning materials for markdown
+@subsection learning materials for markdown
+
+@node often used command for markdown
+@subsection often used command for markdown
 
 @bye

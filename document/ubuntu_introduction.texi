@@ -48,19 +48,35 @@ This manual is for program, version version.
 @node Introduction
 @chapter Introduction
 
+@itemize @bullet
+@item
+@b{Install ubuntu16.04}
+@end itemize
+
 @example
-??mint linux u????
+@b{Download ubuntu 16.04} @url{https://www.ubuntu.com/download/desktop/contribute?version=16.04.1&architecture=amd64, ubuntu16.04}
+@b{Make USB boot} sudo dd if=ubuntu-16.04.1-desktop-amd64.iso of=/dev/sdc bs=8M;sync
+@b{Note}
+ubuntu-16.04.1-desktop-amd64.iso
+/dev/sdc is your USB device
+http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
+@end example
 
-sudo dd if=virtual_platform/00environment/linuxmint-17.3-cinnamon-64bit.iso of=/dev/sdc bs=8M;sync
-??: virtual_platform/00environment/linuxmint-17.3-cinnamon-64bit.iso ???iso????????
-/dev/sdc ???u??????? [abc]http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
+@itemize @bullet
+@item
+@b{Ubuntu16.04}
+@end itemize
 
-Mint 17 support
+@example
+Ubuntu16.04 (Long Term Support till 2021)
+@end example
 
-Mint 17 LTS (Long Term Support till 2019)
+@itemize @bullet
+@item
+@b{Install basic tools}
+@end itemize
 
-install more tools
-
+@example
 simple edit: sudo apt-get install gedit
 vim: sudo apt-get install vim
 git: sudo apt-get install git
@@ -75,40 +91,10 @@ wiznote:
 sudo add-apt-repository ppa:wiznote-team  
 sudo apt-get update  
 sudo apt-get install wiznote  
-install pinyin input method
 
-Menu -> Preferences -> Input method
-install all Fcitx package
-
-Intall the optional components
-Input method -> Fcitx
-
-Reset PC
-Configure Current Input Method -> Addon -> Google pinyin
-
-Reset PC
-Input Method -> Google Pinyin
-
-Reset PC
-
+sudo apt-get install iptux
 install iptux
 
-https://community.linuxmint.com/software/view/iptux
-
-mint ???????
-
-http://m.blog.csdn.net/article/details?id=51555466
-
-change apt source
-
-Menu -> Preferences -> System Settings -> Software Sources ## change to ustc source http://mirrors.ustc.edu.cn/linuxmint
-http://mirrors.ustc.edu.cn/ubuntu
-## update source sudo apt-get update
-
-the more mint document
-
-mint user guide: English version
-mint user guide: Chinese verson
 @end example
 
 @bye
