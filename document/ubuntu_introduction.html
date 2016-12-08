@@ -95,7 +95,7 @@ Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" ac
 </li></ul>
 
 <div class="example">
-<pre class="example"><b>Download ubuntu 16.04</b> <a href="https://www.ubuntu.com/download/desktop/contribute?version=16.04.1&amp;architecture=amd64">ubuntu16.04</a>
+<pre class="example"><b>Download ubuntu 16.04.1</b> <a href="http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso">ubuntu16.04.1</a>
 <b>Make USB boot</b> sudo dd if=ubuntu-16.04.1-desktop-amd64.iso of=/dev/sdc bs=8M;sync
 <b>Note</b>
 ubuntu-16.04.1-desktop-amd64.iso
@@ -116,24 +116,47 @@ http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
 </li></ul>
 
 <div class="example">
-<pre class="example">simple edit: sudo apt-get install gedit
-vim: sudo apt-get install vim
-git: sudo apt-get install git
-ctags: sudo apt-get install ctags
-cscope: sudo apt-get install cscope
-basic development: sudo apt-get install build-essential
-Google chrome: sudo apt-get install chromium-browser
-ssh: sudo apt-get install openssh-server openssh-client
-Atom: https://atom.io/
-wiznote:
+<pre class="example"><b>simple edit</b>: sudo apt-get install gedit
+<b>vim</b>: sudo apt-get install vim
+<b>git</b>: sudo apt-get install git
+<b>ctags</b>: sudo apt-get install ctags
+<b>cscope</b>: sudo apt-get install cscope
+<b>basic development</b>: sudo apt-get install build-essential
+<b>ssh</b>: sudo apt-get install openssh-server openssh-client
+<b>Atom</b>: https://atom.io/
 
+<b>install wiznote</b>
 sudo add-apt-repository ppa:wiznote-team  
 sudo apt-get update  
 sudo apt-get install wiznote  
 
+<b>install iptux</b>
 sudo apt-get install iptux
-install iptux
 
+</pre></div>
+
+<ul>
+<li> <b>Install openjdk</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update 
+sudo apt-get install openjdk-8-jdk
+sudo update-alternatives --config java   # change java version
+sudo update-alternatives --config javac  # change javac version
+java -verson                             # check out current Java version
+</pre></div>
+
+<ul>
+<li> <b>Install chrome</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">echo &quot;deb http://dl.google.com/linux/chrome/deb/ stable main&quot; | sudo tee /etc/apt/sources.list.d/google-chrome.list
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo apt-get update  
+sudo apt-get install google-chrome-stable
 </pre></div>
 
 <hr>

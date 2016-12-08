@@ -54,22 +54,31 @@ This manual is for program, version version.
 @node arm64 kerenel environment
 @chapter arm64 kerenel environment
 
+@itemize
+@item
+@b{install qemu}
+@end itemize
+
 @example
-install qemu
 
-For Mint
-
+@b{install from binary}
 sudo apt-get install qemu-system-arm  
-install from source code
 
+@b{install from source code}
 git clone http://git.qemu.org/git/qemu.git  
 cd qemu  
 ./configure --help  
 ./configure --target-list=aarch64-softmmu  
 make  
 sudo make install  
-install toolchain
+@end example
 
+@itemize
+@item
+@b{install toolchain}
+@end itemize
+
+@example
 cd ~
 mkdir bin
 cd bin
@@ -82,8 +91,14 @@ edit file ~/.profile, add the following content,
 
 PATH="$PATH:/home/zzy/bin/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin"
 reboot PC
-build kernel
+@end example
 
+@itemize
+@item
+@b{build kernel}
+@end itemize
+
+@example
 make directory for work, and change to it.
 git clone https://github.com/sys-build/kern4.1_arm64_env.git
 cd kern4.1_arm64_env/linux-4.1.16/
@@ -95,22 +110,32 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
 @node arm64 kerenel debug
 @chapter arm64 kerenel debug
 
+@itemize
+@item
+@b{run the kernel with rootfs on arm64 qemu}
+@end itemize
+
 @example
-
-run the kernel with rootfs on arm64 qemu
-
 cd ..
 $qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0"
+@end example
 
-quit
+@itemize
+@item
+@b{quit}
+@end itemize
 
+@example
 C a c // press Ctrl+a and then press c -> quit arm64 linux
 quit // quit qemu
+@end example
 
-debug
+@itemize
+@item
+@b{open a terminal}
+@end itemize
 
-step debug
-start one console type following command
+@example
 // start kernel and stop the first instruction
 $ qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0" -s -S
 
@@ -162,28 +187,44 @@ x14 0x0 0
 
 dmesg log have no timestamp
 echo Y > /sys/module/printk/parameters/time
+@end example
 
-gdb study
+@itemize
+@item
+@b{gdb study}
+@end itemize
+
+@example
 // todo
+@end example
 
-my kernel code
+@itemize
+@item
+@b{my kernel code}
+@end itemize
 
+@example
 git clone https://github.com/zzyjsjcom/zzy_kernel_code.git
-
 @end example
 
 @node arm64 study
 @chapter arm64 study
 
+@itemize
+@item
+@b{compiler code} 
+@end itemize
+
 @example
-arm64 study
+change to directory arm64_code make // based on the previous chapter
+@end example
 
-compiler code
+@itemize
+@item
+@b{run}
+@end itemize
 
-change to directory arm64_code make
-
-run
-
+@example
 qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0" -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
 
 mkdir /mnt
@@ -192,56 +233,71 @@ cd /mnt
 ./hello1
 ./hello2
 ./hello3
-
-clean
-
-clean
 @end example
 
 @node arm64 study environment
 @chapter arm64 study environment
 
 @example
-arm64 study environment
 
-install toolchain
-
+@b{install toolchain}
 sudo apt-get install g++-aarch64-linux-gnu
 
-get code
-
+@b{get code}
 git clone https://github.com/sys-build/env_arm64_study.git
 
-build & run
-
+@b{build & run}
 aarch64-linux-gnu-gcc -o main hello.s main.c -static
 qemu-aarch64 main
+
 @end example
 
 @node arm32 study environment
 @chapter arm32 study environment
 
+@itemize
+@item
+@b{install qemu}
+@end itemize
+
 @example
-arm32 study environment
-
-install qemu
-
 sudo apt-get install qemu
+@end example
 
-install toolchain
+@itemize
+@item
+@b{install toolchain}
+@end itemize
 
+@example
 sudo apt-get install g++-arm-linux-gnueabi
-get code
+@end example
 
+@itemize
+@item
+@b{get code}
+@end itemize
+
+@example
 git clone https://github.com/sys-build/embedded_env_arm32.git
+@end example
 
-compiler & run
+@itemize
+@item
+@b{compiler & run}
+@end itemize
 
+@example
 arm-linux-gnueabi-gcc -o hello hello.s main.c -static
 qemu-arm hello
+@end example
 
-debug
+@itemize
+@item
+@b{debug}
+@end itemize
 
+@example
 qemu-arm -g 1234 hello
 $ arm-none-eabi-gdb
 (gdb) target remote :1234
@@ -306,37 +362,63 @@ cpsr 0x60000010 1610612752
 @node arm32 embedded environment
 @chapter arm32 embedded environment
 
+@itemize
+@item
+@b{install qemu}
+@end itemize
+
 @example
-embedded environment for arm32
-
-install qemu
-
 sudo apt-get install qemu
+@end example
 
-install toolchain
+@itemize
+@item
+@b{install toolchain}
+@end itemize
 
+@example
 sudo apt-get insatll gcc-arm-linux-gnueabi
 sudo apt-get install libc6-dev-armel-cross
+@end example
 
-get code
+@itemize
+@item
+@b{get code}
+@end itemize
 
+@example
 git clone https://github.com/sys-build/embedded_env_arm32.git
+@end example
 
-build
+@itemize
+@item
+@b{build}
+@end itemize
 
+@example
 arm-linux-gnueabi-as -o test.o test.s
 arm-linux-gnueabi-ld -Ttext=0x0 -o test.elf test.o
 arm-linux-gnueabi-nm test.elf
 arm-linux-gnueabi-objcopy -O binary test.elf test.bin
 dd if=/dev/zero of=flash.bin bs=4096 count=4096
 dd if=test.bin of=flash.bin bs=4096 conv=notrunc
+@end example
 
-run in qemu
+@itemize
+@item
+@b{run in qemu}
+@end itemize
 
+@example
 qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+@end example
 
-qemu commands
+@itemize
+@item
+@b{qemu commands}
+@end itemize
 
+@example
 help // help info
 info registers // review registers
 quit // quit
@@ -347,25 +429,41 @@ system_reset // reset
 @node os diy
 @chapter os diy
 
+@itemize
+@item
+@b{install tools}
+@end itemize
+
 @example
-os diy
-
-install tools
-
 sudo apt-get install qemu sudo apt-get install nasm
+@end example
 
-get code
+@itemize
+@item
+@b{get code}
+@end itemize
 
+@example
 git clone https://github.com/sys-build/os_diy.git
+@end example
 
-compiler and run
+@itemize
+@item
+@b{compiler and run}
+@end itemize
 
+@example
 cd os_diy/01_30days/day01/hello2
 make
 qemu-system-i386 os.img
+@end example
 
-clean
+@itemize
+@item
+@b{clean}
+@end itemize
 
+@example
 Ctrl+C to exit
 make clean
 @end example

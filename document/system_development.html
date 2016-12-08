@@ -108,23 +108,30 @@ Next: <a href="#arm64-kerenel-debug" accesskey="n" rel="next">arm64 kerenel debu
 <a name="arm64-kerenel-environment-1"></a>
 <h2 class="chapter">1 arm64 kerenel environment</h2>
 
+<ul>
+<li> <b>install qemu</b>
+</li></ul>
+
 <div class="example">
-<pre class="example">install qemu
-
-For Mint
-
+<pre class="example">
+<b>install from binary</b>
 sudo apt-get install qemu-system-arm  
-install from source code
 
+<b>install from source code</b>
 git clone http://git.qemu.org/git/qemu.git  
 cd qemu  
 ./configure --help  
 ./configure --target-list=aarch64-softmmu  
 make  
 sudo make install  
-install toolchain
+</pre></div>
 
-cd ~
+<ul>
+<li> <b>install toolchain</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">cd ~
 mkdir bin
 cd bin
 wget http://releases.linaro.org/14.09/components/toolchain/binaries/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
@@ -136,9 +143,14 @@ edit file ~/.profile, add the following content,
 
 PATH=&quot;$PATH:/home/zzy/bin/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin&quot;
 reboot PC
-build kernel
+</pre></div>
 
-make directory for work, and change to it.
+<ul>
+<li> <b>build kernel</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">make directory for work, and change to it.
 git clone https://github.com/sys-build/kern4.1_arm64_env.git
 cd kern4.1_arm64_env/linux-4.1.16/
 chage &quot;CONFIG_INITRAMFS_SOURCE&quot; to the right directory
@@ -155,23 +167,30 @@ Next: <a href="#arm64-study" accesskey="n" rel="next">arm64 study</a>, Previous:
 <a name="arm64-kerenel-debug-1"></a>
 <h2 class="chapter">2 arm64 kerenel debug</h2>
 
+<ul>
+<li> <b>run the kernel with rootfs on arm64 qemu</b>
+</li></ul>
+
 <div class="example">
-<pre class="example">
-run the kernel with rootfs on arm64 qemu
-
-cd ..
+<pre class="example">cd ..
 $qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot;
+</pre></div>
 
-quit
+<ul>
+<li> <b>quit</b>
+</li></ul>
 
-C a c // press Ctrl+a and then press c -&gt; quit arm64 linux
+<div class="example">
+<pre class="example">C a c // press Ctrl+a and then press c -&gt; quit arm64 linux
 quit // quit qemu
+</pre></div>
 
-debug
+<ul>
+<li> <b>open a terminal</b>
+</li></ul>
 
-step debug
-start one console type following command
-// start kernel and stop the first instruction
+<div class="example">
+<pre class="example">// start kernel and stop the first instruction
 $ qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -s -S
 
 start another console type the following commands
@@ -222,14 +241,22 @@ x14 0x0 0
 
 dmesg log have no timestamp
 echo Y &gt; /sys/module/printk/parameters/time
+</pre></div>
 
-gdb study
-// todo
+<ul>
+<li> <b>gdb study</b>
+</li></ul>
 
-my kernel code
+<div class="example">
+<pre class="example">// todo
+</pre></div>
 
-git clone https://github.com/zzyjsjcom/zzy_kernel_code.git
+<ul>
+<li> <b>my kernel code</b>
+</li></ul>
 
+<div class="example">
+<pre class="example">git clone https://github.com/zzyjsjcom/zzy_kernel_code.git
 </pre></div>
 
 <hr>
@@ -241,16 +268,20 @@ Next: <a href="#arm64-study-environment" accesskey="n" rel="next">arm64 study en
 <a name="arm64-study-1"></a>
 <h2 class="chapter">3 arm64 study</h2>
 
+<ul>
+<li> <b>compiler code</b> 
+</li></ul>
+
 <div class="example">
-<pre class="example">arm64 study
+<pre class="example">change to directory arm64_code make // based on the previous chapter
+</pre></div>
 
-compiler code
+<ul>
+<li> <b>run</b>
+</li></ul>
 
-change to directory arm64_code make
-
-run
-
-qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
+<div class="example">
+<pre class="example">qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
 
 mkdir /mnt
 mount -t 9p -o trans=virtio r /mnt
@@ -258,10 +289,6 @@ cd /mnt
 ./hello1
 ./hello2
 ./hello3
-
-clean
-
-clean
 </pre></div>
 
 <hr>
@@ -274,20 +301,17 @@ Next: <a href="#arm32-study-environment" accesskey="n" rel="next">arm32 study en
 <h2 class="chapter">4 arm64 study environment</h2>
 
 <div class="example">
-<pre class="example">arm64 study environment
-
-install toolchain
-
+<pre class="example">
+<b>install toolchain</b>
 sudo apt-get install g++-aarch64-linux-gnu
 
-get code
-
+<b>get code</b>
 git clone https://github.com/sys-build/env_arm64_study.git
 
-build &amp; run
-
+<b>build &amp; run</b>
 aarch64-linux-gnu-gcc -o main hello.s main.c -static
 qemu-aarch64 main
+
 </pre></div>
 
 <hr>
@@ -299,28 +323,45 @@ Next: <a href="#arm32-embedded-environment" accesskey="n" rel="next">arm32 embed
 <a name="arm32-study-environment-1"></a>
 <h2 class="chapter">5 arm32 study environment</h2>
 
+<ul>
+<li> <b>install qemu</b>
+</li></ul>
+
 <div class="example">
-<pre class="example">arm32 study environment
+<pre class="example">sudo apt-get install qemu
+</pre></div>
 
-install qemu
+<ul>
+<li> <b>install toolchain</b>
+</li></ul>
 
-sudo apt-get install qemu
+<div class="example">
+<pre class="example">sudo apt-get install g++-arm-linux-gnueabi
+</pre></div>
 
-install toolchain
+<ul>
+<li> <b>get code</b>
+</li></ul>
 
-sudo apt-get install g++-arm-linux-gnueabi
-get code
+<div class="example">
+<pre class="example">git clone https://github.com/sys-build/embedded_env_arm32.git
+</pre></div>
 
-git clone https://github.com/sys-build/embedded_env_arm32.git
+<ul>
+<li> <b>compiler &amp; run</b>
+</li></ul>
 
-compiler &amp; run
-
-arm-linux-gnueabi-gcc -o hello hello.s main.c -static
+<div class="example">
+<pre class="example">arm-linux-gnueabi-gcc -o hello hello.s main.c -static
 qemu-arm hello
+</pre></div>
 
-debug
+<ul>
+<li> <b>debug</b>
+</li></ul>
 
-qemu-arm -g 1234 hello
+<div class="example">
+<pre class="example">qemu-arm -g 1234 hello
 $ arm-none-eabi-gdb
 (gdb) target remote :1234
 Remote debugging using :1234
@@ -390,38 +431,58 @@ Next: <a href="#os-diy" accesskey="n" rel="next">os diy</a>, Previous: <a href="
 <a name="arm32-embedded-environment-1"></a>
 <h2 class="chapter">6 arm32 embedded environment</h2>
 
+<ul>
+<li> <b>install qemu</b>
+</li></ul>
+
 <div class="example">
-<pre class="example">embedded environment for arm32
+<pre class="example">sudo apt-get install qemu
+</pre></div>
 
-install qemu
+<ul>
+<li> <b>install toolchain</b>
+</li></ul>
 
-sudo apt-get install qemu
-
-install toolchain
-
-sudo apt-get insatll gcc-arm-linux-gnueabi
+<div class="example">
+<pre class="example">sudo apt-get insatll gcc-arm-linux-gnueabi
 sudo apt-get install libc6-dev-armel-cross
+</pre></div>
 
-get code
+<ul>
+<li> <b>get code</b>
+</li></ul>
 
-git clone https://github.com/sys-build/embedded_env_arm32.git
+<div class="example">
+<pre class="example">git clone https://github.com/sys-build/embedded_env_arm32.git
+</pre></div>
 
-build
+<ul>
+<li> <b>build</b>
+</li></ul>
 
-arm-linux-gnueabi-as -o test.o test.s
+<div class="example">
+<pre class="example">arm-linux-gnueabi-as -o test.o test.s
 arm-linux-gnueabi-ld -Ttext=0x0 -o test.elf test.o
 arm-linux-gnueabi-nm test.elf
 arm-linux-gnueabi-objcopy -O binary test.elf test.bin
 dd if=/dev/zero of=flash.bin bs=4096 count=4096
 dd if=test.bin of=flash.bin bs=4096 conv=notrunc
+</pre></div>
 
-run in qemu
+<ul>
+<li> <b>run in qemu</b>
+</li></ul>
 
-qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+<div class="example">
+<pre class="example">qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+</pre></div>
 
-qemu commands
+<ul>
+<li> <b>qemu commands</b>
+</li></ul>
 
-help // help info
+<div class="example">
+<pre class="example">help // help info
 info registers // review registers
 quit // quit
 xp /fmt address // dump memory
@@ -437,26 +498,38 @@ Previous: <a href="#arm32-embedded-environment" accesskey="p" rel="prev">arm32 e
 <a name="os-diy-1"></a>
 <h2 class="chapter">7 os diy</h2>
 
+<ul>
+<li> <b>install tools</b>
+</li></ul>
+
 <div class="example">
-<pre class="example">os diy
+<pre class="example">sudo apt-get install qemu sudo apt-get install nasm
+</pre></div>
 
-install tools
+<ul>
+<li> <b>get code</b>
+</li></ul>
 
-sudo apt-get install qemu sudo apt-get install nasm
+<div class="example">
+<pre class="example">git clone https://github.com/sys-build/os_diy.git
+</pre></div>
 
-get code
+<ul>
+<li> <b>compiler and run</b>
+</li></ul>
 
-git clone https://github.com/sys-build/os_diy.git
-
-compiler and run
-
-cd os_diy/01_30days/day01/hello2
+<div class="example">
+<pre class="example">cd os_diy/01_30days/day01/hello2
 make
 qemu-system-i386 os.img
+</pre></div>
 
-clean
+<ul>
+<li> <b>clean</b>
+</li></ul>
 
-Ctrl+C to exit
+<div class="example">
+<pre class="example">Ctrl+C to exit
 make clean
 </pre></div>
 
