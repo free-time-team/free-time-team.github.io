@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Ubuntu introduction</title>
+
+<meta name="description" content="Ubuntu introduction">
+<meta name="keywords" content="Ubuntu introduction">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Ubuntu introduction</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Introduction-1" href="#Introduction">1 Introduction</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#Introduction" accesskey="n" rel="next">Introduction</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Ubuntu-introduction"></a>
+<h1 class="top">Ubuntu introduction</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Introduction" accesskey="1">Introduction</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">first chapter
+</td></tr>
+</table>
+
+<hr>
+<a name="Introduction"></a>
+<div class="header">
+<p>
+Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Introduction-1"></a>
+<h2 class="chapter">1 Introduction</h2>
+
+<ul>
+<li> <b>Install ubuntu16.04</b>
+</li></ul>
+
+<div class="example">
+<pre class="example"><b>Download ubuntu 16.04.1</b> <a href="http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso">ubuntu16.04.1</a>
+<b>Make USB boot</b> sudo dd if=ubuntu-16.04.1-desktop-amd64.iso of=/dev/sdc bs=8M;sync
+<b>Note</b>
+ubuntu-16.04.1-desktop-amd64.iso
+/dev/sdc is your USB device
+http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
+</pre></div>
+
+<ul>
+<li> <b>Ubuntu16.04</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">Ubuntu16.04 (Long Term Support till 2021)
+</pre></div>
+
+<ul>
+<li> <b>Install basic tools</b>
+</li></ul>
+
+<div class="example">
+<pre class="example"><b>simple edit</b>: sudo apt-get install gedit
+<b>vim</b>: sudo apt-get install vim
+<b>git</b>: sudo apt-get install git
+<b>ctags</b>: sudo apt-get install ctags
+<b>cscope</b>: sudo apt-get install cscope
+<b>basic development</b>: sudo apt-get install build-essential
+<b>ssh</b>: sudo apt-get install openssh-server openssh-client
+<b>Atom</b>: https://atom.io/
+
+<b>install wiznote</b>
+sudo add-apt-repository ppa:wiznote-team  
+sudo apt-get update  
+sudo apt-get install wiznote  
+
+<b>install iptux</b>
+sudo apt-get install iptux
+
+</pre></div>
+
+<ul>
+<li> <b>Install openjdk</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update 
+sudo apt-get install openjdk-8-jdk
+sudo update-alternatives --config java   # change java version
+sudo update-alternatives --config javac  # change javac version
+java -verson                             # check out current Java version
+</pre></div>
+
+<ul>
+<li> <b>Install chrome</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">echo &quot;deb http://dl.google.com/linux/chrome/deb/ stable main&quot; | sudo tee /etc/apt/sources.list.d/google-chrome.list
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo apt-get update  
+sudo apt-get install google-chrome-stable
+</pre></div>
+
+<ul>
+<li> <b>Install Google Pinyin</b>
+</li></ul>
+
+<div class="example">
+<pre class="example"><b>Command line</b>          sudo apt-get install fcitx-googlepinyin
+<b>Setting</b>               System settings -&gt; Language support -&gt; Keyboard input method system -&gt; change to fcitx.
+<b>PC reset</b>              Log out/log in
+<b>Setting</b>               Ubuntu Search -&gt; Input -&gt; Text entry setting
+<b>Using Fcitx</b>           Click + -&gt; Search &quot;Google&quot; -&gt; find &quot;Google Pinyin (Fcitx)&quot;
+<b>Change input methods</b>  Use &quot;Ctrl+space&quot; to switch between input methods
+</pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

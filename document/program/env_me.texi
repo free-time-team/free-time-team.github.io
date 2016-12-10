@@ -1,0 +1,153 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Ubuntu introduction
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by 
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Ubuntu introduction
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Introduction::  first chapter
+@c * Copying::  free time team
+@end menu
+
+@node Introduction
+@chapter Introduction
+
+@itemize @bullet
+@item
+@b{Install ubuntu16.04}
+@end itemize
+
+@example
+@b{Download ubuntu 16.04.1} @url{http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso, ubuntu16.04.1}
+@b{Make USB boot} sudo dd if=ubuntu-16.04.1-desktop-amd64.iso of=/dev/sdc bs=8M;sync
+@b{Note}
+ubuntu-16.04.1-desktop-amd64.iso
+/dev/sdc is your USB device
+http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
+@end example
+
+@itemize @bullet
+@item
+@b{Ubuntu16.04}
+@end itemize
+
+@example
+Ubuntu16.04 (Long Term Support till 2021)
+@end example
+
+@itemize @bullet
+@item
+@b{Install basic tools}
+@end itemize
+
+@example
+@b{simple edit}: sudo apt-get install gedit
+@b{vim}: sudo apt-get install vim
+@b{git}: sudo apt-get install git
+@b{ctags}: sudo apt-get install ctags
+@b{cscope}: sudo apt-get install cscope
+@b{basic development}: sudo apt-get install build-essential
+@b{ssh}: sudo apt-get install openssh-server openssh-client
+@b{Atom}: https://atom.io/
+
+@b{install wiznote}
+sudo add-apt-repository ppa:wiznote-team  
+sudo apt-get update  
+sudo apt-get install wiznote  
+
+@b{install iptux}
+sudo apt-get install iptux
+
+@end example
+
+@itemize
+@item
+@b{Install openjdk}
+@end itemize
+
+@example
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update 
+sudo apt-get install openjdk-8-jdk
+sudo update-alternatives --config java   # change java version
+sudo update-alternatives --config javac  # change javac version
+java -verson                             # check out current Java version
+@end example
+
+@itemize
+@item
+@b{Install chrome}
+@end itemize
+
+@example
+echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo apt-get update  
+sudo apt-get install google-chrome-stable
+@end example
+
+@itemize
+@item
+@b{Install Google Pinyin}
+@end itemize
+
+@example
+@b{Command line}          sudo apt-get install fcitx-googlepinyin
+@b{Setting}               System settings -> Language support -> Keyboard input method system -> change to fcitx.
+@b{PC reset}              Log out/log in
+@b{Setting}               Ubuntu Search -> Input -> Text entry setting
+@b{Using Fcitx}           Click + -> Search "Google" -> find "Google Pinyin (Fcitx)"
+@b{Change input methods}  Use "Ctrl+space" to switch between input methods
+@end example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@bye
