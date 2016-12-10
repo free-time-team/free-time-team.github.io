@@ -146,7 +146,15 @@ sudo apt-get install google-chrome-stable
 @b{sync configs}    svn export https://github.com/zzyjsjcom/my_document/trunk/my_config
 @end example
 
+@itemize
+@item
+@b{Chrome plugin}
+@end itemize
 
+@example
+@b{SwitchyOmega}
+	Rule List URL: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
+@end example
 
 
 
