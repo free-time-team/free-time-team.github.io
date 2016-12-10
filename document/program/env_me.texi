@@ -77,14 +77,15 @@ Ubuntu16.04 (Long Term Support till 2021)
 @end itemize
 
 @example
-@b{simple edit}: sudo apt-get install gedit
-@b{vim}: sudo apt-get install vim
-@b{git}: sudo apt-get install git
-@b{ctags}: sudo apt-get install ctags
-@b{cscope}: sudo apt-get install cscope
-@b{basic development}: sudo apt-get install build-essential
-@b{ssh}: sudo apt-get install openssh-server openssh-client
-@b{Atom}: https://atom.io/
+@b{simple edit}        sudo apt-get install gedit
+@b{vim}                sudo apt-get install vim
+@b{git}                sudo apt-get install git
+@b{svn}                sudo apt-get install subversion
+@b{ctags}              sudo apt-get install ctags
+@b{cscope}             sudo apt-get install cscope
+@b{basic development}  sudo apt-get install build-essential
+@b{ssh}                sudo apt-get install openssh-server openssh-client
+@b{Atom}               https://atom.io/
 
 @b{install wiznote}
 sudo add-apt-repository ppa:wiznote-team  
@@ -136,7 +137,14 @@ sudo apt-get install google-chrome-stable
 @b{Change input methods}  Use "Ctrl+space" to switch between input methods
 @end example
 
+@itemize
+@item
+@b{Sync configs}
+@end itemize
 
+@example
+@b{sync configs}    svn export https://github.com/zzyjsjcom/my_document/trunk/my_config
+@end example
 
 
 
