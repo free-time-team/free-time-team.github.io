@@ -122,4 +122,32 @@ sudo apt-get update
 sudo apt-get install google-chrome-stable
 @end example
 
+@itemize
+@item
+@b{Install Google Pinyin}
+@end itemize
+
+@example
+@b{Command line}          sudo apt-get install fcitx-googlepinyin
+@b{Setting}               System settings -> Language support -> Keyboard input method system -> change to fcitx.
+@b{PC reset}              Log out/log in
+@b{Setting}               Ubuntu Search -> Input -> Text entry setting
+@b{Using Fcitx}           Click + -> Search "Google" -> find "Google Pinyin (Fcitx)"
+@b{Change input methods}  Use "Ctrl+space" to switch between input methods
+@end example
+
+@itemize
+@item
+@b{Chrome plugin}
+@end itemize
+
+@example
+@b{SwitchyOmega}
+	Rule List URL: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
+@end example
+
+
+
+
+
 @bye
