@@ -146,6 +146,24 @@ sudo apt-get install google-chrome-stable
 	Rule List URL: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
 @end example
 
+@itemize
+@item
+@b{openconnect}
+@end itemize
+
+@example
+@b{install tools}
+	sudo apt-get install openconnect
+	sudo apt-get install vpnc
+@b{get vpnc-script}
+	curl -O https://free-time-team.github.io/bank/00resource/system/vpnc-script
+	copy vpnc-script to /etc/vpnc/vpnc-script
+@b{run}
+	sudo openconnect --script /etc/vpnc/vpnc-script -u user_name https://vpn.example.com/
+@end example
+
+
+
 
 
 
