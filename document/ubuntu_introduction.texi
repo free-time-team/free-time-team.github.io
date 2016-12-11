@@ -148,7 +148,7 @@ sudo apt-get install google-chrome-stable
 
 @itemize
 @item
-@b{openconnect}
+@b{Openconnect}
 @end itemize
 
 @example
@@ -160,6 +160,9 @@ sudo apt-get install google-chrome-stable
 	copy vpnc-script to /etc/vpnc/vpnc-script
 @b{run}
 	sudo openconnect --script /etc/vpnc/vpnc-script -u user_name https://vpn.example.com/
+@b{reference}
+	@url{http://www.infradead.org/openconnect/vpnc-script.html, http://www.infradead.org/openconnect/vpnc-script.html}
+	@url{http://www.infradead.org/openconnect/, http://www.infradead.org/openconnect/}
 @end example
 
 
