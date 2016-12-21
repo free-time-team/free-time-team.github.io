@@ -54,6 +54,8 @@ todo introduction
 @node Projects
 @chapter Projects
 
+TL-WR740N @url{tl_wr740n.html, tl wr740n page}
+
 TL-WR741N @url{tl_wr741n.html, tl wr741n page}
 
 @bye

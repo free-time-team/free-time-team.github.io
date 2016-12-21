@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle tplink
+@settitle tl-wr741n
 
 @copying
 This manual is for tplink crack, version 1.0.
@@ -35,7 +35,7 @@ Published by
 
 @ifnottex
 @node Top
-@top tplink document
+@top tl-wr741n
 
 This manual is for program, version version.
 @end ifnottex
