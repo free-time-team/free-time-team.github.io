@@ -6,9 +6,9 @@
 @settitle Linux basic
 
 @copying
-This manual is for Document, version 1.0.
+This manual is for linux basic Document, version 1.0
 
-Copyright @copyright{} years free time team.
+Copyright @copyright{} years free time team
 
 @quotation
 Permission is granted to
@@ -37,182 +37,78 @@ Published by
 @node Top
 @top Linux basic
 
-This manual is for program, version version.
+This manual is for linux basic, version1.0 
 @end ifnottex
 
 @menu
-* Editor::  first chapter
+* Editor::
+* Tools::
+* Toolchain::
+* Linux::
+* Linux distribution::
+* Linux init::
+* Linux game::
 @c * Copying::  free time team
 @end menu
 
 @node Editor
 @chapter Editor
 
-@menu
-* sed::
-* vim::
-* LaTex::
-* texinfo::
-* markdown::
-@c * copying:: free time team
-@end menu
-
-@node sed
-@section sed
-
-@menu
-* learning materials for sed::
-* often used command for sed::
-@c * copying:: free time team
-@end menu
-
-@node learning materials for sed
-@subsection learning materials for sed
-
-@itemize @bullet
-@item
-Sed introduction @url{http://www.grymoire.com/unix/sed.html, view}
-@end itemize
-
-@itemize @bullet
-@item
-Sed study[Chinese] @url{http://www.cnblogs.com/wangkangluo1/category/314369.html, view}
-@end itemize
-
-@node often used command for sed
-@subsection often used command for sed
-
-print
 @example
-sed -n '1,3p' temp.txt  // print line1 to line3
+Editor document: @url{linux_basic/editor.html, Editor}
+Sed: @url{linux_basic/editor.html#sed, Editor->sed}
+Vim: @url{linux_basic/editor.html#vim, Editor->vim}
+LaTex: @url{linux_basic/editor.html#LaTex, Editor->LaTex}
+texinfo: @url{linux_basic/editor.html#texinfo, Editor->texinfo}
+markdown: @url{linux_basic/editor.html#markdown, Editor->markdown}
 @end example
 
-extract log
-@example
-Extract the lines which include the string from "2012-02-09" to "2012-09-10"
-sed -n '/^2012-02-09/,/^2012-09-10/p' whole.log > part.log
-@url{http://www.grymoire.com/unix/Sed.html#uh-29, reference}
-@end example
-
-add string to line tail
-@example
-sed 's/$/tail/' test1.txt
-@url{http://blog.csdn.net/qianlong4526888/article/details/8669935, reference}
-@end example
-
-@node vim
-@section vim
-
-@menu
-* learning materials for vim::
-* often used command for vim::
-@c * copying:: free  time team
-@end menu
-
-@node learning materials for vim
-@subsection learning materials for vim
-
-@node often used command for vim
-@subsection often used command for vim
-
-@node LaTex
-@section LaTex
-
-@menu
-* learning materials for LaTex::
-* often used command for LaTex::
-@c * copying:: free time team
-@end menu
-
-@node learning materials for LaTex
-@subsection learning materials for LaTex
-
-@node often used command for LaTex
-@subsection often used command for LaTex
-
-@node texinfo
-@section texinfo
-
-@menu
-* learning materials for texinfo::
-* often used command for texinfo::
-@c * Copying:: free time team
-@end menu
-
-@node learning materials for texinfo
-@subsection learning materials for texinfo
-@itemize @bullet
-@item
-@b{Reference} @url{http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html, texinfo document}
-@end itemize
-
-@node often used command for texinfo
-@subsection often used command for texinfo
-
-@itemize @bullet
-@item
-@b{comment}
-@end itemize
+@node Tools
+@chapter Tools
 
 @example
-@@c this is comment
+Tools: @url{linux_basic/tools.html, tools}
 @end example
 
-@itemize @bullet
-@item
-@b{box}
-@end itemize
+@node Toolchain
+@chapter Toolchain
 
 @example
-@@cartouche
-@@example
-text @@c box example
-@@end example
-@@end cartouche
+Toolchain: @url{linux_basic/toolchain.html, Toolchain}
 @end example
 
-@itemize @bullet
-@item
-@b{bold}
-@end itemize
+@node Linux
+@chapter Linux
 
 @example
-@@b@{text@}
+Linux: @url{linux_basic/linux.html, Linux}
 @end example
 
-@itemize @bullet
-@item
-@b{url}
-@end itemize
+@node Linux distribution
+@chapter Linux distribution
 
 @example
-@@url@{url link, text@}
+Linux Distribution: @url{linux_basic/linux_distro.html, Linux Distribution}
 @end example
 
-@itemize @bullet
-@item
-@b{item}
-@end itemize
+@node Linux init
+@chapter Linux init
 
 @example
-@@itemize @@bullet
-@@item
-item test
-@@end itemize
+Linux Init: @url{linux_basic/linux_init.html, Linux Init}
 @end example
 
-@node markdown
-@section markdown
+@node Linux game
+@chapter Linux game
 
-@menu
-* learning materials for markdown::
-* often used command for markdown::
-@end menu
-
-@node learning materials for markdown
-@subsection learning materials for markdown
-
-@node often used command for markdown
-@subsection often used command for markdown
+@example
+Linux Game: @url{linux_basic/linux_game.html, Linux Game}
+@end example
 
 @bye
+
+
+
+
+
+
