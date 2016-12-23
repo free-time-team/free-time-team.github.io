@@ -61,12 +61,12 @@ This manual is for program, version version.
 @node learning materials for sed
 @section learning materials for sed
 
-@itemize @bullet
+@itemize 
 @item
 Sed introduction @url{http://www.grymoire.com/unix/sed.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize 
 @item
 Sed study[Chinese] @url{http://www.cnblogs.com/wangkangluo1/category/314369.html, view}
 @end itemize
@@ -147,7 +147,7 @@ sed 's/$/tail/' test1.txt
 
 @node learning materials for texinfo
 @section learning materials for texinfo
-@itemize @bullet
+@itemize 
 @item
 @b{Reference} @url{http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html, texinfo document}
 @end itemize
@@ -155,7 +155,7 @@ sed 's/$/tail/' test1.txt
 @node often used command for texinfo
 @section often used command for texinfo
 
-@itemize @bullet
+@itemize 
 @item
 @b{comment}
 @end itemize
@@ -164,7 +164,7 @@ sed 's/$/tail/' test1.txt
 @@c this is comment
 @end example
 
-@itemize @bullet
+@itemize 
 @item
 @b{box}
 @end itemize
@@ -177,7 +177,7 @@ text @@c box example
 @@end cartouche
 @end example
 
-@itemize @bullet
+@itemize 
 @item
 @b{bold}
 @end itemize
@@ -186,7 +186,7 @@ text @@c box example
 @@b@{text@}
 @end example
 
-@itemize @bullet
+@itemize 
 @item
 @b{url}
 @end itemize
@@ -195,13 +195,13 @@ text @@c box example
 @@url@{url link, text@}
 @end example
 
-@itemize @bullet
+@itemize 
 @item
 @b{item}
 @end itemize
 
 @example
-@@itemize @@bullet
+@@itemize 
 @@item
 item test
 @@end itemize
