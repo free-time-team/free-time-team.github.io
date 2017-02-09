@@ -1,0 +1,72 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle ubuntu schedule
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by 
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top ubuntu schedule
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* ubuntu16.04:: 
+@c * Copying::  free time team
+@end menu
+
+@node ubuntu16.04
+@chapter ubuntu16.04
+
+@example
+@b{16.04.0 (v4.4) 2016/4}
+@b{16.04.1 (v4.4) 2016/8}
+@b{16.04.2 (v4.8) 2017/2}
+@b{16.04.3 (vTBD) 2017/8}
+@b{16.04.4 (vTBD) 2018/2}
+@b{16.04.5 (vTBD) 2018/8}
+@end example
+
+@image{./resource/16.04.x_ubuntu_kernel_support_schedule, .png}
+
+@example
+@b{reference} @url{https://wiki.ubuntu.com/Kernel/LTSEnablementStack}
+@b{TBD} @url{https://en.wikipedia.org/wiki/To_be_announced}
+@end example
+
+
+
+
+
+
+@bye
