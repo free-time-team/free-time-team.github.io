@@ -54,7 +54,7 @@ This manual is for program, version version.
 
 @itemize @bullet
 @item
-@b{Ubuntu study} @url{ubuntu_study/index.html,view}
+@b{Ubuntu introduction} @url{ubuntu_introduction.html,view}
 @end itemize
 
 @itemize @bullet
