@@ -44,6 +44,7 @@ This manual is for program, version version.
 * Proposal for htc :: Proposal written by Brenton Mark Rossow
 * Project team members :: Project team member's information
 * material :: some pictures and a video
+* exhibition_confirm :: Exhibition confirm
 @c * Copying::  free time team
 @end menu
 
@@ -345,11 +346,20 @@ Professional experience
 
 @b{The Junk That Ate Kwinana Exhibition Photos (Brenton Mark Rossow)}
 
----> todo
+There are many pictures, not show here.
 
 @node video
 @section video
 
----> todo
+Video, not show here.
+
+@node exhibition_confirm
+@chapter exhibition_confirm
+
+@image{./resource/exhibition_confirm, .png}
+
+@b{Australia China Art Foundation}
+
+@url{http://acaf.org.au/en/news/acaf_international_fellowship_program_2016_2017_applications_open, http://acaf.org.au/en/news/acaf_international_fellowship_program_2016_2017_applications_open}
 
 @bye
