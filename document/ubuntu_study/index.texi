@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Document
+@settitle ubuntu study
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,56 +35,33 @@ Published by
 
 @ifnottex
 @node Top
-@top Document
+@top ubuntu study
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::  first chapter
-* Main index:: second chapter
+* Index::  
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node Index
+@chapter Index
 
-@node Main index
-@chapter Main index
-
-@itemize @bullet
+@itemize
 @item
-@b{Ubuntu study} @url{ubuntu_study/index.html,view}
+@b{Ubuntu introduction} @url{ubuntu_introduction.html, introduction}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
-@b{Linux basic} @url{linux_basic.html,view}
+@b{Ubuntu schedule} @url{ubuntu_schedule.html, schedule}
 @end itemize
 
-@itemize @bullet
-@item
-@b{Essential tools} @url{essential_tools.html, view}
-@end itemize
 
-@itemize @bullet
-@item
-@b{System development} @url{system_development.html, view}
-@end itemize
 
-@itemize @bullet
-@item
-@b{Program} @url{program.html, view}
-@end itemize
 
-@itemize @bullet
-@item
-@b{Open source} @url{open_source.html, view}
-@end itemize
 
-@itemize @bullet
-@item
-@b{Computer vision} @url{computer_vision.html, view}
-@end itemize
+
 
 @bye
