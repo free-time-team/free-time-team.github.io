@@ -3,12 +3,12 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle Free-time team 简介
 
 @copying
 This manual is for Document, version 1.0.
 
-Copyright @copyright{} years free time team.
+Copyright @copyright{} 2017-2018 years free time team.
 
 @quotation
 Permission is granted to
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,20 +35,23 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top Free-time team 简介
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::  first chapter
+* 作者::
+* Free-time team 简介::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node 作者
+@chapter 作者
+version 1.0 周文嘉
 
-
+@node Free-time team 简介
+@chapter Free-time team 简介
 
 
 
