@@ -55,7 +55,7 @@ version 0.00 draft --- 周文嘉
 
 Free-time team, 简称 Ft2 Team，致力于创建全球的高质量免费教育社区。
 
-官方网站: @url{http://www.freetimeteam.org/}, 官方论坛: @url{http://bbs.freetimeteam.org/}, 论坛备份地址: @url{http://www.5ichai.com/phpwind/}.
+官方网站: @url{http://www.freetimeteam.org/}, 官方论坛: @url{http://forum.freetimeteam.org/}, 论坛备份地址: @url{http://bbs.5ichai.com/}.
 
 当官方论坛地址失效时，可尝试访问论坛备份地址。
 
