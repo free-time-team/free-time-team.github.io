@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle About
 
 @copying
 This manual is for Document, version 1.0.
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,24 +35,45 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top Free-time team About
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::  first chapter
+* About::
+* About profile::
+* Donate Free-time team::
+* Contact US::
+* Team member::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node About
+@chapter About
 
+This is Free-time team About page.
 
+@node About profile
+@chapter About profile
 
+About: @url{https://free-time-team.github.io/about/about_ft2_en.html, English version}
 
+About: @url{https://free-time-team.github.io/about/about_ft2_cn.html, Chinese version}
 
+@node Donate Free-time team
+@chapter Donate Free-time team
 
+Donate Free-time team: @url{https://free-time-team.github.io/about/donate.html, Donate}
 
+@node Contact US
+@chapter Contact US
+
+Contact US: @url{https://free-time-team.github.io/about/contact_us.html, Contact}
+
+@node Team member
+@chapter Team member
+
+Team member: @url{https://free-time-team.github.io/about/team_member.html, Team member}
 
 @bye

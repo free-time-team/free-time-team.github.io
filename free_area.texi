@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle Free Area
 
 @copying
 This manual is for Document, version 1.0.
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,19 +35,44 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top Free Area
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::  first chapter
+* Free Area::
+* Community Contributions::
+* Project::
+* Research field::
+* Document::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node Free Area
+@chapter Free Area
 
+This is Free-time team's heart area.
+
+@node Community Contributions
+@chapter Community Contributions
+
+Community Contributions page: @url{https://free-time-team.github.io/community_contributions.html, Community Contributions}
+
+@node Project
+@chapter Project
+
+Free-time team's projects: @url{https://free-time-team.github.io/project.html, Projects}
+
+@node Research field
+@chapter Research field
+
+Free-time team's research field: @url{https://free-time-team.github.io/research_field.html, Research filed}
+
+@node Document
+@chapter Document
+
+Document bank: @url{https://free-time-team.github.io/document.html, Document}
 
 
 
