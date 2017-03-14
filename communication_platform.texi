@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle Communication Platform
 
 @copying
 This manual is for Document, version 1.0.
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,18 +35,22 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top Communication Platform
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::  first chapter
+* Communication Platform::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node Communication Platform
+@chapter Communication Platform
+@b{QQ Group}
+@example
+free time group 479198558
+@end example
 
 
 
