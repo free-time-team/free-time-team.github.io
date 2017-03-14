@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>ultramysql bad handshake</title>
+
+<meta name="description" content="ultramysql bad handshake">
+<meta name="keywords" content="ultramysql bad handshake">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">ultramysql bad handshake</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Author-1" href="#Author">1 Author</a></li>
+  <li><a name="toc-Patch-1" href="#Patch">2 Patch</a></li>
+  <li><a name="toc-Analysis-1" href="#Analysis">3 Analysis</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#Author" accesskey="n" rel="next">Author</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="ultramysql-bad-handshake"></a>
+<h1 class="top">ultramysql bad handshake</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Author" accesskey="1">Author</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Patch" accesskey="2">Patch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Analysis" accesskey="3">Analysis</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="Author"></a>
+<div class="header">
+<p>
+Next: <a href="#Patch" accesskey="n" rel="next">Patch</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Author-1"></a>
+<h2 class="chapter">1 Author</h2>
+
+<p>Author: XiaoLan Lee
+</p>
+<p>Blog: <a href="http://blog.leexiaolan.tk/">http://blog.leexiaolan.tk/</a>
+</p>
+<hr>
+<a name="Patch"></a>
+<div class="header">
+<p>
+Next: <a href="#Analysis" accesskey="n" rel="next">Analysis</a>, Previous: <a href="#Author" accesskey="p" rel="prev">Author</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Patch-1"></a>
+<h2 class="chapter">2 Patch</h2>
+<div class="example">
+<pre class="example">Patch link: <a href="https://github.com/LeeXiaolan/ultramysql/commit/fdb8b3147ef8b928bccfad33021297f11b3e157e">https://github.com/LeeXiaolan/ultramysql/commit/fdb8b3147ef8b928bccfad33021297f11b3e157e</a>
+</pre></div>
+
+<hr>
+<a name="Analysis"></a>
+<div class="header">
+<p>
+Previous: <a href="#Patch" accesskey="p" rel="prev">Patch</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Analysis-1"></a>
+<h2 class="chapter">3 Analysis</h2>
+<p>ultramysql出现Bad handshake的分析
+</p>
+<p>最近一直在使用ultramysql做为mysql的驱动做开发，开发过程也很顺利。
+</p>
+<p>为什么会选ultramysql呢？只缘于ultramysql是gevent兼容的。项目中使用gevent来处理网络IO，所以需要与gevent兼容。
+</p>
+<p>当项目开发得差不多了，准备部署到测试服务器上测试时，却傻眼了，死活连接不上mysql服务器。异常信息也很奇怪，时而Bad handshake，时而Connection reset。
+跑到ultramysql项目issue上一看，唯一一个处于开放状态的issue就是这个问题。但是ultramysql的维护者却因为信息不足，不能复现而关闭过一次。
+</p>
+<p>具体情况是这样：开发环境使用mysql版本是5.5，ultramysql连接没有问题。测试服务器是管理员配置的centos 5.6，只有mysql 5.0的源，图方便就装了mysql 5.0。
+然后就出现了上面的情况。为了定位问题，使用官方mysql客户端连接mysql 5.0完全没有问题。这时想到抓去网络包来分析一下差异。
+</p>
+<p>果断wireshark上场。
+结果发现服务器返回的Authentication response，
+不是http://dev.mysql.com/doc/internals/en/connection-phase.html#successful-authentication
+与http://dev.mysql.com/doc/internals/en/connection-phase.html#authentication-fails中的任何一个，
+而是一个EOF_Packet，然后官方客户端还客气的回一个包，更要命的是，连wireshark也不认识这个回应。
+而ultramysql代码认为除了明确的认证失败，都假定认证成功的，所以就在后续的查询过程中出现了不确定的异常。
+</p>
+<p>google一番后发现了这个http://dev.mysql.com/doc/internals/en/connection-phase.html#packet-Protocol::AuthSwitchResponse，
+原来那个EOF_Packet是切换为旧密码认证的指令。Fork ultramysql代码，按照文档，添加旧密码认证代码后，很快就测试通过了。
+</p>
+<p>另外一个原因，Mysql 5.0默认开启了old_passwords, 导致新建立的用户都是使用旧密码，
+才出现了上面的问题。在不修改ultramysql代码的情况下，修改配置文件，将old_passwords改成0，也能解决上面的问题。
+</p>
+<p>其实，除了抓包可以发现问题的根源外，还可以读官方的客户端的代码，获取相关信息。只是由于对代码不熟悉，很难快速定位到源代码位置，所以才选择了抓包分析。
+</p>
+<p>自己的问题解决了，立即向上游发出pull request，将patch反馈给上游，避免以后其它人遇到同样的问题。
+</p>
+
+
+
+<hr>
+
+
+
+</body>
+</html>

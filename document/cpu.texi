@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle CPU
 
 @copying
 This manual is for Document, version 1.0.
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,21 +35,32 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top CPU
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction:: 
+* CPU::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node CPU
+@chapter CPU
+@b{arm}
+@example
+@url{./cpu/arm.html}
+@end example
 
+@b{mips}
+@example
+@url{./cpu/mips.html}
+@end example
 
-
+@b{intel}
+@example
+@url{./cpu/intel.html}
+@end example
 
 
 

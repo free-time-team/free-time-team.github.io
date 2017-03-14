@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Router security introduction</title>
+
+<meta name="description" content="Router security introduction">
+<meta name="keywords" content="Router security introduction">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Router security introduction</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Author-1" href="#Author">1 Author</a></li>
+  <li><a name="toc-Paper-1" href="#Paper">2 Paper</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#Author" accesskey="n" rel="next">Author</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Router-security-introduction"></a>
+<h1 class="top">Router security introduction</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Author" accesskey="1">Author</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Paper" accesskey="2">Paper</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="Author"></a>
+<div class="header">
+<p>
+Next: <a href="#Paper" accesskey="n" rel="next">Paper</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Author-1"></a>
+<h2 class="chapter">1 Author</h2>
+
+<p>Author: XiaoLan Lee
+</p>
+<p>Blog: <a href="http://blog.leexiaolan.tk/">http://blog.leexiaolan.tk/</a>
+</p>
+<hr>
+<a name="Paper"></a>
+<div class="header">
+<p>
+Previous: <a href="#Author" accesskey="p" rel="prev">Author</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Paper-1"></a>
+<h2 class="chapter">2 Paper</h2>
+<p>路由器固件安全漏洞探索
+</p>
+<p>在当今这样的信息时代，我们身边充斥着许许多多的路由设备。
+一般家里和小型公司都有SOHO路由器，大型公司和网吧都配备企业级的路由器。这些路由器都安全嘛，是不是有生产商留下的后门？
+</p>
+<p>为了一探究竟，我分别选择了两款企业级路由器和两款SOHO路由器来进行探索，这几款路由器，
+都是可以从生产商网站上下载到路由器的固件升级文件的。固件程序是我探究的重点，因为纯粹的硬件后门和漏洞探索，成本太高，也超出了我的知识范围。
+</p>
+<p>生产商提供的固件升级文件，一般都是打包和压缩过的，需要先解包和解压，打包格式因厂商而异。
+工具<a href="https://code.google.com/p/firmware-mod-kit/">firmware-mod-kit</a>用于分析解包估计升级文件。
+对于工具无能为力的固件，博客<a href="www.devttys0.com/blog/">www.devttys0.com/blog/</a>中介绍了许多不错的分析固件文件的方法和案例。
+分析固件文件，解包和解压的最终目的就是为了得到目标的可执行程序。
+</p>
+<p>拿到目标的可执行程序之后，还需要得到目标硬件系统信息，才能开始分析。最重要的硬件信息就是目标的CPU类型。
+一般在产品的特性介绍中都没有对目标硬件的描述，一般的描述格式为“xxx MHz网络处理器”，毫无价值。经过我确认，
+选定的这四款产品均为MIPS处理器，64位和32位的都有。当解压得到的可执行程序文件是ELF格式时，可以直接通过ELF文件头来确定其CPU种类，大小端和程序的加载地址。
+如果得到只是Bin文件，那就得手动分析CPU类型和程序加载地址了。上述信息都有了之后，就该强大的IDA上场啦。漏洞探索之旅在浩瀚的汇编代码的海洋里正式开启。
+</p>
+<p>在正式开始之前，可能还需要判断目标系统的OS和根文件系统。我分析的四款产品，OS有两种，Linux和VxWorks，对目标OS一定的了解，更有助于后面的汇编代码分析。
+</p>
+<p>其实，分析一般不是直接从汇编代码入手的，因为关键的分析切入点未知，只能淹没在无边的汇编海洋中，分不清方向，找不到可以靠岸的陆地。
+真正的分析一般从程序中使用的字符串开始，原因有三。其一，字符串人容易理解，且本来就是我们天天见的东西，理解跟准确。
+其二，很多时候，对于某处代码有没有可能存在漏洞的判断，直觉有很大的影响，对字符串的直觉判定能够更准确。
+其三，许多的漏洞来源于C语音对字符串的操作，如缓冲区溢出。切入点找到后，剩下的就靠汇编代码的分析能力了。
+如果说，找切入点是靠运气，那从切入点开始分析汇编代码，就只能靠实力了。
+</p>
+<p>说靠实力，其实也不尽然，还得靠财力。IDA功能强大，可以助你一臂之力，就是有点小贵，穷人只能用得起IDA的免费版本，忍受功能缺失。
+</p>
+<p>探索的结果：两款企业级路由器都有严重的漏洞，其中一款SOHO路由器存在漏洞，但要利用所受限制比较苛刻。
+发现的漏洞都只能局域网利用，因为这些路由器都用防火墙阻挡了来自WAN口的连接，但对LAN口开放。为了安全，漏洞利用方法就不公开了，只描述漏洞表现，如下：
+</p>
+<div class="example">
+<pre class="example">硬编码（hard-coded）的用户名和密码。找到这个漏洞，从开始分析到确认，不到一个小时就完成了。能够找到确实是运气，纯粹的字符串人肉搜索，
+居然真让我看到了像用户名和密码的字符串。
+做到这，让我想起了一个前不久看到的一篇博客<a href="http://blog.ioactive.com/2013/05/identify-back-doors-in-firmware-by.html">Identify Backdoors in Firmware By Using Automatic String Analysis</a>，
+讲的就是使用程序自动在固件升级文件中搜索分析硬编码的账户凭据。
+
+未经认证的系统配置信息备份下载。路由器的内网用户，未经用户名和密码验证就能下载系统的配置信息，
+置信息中包含了未经加密的用户名和密码，可以用于其它需要认证的操作。
+
+上传执行任意代码。未经认证的内网用户，在一定条件下，
+可以上传任意代码，系统将执行所上传的代码。
+</pre></div>
+
+<p>这些漏洞，看似漏洞，其实可能是生产商用于调试设备的接口，但是却出现在了不该出现的终端用户的设备里面，生产商的大意，还是有意为之？
+</p>
+<p>对于这些闭源私有的嵌入式程序，如果生产商不能修补漏洞，用户是无能为力的，又暴露出了使用闭源设备的弊端。
+</p>
+<p>赶紧回家把路由器刷成DD-WRT，OpenWrt等开源固件吧！
+</p>
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

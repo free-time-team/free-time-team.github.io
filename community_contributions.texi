@@ -47,8 +47,15 @@ This manual is for program, version version.
 
 @node Community Contribution
 @chapter Community Contribution
-@url{./community_contributions/linux_kernel.html, linux kernel patch}
+@b{linux kernel}
+@example
+@url{./community_contributions/linux_kernel.html, linux kernel}
+@end example
 
+@b{ultramysql}
+@example
+@url{./community_contributions/ultramysql.html, ultramysql}
+@end example
 
 
 

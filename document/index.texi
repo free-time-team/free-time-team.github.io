@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -85,6 +85,16 @@ This manual is for program, version version.
 @itemize @bullet
 @item
 @b{Computer vision} @url{computer_vision.html, view}
+@end itemize
+
+@itemize @bullet
+@item
+@b{CPU} @url{cpu.html, view}
+@end itemize
+
+@itemize @bullet
+@item
+@b{Security} @url{./security/index.html, view}
 @end itemize
 
 @bye

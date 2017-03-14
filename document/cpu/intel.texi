@@ -41,12 +41,14 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction:: 
+* Introduction::  first chapter
 @c * Copying::  free time team
 @end menu
 
 @node Introduction
 @chapter Introduction
+
+
 
 
 

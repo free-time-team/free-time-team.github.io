@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle Router
 
 @copying
 This manual is for Document, version 1.0.
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,18 +35,27 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top Router
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction:: 
+* Router::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node Router
+@chapter Router
+@b{introduction}
+@example
+@url{./introduce.html, introduction}
+@end example
+
+@b{TP-LINK VxWorks firmware analysis}
+@example
+@url{./tplink_vxworks.html, tplink vxworks}
+@end example
 
 
 

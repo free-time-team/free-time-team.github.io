@@ -1,0 +1,96 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle thumb blx in linker
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top thumb blx in linker
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Author::
+* Paper::
+@c * Copying::  free time team
+@end menu
+
+@node Author
+@chapter Author
+
+Author: XiaoLan Lee
+
+Blog: @url{http://blog.leexiaolan.tk/}
+
+
+@node Paper
+@chapter Paper
+
+链接器中Thumb BLX指令编码
+
+几天前，由于某种需求，需要实现部分ARM链接器，于是找出了一年多前的链接器源码，
+准备在此基础上实现。实现链接器过程中，若Thumb 2中的BLX指令未4字节对齐，程序就会崩溃。
+而当时解决的办法就是对未对齐的BLX指令使用跳板（veneer），迂回解决的。现在，又有幸和BLX重逢了，当时烦恼于BLX问题的场景依然记忆犹新。
+于是乎，按照以前的解决方案，按部就班的完成了这次的需求。
+
+事后反思，直觉告诉我应该不会是BLX指令对齐引起的。因为在Thumb 2中，BLX实际上是两条Thumb指令，而Thumb指令只需要halfword（2字节）对齐。
+那问题在哪里呢？
+
+指令本身没有错，错应该就出在指令的操作数的编码上。前面看到的资料，就简单介绍说，两条Thumb指令的低11位，
+拼接起来，左移1位并符号扩展成一个32位的偏移量，这个偏移量加上程序计数器PC的值，最终得到一个32位的目标绝对地址。
+仔细阅读了手册后，发现上述计算方法有点小问题，这就是程序崩溃的根本原因。
+
+对BLX指令的编码，手册中有如下描述：
+
+1. Form the base address for the branch. This is the address of the first of the two Thumb instructions(the one with H == 10), plus 4.
+In other words, the base address is equal to the PC value read by that instruction.
+
+2. If the instruction is BLX, set bit[1] of the target address to be equal to bit[1] of the base address.
+This is an exception to the normal rule that bits[1:0] of the address of an ARM instruction are 0b00.
+This adjustment is required to ensure that the restrictions associated with the H == 01 form of the instruction are obeyed.
+
+3. Subtract the base address from the target address to form the offset. [1]
+
+原来对于未4字节对齐的BLX指令，在计算偏移量时，目标ARM子程序的地址需要加2。按此修改程序，测试通过。
+
+结论：遇到问题尽量看官方手册，对其它来源的信息的正确性需要仔细审查。
+
+[1]: @url{https://silver.arm.com/download/download.tm?pv=1073121, ARMv5 Architecture Reference Manual} Page A7-27.
+
+
+
+
+
+
+@bye
