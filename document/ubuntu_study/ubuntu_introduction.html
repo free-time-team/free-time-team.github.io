@@ -118,6 +118,7 @@ http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
 <div class="example">
 <pre class="example"><b>simple edit</b>: sudo apt-get install gedit
 <b>vim</b>: sudo apt-get install vim
+<b>emacs</b>: sudo apt-get install emacs
 <b>git</b>: sudo apt-get install git
 <b>ctags</b>: sudo apt-get install ctags
 <b>cscope</b>: sudo apt-get install cscope
@@ -125,10 +126,15 @@ http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
 <b>ssh</b>: sudo apt-get install openssh-server openssh-client
 <b>Atom</b>: https://atom.io/
 
-<b>install wiznote</b>
-sudo add-apt-repository ppa:wiznote-team  
-sudo apt-get update  
-sudo apt-get install wiznote  
+<b>one more terminal</b>
+sudo apt-get install roxterm
+
+<b>install sublime editor</b>
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
+<a href="https://www.sublimetext.com/">https://www.sublimetext.com/</a>
+<a href="http://askubuntu.com/questions/172698/how-do-i-install-sublime-text-2-3">http://askubuntu.com/questions/172698/how-do-i-install-sublime-text-2-3</a>
 
 <b>install iptux</b>
 sudo apt-get install iptux
@@ -141,7 +147,7 @@ sudo apt-get install iptux
 
 <div class="example">
 <pre class="example">sudo add-apt-repository ppa:openjdk-r/ppa
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install openjdk-8-jdk
 sudo update-alternatives --config java   # change java version
 sudo update-alternatives --config javac  # change javac version
@@ -155,7 +161,7 @@ java -verson                             # check out current Java version
 <div class="example">
 <pre class="example">echo &quot;deb http://dl.google.com/linux/chrome/deb/ stable main&quot; | sudo tee /etc/apt/sources.list.d/google-chrome.list
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo apt-get update  
+sudo apt-get update
 sudo apt-get install google-chrome-stable
 </pre></div>
 

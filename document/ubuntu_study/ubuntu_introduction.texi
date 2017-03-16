@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -79,6 +79,7 @@ Ubuntu16.04 (Long Term Support till 2021)
 @example
 @b{simple edit}: sudo apt-get install gedit
 @b{vim}: sudo apt-get install vim
+@b{emacs}: sudo apt-get install emacs
 @b{git}: sudo apt-get install git
 @b{ctags}: sudo apt-get install ctags
 @b{cscope}: sudo apt-get install cscope
@@ -86,10 +87,15 @@ Ubuntu16.04 (Long Term Support till 2021)
 @b{ssh}: sudo apt-get install openssh-server openssh-client
 @b{Atom}: https://atom.io/
 
-@b{install wiznote}
-sudo add-apt-repository ppa:wiznote-team  
-sudo apt-get update  
-sudo apt-get install wiznote  
+@b{one more terminal}
+sudo apt-get install roxterm
+
+@b{install sublime editor}
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
+@url{https://www.sublimetext.com/}
+@url{http://askubuntu.com/questions/172698/how-do-i-install-sublime-text-2-3}
 
 @b{install iptux}
 sudo apt-get install iptux
@@ -103,7 +109,7 @@ sudo apt-get install iptux
 
 @example
 sudo add-apt-repository ppa:openjdk-r/ppa
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install openjdk-8-jdk
 sudo update-alternatives --config java   # change java version
 sudo update-alternatives --config javac  # change javac version
@@ -118,7 +124,7 @@ java -verson                             # check out current Java version
 @example
 echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo apt-get update  
+sudo apt-get update
 sudo apt-get install google-chrome-stable
 @end example
 
