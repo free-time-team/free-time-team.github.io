@@ -149,7 +149,24 @@ sudo apt-get install iptux
 <pre class="example">sudo add-apt-repository ppa:openjdk-r/ppa
 sudo apt-get update
 sudo apt-get install openjdk-8-jdk
-sudo update-alternatives --config java   # change java version
+</pre></div>
+
+<ul>
+<li> <b>Install openjdk old version</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update
+sudo apt-get install openjdk-7-jdk
+</pre></div>
+
+<ul>
+<li> <b>Change openjdk version</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo update-alternatives --config java   # change java version
 sudo update-alternatives --config javac  # change javac version
 java -verson                             # check out current Java version
 </pre></div>
