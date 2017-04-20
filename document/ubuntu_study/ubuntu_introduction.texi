@@ -88,6 +88,7 @@ Ubuntu16.04 (Long Term Support till 2021)
 @b{Atom}: https://atom.io/
 
 @b{one more terminal}
+sudo apt-get install mate-terminal
 sudo apt-get install roxterm
 
 @b{install sublime editor}
