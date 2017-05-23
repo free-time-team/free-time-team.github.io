@@ -50,7 +50,7 @@ This manual is for program, version version.
 
 @itemize
 @item
-@b{Docker} @url{./Docker/index.html, view}
+@b{Docker} @url{./docker/index.html, view}
 @end itemize
 
 
