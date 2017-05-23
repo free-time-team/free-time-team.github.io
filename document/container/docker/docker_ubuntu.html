@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for, version version.
+
+Copyright (C) years copyright-owner.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Docker ubuntu</title>
+
+<meta name="description" content="Docker ubuntu">
+<meta name="keywords" content="Docker ubuntu">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Docker ubuntu</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Android-build-envrionment-1" href="#Android-build-envrionment">1 Android build envrionment</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#Android-build-envrionment" accesskey="n" rel="next">Android build envrionment</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Docker-ubuntu"></a>
+<h1 class="top">Docker ubuntu</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Android-build-envrionment" accesskey="1">Android build envrionment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="Android-build-envrionment"></a>
+<div class="header">
+<p>
+Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Android-build-envrionment-1"></a>
+<h2 class="chapter">1 Android build envrionment</h2>
+
+<ul>
+<li> <b>Run docker ubuntu-12.04 hosted by ubuntu-16.04</b>
+</li></ul>
+
+<div class="example">
+<pre class="example"><b>=&gt; Docker install and run ubuntu 12.04 client</b>
+  sudo apt-get install docker.io
+  sudo docker pull ubuntu:12.04
+  cat /etc/issue # check ubuntu version
+  sudo docker run -v /absolute/path/to/host:/absolute/path/to/guest -i -t ubuntu:12.04 /bin/bash
+    -&gt; <b>Note:</b> -v 后面的两个参数指定host挂载到client的两个目录，需要替换成你自己的实际目录。
+</pre></div>
+
+<div class="example">
+<pre class="example"><b>=&gt; install basic ubuntu 12.04 android envrionment</b>
+  Reference: <a href="http://10.46.8.32/doc_htc/build_env/ubuntu-12.04.html">http://10.46.8.32/doc_htc/build_env/ubuntu-12.04.html</a>
+  <b>Note:</b> Docker server 里面的 ubuntu 12.04 默认只有root用户，不过不要紧，这个root用户权限不高。
+    按照手册安装12.04环境的时候，去掉sudo，安装之前先要 apt-get update 更新一下source。
+</pre></div>
+
+<div class="example">
+<pre class="example"><b>=&gt; install more ubuntu 12.04 android envrionment for docker</b>
+
+  apt-get install bc
+
+  cp -r /path/to/repo/ /home  # cp your repo to docker ubuntu 12.04
+  apt-get install vim
+  vim ~/.bashrc  # set repo path
+  source ~/.bashrc
+
+  export USER=$(whoami)
+  echo $USER  # just for check
+  ln -s /usr/bin/gcc /usr/bin/cc
+</pre></div>
+
+<div class="example">
+<pre class="example"><b>=&gt; commit your changes</b>
+
+  root@cd0fc1349818:/home# exit
+  exit
+  $ sudo docker commit -m &quot;android build env&quot; cd0fc1349818 ubuntu:12.04_android_env
+   [sudo] password for zzy_i7:
+   sha256:25afba688c5ef5ad391ee9d0c07a6b3407d8a5f58a1bdc3c5c778ecbda141f7e
+  $ sudo docker images
+   REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+   ubuntu              12.04_android_env   25afba688c5e        2 minutes ago       918.9 MB
+   ubuntu              12.04_test          ccceeb237a25        59 minutes ago      103.6 MB
+   &lt;none&gt;              &lt;none&gt;              2ae01793d0bd        About an hour ago   103.6 MB
+   ubuntu              12.04               b384dd9703db        5 weeks ago         103.6 MB
+  $ sudo docker run -v /media/zzy_i7/codebase:/home/codebase -i -t ubuntu:12.04_android_env /bin/bash
+
+  Reference: <a href="https://docs.docker.com/engine/reference/commandline/commit/">https://docs.docker.com/engine/reference/commandline/commit/</a>
+</pre></div>
+
+<ul>
+<li> <b>More docker commands</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">$ sudo docker images  # list images
+[sudo] password for zzy_i7:
+REPOSITORY          TAG                   IMAGE ID            CREATED             SIZE
+ubuntu              12.04_android_env_1   7c27e497bd74        10 hours ago        918.9 MB
+ubuntu              12.04                 b384dd9703db        6 weeks ago         103.6 MB
+
+$ sudo docker save -o &lt;save image to path&gt; &lt;image name&gt;  # save image as tar file
+
+$ sudo docker load -i &lt;path to image tar file&gt;           # load image from tar file
+
+<b>Document: </b> <a href="https://docs.docker.com/">https://docs.docker.com/</a>
+</pre></div>
+
+<hr>
+
+
+
+</body>
+</html>

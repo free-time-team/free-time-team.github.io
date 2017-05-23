@@ -1,0 +1,57 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Docker
+
+@copying
+This manual is for, version version.
+
+Copyright @copyright{} years copyright-owner.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title Document
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Docker
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Docker usage::
+@c * Copying:: Your rights and freedoms.
+@end menu
+
+@node Docker usage
+@chapter Docker usage
+
+@example
+@b{Ubuntu}
+  @url{./ubuntu_12.04.html, install docker on ubuntu-12.04}
+  @url{./docker_ubuntu.html, docker ubuntu}
+@end example
+
+@bye
