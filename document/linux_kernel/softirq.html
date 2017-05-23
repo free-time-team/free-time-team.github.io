@@ -1,0 +1,150 @@
+<p><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></p>
+<h1 id="softirq">Softirq</h1>
+<p>Author: Dalink</p>
+<h2 id="一概述">一、概述</h2>
+<p>软中断是内核提供的一种延迟机制，tasklet总是工作当前CPU上。内核设置一个pending标志位，当其中标志位打开时，会执行指定下表的数组。这个pending标志位相当于中断使能控制寄存器。当系统从中断返回时，检查对应的标志位，执行相应的“中断函数”。在中断这些中断函数加入一些任务链表时，就构成了tasklet工作机制。</p>
+<h2 id="二结构体定义">二、结构体定义</h2>
+<p>系统为每个内核定义了一个tasklet_vec和tasklet_hi_vec双向链表。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// include/linux/interrupt.h : 526</span>
+<span class="kw">struct</span> tasklet_struct
+{
+    <span class="kw">struct</span> tasklet_struct *next;
+    <span class="dt">unsigned</span> <span class="dt">long</span> state;
+    atomic_t count;
+    <span class="dt">void</span> (*func)(<span class="dt">unsigned</span> <span class="dt">long</span>);
+    <span class="dt">unsigned</span> <span class="dt">long</span> data;
+};</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/softirq.c : 455</span>
+<span class="kw">struct</span> tasklet_head {
+    <span class="kw">struct</span> tasklet_struct *head;
+    <span class="kw">struct</span> tasklet_struct **tail;
+};
+<span class="co">// include/linux/interrupt.h : 447</span>
+<span class="kw">enum</span>
+{
+    HI_SOFTIRQ=<span class="dv">0</span>,
+    TIMER_SOFTIRQ,
+    NET_TX_SOFTIRQ,
+    NET_RX_SOFTIRQ,
+    BLOCK_SOFTIRQ,
+    IRQ_POLL_SOFTIRQ,
+    TASKLET_SOFTIRQ,
+    SCHED_SOFTIRQ,
+    HRTIMER_SOFTIRQ,
+    RCU_SOFTIRQ,
+    NR_SOFTIRQS
+};</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// include/linux/interrupt.h : 475</span>
+<span class="kw">struct</span> softirq_action
+{
+    <span class="dt">void</span>    (*action)(<span class="kw">struct</span> softirq_action *);
+};</code></pre></div>
+<h2 id="三全局变量">三、全局变量</h2>
+<p>内核同时定义一个类型为softirq_action的softirq_vec[NR_SOFTIRQS]数组。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> DEFINE_PER_CPU(<span class="kw">struct</span> tasklet_head, tasklet_vec);
+<span class="dt">static</span> DEFINE_PER_CPU(<span class="kw">struct</span> tasklet_head, tasklet_hi_vec);
+<span class="co">//kernel/softirq.c : 56</span>
+<span class="dt">static</span> <span class="kw">struct</span> softirq_action softirq_vec[NR_SOFTIRQS] __cacheline_aligned_in_smp;</code></pre></div>
+<h2 id="四初始化">四、初始化</h2>
+<p>初始化过程的调用栈为<code>setup_arch(&amp;command_line) &gt; softirq_init()</code>。softirq_init首先对tasklet_vec和tasklet_hi_vec双向链表做初始化操作。初始化之后，两个链表均为空链表。然后调用open_softirq函数分别向softirq_vec装入tasklet_action函数和tasklet_hi_action函数。</p>
+<p>softirq_vec的类型虽然为softirq_action类型，但是参数action却为函数指针类型，这是因为，softirq_action只包含一个函数指针成员。可以参见第二小节softirq_action结构体的定义。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/softirq.c : 648</span>
+<span class="dt">void</span> __init softirq_init(<span class="dt">void</span>)
+{
+    <span class="dt">int</span> cpu;
+    <span class="co">//初始化tasklet_vec和tasklet_hi_vec</span>
+    for_each_possible_cpu(cpu) {
+        per_cpu(tasklet_vec, cpu).tail =
+            &amp;per_cpu(tasklet_vec, cpu).head;
+        per_cpu(tasklet_hi_vec, cpu).tail =
+            &amp;per_cpu(tasklet_hi_vec, cpu).head;
+    }
+    <span class="co">//将tasklet_action和tasklet_hi_action放入softirq_vec数组</span>
+    open_softirq(TASKLET_SOFTIRQ, tasklet_action);
+    open_softirq(HI_SOFTIRQ, tasklet_hi_action);
+}
+
+<span class="co">//kernel/softirq.c : 447</span>
+<span class="dt">void</span> open_softirq(<span class="dt">int</span> nr, <span class="dt">void</span> (*action)(<span class="kw">struct</span> softirq_action *))
+{
+    softirq_vec[nr].action = action;
+}</code></pre></div>
+<h2 id="三pending状态分析">三、pending状态分析</h2>
+<p>定义irq_cpustat_t类型全局变量irq_stat。</p>
+<pre class="c++"><code>DECLARE_PER_CPU_SHARED_ALIGNED(irq_cpustat_t, irq_stat);　</code></pre>
+<p>系统代码调用local_softirq_pending函数检测是否有软中断发生。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//include/linux/irq_cpustat.h</span>
+<span class="ot">#define __IRQ_STAT(cpu, member) (irq_stat[cpu].member)</span>
+
+<span class="ot">#define local_softirq_pending() </span>\
+<span class="ot">    __IRQ_STAT(smp_processor_id(), __softirq_pending)</span></code></pre></div>
+<p>local_softirq_pending()预编译之后为</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">(irq_stat[smp_processor_id()].__softirq_pending)</code></pre></div>
+<h2 id="四工作过程">四、工作过程</h2>
+<p>tasklet_action函数会对tasklet_vec链表进行遍历，并执行tasklet_struct中的func函数，并将该tasklet_struct从链表中移除。</p>
+<p>同样，tasklet_hi_action函数会对tasklet_hi_vec链表进行遍历，并执行tasklet_struct中的func函数，并将该tasklet_struct从链表中移除。</p>
+<p>那么tasklet_action和tasklet_hi_action函数是什么时候被执行的呢？前面分析到，这两个函数被装入softirq_vec数组。内核显然会遍历这个数组，从而执行对应的action函数。中断返回时执行<code>exiting_irq()</code>从而触发软中断。调用栈为<code>exiting_irq()　&gt; irq_exit() &gt; invoke_softirq() &gt; __do_softirq()</code></p>
+<p>在__do_softirq()函数中，内核遍历softirq_vec数组，分别执行对应的<code>h-&gt;action(h)</code>函数。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">asmlinkage __visible <span class="dt">void</span> __softirq_entry __do_softirq(<span class="dt">void</span>)
+{
+    <span class="kw">struct</span> softirq_action *h;
+    <span class="co">//当前CPU的标志位</span>
+    __u32 pending = local_softirq_pending();
+restart:
+    set_softirq_pending(<span class="dv">0</span>);
+    <span class="co">//读取tasklet_action数组变量softirq_vec</span>
+    h = softirq_vec;
+    <span class="co">//ffs用以获取pending位图的置位索引</span>
+    <span class="kw">while</span> ((softirq_bit = ffs(pending))) {
+        h += softirq_bit - <span class="dv">1</span>;
+        <span class="co">//执行tasklet_action对应的函数</span>
+        h-&gt;action(h);
+        h++;
+        pending &gt;&gt;= softirq_bit;
+    }
+    <span class="co">//如果有软中断，继续执行</span>
+    pending = local_softirq_pending();
+    <span class="kw">if</span> (pending) {
+        <span class="co">//软中断执行超时，则开启softirq线程继续处理处理</span>
+        <span class="kw">if</span> (time_before(jiffies, end) &amp;&amp; !need_resched() &amp;&amp;
+            --max_restart)
+            <span class="kw">goto</span> restart;
+        wakeup_softirqd();
+    }
+}</code></pre></div>
+<p>ffs函数执行bsfs汇编指令，在变量中寻找第一个非0bit位，并把返回该位索引。</p>
+<pre><code>bsfl op1 op2
+含义:
+    扫描操作数op1,找到到第1个非0bit位, 把非0bit位的索引下标(从0计算)存入op2. 扫描从低位到高位扫描(也就是从右-&gt;左)(摘抄自：http://blog.csdn.net/zdl1016/article/details/8763803)。</code></pre>
+<p>前面已经分析，softirq_vec已经装入tasklet_action函数和tasklet_hi_action函数。以tasklet_action函数为例，他会对tasklet_vec进行遍历，并执行相应的软中断。每执行一个软中断，讲该软中断从链表中移除。所以软中断是单次触发而不是循环触发。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> __latent_entropy <span class="dt">void</span> tasklet_action(<span class="kw">struct</span> softirq_action *a)
+{
+    <span class="kw">struct</span> tasklet_struct *list = __this_cpu_read(tasklet_vec.head);
+    <span class="co">//首先置空链表</span>
+    __this_cpu_write(tasklet_vec.head, NULL);
+    __this_cpu_write(tasklet_vec.tail, this_cpu_ptr(&amp;tasklet_vec.head));
+    <span class="kw">while</span> (list) {
+        <span class="co">//遍历tasklet_struct</span>
+        <span class="kw">struct</span> tasklet_struct *t = list;
+        list = list-&gt;next;
+        <span class="kw">if</span> (tasklet_trylock(t)) {
+            <span class="kw">if</span> (!atomic_read(&amp;t-&gt;count)) {
+                <span class="kw">if</span> (!test_and_clear_bit(TASKLET_STATE_SCHED,
+                            &amp;t-&gt;state))
+                    BUG();
+                <span class="co">//执行相应的函数</span>
+                t-&gt;func(t-&gt;data);
+                tasklet_unlock(t);
+                <span class="kw">continue</span>;
+            }
+            tasklet_unlock(t);
+        }
+
+        local_irq_disable();
+        t-&gt;next = NULL;
+        <span class="co">//tasklet_vec指向未执行的tasklet_struct链表</span>
+        *__this_cpu_read(tasklet_vec.tail) = t;
+        __this_cpu_write(tasklet_vec.tail, &amp;(t-&gt;next));
+        __raise_softirq_irqoff(TASKLET_SOFTIRQ);
+    }
+}</code></pre></div>

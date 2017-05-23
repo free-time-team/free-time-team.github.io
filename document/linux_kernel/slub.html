@@ -1,0 +1,298 @@
+<p><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></p>
+<h1 id="slub">Slub</h1>
+<p>Author: Dalink</p>
+<h2 id="一概述">一、概述</h2>
+<p>Linux使用Slub控制虚拟内存的分配。</p>
+<h2 id="二结构体定义">二、结构体定义</h2>
+<pre class="c++"><code>struct kmem_cache {
+    struct kmem_cache_cpu __percpu *cpu_slab;   //CPU高速缓存
+    int size;                                   //包含元数据的对象大小
+    int object_size;                            //不包含元数据的大小
+    struct kmem_cache_order_objects oo;
+    struct kmem_cache_order_objects max;
+    struct kmem_cache_order_objects min;
+}
+struct kmem_cache_order_objects {
+    unsigned long x;
+};
+struct kmem_cache_cpu {  
+    void **freelist;          //指向本地CPU的第一个空闲对象 
+    struct page *page;        //分配给本地CPU的slab的页框 
+    struct page *partial;     //空闲对象列表
+    int node;                 //页框所处的节点，值为-1时表示DEBUG 
+    unsigned int offset;      //空闲对象指针的偏移，以字长为单位
+    unsigned int objsize;     //对象的大小
+}; 
+struct kmem_cache_node {
+    unsigned long nr_partial;
+    struct list_head partial;
+};
+struct page {
+    union {
+        unsigned counters;
+        struct {
+            union {
+                unsigned int active;        /* SLAB */
+                struct {
+                    unsigned inuse:16;      //已经使用的slab对象个数
+                    unsigned objects:15;    //总共的slab对象个数
+                    unsigned frozen:1;
+                };
+            };
+        };
+    };
+};</code></pre>
+<h2 id="三全局变量">三、全局变量</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#define KMALLOC_SHIFT_HIGH  (PAGE_SHIFT + 1)</span>
+<span class="kw">struct</span> kmem_cache *kmalloc_caches[KMALLOC_SHIFT_HIGH + <span class="dv">1</span>];</code></pre></div>
+<h2 id="四初始化">四、初始化</h2>
+<h2 id="五分配内存">五、分配内存</h2>
+<p>分配内存的调用函数为kmalloc。它的调用顺序为</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">kmalloc(size_t size, gfp_t flags)
+    __kmalloc(size, flags)
+        s = kmalloc_slab(size, flags)
+        ret = slab_alloc(s, flags, _RET_IP_)
+            slab_alloc_node(s, gfpflags, NUMA_NO_NODE, addr)
+                __slab_alloc(s, gfpflags, node, addr, c)
+                    ___slab_alloc(s, gfpflags, node, addr, c)</code></pre></div>
+<p>kmalloc_slab通过size获取索引index，然后index作为参数从kmalloc_caches数组中获取有效的kmem_cache。__kmalloc调用slab_alloc从这个kmem_cache中分配内存。linux目前可提供SLAB，我们使用的分配机制为SLUB。slab_alloc调用的slab_alloc_node位于slub.c文件中。同时，slab_alloc_node的node参数传入NUMA_NO_NODE。下面给出slab_alloc_node的简化代码：</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> __always_inline <span class="dt">void</span> *slab_alloc_node(<span class="kw">struct</span> kmem_cache *s,
+    gfp_t gfpflags, <span class="dt">int</span> node, <span class="dt">unsigned</span> <span class="dt">long</span> addr) {
+    <span class="co">//首先从高速缓存中获取</span>
+    <span class="kw">struct</span> kmem_cache_cpu *c = raw_cpu_ptr(s-&gt;cpu_slab);
+    object = c-&gt;freelist;
+    page = c-&gt;page;
+    <span class="co">//我们传入的node的值为NUMA_NO_NODE</span>
+    <span class="kw">if</span> (unlikely(!object || !node_match(page, node))) {
+        <span class="co">//如果获取不到一个可用的对象，或则页面不符合要求，则再次分配一个对象</span>
+        object = __slab_alloc(s, gfpflags, node, addr, c);
+        stat(s, ALLOC_SLOWPATH);
+    } <span class="kw">else</span> {
+        <span class="co">//如果从高速缓存中获取到一个可用的对象，把下一个对象地址存入高速缓存中</span>
+        <span class="dt">void</span> *next_object = get_freepointer_safe(s, object);
+        prefetch_freepointer(s, next_object);
+    }
+    <span class="kw">return</span> object;
+}</code></pre></div>
+<p>如何判断一个page是否符合指定的node，node_match怎么工作的？node_match判断page是否存在，或则node不为NUMA_NO_NODE的时候，判断page的node号与传入的node号一致。我们这里的node值为NUMA_NO_NODE，显然只需要判断page是否存在。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">int</span> node_match(<span class="kw">struct</span> page *page, <span class="dt">int</span> node)
+{
+<span class="ot">#ifdef CONFIG_NUMA</span>
+    <span class="kw">if</span> (!page || (node != NUMA_NO_NODE &amp;&amp; page_to_nid(page) != node))
+        <span class="kw">return</span> <span class="dv">0</span>;
+<span class="ot">#endif</span>
+    <span class="kw">return</span> <span class="dv">1</span>;
+}</code></pre></div>
+<p>___slab_alloc的简化代码如下。它从kmem_cache_cpu尝试获取一个快速页面，如果活到一个页面，然后对齐做node检测，。</p>
+<p>当无法快速获取一个可用内存的时候，则执行goto new_slab`以从buddy系统获取一个可用对象。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> <span class="dt">void</span> *___slab_alloc(<span class="kw">struct</span> kmem_cache *s, gfp_t gfpflags, <span class="dt">int</span> node,
+              <span class="dt">unsigned</span> <span class="dt">long</span> addr, <span class="kw">struct</span> kmem_cache_cpu *c)
+{
+    <span class="dt">void</span> *freelist;
+    <span class="kw">struct</span> page *page;
+
+    page = c-&gt;page;
+    <span class="kw">if</span> (!page)
+        <span class="kw">goto</span> new_slab;
+redo:
+    freelist = c-&gt;freelist;
+    <span class="kw">if</span> (freelist)
+        <span class="co">//如果快速可用内存，则继续</span>
+        <span class="kw">goto</span> load_freelist;
+    <span class="co">//取page的freelist</span>
+    freelist = get_freelist(s, page);
+
+    <span class="kw">if</span> (!freelist) {
+        c-&gt;page = NULL;
+        stat(s, DEACTIVATE_BYPASS);
+        <span class="kw">goto</span> new_slab;
+    }
+load_freelist:
+    <span class="co">//将下一个可用的内存地址,即*(freelist + size)，装入快速分配列表</span>
+    c-&gt;freelist = get_freepointer(s, freelist);
+    c-&gt;tid = next_tid(c-&gt;tid);
+    <span class="kw">return</span> freelist;
+
+<span class="co">//快速分配器已经没有空闲对象</span>
+new_slab:
+    <span class="co">//如果本地空闲链表存在对象</span>
+    <span class="kw">if</span> (c-&gt;partial) {
+        <span class="co">//则把空闲的一个页面装入快速分配页面page中</span>
+        page = c-&gt;page = c-&gt;partial;
+        <span class="co">//并把这个页面从空闲列表中移除</span>
+        c-&gt;partial = page-&gt;next;
+        stat(s, CPU_PARTIAL_ALLOC);
+        <span class="co">//不知道</span>
+        c-&gt;freelist = NULL;
+        <span class="kw">goto</span> redo;
+    }
+    <span class="co">//从buddy中分配页面</span>
+    freelist = new_slab_objects(s, gfpflags, node, &amp;c);
+
+    <span class="kw">if</span> (unlikely(!freelist)) {
+        <span class="co">//没有分配到页面</span>
+        <span class="kw">return</span> NULL;
+    }
+
+    page = c-&gt;page;
+    <span class="kw">if</span> (likely(!kmem_cache_debug(s) &amp;&amp; pfmemalloc_match(page, gfpflags)))
+        <span class="kw">goto</span> load_freelist;
+
+    deactivate_slab(s, page, get_freepointer(s, freelist));
+    c-&gt;page = NULL;
+    c-&gt;freelist = NULL;
+    <span class="kw">return</span> freelist;
+}</code></pre></div>
+<p>new_slab_objects的定义为</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> *new_slab_objects(<span class="kw">struct</span> kmem_cache *s, gfp_t flags, <span class="dt">int</span> node, <span class="kw">struct</span> kmem_cache_cpu **pc)
+{
+    <span class="kw">struct</span> kmem_cache_cpu *c = *pc;
+    <span class="kw">struct</span> page *page;
+    <span class="co">//这里看不懂</span>
+    <span class="dt">void</span> *freelist = get_partial(s, flags, node, c);
+    <span class="kw">if</span> (freelist)
+        <span class="kw">return</span> freelist;
+    <span class="co">//获取新的页面</span>
+    <span class="kw">struct</span> page *page = new_slab(s, flags, node);
+    <span class="kw">if</span> (page) {
+        c = raw_cpu_ptr(s-&gt;cpu_slab);
+        <span class="kw">if</span> (c-&gt;page)
+            <span class="co">//如果原来的c已经拥有page，则销毁</span>
+            flush_slab(s, c);
+        freelist = page-&gt;freelist;
+        <span class="co">//这里为何设置为null</span>
+        page-&gt;freelist = NULL;
+        <span class="co">//把page存入c</span>
+        c-&gt;page = page;
+    } <span class="kw">else</span>
+        freelist = NULL;
+    <span class="kw">return</span> freelist;
+}</code></pre></div>
+<p>new_slab调用allocate_slab继续分配页面。allocate_slab调用多次alloc_slab_page完成页面分配。调用多次是因为它降低了分配级别，比如高级没有可用内存，就开始低速模式的分配。在调用alloc_slab_page函数时，传入oo对象。alloc_slab_page调用alloc_pages完成页面分配，页面分配的size为oo参数的16幂底。当分配得到内存之后，需要在这段内存中建立可用内存链表。这部分代码定义在slub.c文件的1587行。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//slub.c : 1587</span>
+<span class="co">//首先根据page对象获取该页面所对应的虚拟地址</span>
+start = page_address(page);
+
+<span class="co">//s代表为kmem_cache，idx为int星数据,p为void*</span>
+for_each_object_idx(p, idx, s, start, page-&gt;objects) {
+    setup_object(s, page, p);
+    <span class="kw">if</span> (likely(idx &lt; page-&gt;objects))
+        set_freepointer(s, p, p + s-&gt;size);
+    <span class="kw">else</span>
+        set_freepointer(s, p, NULL);
+}
+<span class="co">//把当前page表达的首个slab对象地址存入page-&gt;freelist中。</span>
+page-&gt;freelist = fixup_red_left(s, start);</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">page-&gt;inuse = page-&gt;objects;
+page-&gt;frozen = <span class="dv">1</span>;</code></pre></div>
+<p>for_each_object_idx宏展开后为</p>
+<pre><code>for (p = fixup_red_left(s, start), idx = 1; idx &lt;= page-&gt;objects; p += (s)-&gt;size, idx++) {
+    if (likely(idx &lt; page-&gt;objects))
+        set_freepointer(s, p, p + s-&gt;size);
+    else
+        set_freepointer(s, p, NULL);
+}</code></pre>
+<p>调用把下一个数据的地址装入slab对象，最后一个对象存储的地址为NULL。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//object为slab对象，fp为下一个对象的地址</span>
+<span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> set_freepointer(<span class="kw">struct</span> kmem_cache *s, <span class="dt">void</span> *object, <span class="dt">void</span> *fp)
+{
+    *(<span class="dt">void</span> **)(object + s-&gt;offset) = fp;
+}</code></pre></div>
+<p>get_partial函数总是调用get_any_partial获取。还是看不懂 get_any_partial的简化代码为：</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> <span class="dt">void</span> *get_any_partial(<span class="kw">struct</span> kmem_cache *s, gfp_t flags,
+        <span class="kw">struct</span> kmem_cache_cpu *c)
+{
+    <span class="kw">enum</span> zone_type high_zoneidx = gfp_zone(flags);
+
+    <span class="kw">struct</span> zoneref *z;
+    <span class="kw">struct</span> zone *zone;
+    <span class="kw">struct</span> zonelist *zonelist = node_zonelist(mempolicy_slab_node(), flags);
+    for_each_zone_zonelist(zone, z, zonelist, high_zoneidx) {
+        <span class="kw">struct</span> kmem_cache_node *n = get_node(s, zone_to_nid(zone));
+
+        <span class="kw">if</span> (n &amp;&amp; cpuset_zone_allowed(zone, flags) &amp;&amp;
+                    n-&gt;nr_partial &gt; s-&gt;min_partial) {
+            <span class="dt">void</span> *object = get_partial_node(s, n, c, flags);
+            <span class="kw">if</span> (object) {
+                <span class="kw">return</span> object;
+            }
+        }
+    }
+    <span class="kw">return</span> NULL;
+}</code></pre></div>
+<h2 id="六回收内存">六、回收内存</h2>
+<p>kfree调用栈如下：</p>
+<pre><code>void kfree(const void *x)
+    slab_free(page-&gt;slab_cache, page, object, NULL, 1, _RET_IP_);
+        do_slab_free(s, page, head, tail, cnt, addr)
+            if (likely(page == c-&gt;page))
+                set_freepointer(s, tail_obj, c-&gt;freelist);
+            else
+                __slab_free(s, page, head, tail_obj, cnt, addr);</code></pre>
+<p>kfree调用<code>slab_free(page-&gt;slab_cache, page, object, NULL, 1, _RET_IP_)</code>继续完成动作，这里slab_free函数的tail参数传入NULL。slab_free继而调用do_slab_free。do_slab_free函数首先得到当前释放对象的地址。通过如下：</p>
+<pre><code>void *tail_obj = tail ? : head;</code></pre>
+<p>这里tail参数为NULL，所以tail_obj的值为head。继续，do_slab_free通过判断目标page是否是当前cpu的page。如果是当前cpu的page，则直接调用set_freepointer把释放的对象加入slab列表，这个情况十分简单。如果，继续调用__slab_free函数做进一步的释放。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//head tail cnt addr</span>
+<span class="dt">static</span> <span class="dt">void</span> __slab_free(<span class="kw">struct</span> kmem_cache *s, <span class="kw">struct</span> page *page,
+            <span class="dt">void</span> *head, <span class="dt">void</span> *tail, <span class="dt">int</span> cnt,
+            <span class="dt">unsigned</span> <span class="dt">long</span> addr)
+{
+    <span class="dt">void</span> *prior;
+    <span class="dt">int</span> was_frozen;
+    <span class="kw">struct</span> page <span class="kw">new</span>;
+    <span class="dt">unsigned</span> <span class="dt">long</span> counters;
+    <span class="kw">struct</span> kmem_cache_node *n = NULL;
+    <span class="dt">unsigned</span> <span class="dt">long</span> uninitialized_var(flags);
+    <span class="kw">do</span> {
+        prior = page-&gt;freelist;
+        counters = page-&gt;counters;
+        <span class="co">//把空闲对象链入Slab</span>
+        set_freepointer(s, tail, prior);
+        <span class="kw">new</span>.counters = counters;
+        was_frozen = <span class="kw">new</span>.frozen;
+        <span class="kw">new</span>.inuse -= cnt;
+        <span class="kw">if</span> ((!<span class="kw">new</span>.inuse || !prior) &amp;&amp; !was_frozen) {
+            <span class="kw">if</span> (kmem_cache_has_cpu_partial(s) &amp;&amp; !prior) {
+                <span class="kw">new</span>.frozen = <span class="dv">1</span>;
+            } <span class="kw">else</span> {
+                n = get_node(s, page_to_nid(page));
+                spin_lock_irqsave(&amp;n-&gt;list_lock, flags);
+            }
+        }
+    } <span class="kw">while</span> (!cmpxchg_double_slab(s, page,
+        prior, counters,
+        head, <span class="kw">new</span>.counters,
+        <span class="st">&quot;__slab_free&quot;</span>));
+
+    <span class="kw">if</span> (likely(!n)) {
+        <span class="kw">if</span> (<span class="kw">new</span>.frozen &amp;&amp; !was_frozen) {
+            put_cpu_partial(s, page, <span class="dv">1</span>);
+            stat(s, CPU_PARTIAL_FREE);
+        }
+        <span class="kw">if</span> (was_frozen)
+            stat(s, FREE_FROZEN);
+        <span class="kw">return</span>;
+    }
+
+    <span class="kw">if</span> (unlikely(!<span class="kw">new</span>.inuse &amp;&amp; n-&gt;nr_partial &gt;= s-&gt;min_partial))
+        <span class="kw">goto</span> slab_empty;
+
+    <span class="kw">if</span> (!kmem_cache_has_cpu_partial(s) &amp;&amp; unlikely(!prior)) {
+        <span class="kw">if</span> (kmem_cache_debug(s))
+            remove_full(s, n, page);
+        add_partial(n, page, DEACTIVATE_TO_TAIL);
+        stat(s, FREE_ADD_PARTIAL);
+    }
+    spin_unlock_irqrestore(&amp;n-&gt;list_lock, flags);
+    <span class="kw">return</span>;
+
+slab_empty:
+    <span class="kw">if</span> (prior) {
+        remove_partial(n, page);
+        stat(s, FREE_REMOVE_PARTIAL);
+    } <span class="kw">else</span> {
+        remove_full(s, n, page);
+    }
+    stat(s, FREE_SLAB);
+    discard_slab(s, page);
+}</code></pre></div>

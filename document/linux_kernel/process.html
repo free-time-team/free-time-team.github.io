@@ -1,0 +1,366 @@
+<p><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></p>
+<h1 id="process">Process</h1>
+<p>Author: Dalink</p>
+<h2 id="一结构体定义">一、结构体定义</h2>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> task_group {
+    <span class="kw">struct</span> cgroup_subsys_state css;
+    <span class="kw">struct</span> sched_entity **se;
+    <span class="kw">struct</span> cfs_rq **cfs_rq;
+    <span class="dt">unsigned</span> <span class="dt">long</span> shares;
+    <span class="kw">struct</span> sched_rt_entity **rt_se;
+    <span class="kw">struct</span> rt_rq **rt_rq;
+    <span class="kw">struct</span> rt_bandwidth rt_bandwidth;
+    <span class="kw">struct</span> rcu_head rcu;
+    <span class="kw">struct</span> list_head list;
+    <span class="kw">struct</span> task_group *parent;
+    <span class="kw">struct</span> list_head siblings;
+    <span class="kw">struct</span> list_head children;
+};</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> sched_entity {
+    <span class="kw">struct</span> rb_node      run_node;
+    <span class="kw">struct</span> list_head    group_node;
+    <span class="kw">struct</span> sched_entity *parent;
+    <span class="co">/* rq on which this entity is (to be) queued: */</span>
+    <span class="kw">struct</span> cfs_rq       *cfs_rq;
+    <span class="co">/* rq &quot;owned&quot; by this entity/group: */</span>
+    <span class="kw">struct</span> cfs_rq       *my_q;
+};</code></pre></div>
+<p>cfs调度管理器</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> cfs_rq {
+    <span class="dt">unsigned</span> <span class="dt">int</span> nr_running, h_nr_running;      <span class="co">//可运行的进程数</span>
+    <span class="kw">struct</span> rb_root tasks_timeline;              <span class="co">//红黑树结构的调度实体</span>
+    <span class="kw">struct</span> rb_node *rb_leftmost;                <span class="co">//最优先的调度实体</span>
+    <span class="kw">struct</span> sched_entity *curr, *next, *last, *skip;
+    <span class="kw">struct</span> rq *rq;
+    <span class="dt">int</span> on_list;
+    <span class="kw">struct</span> list_head leaf_cfs_rq_list;
+    <span class="kw">struct</span> task_group *tg;
+};</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> rq {
+    <span class="dt">unsigned</span> <span class="dt">int</span> nr_running;
+    u64 nr_switches;
+
+    <span class="kw">struct</span> cfs_rq cfs;
+    <span class="kw">struct</span> rt_rq rt;
+    <span class="kw">struct</span> dl_rq dl;
+    <span class="kw">struct</span> task_struct *curr, *idle, *stop;
+    
+    <span class="dt">int</span> cpu;
+    <span class="dt">int</span> online;
+};</code></pre></div>
+<p>调度实体</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> task_struct {
+    <span class="dt">const</span> <span class="kw">struct</span> sched_class *sched_class;
+    <span class="kw">struct</span> sched_entity se;
+    <span class="kw">struct</span> sched_rt_entity rt;
+    <span class="kw">struct</span> task_group *sched_task_group;
+    <span class="kw">struct</span> sched_dl_entity dl;
+
+    <span class="kw">struct</span> sched_info sched_info;
+
+    <span class="kw">struct</span> task_struct __rcu *real_parent; <span class="co">/* real parent process */</span>
+    <span class="kw">struct</span> task_struct __rcu *parent;
+    
+    <span class="kw">struct</span> list_head children;  <span class="co">/* list of my children */</span>
+    <span class="kw">struct</span> list_head sibling;   <span class="co">/* linkage in my parent&#39;s children list */</span>
+    <span class="kw">struct</span> task_struct *group_leader;   <span class="co">/* threadgroup leader */</span>
+};</code></pre></div>
+<h2 id="二常量定义">二、常量定义</h2>
+<p>系统定义全局变量root_task_group、一个链表头task_groups和每个CPU对应的runqueues。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 7520</span>
+<span class="kw">struct</span> task_group root_task_group;
+LIST_HEAD(task_groups);
+
+<span class="co">//include/linux/list.h : 2</span>
+<span class="ot">#define LIST_HEAD(name) </span>\
+<span class="ot">    struct list_head name = LIST_HEAD_INIT(name)</span>
+
+<span class="co">//kernel/sched/core.c : 95</span>
+DEFINE_PER_CPU_SHARED_ALIGNED(<span class="kw">struct</span> rq, runqueues);</code></pre></div>
+<h2 id="三初始化">三、初始化</h2>
+<p>在<code>setup_arch(&amp;command_line) &gt; sched_init()</code>函数中，系统使用kzalloc分配了2 * nr_cpu_ids * sizeof(void **) * 2字节内存。这部分内存存储着每个cpu对应的的sched_entity、cfs_rq x和 x指针。所以在接下来的代码7561~7573行代码，就是把这部分内存赋值到root_task_group成员。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">alloc_size += <span class="dv">2</span> * nr_cpu_ids * <span class="kw">sizeof</span>(<span class="dt">void</span> **);
+ptr = (<span class="dt">unsigned</span> <span class="dt">long</span>)kzalloc(alloc_size, GFP_NOWAIT);
+root_task_group.cfs_rq = (<span class="kw">struct</span> cfs_rq **)ptr;</code></pre></div>
+<p>7603行，将root_task_group.list插入到task_groups之后。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 7603</span>
+list_add(&amp;root_task_group.list, &amp;task_groups);</code></pre></div>
+<p>7609行对cpu进行遍历，然后根据下标i在全局变量runqueues中查找rq。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 7612</span>
+rq = cpu_rq(i);
+
+<span class="co">//kernel/sched/sched.h : 760</span>
+<span class="ot">#define cpu_rq(cpu)     (&amp;per_cpu(runqueues, (cpu)))</span></code></pre></div>
+<pre><code>root_task_group~~~~~~~task_group~~~~~~~task_group~~~~~~~...
+  |
+  |----&gt;cfs_rq*(CPU0) &gt; cfs_rq*cfs_rq*(CPU1) &gt; cfs_rq*cfs_rq*(CPU2) &gt; cfs_rq*cfs_rq*(CPU3)</code></pre>
+<h2 id="四fork的过程">四、fork的过程</h2>
+<p>fork用以创建新的进程。fork系统调用定义在kernel/fork.c文件。它调用了_do_fork函数。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 2009</span>
+SYSCALL_DEFINE0(fork)
+{
+<span class="ot">#ifdef CONFIG_MMU</span>
+    <span class="kw">return</span> _do_fork(SIGCHLD, <span class="dv">0</span>, <span class="dv">0</span>, NULL, NULL, <span class="dv">0</span>);
+<span class="ot">#else</span>
+    <span class="co">/* can not support in nommu mode */</span>
+    <span class="kw">return</span> -EINVAL;
+<span class="ot">#endif</span>
+}</code></pre></div>
+<p>_do_fork函数首先调用copy_process复制出一个新的task_struct结构体对象，并把当前进程的众多成员赋值给新的进程，譬如说新的进程和父进程共享打开的文件。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 482</span>
+tsk = alloc_task_struct_node(node)</code></pre></div>
+<p>值得注意的是，在复制signal的时候，内核把signal的read_timer.function设置为it_real_fn。定时器到达时，read_timer.function将会被执行，这里read_timer.function的值即为it_real_fn函数。这个小细节在分析singal系统调用的很关键。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 1355</span>
+sig-&gt;real_timer.function = it_real_fn;</code></pre></div>
+<p>然后系统调用获取一个新的pid赋值给新进程。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 1955</span>
+pid = get_task_pid(p, PIDTYPE_PID);</code></pre></div>
+<p>最后，内核把新创建的进程装入调度结构，然后等待调度器选择执行新的进程。装入调度结构的调用栈为<code>wake_up_new_task(p) &gt; activate_task(rq, p, 0) &gt; enqueue_task(rq, p, flags)</code>。enqueue_task函数调用sched_class的enqueue_task函数。fair_sched_class对象的enqueue_task函数指针指向enqueue_task_fair，可参见enqueue_task_fair对象的定义。enqueue_task_fair首先调用for_each_sched_entity对p-&gt;se进行遍历。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/fair.c : 279</span>
+<span class="ot">#define for_each_sched_entity(se) </span>\
+<span class="ot">        for (; se; se = se-&gt;parent)</span></code></pre></div>
+<p>根据se获取cfs_rq。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/fair.c : 4740</span>
+cfs_rq = cfs_rq_of(se);</code></pre></div>
+<p>然后调用<code>enqueue_entity(cfs_rq, se, flags</code>)将se装入cfs_rq中。enqueue_entity调用<code>__enqueue_entity(cfs_rq, se)</code>将se-&gt;run_node装入cfs_rq-&gt;tasks_timeline带标的红黑树中。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/fair.c : 578</span>
+rb_insert_color(&amp;se-&gt;run_node, &amp;cfs_rq-&gt;tasks_timeline);
+
+<span class="co">//lib/rbtree.c : 433</span>
+<span class="dt">void</span> rb_insert_color(<span class="kw">struct</span> rb_node *node, <span class="kw">struct</span> rb_root *root)
+{
+    __rb_insert(node, root, dummy_rotate);
+}</code></pre></div>
+<p>fork过程完成。接下来查看，调度器是如何从进程组织结构用选择目标并进行调度的。</p>
+<h2 id="五进程调度">五、进程调度</h2>
+<p>每当进程从内核态返回到用户态时，比如中断的触发，系统调用等，内核都需要检测是否需要进行任务调度。特别的是，x86体系中，linux使用Loca APIC为每个CPU提供一个定时中断。即使内核中长时间没有异常、系统调用、中断等，该定时中断也能保证调度的周期执行。</p>
+<p>调度的入口是schedule()函数，该函数通过调用<code>__schedule(false)</code>完成调度过程。__schedule函数首先选定一个rq对象。</p>
+<pre><code>//kernel/sched/core.c : 3342
+cpu = smp_processor_id();
+rq = cpu_rq(cpu)</code></pre>
+<p>pick_next_task_fair选择cfs最左边的进程作为目标。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/fair.c : 6309</span>
+<span class="kw">do</span> {
+    se = pick_next_entity(cfs_rq, NULL);
+    set_next_entity(cfs_rq, se);
+    cfs_rq = group_cfs_rq(se);
+} <span class="kw">while</span> (cfs_rq);
+
+p = task_of(se);</code></pre></div>
+<h2 id="六信号">六、信号</h2>
+<h4 id="信号概述">1、信号概述</h4>
+<p>当一个进程收到一个信号时，进程会执行指定的函数。每个信号使用对应的数值表达。信号回调函数通过sigaction系统调用完成。 ####2、数据结构####</p>
+<p>pending表示对应信号的屏蔽位。sighand表达每个信号对应的处理函数。signal表示产生的信号。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> task_struct {
+    <span class="kw">struct</span> signal_struct *signal;   <span class="co">//同一线程组的多个线程共享同一个signal_struct</span>
+    <span class="kw">struct</span> sighand_struct *sighand;
+    <span class="kw">struct</span> sigpending pending;
+};</code></pre></div>
+<p>pending标志位。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> sigpending {
+    <span class="kw">struct</span> list_head list;          <span class="co">//指向sigqueue</span>
+    sigset_t signal;                <span class="co">//标志位</span>
+};
+
+<span class="kw">typedef</span> <span class="kw">struct</span> {
+    <span class="dt">unsigned</span> <span class="dt">long</span> sig[_NSIG_WORDS];
+} sigset_t;
+
+<span class="kw">struct</span> sigqueue {
+    <span class="kw">struct</span> list_head list;
+    <span class="dt">int</span> flags;
+    siginfo_t info;
+    <span class="kw">struct</span> user_struct *user;
+};</code></pre></div>
+<p>信号对应的handler。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> sighand_struct {
+    atomic_t        count;
+    <span class="kw">struct</span> k_sigaction  action[_NSIG];
+    spinlock_t      siglock;
+    wait_queue_head_t   signalfd_wqh;
+};
+<span class="kw">struct</span> k_sigaction {
+    <span class="kw">struct</span> sigaction sa;
+
+};
+<span class="kw">struct</span> sigaction {
+    __sighandler_t  sa_handler;
+    <span class="dt">unsigned</span> <span class="dt">long</span>   sa_flags;
+    sigset_t    sa_mask;    <span class="co">/* mask last for extensibility */</span>
+};</code></pre></div>
+<p>signal</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> signal_struct {
+    atomic_t        sigcnt;
+    atomic_t        live;
+    <span class="dt">int</span>         nr_threads;
+    <span class="kw">struct</span> list_head    thread_head;
+    wait_queue_head_t   wait_chldexit;  <span class="co">/* for wait4() */</span>
+    <span class="kw">struct</span> task_struct  *curr_target;
+    <span class="kw">struct</span> sigpending   shared_pending;     <span class="co">//分组的pending</span>
+    <span class="dt">int</span>         group_exit_code;
+    <span class="dt">int</span>         notify_count;
+    <span class="kw">struct</span> task_struct  *group_exit_task;
+    <span class="co">/* thread group stop support, overloads group_exit_code too */</span>
+    <span class="dt">int</span>         group_stop_count;
+    <span class="dt">unsigned</span> <span class="dt">int</span>        flags; <span class="co">/* see SIGNAL_* flags below */</span>
+    ktime_t it_real_incr;   <span class="co">//定时器</span>
+};</code></pre></div>
+<p>//仅仅用于数据传递</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> ksignal {
+    <span class="kw">struct</span> k_sigaction ka;
+    siginfo_t info;
+    <span class="dt">int</span> sig;
+};
+<span class="kw">typedef</span> <span class="kw">struct</span> siginfo {
+    <span class="dt">int</span> si_signo;           <span class="co">//信号编号</span>
+    <span class="dt">int</span> si_errno;
+    <span class="dt">int</span> si_code;
+} __ARCH_SI_ATTRIBUTES siginfo_t;</code></pre></div>
+<h4 id="设置信号处理函数">3、设置信号处理函数</h4>
+<p>该系统调用为signal。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/signal.c : 3501</span>
+SYSCALL_DEFINE2(signal, <span class="dt">int</span>, sig, __sighandler_t, handler)
+{
+    <span class="kw">struct</span> k_sigaction new_sa, old_sa;
+    <span class="dt">int</span> ret;
+
+    new_sa.sa.sa_handler = handler;
+    new_sa.sa.sa_flags = SA_ONESHOT | SA_NOMASK;
+    sigemptyset(&amp;new_sa.sa.sa_mask);
+
+    ret = do_sigaction(sig, &amp;new_sa, &amp;old_sa);
+
+    <span class="kw">return</span> ret ? ret : (<span class="dt">unsigned</span> <span class="dt">long</span>)old_sa.sa.sa_handler;
+}</code></pre></div>
+<p>do_sigaction把目标handler装入到sig对应的结构体中。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/signal.c : 3074</span>
+k = &amp;p-&gt;sighand-&gt;action[sig<span class="dv">-1</span>];
+
+spin_lock_irq(&amp;p-&gt;sighand-&gt;siglock);
+<span class="kw">if</span> (oact)
+    *oact = *k;</code></pre></div>
+<h4 id="发送信号">4、发送信号</h4>
+<p>__send_signal函数调用sigaddset把对应的pending位置位。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/signal.c : 1075</span>
+sigaddset(&amp;pending-&gt;signal, sig);
+
+<span class="co">//linux/signal.h : 55</span>
+<span class="dt">static</span> <span class="kw">inline</span> <span class="dt">void</span> sigaddset(sigset_t *set, <span class="dt">int</span> _sig)
+{
+    <span class="dt">unsigned</span> <span class="dt">long</span> sig = _sig - <span class="dv">1</span>;
+    <span class="kw">if</span> (_NSIG_WORDS == <span class="dv">1</span>)
+        set-&gt;sig[<span class="dv">0</span>] |= <span class="dv">1UL</span> &lt;&lt; sig;
+    <span class="kw">else</span>
+        set-&gt;sig[sig / _NSIG_BPW] |= <span class="dv">1UL</span> &lt;&lt; (sig % _NSIG_BPW);
+}</code></pre></div>
+<h4 id="处理信号">5、处理信号</h4>
+<p>exit_to_usermode_loop调用的<code>do_signal(regs)</code>处理信号。该函数通过get_signal获取信号，然后执行handle_signal处理信号。dequeue_signal从pending中选择一个sig，装入ksignal。然后再从sighand中选择action，装入ksignal的ka字段。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/signal.c : 2206</span>
+dequeue_signal(current, &amp;current-&gt;blocked, &amp;ksig-&gt;info)
+
+<span class="co">//kernel/signal.c : 568</span>
+__dequeue_signal(&amp;tsk-&gt;pending, mask, info);
+
+<span class="co">//kernel/signal.c : 548</span>
+<span class="dt">int</span> sig = next_signal(pending, mask)
+
+<span class="co">//kernel/signal.c : 2217</span>
+ka = &amp;sighand-&gt;action[signr<span class="dv">-1</span>]；
+ksig-&gt;ka = *ka；</code></pre></div>
+<p>执行handle_signal处理信号。handle_signal的参数为ksignal。由于信号的回调函数的执行是在用户空间执行，所以并不能简单的进行函数调用。</p>
+<h2 id="七timer">七、Timer</h2>
+<h4 id="概述">1、概述</h4>
+<p>alarm和nonasleep系统调用都是通过设置定时器，触发函数的定时运行。 ####2、数据结构定义####</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">struct</span> hrtimer_cpu_base {
+    <span class="kw">struct</span> hrtimer          *running;
+    <span class="kw">struct</span> hrtimer_clock_base   clock_base[HRTIMER_MAX_CLOCK_BASES];
+} ____cacheline_aligned;
+
+<span class="kw">struct</span> hrtimer_clock_base {
+    <span class="kw">struct</span> hrtimer_cpu_base *cpu_base;
+    <span class="dt">int</span>         index;
+    clockid_t       clockid;
+    <span class="kw">struct</span> timerqueue_head  active;
+} <span class="ot">__attribute__</span>((__aligned__(HRTIMER_CLOCK_BASE_ALIGN)));
+
+<span class="kw">struct</span> hrtimer {
+    <span class="kw">struct</span> timerqueue_node      node;
+    ktime_t             _softexpires;
+    <span class="kw">enum</span> hrtimer_restart        (*function)(<span class="kw">struct</span> hrtimer *);
+    <span class="kw">struct</span> hrtimer_clock_base   *base;
+};</code></pre></div>
+<p>定义全局变量</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">DEFINE_PER_CPU(<span class="kw">struct</span> hrtimer_cpu_base, hrtimer_bases) =
+{
+...</code></pre></div>
+<h4 id="设置定时器">3、设置定时器</h4>
+<p>设置定时器的函数为do_setitimer。</p>
+<p>它的简化代码如下</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> do_setitimer(<span class="dt">int</span> which, <span class="kw">struct</span> itimerval *value, <span class="kw">struct</span> itimerval *ovalue)
+{
+    <span class="kw">struct</span> task_struct *tsk = current;
+    <span class="kw">struct</span> hrtimer *timer;
+    ktime_t expires;
+again:
+        <span class="co">//获取当前进程的timer</span>
+        timer = &amp;tsk-&gt;signal-&gt;real_timer;
+        expires = timeval_to_ktime(value-&gt;it_value);
+        <span class="kw">if</span> (expires != <span class="dv">0</span>) {
+            <span class="co">//构建一个定时器对象，装入signal-&gt;it_real_incr</span>
+            tsk-&gt;signal-&gt;it_real_incr =
+                timeval_to_ktime(value-&gt;it_interval);
+            hrtimer_start(timer, expires, HRTIMER_MODE_REL);
+        } <span class="kw">else</span>
+            tsk-&gt;signal-&gt;it_real_incr = <span class="dv">0</span>;
+    <span class="kw">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+<h4 id="调度定时器">5、调度定时器</h4>
+<p>__hrtimer_run_queues负责定时器检测任务。当选取到一个到期hrtimer之后，通过</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/timer/hrtimer.c : 1221</span>
+fn = timer-&gt;function;
+<span class="co">//kernel/timer/hrtimer.c : 1238</span>
+restart = fn(timer);</code></pre></div>
+<p>执行回调。经过前面的分析，hrtimer的function被设置为it_real_fn。下面继续分析it_real_fn函数，追踪它是如何发生SIGALRM信号的。</p>
+<p>it_real_fn执行kill_pid_info函数。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/timer/itimer.c : 127</span>
+kill_pid_info(SIGALRM, SEND_SIG_PRIV, sig-&gt;leader_pid);</code></pre></div>
+<p>kill_pid_info调用：</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/signal.c : 1303</span>
+group_send_sig_info(sig, info, p)</code></pre></div>
+<p>最终调用__send_signal发送定时器到达信号。__send_signal我们前面已经分析。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/signal.c : 1092</span>
+__send_signal(sig, info, t, group, from_ancestor_ns);</code></pre></div>
+<h2 id="八系统调用">八、系统调用</h2>
+<p>为什么分析这三个系统调用？一个进程在调度结构中，每隔一定时间都会被调度。那么当它执行pause和sleep时，将会停止调度。这两个系统做了什么什么操作让它停止调度。探索这两个系统调用对摸清linux的进程调度方式（结构）有很大帮助。信号绝对是一个“神奇”工作机制，信号从哪里来，如何执行，结果是什么? 当我们在应用层写这些系统调用的时候，它们具体如何工作的？探索alarm，解决这些疑问。当然alarm使用了timer机制，这也是我把timer机制的分析放到前面的原因。 ####1、pause####</p>
+<p>查看源码，发现pause系统调用十分简单，核心语句就一句：</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/signal.c : 3532</span>
+__set_current_state(TASK_INTERRUPTIBLE)；</code></pre></div>
+<p>它把当前进程的状态设置为TASK_INTERRUPTIBLE。也就是说，当前进程还处于调度数据结构里，这里显然有个疑问，它难道不会被调度吗？可以推测，schedule函数显然会有对应判断的机制。返回schedule继续分析调度机制吧。</p>
+<p>在__schedule函数中，pick_next_task之前，首先对prev进程做一次检测，如果该进程为不可执行状态。那么就执行deactivate_task函数将其移除调度结构。这就是pause的实现de进程“暂停”实现方式。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/sched/core.c : 3367</span>
+<span class="kw">if</span> (unlikely(signal_pending_state(prev-&gt;state, prev))) {
+    prev-&gt;state = TASK_RUNNING;
+} <span class="kw">else</span> {
+    deactivate_task(rq, prev, DEQUEUE_SLEEP);</code></pre></div>
+<h4 id="nanosleep">2、nanosleep</h4>
+<p>nanosleep会让进程睡眠指定时间，时间到达后继续执行。睡眠指定时间有hrtimer设置定时器完成，这一步通过调用hrtimer_set_expires_range_ns完成。睡眠的阻塞效果通过do_nanosleep函数完成。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/timer/hrtimer.c : 1471</span>
+<span class="dt">static</span> <span class="dt">int</span> __sched do_nanosleep(<span class="kw">struct</span> hrtimer_sleeper *t, <span class="kw">enum</span> hrtimer_mode mode)
+{
+    hrtimer_init_sleeper(t, current);
+    <span class="kw">do</span> {
+        set_current_state(TASK_INTERRUPTIBLE);
+        hrtimer_start_expires(&amp;t-&gt;timer, mode);
+        <span class="kw">if</span> (likely(t-&gt;task))
+            freezable_schedule();
+        hrtimer_cancel(&amp;t-&gt;timer);
+        mode = HRTIMER_MODE_ABS;
+    } <span class="kw">while</span> (t-&gt;task &amp;&amp; !signal_pending(current));
+    __set_current_state(TASK_RUNNING);
+    <span class="kw">return</span> t-&gt;task == NULL;
+}</code></pre></div>
+<p>do_nanosleep反复检测当前是否存在信号，用以确定原地阻塞。上一步设置的计时器到达时，将会发生信号，阻塞效果取消，进程得以继续运行。</p>
+<h4 id="alarm">3、alarm</h4>
+<p>alarm用以设定计时器，它通过设置hrtimer完成定时功能。关于定时器的用法参见第八小结。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//kernel/time/itimer.c</span>
+do_setitimer(ITIMER_REAL, &amp;it_new, &amp;it_old);</code></pre></div>

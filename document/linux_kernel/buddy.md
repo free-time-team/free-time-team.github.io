@@ -1,0 +1,552 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+#Buddy#
+Author: Dalink
+
+## 一、概述##
+
+Buddy系统是Linux内核用来维护页面分配的系统。某些系统的内存物理可能不是介质一致性的，这样的系统称为NUMA系统，Linux使用多个pglist_data对象表示非一致内存的划分。同时，Linux将内存划分为三段域，DMA域为16MB，NORMAL为896MB，HIGH部分为剩余内存，Linux使用zone_type枚举表示这种划分。在本系列Blog的所有文章中，“域”作为这种划分方式的概念名称。
+
+物理内存首先根据NUMA节点划分区域，然后根据域类型划分对应的内存区间。一个内存区间维护着预先设置的指定大小的内存区域，且其大小总是为2^order大小。order为该区域的阶。另一个十分重要的特性是，一个区域的起始页面的编号idx必须满足下列关系。
+
+```
+idx = n * 2 ^ order		//n为任意整数
+```
+
+
+
+## 二、结构体定义##
+
+```C++
+struct free_area {
+	struct list_head	free_list[MIGRATE_TYPES];	//链表指向page，MIGRATE_TYPES表示迁移类型
+	unsigned long		nr_free;				//剩余数量
+};
+//内存区域，以numa节点和域划分
+struct zone {
+	int node;
+	struct pglist_data	*zone_pgdat;
+	const char		*name;
+	struct free_area	free_area[MAX_ORDER];	//MAX_ORDER 11
+	struct per_cpu_pageset __percpu *pageset;	//cpu高速缓存
+};
+//按照域和NUMA的乘积划分
+struct zoneref {
+	struct zone *zone;
+	int zone_idx;
+};
+//按照迁移划分
+struct zonelist {
+	struct zoneref _zonerefs[MAX_ZONES_PER_ZONELIST + 1]; //MAX_ZONES_PER_ZONELIST为
+};
+
+typedef struct pglist_data {
+	struct zone node_zones[MAX_NR_ZONES]; 			//MAX_NR_ZONES定义为划分的域
+	struct zonelist node_zonelists[MAX_ZONELISTS];   //MAX_ZONELISTS表示迁移类型个数
+	int nr_zones;
+} pg_data_t;
+```
+
+
+```C++
+struct page {
+	struct list_head lru;				//page在buddy中的链表链入点
+	union {
+		unsigned long private;			//page在buddy中所处于的order
+	};
+};
+//本机器NODES_SHIFT宏定义为6，所以MAX_NUMNODES的值为2^6=64。
+#define MAX_NUMNODES    (1 << NODES_SHIFT)
+enum zone_type {
+    ZONE_DMA,
+    ZONE_DMA32,
+    ZONE_NORMAL,
+    ZONE_HIGHMEM,
+    __MAX_NR_ZONES
+};
+//域和NUMA的乘积
+#define MAX_ZONES_PER_ZONELIST (MAX_NUMNODES * MAX_NR_ZONES)
+enum {
+    ZONELIST_FALLBACK,
+    ZONELIST_NOFALLBACK,
+    MAX_ZONELISTS
+};
+```
+
+```C++
+//CPU高速缓存结构, 用来实现对单一页面的分配
+struct per_cpu_pages {
+	int count;
+	int high;
+	int batch;
+	struct list_head lists[MIGRATE_PCPTYPES]; //指向page
+};
+struct per_cpu_pageset {
+	struct per_cpu_pages pcp;
+};
+```
+
+## 三、常量定义
+
+Linux定一个长度为64的pglist_data的数组，用以代表每一个NUMA的NODE节点（本机器CONFIG_NODES_SHIFT=6）。
+
+```C++
+//arch/x86/mm/numa.c : 25##
+struct pglist_data *node_data[MAX_NUMNODES] __read_mostly; //MAX_NUMNODES定义为numa节点的个数
+
+//arch/x86/include/asm/mmzone_64.h : 14
+#define NODE_DATA(nid)		(node_data[nid])
+```
+
+## 四、初始化
+
+系统启动时会建立一个memblock（CONFIG_NOBOOTMEM=y）系统，该系统仅仅维护着系统启动时的分配。系统启动完毕后，会对memblock进行回收。Buddy系统的初始化就是从memblock系统释放页面到Buddy系统的过程。它的调用栈如下：
+
+```c++
+free_all_bootmem()
+  free_low_memory_core_early()
+    for_each_free_mem_range(i, NUMA_NO_NODE, MEMBLOCK_NONE, &start, &end, NULL)
+  	__free_memory_core(start, end)
+  	  order = min(MAX_ORDER - 1UL, __ffs(start))
+  	  __free_pages_memory(start_pfn, end_pfn)
+  		__free_pages_bootmem(pfn_to_page(start), start, order)
+  		  __free_pages_boot_core(page, order)
+  			__free_pages(page, order)
+```
+
+for_each_free_mem_range对memblock中的可用内存区域进行遍历。对每一段内存调用__free_memory_core释放入buddy系统。
+
+```c++
+#define for_each_free_mem_range(i, nid, flags, p_start, p_end, p_nid)	\
+	for_each_mem_range(i, &memblock.memory, &memblock.reserved,	\
+			   nid, flags, p_start, p_end, p_nid)
+
+#define for_each_mem_range(i, type_a, type_b, nid, flags,		\
+			   p_start, p_end, p_nid)			\
+	for (i = 0, __next_mem_range(&i, nid, flags, type_a, type_b,	\
+				     p_start, p_end, p_nid);		\
+	     i != (u64)ULLONG_MAX;					\
+	     __next_mem_range(&i, nid, flags, type_a, type_b,		\
+			      p_start, p_end, p_nid))
+```
+
+\_\_free_memory_core函数根据start确定order。因为Buddy要求一个内存区间必须满足`idx = n * 2 ^ order`关系。所以这里调用`__ffs(start)`确定start的order数值。start加上2^order后计算下一个区间的区域。循环调用\_\_free_pages函数完成内存释放。__free_pages的将会在第六小结释放页面小结中介绍。
+
+## 五、分配页面
+
+页面的分配主线给出下面伪代码。
+
+```c++
+struct page *alloc_pages(gfp_t gfp_mask, unsigned int order)
+  alloc_pages_current(gfp_mask, order)
+  	__alloc_pages_nodemask(gfp, order, policy_zonelist(gfp, pol, numa_node_id()), ...)
+		get_page_from_freelist(alloc_mask, order, alloc_flags, &ac)
+  			page = buffered_rmqueue(ac->preferred_zoneref->zone, zone, order,...);
+				if (order == 0)
+                  	//单页面的分配使用CPU高速缓存
+                	if (list_empty(list))
+						pcp->count += rmqueue_bulk(zone, 0,
+							pcp->batch, list,
+							migratetype, cold);
+							__rmqueue(zone, order, migratetype)
+						if (unlikely(list_empty(list)))
+							goto failed;
+					if (cold)
+						page = list_last_entry(list, struct page, lru);
+					else
+						page = list_first_entry(list, struct page, lru);
+				else
+                  	//从Buddy中分配多页面
+                	page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+					if (!page)
+                      	//从fallback中分配内存
+                    	page = __rmqueue(zone, order, migratetype);
+			if (page) {
+				prep_new_page(page, order, gfp_mask, alloc_flags);
+		__alloc_pages_slowpath(alloc_mask, order, &ac);
+```
+
+numa_node的确定。
+
+
+```C++
+DECLARE_PER_CPU(int, numa_node);
+static inline int numa_node_id(void)
+{
+	return raw_cpu_read(numa_node);
+}
+```
+
+zonelist的确定。
+
+```C++
+static struct zonelist *policy_zonelist(gfp_t gfp, struct mempolicy *policy,
+	int nd)
+{
+	if (policy->mode == MPOL_PREFERRED && !(policy->flags & MPOL_F_LOCAL))
+		nd = policy->v.preferred_node;
+	else {
+		WARN_ON_ONCE(policy->mode == MPOL_BIND && (gfp & __GFP_THISNODE));
+	}
+	return node_zonelist(nd, gfp);
+}
+static inline struct zonelist *node_zonelist(int nid, gfp_t flags)
+{
+	return NODE_DATA(nid)->node_zonelists + gfp_zonelist(flags);
+}
+```
+
+__alloc_pages_nodemask简化如下：
+
+```C++
+struct page * __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order, struct zonelist *zonelist, nodemask_t *nodemask)
+{
+	struct page *page;
+	unsigned int alloc_flags = ALLOC_WMARK_LOW;
+	gfp_t alloc_mask = gfp_mask; /* The gfp_t that was actually used for allocation */
+	struct alloc_context ac = {
+		.high_zoneidx = gfp_zone(gfp_mask),
+		.zonelist = zonelist,
+		.nodemask = nodemask,
+		.migratetype = gfpflags_to_migratetype(gfp_mask),
+	};
+
+	if (unlikely(!zonelist->_zonerefs->zone))
+		return NULL;
+	//根据参数从zonelist中获取一个最亲和zoneref。
+	ac.preferred_zoneref = first_zones_zonelist(ac.zonelist,
+					ac.high_zoneidx, ac.nodemask);
+	if (!ac.preferred_zoneref->zone) {
+		page = NULL;
+		goto no_zone;
+	}
+	//从分配页面
+	page = get_page_from_freelist(alloc_mask, order, alloc_flags, &ac);
+	if (likely(page))
+		goto out;
+no_zone:
+	//慢速分配
+	page = __alloc_pages_slowpath(alloc_mask, order, &ac);
+out:
+	return page;
+}
+```
+first_zones_zonelist是一个内联函数，只有一条语句`return next_zones_zonelist(zonelist->_zonerefs, highest_zoneidx, nodes)`。
+
+```C++
+static __always_inline struct zoneref *next_zones_zonelist(struct zoneref *z, enum zone_type highest_zoneidx, nodemask_t *nodes)
+{
+	if (likely(!nodes && zonelist_zone_idx(z) <= highest_zoneidx))
+		return z;
+	return __next_zones_zonelist(z, highest_zoneidx, nodes);
+}
+```
+
+get_page_from_freelist的定义为
+
+```C++
+#define for_next_zone_zonelist_nodemask(zone, z, zlist, highidx, nodemask) \
+	for (zone = z->zone;	\
+		zone;							\
+		z = next_zones_zonelist(++z, highidx, nodemask),	\
+			zone = zonelist_zone(z))
+```
+
+接下来会对其内容做暂开
+
+```C++
+static struct page * get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags, const struct alloc_context *ac)
+{
+	struct zoneref *z = ac->preferred_zoneref;
+	struct zone *zone;
+	struct pglist_data *last_pgdat_dirty_limit = NULL;
+
+  	//根据上面的宏展开，这里以zone为变量遍历z
+	for_next_zone_zonelist_nodemask(zone, z, ac->zonelist, ac->high_zoneidx, ac->nodemask) {
+		struct page *page;
+		unsigned long mark;
+
+		if (cpusets_enabled() &&
+			(alloc_flags & ALLOC_CPUSET) &&
+			!__cpuset_zone_allowed(zone, gfp_mask))
+				continue;
+
+		if (ac->spread_dirty_pages) {
+			if (last_pgdat_dirty_limit == zone->zone_pgdat)
+				continue;
+
+			if (!node_dirty_ok(zone->zone_pgdat)) {
+				last_pgdat_dirty_limit = zone->zone_pgdat;
+				continue;
+			}
+		}
+
+		mark = zone->watermark[alloc_flags & ALLOC_WMARK_MASK];
+		if (!zone_watermark_fast(zone, order, mark,
+				       ac_classzone_idx(ac), alloc_flags)) {
+			int ret;
+
+			/* Checked here to keep the fast path fast */
+			BUILD_BUG_ON(ALLOC_NO_WATERMARKS < NR_WMARK);
+			if (alloc_flags & ALLOC_NO_WATERMARKS)
+				goto try_this_zone;
+
+			if (node_reclaim_mode == 0 ||
+			    !zone_allows_reclaim(ac->preferred_zoneref->zone, zone))
+				continue;
+
+			ret = node_reclaim(zone->zone_pgdat, gfp_mask, order);
+			switch (ret) {
+			case NODE_RECLAIM_NOSCAN:
+				continue;
+			case NODE_RECLAIM_FULL:
+				continue;
+			default:
+				if (zone_watermark_ok(zone, order, mark,
+						ac_classzone_idx(ac), alloc_flags))
+					goto try_this_zone;
+
+				continue;
+			}
+		}
+
+try_this_zone:
+		//从最亲和zone上分配页面
+		page = buffered_rmqueue(ac->preferred_zoneref->zone, zone, order,
+				gfp_mask, alloc_flags, ac->migratetype);
+		if (page) {
+			prep_new_page(page, order, gfp_mask, alloc_flags);
+
+			if (unlikely(order && (alloc_flags & ALLOC_HARDER)))
+				reserve_highatomic_pageblock(page, zone, order);
+
+			return page;
+		}
+	}
+
+	return NULL;
+}
+```
+
+
+
+```C++
+static inline struct page *buffered_rmqueue(struct zone *preferred_zone, struct zone *zone, unsigned int order, gfp_t gfp_flags, unsigned int alloc_flags, int migratetype)
+{
+	unsigned long flags;
+	struct page *page;
+	bool cold = ((gfp_flags & __GFP_COLD) != 0);
+	if (likely(order == 0)) {
+		//order为零，则从CPU高速缓冲中快速分配
+		struct per_cpu_pages *pcp;
+		struct list_head *list;
+		do {
+			pcp = &this_cpu_ptr(zone->pageset)->pcp;
+			list = &pcp->lists[migratetype];
+			if (list_empty(list)) {
+              	//高速缓存中如果没有页面，则从Buddy中分配pcp->batch个页面装入缓存
+				pcp->count += rmqueue_bulk(zone, 0,
+						pcp->batch, list,
+						migratetype, cold);
+				if (unlikely(list_empty(list)))
+					goto failed;
+			}
+			if (cold)
+				page = list_last_entry(list, struct page, lru);
+			else
+				page = list_first_entry(list, struct page, lru);
+			list_del(&page->lru);
+			pcp->count--;
+		} while (check_new_pcp(page));
+	} else {
+		do {
+			page = NULL;
+			if (alloc_flags & ALLOC_HARDER) {
+              	//从zone中分配order个缓存
+				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+			}
+			if (!page)
+				//以慢速分配
+				page = __rmqueue(zone, order, migratetype);
+		} while (page && check_new_pages(page, order));
+		if (!page)
+			goto failed;
+		__mod_zone_freepage_state(zone, -(1 << order),
+					  get_pcppage_migratetype(page));
+	}
+	zone_statistics(preferred_zone, zone);
+	return page;
+failed:
+	return NULL;
+}
+```
+
+__rmqueue_smallest从最小满足order的freearea中取出页面page。然后再对page进行分割存入对应的空闲链表。
+
+```C++
+static inline struct page *__rmqueue_smallest(struct zone *zone, unsigned int order, int migratetype)
+{
+	unsigned int current_order;
+	struct free_area *area;
+	struct page *page;
+
+	//尽量从当前order中选择，如果当前order不满足需求，则增大order
+	for (current_order = order; current_order < MAX_ORDER; ++current_order) {
+		area = &(zone->free_area[current_order]);
+		//从free_list分配一部分
+		page = list_first_entry_or_null(&area->free_list[migratetype], struct page, lru);
+		if (!page)
+			continue;
+		list_del(&page->lru);
+		rmv_page_order(page);
+		area->nr_free--;
+		//order表示目标order，current_order表示当前分配的order
+      	//expand会对缓存进行拆分
+		expand(zone, page, order, current_order, area, migratetype);
+		set_pcppage_migratetype(page, migratetype);
+		return page;
+	}
+	return NULL;
+}
+```
+
+expand对缓存进行拆分，比如原本的buddy对象包含8个页面（order=3），而你只要3个页面，所以它可以拆分为4+1个页面。
+
+```c++
+static inline void expand(struct zone *zone, struct page *page, int low, int high, struct free_area *area, int migratetype)
+{
+	unsigned long size = 1 << high;
+	while (high > low) {
+      	//逐步逼近最小尺寸
+		area--;
+		high--;
+      	//全部区间的一半（前半部分肯定有一部分被分配了）
+		size >>= 1;
+		//把page链入area->free_list[migratetype]
+		list_add(&page[size].lru, &area->free_list[migratetype]);
+		area->nr_free++;
+      	//设置page的private值为目标order
+		set_page_order(&page[size], high);
+	}
+}
+```
+回顾，buddy的分配顺序为根据nodeid从node_data中查找pglist_data。然后根据迁移类型从pglist_data->node_zonelists中查找zonelist。根据参数从zonelist中获取一个最亲和的zoneref，每个zoneref都对应一个zone。根据order从zone中获取free_area,并根据迁移类型分配对应的page。
+
+## 六、释放页面##
+
+释放页面从free_pages函数开始，它的主线调用栈如下。
+
+```c++
+void free_pages(unsigned long addr, unsigned int order)
+	__free_pages(virt_to_page((void *)addr), order)
+	if order==0
+		//如果是一个页面，则直接放入CPU高速缓冲中
+		free_hot_cold_page(page, false);
+	else
+		__free_pages_ok(page, order);
+			free_one_page(page_zone(page), page, pfn, order, migratetype)
+			__free_one_page(page, pfn, zone, order, migratetype)
+```
+
+free_one_page根据page获取页面的zone区域和迁移类型，首先分析zone区域的确定。
+
+```c++
+static inline struct zone *page_zone(const struct page *page)
+{
+	return &NODE_DATA(page_to_nid(page))->node_zones[page_zonenum(page)];
+}
+extern struct pglist_data *node_data[];
+#define NODE_DATA(nid)		(node_data[nid])
+int page_to_nid(const struct page *page)
+{
+	return section_to_node_table[page_to_section(page)];
+}
+static inline unsigned long page_to_section(const struct page *page)
+{
+	return (page->flags >> SECTIONS_PGSHIFT) & SECTIONS_MASK;
+}
+```
+
+迁移类型的确定。__free_pages_ok使用下面方法获取迁移类型。
+
+```c++
+migratetype = get_pfnblock_migratetype(page, pfn);
+	__get_pfnblock_flags_mask(page, pfn, PB_migrate_end, MIGRATETYPE_MASK)
+```
+
+确定zone和前一类型之后，继续调用__free_one_page进一步处理。
+
+```c++
+static inline void __free_one_page(struct page *page, unsigned long pfn, struct zone *zone, unsigned int order, int migratetype)
+{
+	unsigned long page_idx;
+	unsigned long combined_idx;
+	unsigned long uninitialized_var(buddy_idx);
+	struct page *buddy;
+	unsigned int max_order;
+
+	//#define pageblock_order (MAX_ORDER-1)
+	max_order = min_t(unsigned int, MAX_ORDER, pageblock_order + 1);
+
+	if (likely(!is_migrate_isolate(migratetype)))
+		__mod_zone_freepage_state(zone, 1 << order, migratetype);
+	page_idx = pfn & ((1 << MAX_ORDER) - 1);
+continue_merging:
+	//这里为何减一？
+	while (order < max_order - 1) {
+		//page所在的group的下一个page或则上一个page编号
+		buddy_idx = __find_buddy_index(page_idx, order);
+		//
+		buddy = page + (buddy_idx - page_idx);
+		if (!page_is_buddy(page, buddy, order))
+			//这个page的order不是order
+			goto done_merging;
+		if (page_is_guard(buddy)) {
+			clear_page_guard(zone, buddy, order, migratetype);
+		} else {
+			list_del(&buddy->lru);
+			zone->free_area[order].nr_free--;
+			rmv_page_order(buddy);
+		}
+		//合并后较小的page
+		combined_idx = buddy_idx & page_idx;
+		page = page + (combined_idx - page_idx);
+		page_idx = combined_idx;
+		order++;
+	}
+	if (max_order < MAX_ORDER) {
+		if (unlikely(has_isolate_pageblock(zone))) {
+			int buddy_mt;
+			buddy_idx = __find_buddy_index(page_idx, order);
+			buddy = page + (buddy_idx - page_idx);
+			buddy_mt = get_pageblock_migratetype(buddy);
+			if (migratetype != buddy_mt
+					&& (is_migrate_isolate(migratetype) ||
+						is_migrate_isolate(buddy_mt)))
+				goto done_merging;
+		}
+		max_order++;
+		goto continue_merging;
+	}
+done_merging:
+	set_page_order(page, order);
+
+	if ((order < MAX_ORDER-2) && pfn_valid_within(page_to_pfn(buddy))) {
+		struct page *higher_page, *higher_buddy;
+		combined_idx = buddy_idx & page_idx;
+		higher_page = page + (combined_idx - page_idx);
+		buddy_idx = __find_buddy_index(combined_idx, order + 1);
+		higher_buddy = higher_page + (buddy_idx - combined_idx);
+		if (page_is_buddy(higher_page, higher_buddy, order + 1)) {
+			list_add_tail(&page->lru,
+				&zone->free_area[order].free_list[migratetype]);
+			goto out;
+		}
+	}
+	//把page存入目标free_area，完成回收过程
+	list_add(&page->lru, &zone->free_area[order].free_list[migratetype]);
+out:
+	zone->free_area[order].nr_free++;
+}
+```
+回顾，buddy系统首先获取pglist_data，根据numaid从pdlist->node_zones中获取对应的zone和迁移类型，然后通过递归方式，根据page页面的位置和前后页面的状态，完成空闲页面的合并，并把新的较大的页面区间放入相应的freearea中。

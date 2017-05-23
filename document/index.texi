@@ -52,57 +52,62 @@ This manual is for program, version version.
 @node Main index
 @chapter Main index
 
-@itemize @bullet
+@itemize
 @item
 @b{Ubuntu study} @url{ubuntu_study/index.html,view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{Linux basic} @url{linux_basic.html,view}
 @end itemize
 
-@itemize @bullet
+@itemize
+@item
+@b{Linux Kernel} @url{linux_kernel/index.html,view}
+@end itemize
+
+@itemize
 @item
 @b{Essential tools} @url{essential_tools.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{System development} @url{system_development.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{Program} @url{program.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{Open source} @url{open_source.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{Computer vision} @url{computer_vision.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{CPU} @url{cpu.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{Security} @url{./security/index.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{Android} @url{./android/index.html, view}
 @end itemize
 
-@itemize @bullet
+@itemize
 @item
 @b{Container} @url{./container/index.html, view}
 @end itemize

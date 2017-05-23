@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Container
+@settitle Linux kernel
 
 @copying
 This manual is for Document, version 1.0.
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by
+Published by 
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,22 +35,42 @@ Published by
 
 @ifnottex
 @node Top
-@top Container
+@top Linux kernel
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Container::
+* Linux kernel::
 @c * Copying::
 @end menu
 
-@node Container
-@chapter Container
+@node Linux kernel
+@chapter Linux kernel
 
 @itemize
 @item
-@b{Docker} @url{./docker/index.html, view}
+@b{Compile} @url{./compile.html, view}
+@end itemize
+
+@itemize
+@item
+@b{Buddy} @url{./buddy.html, view}
+@end itemize
+
+@itemize
+@item
+@b{slub} @url{./slub.html, view}
+@end itemize
+
+@itemize
+@item
+@b{process} @url{./process.html, view}
+@end itemize
+
+@itemize
+@item
+@b{softirq} @url{./softirq.html, view}
 @end itemize
 
 @bye

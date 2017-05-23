@@ -1,0 +1,387 @@
+<p><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></p>
+<h1 id="compile">Compile</h1>
+<p>Author: Dalink</p>
+<h2 id="一编译的输入与输出">一、编译的输入与输出</h2>
+<h3 id="源文件">1、源文件</h3>
+<p>Linux支持X86、PowerPC、ARM等各个硬件平台，它的源码分层组织。平台相关的代码则在arch目录下，其它代码大多与平台无关。arch下的各个文件夹代表了各个硬件平台。我们这里主要分析x86平台实现。</p>
+<p>需要注意的是，arch/x86/boot下有个head.S文件，而arch/x86/boot下有head_32.S和head_64.S文件，它们的命名较为相识，读者需要注意加以区分。读者还应该注意到几乎每个目录下都会有一个Makefile文件，而scripts目录又有大量的“脚本”文件，这些Makefile文件和“脚本”文件构成了kernel的编译框架。</p>
+<div class="figure">
+<img src="./1.png" />
+
+</div>
+<h3 id="产出">2、产出</h3>
+<h4 id="menuconfig">menuconfig</h4>
+<p>执行<code>make menuconfig</code>在跟目录下生成一个配置文件<code>.config</code>。</p>
+<h4 id="bzimage">bzImage</h4>
+<p>bzImage是Linux的编译结果之一，它是一个可引导的文件，它的前部由ELF格式的引导程序组成，后部分为内核核心压缩得到。接下来主要探讨从源码到生成这个文件的过程。</p>
+<h4 id="modules">modules</h4>
+<p><code>make modules</code>命令用来构建模块。你也可以执行<code>make all</code>同时构建bzImage和modules。</p>
+<h4 id="install">install</h4>
+<p><code>make install</code>命令将编译结果安装到系统。它通过执行arch/x86/boot/install.sh用来实现安装功能。</p>
+<h4 id="生成文档">生成文档</h4>
+<p><code>make pdfdocs</code>用来生成目录。</p>
+<h4 id="help">help</h4>
+<p><code>make help</code> 用来查看帮助。</p>
+<h3 id="makefile内置函数">3、Makefile内置函数</h3>
+<blockquote>
+<p>substr</p>
+</blockquote>
+<pre><code>#把字符串&lt;text&gt;中的&lt;from&gt;替换成&lt;to&gt;
+$(substr &lt;from&gt;,&lt;to&gt;,&lt;text&gt;)</code></pre>
+<blockquote>
+<p>strip</p>
+</blockquote>
+<pre><code>#去掉&lt;text&gt;字符串中开头和结尾的空字符
+$(substr &lt;from&gt;,&lt;to&gt;,&lt;text&gt;)</code></pre>
+<blockquote>
+<p>patsubst</p>
+</blockquote>
+<pre><code>#把&lt;src&gt;中符合&lt;from&gt;的替换成&lt;to&gt;
+$(patsubst &lt;from&gt;,&lt;to&gt;,&lt;src&gt;)</code></pre>
+<blockquote>
+<p>filter</p>
+</blockquote>
+<pre><code>#过滤&lt;src&gt;中不符合&lt;pattern&gt;
+$(filter &lt;pattern&gt;,&lt;src&gt;)</code></pre>
+<blockquote>
+<p>filter-out</p>
+</blockquote>
+<pre><code>#过滤&lt;src&gt;中符合&lt;pattern&gt;
+$(filter-out &lt;pattern&gt;,&lt;src&gt;)</code></pre>
+<blockquote>
+<p>wildcard</p>
+</blockquote>
+<pre><code>#寻找当前目录下符合filter条件的变量
+$(wildcard &lt;filter&gt;)</code></pre>
+<blockquote>
+<p>dir</p>
+</blockquote>
+<pre><code>#过滤&lt;src&gt;中的非目录
+$(dir &lt;src&gt;)</code></pre>
+<blockquote>
+<p>9、notdir</p>
+</blockquote>
+<pre><code>#过滤&lt;src&gt;中的目录
+$(notdir &lt;src&gt;)</code></pre>
+<blockquote>
+<p>10、basename</p>
+</blockquote>
+<pre><code>#取&lt;src&gt;中点号之前的名字（包含路径）
+$(basename &lt;src&gt;)</code></pre>
+<h1 id="二编译文件结构分析">二、编译文件结构分析</h1>
+<h3 id="makefile分析">1、Makefile分析</h3>
+<p>主Makefile的开头定义定义了目标版本。这里定义的版本为4.10.1。教程中几乎所有的代码第一行都会有一个形如<code>&lt;file&gt; : &lt;line&gt;</code>格式的指示，它指明接下来的代码位于<code>file</code>文件<code>line</code>行。</p>
+<pre><code>#Makefile ： 1
+VERSION = 4
+PATCHLEVEL = 10
+SUBLEVEL = 1
+EXTRAVERSION =
+NAME = Fearless Coyote</code></pre>
+<p>69~82行从命令行中读取V参数，该参数将会决定编译过程是否输出编译指令，用户通过在指令中添加V参数以实现详细结果的输出，例如<code>make -V=1 all</code>。origin是Makefile内建函数，该函数用来获取一个变量的来源。第一张，已经对这些函数做一个统一的整理，当然你返回查看它们的用法。这里，读取V变量是否是命令行参数设置的，如果是的就设置KBUILD_VERBOSE为1，quiet和Q为空。command前面带有@表示不打印command，静默执行，这类Makefile知识读者可以在网上阅读相关教程。</p>
+<pre><code>#Makefile ： 69
+ifeq (&quot;$(origin V)&quot;, &quot;command line&quot;)
+    KBUILD_VERBOSE = $(V)
+endif
+ifndef KBUILD_VERBOSE
+    KBUILD_VERBOSE = 0
+endif
+
+ifeq ($(KBUILD_VERBOSE),1)
+    quiet =
+    Q =
+else
+    quiet=quiet_
+    Q = @
+endif</code></pre>
+<p>97行，<code>export quiet Q KBUILD_VERBOSE</code>将会把这些变量导出。被导出的变量将会传递给Makefile子命令。</p>
+<p>186~192行， SUBDIRS变量保存了外部模块的编译目录，例如，当你开发一个设备驱动的时候，你的工作目录并不在Linux源代码目录下，那么你可以通过这个设置这个变量，用以实现关联编译。默认情况下，SUBDIRS变量未定义。 你也可以通过为Make命令添加-M参数指定这个目录。这两种方式指定的变量最终会汇总到KBUILD_EXTMOD变量。当然我们没有设置这些参数和变量，该变量也是为空。</p>
+<pre><code># Makefile ： 186
+ifdef SUBDIRS
+  KBUILD_EXTMOD ?= $(SUBDIRS)
+endif
+
+ifeq (&quot;$(origin M)&quot;, &quot;command line&quot;)
+  KBUILD_EXTMOD := $(M)
+endif</code></pre>
+<p>228~234行用以获取当前的硬件平台。</p>
+<pre><code>#Makefile ： 228
+SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/x86_64/x86/ \
+                  -e s/sun4u/sparc64/ \
+                  -e s/arm.*/arm/ -e s/sa110/arm/ \
+                  -e s/s390x/s390/ -e s/parisc64/parisc/ \
+                  -e s/ppc.*/powerpc/ -e s/mips.*/mips/ \
+                  -e s/sh[234].*/sh/ -e s/aarch64.*/arm64/ )</code></pre>
+<p>344行，主Makefile导入scripts/Kbuild.include文件。该文件内置了大量的自定义变量，这些变量对随后的编译过程非常关键。比如<code>if_changed</code>就位于该文件。</p>
+<pre><code>#Makefile ： 344
+include scripts/Kbuild.include</code></pre>
+<p>539行，首页将arch/x86/Makefile导入该文件中。也就是说arch/x86/Makefile的执行并不是以<code>make -f或-c的方式执行</code>，读者需要注意这一点。</p>
+<pre><code>#Makefile ： 539
+include arch/$(SRCARCH)/Makefile</code></pre>
+<h3 id="配置文件的导入">2、配置文件的导入</h3>
+<p>294行，<code>KCONFIG_CONFIG    ?= .config</code>，定义了KCONFIG_CONFIG变量指向.config配置文件。587~588行，表达了从.config配置文件到旧版配置文件的生成过程。命令展开后为<code>make -f Makefile silentoldconfig</code>，开始构建silentoldconfig目标。</p>
+<pre><code>#Makefile ： 294
+include/config/%.conf: $(KCONFIG_CONFIG) include/config/auto.conf.cmd
+    $(Q)$(MAKE) -f $(srctree)/Makefile silentoldconfig</code></pre>
+<h3 id="scriptskbuild.include分析">3、scripts/Kbuild.include分析</h3>
+<p>180定义了build变量，这个变量十分重要，构成了整个内核编译的骨架。使用形如<code>$(Q)$(MAKE) $(build)=dir target</code>的命令将会展开为<code>make -f scripts/Makefile.build obj=dir target</code>。make命令将会去处理scripts/Makefile.build文件，传入obj参数为dir，指定目标target。</p>
+<pre><code>#scripts/Kbuild.include ： 180
+build := -f $(srctree)/scripts/Makefile.build obj</code></pre>
+<p>此时又引入了另外一个十分重要的文件，scripts/Makefile.build，稍后会对其分析。</p>
+<p>Kbuild.include定义了大量的扩展函数。 ##### if_changed ##### any-prereq代表所有比target新的prerequisites，同时过滤PHONY目标。如果存在依赖比目标新的话就会执行<code>cmd_(第一个参数)</code>命令。同时把执行命令写入到 $(dot-target).cmd文件。</p>
+<pre><code>@set -e;
+$(echo-cmd) $(cmd_$(1));
+printf &#39;%s\n&#39; &#39;cmd_$@ := $(make-cmd)&#39; &gt; $(dot-target).cmd`
+
+
+
+#Kbuild.include : 254
+any-prereq = $(filter-out $(PHONY),$?) $(filter-out $(PHONY) $(wildcard $^),$^)
+
+# Execute command if command has changed or prerequisite(s) are updated.
+#
+if_changed = $(if $(strip $(any-prereq) $(arg-check)),                       \
+    @set -e;                                                             \
+    $(echo-cmd) $(cmd_$(1));                                             \
+    printf &#39;%s\n&#39; &#39;cmd_$@ := $(make-cmd)&#39; &gt; $(dot-target).cmd, @:)</code></pre>
+<p>if_changed_rule也是用来检验规则。如果依赖比目标新，则执行$(rule_(第一个参数))命令。</p>
+<pre><code>if_changed_rule = $(if $(strip $(any-prereq) $(arg-check) ),                 \
+@set -e;                                                             \
+$(rule_$(1)), @:)</code></pre>
+<h3 id="scriptsmakefile.build分析">4、scripts/Makefile.build分析</h3>
+<p>5行，<code>src := $(obj)</code>，将obj赋值给src，src代表目标编译目录。</p>
+<p>36行，该文件同样导入scripts/Kbuild.include文件。</p>
+<pre><code>#scripts/Makefile.build ： 36
+include scripts/Kbuild.include</code></pre>
+<p>41~44行，获取目标目录下的Makefile文件（或Kbuild文件），然后将该文件导入。也就是说，make的执行范围为scripts/Makefile.build、scripts/Makefile.build和目标目录下的Makefile文件。</p>
+<pre><code>#scripts/Makefile.build ： 41
+kbuild-dir := $(if $(filter /%,$(src)),$(src),$(srctree)/$(src))
+kbuild-file := $(if $(wildcard $(kbuild-dir)/Kbuild),$(kbuild-dir)/Kbuild,$(kbuild-dir)/Makefile)
+include $(kbuild-file)</code></pre>
+<p>293~295行，指定了C源代码到目标文件的编译。下面还有一些其他类型的编译过程，比如汇编的编译，链接等。编译的“核心步骤”被层层包装设计，竟然缩在这个“角落”。</p>
+<pre><code>#scripts/Makefile.build ： 293
+$(obj)/%.o: $(src)/%.c $(recordmcount_source) $(objtool_obj) FORCE
+    $(call cmd,force_checksrc)
+    $(call if_changed_rule,cc_o_c)</code></pre>
+<p>394~395行，指定了S源代码到目标文件的编译。</p>
+<pre><code>#scripts/Makefile.build ： 394
+$(obj)/%.o: $(src)/%.S $(objtool_obj) FORCE
+    $(call if_changed_rule,as_o_S)</code></pre>
+<h2 id="三构建过程">三、构建过程</h2>
+<h3 id="目标依赖分析">1、目标依赖分析</h3>
+<p>用户执行<code>make all</code>命令开始编译。</p>
+<p>all目标必然定义于主Makefile文件。前面已经知道，arch/x86/Makefile被include到主Makefile中，所以目标的依赖需要同时搜索这两个文件。搜索两个Makefile文件中可以发现all的两个依赖分别是vmlinux、modules和bzImage。</p>
+<pre><code>#Makefile : 621
+all: vmlinux
+
+#Makefile : 1186
+all: modules
+
+#arch/x86/Makefile : 236
+all: bzImage</code></pre>
+<p>vmlinux依赖四个目标，其中FORCE为空伪目标，读者可以查看源代码自行分析。其依赖vmlinux_prereq和<span class="math inline">(<em>v</em><em>m</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em> − <em>d</em><em>e</em><em>p</em><em>s</em>)，<em>v</em><em>m</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em><sub><em>p</em></sub><em>r</em><em>e</em><em>r</em><em>e</em><em>q</em><em>也</em><em>依</em><em>赖</em></span>(vmlinux-deps)。</p>
+<pre><code>#Makefile : 945
+vmlinux_prereq: $(vmlinux-deps) FORCE
+ifdef CONFIG_HEADERS_CHECK
+    $(Q)$(MAKE) -f $(srctree)/Makefile headers_check
+endif
+ifdef CONFIG_GDB_SCRIPTS
+    $(Q)ln -fsn `cd $(srctree) &amp;&amp; /bin/pwd`/scripts/gdb/vmlinux-gdb.py
+endif
+ifdef CONFIG_TRIM_UNUSED_KSYMS
+    $(Q)$(CONFIG_SHELL) $(srctree)/scripts/adjust_autoksyms.sh \
+      &quot;$(MAKE) -f $(srctree)/Makefile vmlinux&quot;
+endif
+
+#Makefile : 968
+vmlinux: scripts/link-vmlinux.sh vmlinux_prereq $(vmlinux-deps) FORCE
+    +$(call if_changed,link-vmlinux)</code></pre>
+<p>可以画出依赖关系：</p>
+<pre><code>vmlinux——————→vmlinux_prereq—————→$(vmlinux-deps)
+   |___________________________________↑</code></pre>
+<p>vmlinux_prereq展开为</p>
+<ul>
+<li>arch/x86/kernel/head_64.o———————————————————↘head-y</li>
+<li>arch/x86/kernel/head64.o</li>
+<li>arch/x86/kernel/ebda.o</li>
+<li>arch/x86/kernel/platform-quirks.o</li>
+<li>init/built-in.o—————————————————————————————↘init-y</li>
+<li>arch/x86/built-in.o—————————————————————————↘core-y</li>
+<li>usr/built-in.o</li>
+<li>kernel/built-in.o</li>
+<li>certs/built-in.o</li>
+<li>mm/built-in.o</li>
+<li>fs/built-in.o</li>
+<li>ipc/built-in.o</li>
+<li>security/built-in.o</li>
+<li>crypto/built-in.o</li>
+<li>block/built-in.o</li>
+<li>lib/lib.a———————————————————————————————————↘lib-y</li>
+<li>arch/x86/lib/lib.a</li>
+<li>lib/built-in.o</li>
+<li>arch/x86/lib/built-in.o</li>
+<li>drivers/built-in.o——————————————————————————↘drivers-y</li>
+<li>sound/built-in.o</li>
+<li>firmware/built-in.o</li>
+<li>net/built-in.o——————————————————————————————↘net-y</li>
+</ul>
+<p>读者可以根据上面的列表对照源代码目录，查看这些目标的的覆盖范围。</p>
+<pre><code>#arch/x86/Makefile : 202
+head-y := arch/x86/kernel/head_$(BITS).o
+head-y += arch/x86/kernel/head$(BITS).o
+head-y += arch/x86/kernel/ebda.o
+head-y += arch/x86/kernel/platform-quirks.o 
+
+libs-y  += arch/x86/lib/
+
+# See arch/x86/Kbuild for content of core part of the kernel
+core-y += arch/x86/
+
+#Makefile : 563
+init-y      := init/
+drivers-y   := drivers/ sound/ firmware/
+net-y       := net/
+libs-y      := lib/
+core-y      := usr/
+virt-y      := virt/
+
+#Makefile : 913
+core-y      += kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/
+
+#Makefile : 922
+init-y      := $(patsubst %/, %/built-in.o, $(init-y))
+core-y      := $(patsubst %/, %/built-in.o, $(core-y))
+drivers-y   := $(patsubst %/, %/built-in.o, $(drivers-y))
+net-y       := $(patsubst %/, %/built-in.o, $(net-y))
+libs-y1     := $(patsubst %/, %/lib.a, $(libs-y))
+libs-y2     := $(patsubst %/, %/built-in.o, $(libs-y))
+libs-y      := $(libs-y1) $(libs-y2)
+virt-y      := $(patsubst %/, %/built-in.o, $(virt-y))
+
+#Makefile : 932
+export KBUILD_VMLINUX_INIT := $(head-y) $(init-y)
+export KBUILD_VMLINUX_MAIN := $(core-y) $(libs-y) $(drivers-y) $(net-y) $(virt-y)
+
+#sMakefile : 939
+vmlinux-deps := $(KBUILD_LDS) $(KBUILD_VMLINUX_INIT) $(KBUILD_VMLINUX_MAIN)</code></pre>
+<p>下面查看bzImage的依赖。</p>
+<p>bzImage依赖vmlinux，接下来执行<code>make</code>开始为boot目录构建目标KBUILD_IMAGE。KBUILD_IMAGE变量值为$(boot)/bzImage，arch/x86/Makefile 239行。</p>
+<pre><code>#arch/x86/Makefile : 240
+bzImage: vmlinux
+ifeq ($(CONFIG_X86_DECODER_SELFTEST),y)
+    $(Q)$(MAKE) $(build)=arch/x86/tools posttest
+endif
+    $(Q)$(MAKE) $(build)=$(boot) $(KBUILD_IMAGE)
+    $(Q)mkdir -p $(objtree)/arch/$(UTS_MACHINE)/boot
+    $(Q)ln -fsn ../../x86/boot/bzImage $(objtree)/arch/$(UTS_MACHINE)/boot/$@</code></pre>
+<p>可以画出依赖关系：</p>
+<pre><code>all—————————————&gt;vmlinux——————&gt;vmlinux_prereq
+  |                 ↑
+  |                 |
+  |—————bzImage————→|
+  |—————————————————————————————————modules</code></pre>
+<p>arch/x86/boot/bzImage依赖arch/x86/boot/setup.bin arch/x86/boot/vmlinux.bin arch/x86/boot/tools/build。可以看出bzImage由两部分组成，分别是setup.bin和vmlinux.bin，最后通过image命令组合在一起。这里的分析要分成两路。首先分析vmlinux.bin的构建。可以看到，使用build程序传入setup.bin、vmlinux、bin、zoffset.h、bzImage参数用以生成目标。读者可以分析build源码，查看它的详细生成过程。</p>
+<pre><code>#arch/x86/boot/Makefile : 75
+quiet_cmd_image = BUILD   $@
+cmd_image = $(obj)/tools/build $(obj)/setup.bin $(obj)/vmlinux.bin \
+               $(obj)/zoffset.h $@
+
+$(obj)/bzImage: $(obj)/setup.bin $(obj)/vmlinux.bin $(obj)/tools/build FORCE
+    $(call if_changed,image)
+    @echo &#39;Kernel: $@ is ready&#39; &#39; (#&#39;`cat .version`&#39;)&#39;</code></pre>
+<p>生成的arch/x86/boot/zoffset.h文件内容：</p>
+<pre><code>#define</code></pre>
+<p>arch/x86/boot/vmlinux.bin依赖arch/x86/boot/compressed/vmlinux，arch/x86/boot/compressed/vmlinux为一个elf文件，利用objcopy命令删去.note、.comment、可重定位信息表和符号信息表（-S参数）。</p>
+<pre><code>#arch/x86/boot/Makefile : 83
+OBJCOPYFLAGS_vmlinux.bin := -O binary -R .note -R .comment -S
+$(obj)/vmlinux.bin: $(obj)/compressed/vmlinux FORCE
+    $(call if_changed,objcopy)</code></pre>
+<p>arch/x86/boot/compressed/vmlinux依赖伪目标,所以它的的command一定会执行。make处理arch/x86/boot/compressed目录的arch/x86/boot/compressed/vmlinux目标。Makefile中，$<span class="citation">@代表这一关系的目标</span>。</p>
+<pre><code>#arch/x86/boot/Makefile : 110
+$(obj)/compressed/vmlinux: FORCE
+    $(Q)$(MAKE) $(build)=$(obj)/compressed $@</code></pre>
+<p>在arch/x86/boot/compressed/Makefile，arch/x86/boot/compressed/vmlinux依赖arch/x86/boot/compressed/vmlinux.lds、arch/x86/boot/compressed/head_64.o、arch/x86/boot/compressed/misc.o 、 arch/x86/boot/compressed/string.o、 arch/x86/boot/compressed/cmdline.o arch/x86/boot/compressed/error.o 、 arch/x86/boot/compressed/piggy.o 和 arch/x86/boot/compressed/cpuflags.o。注意下面的文件与上一条的区别，它们不再同一个Makefile文件中，下面的Makefile文件（即）是由上一个Makefile驱动的，参考前面一段话的描述。</p>
+<pre><code>#arch/x86/boot/compressed/Makefile : 104
+$(obj)/vmlinux: $(vmlinux-objs-y) FORCE
+$(call if_changed,check_data_rel)
+$(call if_changed,ld)</code></pre>
+<p>piggy.o 依赖 piggy.S。而piggy.S这个文件又是动态生成的，它依赖<span class="math inline">(<em>o</em><em>b</em><em>j</em>)/<em>v</em><em>m</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em>.<em>b</em><em>i</em><em>n</em>.<em>x</em><em>z</em>。</span>(obj)/vmlinux.bin.xz又依赖<span class="math inline">(<em>o</em><em>b</em><em>j</em>)/<em>v</em><em>m</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em>.<em>b</em><em>i</em><em>n</em>。</span>(obj)/vmlinux.bin又依赖于vmlinux。读者可以分析文件。</p>
+<p>我们的环境下，<code>CONFIG_KERNEL_XZ=y</code>，可以推导<code>suffix-y=xz</code>。所以piggy.S依赖vmlinux.bin.xz和mkpiggy。变量vmlinux.bin.all-y为$(obj)/vmlinux.bin。</p>
+<p><code>objc -R .comment -S</code>处理vmlinux，生成<span class="math inline">(<em>o</em><em>b</em><em>j</em>)/<em>v</em><em>m</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em>.<em>b</em><em>i</em><em>n</em><em>文</em><em>件</em>。<em>x</em><em>z</em><em>k</em><em>e</em><em>r</em><em>n</em><em>命</em><em>令</em><em>将</em></span>(obj)/vmlinux.bin处理成<span class="math inline">(<em>o</em><em>b</em><em>j</em>)/<em>v</em><em>m</em><em>l</em><em>i</em><em>n</em><em>u</em><em>x</em>.<em>b</em><em>i</em><em>n</em>.<em>x</em><em>z</em>。<em>m</em><em>k</em><em>p</em><em>i</em><em>g</em><em>g</em><em>y</em><em>程</em><em>序</em><em>根</em><em>据</em></span>(obj)/vmlinux.bin.xz得到piggy.S。然后ld把这些目标文件链接输出为arch/x86/boot/compressed/vmlinux。</p>
+<pre><code>#arch/x86/boot/compressed/Makefile : 108
+OBJCOPYFLAGS_vmlinux.bin :=  -R .comment -S
+$(obj)/vmlinux.bin: vmlinux FORCE
+    $(call if_changed,objcopy)
+
+#arch/x86/boot/compressed/Makefile : 143
+quiet_cmd_mkpiggy = MKPIGGY $@
+  cmd_mkpiggy = $(obj)/mkpiggy $&lt; &gt; $@ || ( rm -f $@ ; false )
+
+targets += piggy.S
+$(obj)/piggy.S: $(obj)/vmlinux.bin.$(suffix-y) $(obj)/mkpiggy FORCE
+    $(call if_changed,mkpiggy)
+
+#arch/x86/boot/compressed/Makefile : 129
+$(obj)/vmlinux.bin.xz: $(vmlinux.bin.all-y) FORCE
+    $(call if_changed,xzkern)</code></pre>
+<p>piggy.S在编译的时候会把arch/x86/boot/compressed/vmlinux.bin.xz读入到自己的一个名为.rodata..compressed的section中，查看piggy.S文件可知。</p>
+<p>笔者的piggy.S内容为：</p>
+<pre><code>.section &quot;.rodata..compressed&quot;,&quot;a&quot;,@progbits
+.globl z_input_len
+z_input_len = 3866132
+.globl z_output_len
+z_output_len = 19470760
+.globl input_data, input_data_end
+input_data:
+.incbin &quot;arch/x86/boot/compressed/vmlinux.bin.xz&quot;
+input_data_end:</code></pre>
+<p>继续分析可知vmlinux.bin.xz依赖arch/x86/boot/compressed/vmlinux.bin，arch/x86/boot/compressed/vmlinux.bin依赖vmlinux。画出依赖关系图：</p>
+<pre><code>arch/x86/boot/bzImage————→arch/x86/boot/vmlinux.bin—————→arch/x86/boot/compressed/vmlinux————→
+        |                                                                                    |
+        |                  ←————————arch/x86/boot/compressed/vmlinux.bin.xz←—————piggy.S←————↓
+        ↓                  ↓
+arch/x86/boot/setup.bin    —————————→arch/x86/boot/compressed/vmlinux.bin—————————————→vmlinux</code></pre>
+<p>文件由此生成。我们回到bzImage的依赖，刚才分析到bzImage的另一个依赖为setup.bin。接下来分析setup.bin的构建。</p>
+<p>setup.bin依赖setup.elf,</p>
+<p>setup.elf依赖$(src)/setup.ld、arch/x86/boot/*.o。需要注意的是，head.o依赖zoffset.h，zoffset.h又是由vmlinux动态生成的。</p>
+<pre><code>#arch/x86/boot/Makefile : 99
+quiet_cmd_zoffset = ZOFFSET $@
+      cmd_zoffset = $(NM) $&lt; | sed -n $(sed-zoffset) &gt; $@
+
+targets += zoffset.h
+$(obj)/zoffset.h: $(obj)/compressed/vmlinux FORCE
+    $(call if_changed,zoffset)
+
+
+AFLAGS_header.o += -I$(objtree)/$(obj)
+$(obj)/header.o: $(obj)/zoffset.h
+
+LDFLAGS_setup.elf   := -T
+$(obj)/setup.elf: $(src)/setup.ld $(SETUP_OBJS) FORCE
+    $(call if_changed,ld)
+
+OBJCOPYFLAGS_setup.bin  := -O binary
+$(obj)/setup.bin: $(obj)/setup.elf FORCE
+    $(call if_changed,objcopy)</code></pre>
+<p>笔者得到的zoffset.h的内容为</p>
+<pre><code>#define ZO__ehead 0x00000000000003b4
+#define ZO__end 0x00000000003d4000
+#define ZO__text 0x00000000003b01d0
+#define ZO_efi32_stub_entry 0x0000000000000190
+#define ZO_efi64_stub_entry 0x0000000000000390
+#define ZO_efi_pe_entry 0x0000000000000210
+#define ZO_input_data 0x00000000000003b4
+#define ZO_startup_32 0x0000000000000000
+#define ZO_startup_64 0x0000000000000200
+#define ZO_z_input_len 0x00000000003afe14
+#define ZO_z_output_len 0x00000000012919a8</code></pre>
+<p>可以画出setup.bin的构建流程图：</p>
+<pre><code>arch/x86/boot/bzImage———————→arch/x86/boot/setup.bin—————→arch/x86/boot/setup.elf——————→
+        |                                                                              |
+        |                     ←————————arch/x86/boot/header.o←—————$(SETUP_OBJS)←——————↓
+        ↓                     ↓
+arch/x86/boot/vmlinux.bin     —→arch/x86/boot/zoffset.h—→arch/x86/boot/compressed/vmlinux</code></pre>
+<h3 id="编译流程图解">2、编译流程图解</h3>
+<div class="figure">
+<img src="./2.png" />
+
+</div>
