@@ -48,17 +48,44 @@ This manual is for program, version version.
 
 @node Author
 @chapter Author
-todo
+
+Author: Jerry Zhou
+
+Translation: Julie Zhu
 
 @node Free-time team introduction
 @chapter Free-time team introduction
-todo, will be updated
 
+Free-time team, referred to as Ft2 Team, is committed to be a global-class free educationcommunity.
 
+Visit us online
+Official website:  http://www.freetimeteam.org/
+Forum backup address:  http://bbs.5ichai.com/.
+When our official forum address is unavailable, you can try to visit the forum backup
+address.
 
+About Us
+Our team, some are senior engineers from famous enterprises such as HTC,
+SpreadTrum, Cisco, Leadcore Qualcomm, etc.
+Some are technical experts who submitted Patch for Linux kernel community and MySQL community.
 
+Our aim is to make Free-time team contribute to word forever.
+The community should stick to following two principles
+First,  no knowledge and technical barriers.
+Second, no commercial advertisements  (friendly Links and LOGO of schools and enterprises are permitted).
+The community is in its fancy presently. Updated high quality patch and paper about Linux, kernel, MySQL, Security, Android, Crack, Soc Chip will be provided in the futher.
 
+From 16th, Feb, 2017 to 28th, Feb, 2017. I pondered over death.
+People from birth to death, is mere nothing. Only the thoughts and spirits can pass from generation to generation. Our fathers, mothers, many are  diligent, steadfast people.
+Free-time team is trying to inherit their beautiful thoughts and soul.
 
+In my Wechat circle, there are two kinds of articles forwarded most presently . One is problem about Chinese Stratification and curing. The other is that programmers of 34
+years old  are going to lose their jobs. I scruples touching my old age, and uncompetitive
+Background. Felt worried.
 
+I remembered that "Chuang-tzu > Qiwulun, just said “ It is fair to walk on the road, but things can never be together” . So no need to make any complains about the society.
+Our Free-time team will do our modest means to the education resources.
+At the beginning, we use the Minimum cost to make our team operate for two to three
+years.
 
 @bye
