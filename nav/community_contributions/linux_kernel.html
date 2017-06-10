@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Linux kernel patch, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Linux kernel patch</title>
+
+<meta name="description" content="Linux kernel patch">
+<meta name="keywords" content="Linux kernel patch">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Linux kernel patch</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Find-kernel-issue-1" href="#Find-kernel-issue">1 Find kernel issue</a></li>
+  <li><a name="toc-Memory-Management-1" href="#Memory-Management">2 Memory Management</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#Find-kernel-issue" accesskey="n" rel="next">Find kernel issue</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Linux-kernel-patch"></a>
+<h1 class="top">Linux kernel patch</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Find-kernel-issue" accesskey="1">Find kernel issue </a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">find kernel issue
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Memory-Management" accesskey="2">Memory Management </a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Memory Management
+</td></tr>
+</table>
+
+<hr>
+<a name="Find-kernel-issue"></a>
+<div class="header">
+<p>
+Next: <a href="#Memory-Management" accesskey="n" rel="next">Memory Management</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Find-kernel-issue-1"></a>
+<h2 class="chapter">1 Find kernel issue</h2>
+
+<p>todo
+</p>
+<hr>
+<a name="Memory-Management"></a>
+<div class="header">
+<p>
+Previous: <a href="#Find-kernel-issue" accesskey="p" rel="prev">Find kernel issue</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Memory-Management-1"></a>
+<h2 class="chapter">2 Memory Management</h2>
+
+<p>PATCH author: Zijun Hu
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/memblock.c: fix index adjustment error in __next_mem_range_rev() Mainline 
+</p>
+<p>URL: <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=fb399b4854d2159a4d23fbfbd7daaed914fd54fa">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=fb399b4854d2159a4d23fbfbd7daaed914fd54fa</a>
+</p>
+<p>LKML URL: <a href="https://lkml.org/lkml/2016/7/25/513">https://lkml.org/lkml/2016/7/25/513</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/memblock.c: fix NULL dereference error Mainline 
+</p>
+<p>URL: <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=e47608ab6dbe63fefe60c211a30b3fc78a1b5d5e">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=e47608ab6dbe63fefe60c211a30b3fc78a1b5d5e</a>
+</p>
+<p>LKML URL: <a href="https://lkml.org/lkml/2016/8/2/20">https://lkml.org/lkml/2016/8/2/20</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject: arm64: remove duplicate macro __KERNEL__ check Mainline 
+</p>
+<p>URL: <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=a842789837c0e3734357c6b4c54d39d60a1d24b1">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=a842789837c0e3734357c6b4c54d39d60a1d24b1</a>
+</p>
+<p>LKML URL: <a href="https://lkml.org/lkml/2016/9/1/231">https://lkml.org/lkml/2016/9/1/231</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/percpu.c: correct max_distance calculation for pcpu_embed_first_chunk() Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=93c76b6b2faaad7bfbc0cda840763aa4819ef26e">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=93c76b6b2faaad7bfbc0cda840763aa4819ef26e</a>
+</p>
+<p>LKML URL : <a href="https://lkml.org/lkml/2016/10/5/189">https://lkml.org/lkml/2016/10/5/189</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/percpu.c: fix potential memory leakage for pcpu_embed_first_chunk() Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9b7396624a7b503220d85428654634b60762f2b0">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9b7396624a7b503220d85428654634b60762f2b0</a>
+</p>
+<p>LKML URL : <a href="https://lkml.org/lkml/2016/10/5/196">https://lkml.org/lkml/2016/10/5/196</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/vmalloc.c: fix align value calculation error Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=252e5c6e2e5b4557599ef86ea5d02b0395e9056c">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=252e5c6e2e5b4557599ef86ea5d02b0395e9056c</a>
+</p>
+<p>LKML URL : <a href="https://lkml.org/lkml/2016/8/19/676">https://lkml.org/lkml/2016/8/19/676</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/nobootmem.c: remove duplicate macro ARCH_LOW_ADDRESS_LIMIT statements Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=2382705f22c1436a153800cf6051b08f0ea14838">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=2382705f22c1436a153800cf6051b08f0ea14838</a>
+</p>
+<p>LKML URL : <a href="https://lkml.org/lkml/2016/8/29/309">https://lkml.org/lkml/2016/8/29/309</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/bootmem.c: replace kzalloc() by kzalloc_node() Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1d8bf926f8739bd35d054097907fef35d881e403">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1d8bf926f8739bd35d054097907fef35d881e403</a>
+</p>
+<p>LKML URL : <a href="https://lkml.org/lkml/2016/8/29/315">https://lkml.org/lkml/2016/8/29/315</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : linux/mm.h: canonicalize macro PAGE_ALIGNED() definition Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1061b0d21e16550e7d7893a5deee2e49ea3990ad">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1061b0d21e16550e7d7893a5deee2e49ea3990ad</a>
+</p>
+<p>LKML URL : <a href="https://lkml.org/lkml/2016/9/27/217">https://lkml.org/lkml/2016/9/27/217</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : percpu: ensure the requested alignment is power of two Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/?id=3ca45a46f8af8c4a92dd8a08eac57787242d5021">https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/?id=3ca45a46f8af8c4a92dd8a08eac57787242d5021</a>
+</p>
+<p>LKML URL: <a href="https://lkml.org/lkml/2016/10/19/679">https://lkml.org/lkml/2016/10/19/679</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/vmalloc.c: simplify /proc/vmallocinfo implementation Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1061b0d21e16550e7d7893a5deee2e49ea3990ad">https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1061b0d21e16550e7d7893a5deee2e49ea3990ad</a>
+</p>
+<p>LKML URL: <a href="https://lkml.org/lkml/2016/10/12/112">https://lkml.org/lkml/2016/10/12/112</a>
+</p></td></tr></table>
+<p>&mdash;
+</p><table class="cartouche" border="1"><tr><td>
+<p>Subject : mm/percpu.c: fix panic triggered by BUG_ON() falsely Mainline 
+</p>
+<p>URL : <a href="https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/?id=27b20646fe716340719f403e43759c39d2c019b6">https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/?id=27b20646fe716340719f403e43759c39d2c019b6</a>
+</p>
+<p>LKML URL : <a href="https://lkml.org/lkml/2016/10/11/312">https://lkml.org/lkml/2016/10/11/312</a>
+</p></td></tr></table>
+<p>&mdash;
+All patches can be filtered by author zijun_hu from kernel mainline 
+</p>
+<p>URL https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/
+</p>
+<hr>
+
+
+
+</body>
+</html>

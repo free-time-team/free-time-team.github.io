@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle title
+@settitle Communication Platform
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,18 +35,24 @@ Published by
 
 @ifnottex
 @node Top
-@top top
+@top Communication Platform
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::
+* Communication Platform::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node Communication Platform
+@chapter Communication Platform
+@b{QQ Group}
+@example
+free time group 479198558
+@end example
+
+
 
 
 

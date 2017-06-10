@@ -1,0 +1,97 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle ultramysql bad handshake
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top ultramysql bad handshake
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Author::
+* Patch::
+* Analysis::
+@c * Copying::  free time team
+@end menu
+
+@node Author
+@chapter Author
+
+Author: XiaoLan Lee
+
+Blog: @url{http://blog.leexiaolan.tk/}
+
+@node Patch
+@chapter Patch
+@example
+Patch link: @url{https://github.com/LeeXiaolan/ultramysql/commit/fdb8b3147ef8b928bccfad33021297f11b3e157e}
+@end example
+
+@node Analysis
+@chapter Analysis
+ultramysql出现Bad handshake的分析
+
+最近一直在使用ultramysql做为mysql的驱动做开发，开发过程也很顺利。
+
+为什么会选ultramysql呢？只缘于ultramysql是gevent兼容的。项目中使用gevent来处理网络IO，所以需要与gevent兼容。
+
+当项目开发得差不多了，准备部署到测试服务器上测试时，却傻眼了，死活连接不上mysql服务器。异常信息也很奇怪，时而Bad handshake，时而Connection reset。
+跑到ultramysql项目issue上一看，唯一一个处于开放状态的issue就是这个问题。但是ultramysql的维护者却因为信息不足，不能复现而关闭过一次。
+
+具体情况是这样：开发环境使用mysql版本是5.5，ultramysql连接没有问题。测试服务器是管理员配置的centos 5.6，只有mysql 5.0的源，图方便就装了mysql 5.0。
+然后就出现了上面的情况。为了定位问题，使用官方mysql客户端连接mysql 5.0完全没有问题。这时想到抓去网络包来分析一下差异。
+
+果断wireshark上场。
+结果发现服务器返回的Authentication response，
+不是http://dev.mysql.com/doc/internals/en/connection-phase.html#successful-authentication
+与http://dev.mysql.com/doc/internals/en/connection-phase.html#authentication-fails中的任何一个，
+而是一个EOF_Packet，然后官方客户端还客气的回一个包，更要命的是，连wireshark也不认识这个回应。
+而ultramysql代码认为除了明确的认证失败，都假定认证成功的，所以就在后续的查询过程中出现了不确定的异常。
+
+google一番后发现了这个http://dev.mysql.com/doc/internals/en/connection-phase.html#packet-Protocol::AuthSwitchResponse，
+原来那个EOF_Packet是切换为旧密码认证的指令。Fork ultramysql代码，按照文档，添加旧密码认证代码后，很快就测试通过了。
+
+另外一个原因，Mysql 5.0默认开启了old_passwords, 导致新建立的用户都是使用旧密码，
+才出现了上面的问题。在不修改ultramysql代码的情况下，修改配置文件，将old_passwords改成0，也能解决上面的问题。
+
+其实，除了抓包可以发现问题的根源外，还可以读官方的客户端的代码，获取相关信息。只是由于对代码不熟悉，很难快速定位到源代码位置，所以才选择了抓包分析。
+
+自己的问题解决了，立即向上游发出pull request，将patch反馈给上游，避免以后其它人遇到同样的问题。
+
+
+
+
+@bye
