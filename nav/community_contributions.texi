@@ -37,7 +37,7 @@ Published by
 @node Top
 @top Community Contribution
 
-This manual is for program, version version.
+@c This manual is for program, version version.
 @end ifnottex
 
 @menu
@@ -45,22 +45,16 @@ This manual is for program, version version.
 @c * Copying::  free time team
 @end menu
 
+There are some pathces sent by ft2 team member, please review them.
+
 @node Community Contribution
 @chapter Community Contribution
+
 @b{linux kernel}
-@example
 @url{./community_contributions/linux_kernel.html, linux kernel}
-@end example
 
 @b{ultramysql}
-@example
 @url{./community_contributions/ultramysql.html, ultramysql}
-@end example
-
-
-
-
-
 
 
 @bye

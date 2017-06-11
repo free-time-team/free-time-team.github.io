@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle 资源
 
 @copying
 This manual is for Document, version 1.0.
@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -35,21 +35,62 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top 资源
 
-This manual is for program, version version.
+@c This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction:: 
+* 列表::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node 列表
+@chapter 列表
 
+@menu
+* qq群::
+* Docker嵌入式系统开发环境::
+@c * Copying::  free time team
+@end menu
 
+@node qq群
+@section qq群
 
+@b{主qq群}
+
+群号: 479198558, 此群是ft2-team主qq群。
+
+@b{linux kernel 学习群}
+
+群号: 256624251, 主要是学习和探讨linux 内核技术。
+
+@b{risc-v 研究群}
+
+群号: 21652658, 研究Risc-V的技术及其动向
+
+@b{python 学习群}
+
+群号: 124649495, 学习和研究从python 入门到各个专业领域的技术。
+
+@b{Docker 学习群}
+
+群号: 322418733, 学习Docker技术。
+
+@b{计算机安全群}
+
+群号: 322036317, 计算机安全，逆向工程。
+
+@b{少年儿童科学实验群}
+
+群号: 635562561，少年儿童科学实验。
+
+@node Docker嵌入式系统开发环境
+@section Docker嵌入式系统开发环境
+
+@b{Docker hub 主页面}
+
+@url{https://hub.docker.com/r/ft2team, docker hub 主页面}
 
 
 

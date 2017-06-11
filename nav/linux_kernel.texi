@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle title
+@settitle linux kernel
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,9 +35,9 @@ Published by
 
 @ifnottex
 @node Top
-@top top
+@top linux kernel
 
-This manual is for program, version version.
+@c This manual is for program, version version.
 @end ifnottex
 
 @menu

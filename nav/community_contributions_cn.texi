@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Community Contribution
+@settitle 社区贡献
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,27 +35,27 @@ Published by
 
 @ifnottex
 @node Top
-@top Community Contribution
+@top 社区贡献
 
-This manual is for program, version version.
+@c This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Community Contribution::
+* 列表::
 @c * Copying::  free time team
 @end menu
 
-@node Community Contribution
-@chapter Community Contribution
+以下是 ft2 team 为开源社区提交的一些patch。
+
+@node 列表
+@chapter 列表
+
 @b{linux kernel}
-@example
 @url{./community_contributions/linux_kernel.html, linux kernel}
-@end example
 
 @b{ultramysql}
-@example
 @url{./community_contributions/ultramysql.html, ultramysql}
-@end example
+
 
 
 
