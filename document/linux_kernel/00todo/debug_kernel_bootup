@@ -1,0 +1,50 @@
+sudo docker run  -it ubuntu:16.04_arm_study su - user
+
+mkdir work
+cd work
+git clone https://github.com/sys-build/kern4.1_arm64_env.git
+
+sudo docker run  -v /media/zzy/backup_zzy/work:/home/user/work -it ubuntu:16.04_arm_study su - user
+cd work/kern4.1_arm64_env/linux-4.1.16
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out user_defconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
+
+      .text : 0xffffffc000080000 - 0xffffffc0008025a4   (  7690 KB)
+0xffffffc000080000
+inet 172.17.0.2
+
+$ aarch64-linux-gnu-readelf -S out/vmlinux | head -20
+There are 35 section headers, starting at offset 0x5eba468:
+
+software IO TLB [mem 0xb8a00000-0xbca00000] (64MB) mapped at [ffffffc078a00000-ffffffc07c9fffff]
+
+target remote 172.17.0.2:1234
+add-symbol-file out/vmlinux 0x40082000  -s .head.text 0x40080000 -s .rodata 0x405d9000
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .head.text        PROGBITS         ffffffc000080000  00010000
+       0000000000001260  0000000000000000  AX       0     0     4096
+       >>> hex(0xffffffc000080000-0xffffffbfc0000000)
+       '0x40080000L'
+
+  [ 2] .text             PROGBITS         ffffffc000082000  00012000
+       0000000000556cf0  0000000000000000  AX       0     0     4096
+       >>> hex(0xffffffc000082000-0xffffffbfc0000000)
+       '0x40082000L'
+
+  [ 3] .text.init        PROGBITS         ffffffc0005d8cf0  00568cf0
+       0000000000000070  0000000000000000  AX       0     0     16
+       >>> hex(0xffffffc0005d8cf0-0xffffffbfc0000000)
+       '0x405d8cf0L'
+
+  [ 4] .rodata           PROGBITS         ffffffc0005d9000  00569000
+       00000000001e8ae0  0000000000000000   A       0     0     4096
+       >>> hex(0xffffffc0005d9000-0xffffffbfc0000000)
+       '0x405d9000L'
+
+  [ 5] .init.rodata.str1 PROGBITS         ffffffc0007c1ae0  00751ae0
+       0000000000000768  0000000000000001 AMS       0     0     8
