@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for HTC, version version.
+
+Copyright (C) years copyright-owner.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Ubuntu-12.04</title>
+
+<meta name="description" content="Ubuntu-12.04">
+<meta name="keywords" content="Ubuntu-12.04">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Ubuntu-12.04</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-install-docker-on-ubuntu_002d16_002e04-1" href="#install-docker-on-ubuntu_002d16_002e04">1 install docker on ubuntu-16.04</a></li>
+  <li><a name="toc-install-docker-on-ubuntu_002d12_002e04-1" href="#install-docker-on-ubuntu_002d12_002e04">2 install docker on ubuntu-12.04</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#install-docker-on-ubuntu_002d16_002e04" accesskey="n" rel="next">install docker on ubuntu-16.04</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Ubuntu_002d12_002e04"></a>
+<h1 class="top">Ubuntu-12.04</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#install-docker-on-ubuntu_002d16_002e04" accesskey="1">install docker on ubuntu-16.04</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#install-docker-on-ubuntu_002d12_002e04" accesskey="2">install docker on ubuntu-12.04</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="install-docker-on-ubuntu_002d16_002e04"></a>
+<div class="header">
+<p>
+Next: <a href="#install-docker-on-ubuntu_002d12_002e04" accesskey="n" rel="next">install docker on ubuntu-12.04</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="install-docker-on-ubuntu_002d16_002e04-1"></a>
+<h2 class="chapter">1 install docker on ubuntu-16.04</h2>
+
+<p>sudo apt-get install docker.io
+</p>
+<hr>
+<a name="install-docker-on-ubuntu_002d12_002e04"></a>
+<div class="header">
+<p>
+Previous: <a href="#install-docker-on-ubuntu_002d16_002e04" accesskey="p" rel="prev">install docker on ubuntu-16.04</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="install-docker-on-ubuntu_002d12_002e04-1"></a>
+<h2 class="chapter">2 install docker on ubuntu-12.04</h2>
+
+<p>Docker 官网上要求Docker需要在64位版本的Ubuntu上安装，并且还要保证 Ubuntu 内核的最小版本不低于 3.10.
+</p>
+<p>$ uname -a
+</p>
+<p>Linux zxt-ThinkCentre-M81 3.5.0-23-generic #35~precise1-Ubuntu SMP Fri Jan 25 17:13:26 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+</p>
+<p>$ sudo apt-get update
+</p>
+<p>$ sudo apt-get install linux-generic-lts-trusty
+</p>
+<p>$ sudo reboot
+</p>
+<p>$ uname -a
+</p>
+<p>Linux zxt-ThinkCentre-M81 3.13.0-116-generic #163~precise1-Ubuntu SMP Fri Mar 31 15:22:04 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+</p>
+<p>install apparmor
+</p>
+<p>$ sudo apt-get install apparmor
+</p>
+<p>install docker
+</p>
+<p>curl -fsSL https://get.docker.com/ | sh
+</p>
+<p>sudo docker load -i ubuntu_14.04
+</p>
+<p>sudo docker run -v /home/zxt/sdb:/home/sdb -it ubuntu:14.04_android_env /bin/bash
+</p>
+<p># cat /etc/issue
+</p>
+<p>Ubuntu 14.04.5 LTS \n \l
+</p>
+
+<hr>
+
+
+
+</body>
+</html>

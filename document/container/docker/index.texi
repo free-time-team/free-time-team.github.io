@@ -48,10 +48,9 @@ This manual is for program, version version.
 @node Docker usage
 @chapter Docker usage
 
-@example
-@b{Ubuntu}
-  @url{./ubuntu_12.04.html, install docker on ubuntu-12.04}
-  @url{./docker_ubuntu.html, docker ubuntu}
-@end example
+@url{./ubuntu.html, Install docker on ubuntu}
+
+@url{./docker_basic.html, Basic usage}
+
 
 @bye
