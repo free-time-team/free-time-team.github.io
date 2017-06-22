@@ -64,6 +64,7 @@ ul.no-bullet {list-style: none}
   <li><a name="toc-Kai-Fa-Huan-Jing-" href="#g_t_5f00_53d1_73af_5883">1 开发环境</a>
   <ul class="no-bullet">
     <li><a name="toc-Docker-Da-Bao-Huan-Jing-" href="#Docker-_6253_5305_73af_5883">1.1 Docker 打包环境</a></li>
+    <li><a name="toc-linux-kernel-Huan-Jing-Chuang-Jian-" href="#linux-kernel-_73af_5883_521b_5efa">1.2 linux kernel 环境创建</a></li>
   </ul></li>
 </ul>
 </div>
@@ -95,19 +96,135 @@ Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" ac
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="#Docker-_6253_5305_73af_5883" accesskey="1">Docker 打包环境</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#linux-kernel-_73af_5883_521b_5efa" accesskey="2">linux kernel 环境创建</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
 </table>
 
 <hr>
 <a name="Docker-_6253_5305_73af_5883"></a>
 <div class="header">
 <p>
-Up: <a href="#g_t_5f00_53d1_73af_5883" accesskey="u" rel="up">开发环境</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#linux-kernel-_73af_5883_521b_5efa" accesskey="n" rel="next">linux kernel 环境创建</a>, Up: <a href="#g_t_5f00_53d1_73af_5883" accesskey="u" rel="up">开发环境</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Docker-Da-Bao-Huan-Jing-"></a>
 <h3 class="section">1.1 Docker 打包环境</h3>
 
+<ul>
+<li> <b>环境准备</b>
+</li></ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;先安装docker, ubuntu-16.04 及以上版本，可以用命令 sudo apt-get install docker.io 安装。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他系统可以从网上找资料安装。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下载环境: sudo docker pull ft2team/ubuntu_dev
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建工作目录: mkdir work
+</p>
+<ul>
+<li> <b>环境介绍</b>
+</li></ul>
 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Docker环境有两个用户，分别是root和user。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user name: root, password: &lt;empty&gt;
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user name: user, password: 123
+</p>
 
+<hr>
+<a name="linux-kernel-_73af_5883_521b_5efa"></a>
+<div class="header">
+<p>
+Previous: <a href="#Docker-_6253_5305_73af_5883" accesskey="p" rel="prev">Docker 打包环境</a>, Up: <a href="#g_t_5f00_53d1_73af_5883" accesskey="u" rel="up">开发环境</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="linux-kernel-Huan-Jing-Chuang-Jian-"></a>
+<h3 class="section">1.2 linux kernel 环境创建</h3>
+
+<ul>
+<li> <b>下载linux kernel源代码</b>
+</li></ul>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进入工作目录，下载linux kernel源代码。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cd work
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;git clone https://github.com/sys-build/kern4.1_arm64_env.git
+</p>
+<ul>
+<li> <b>编译、调试</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">---&gt; build
+sudo docker run -v /absulote/path/to/work:/home/user/work -it ft2team/ubuntu_dev:latest su - user
+cd work/kern4.1_arm64_env/linux-4.1.16
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out user_defconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
+
+---&gt; run
+cd ..
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot;
+
+---&gt; online debug using gdb
+
+$ip addr # remember the following ip address: 172.17.0.2
+...
+inet 172.17.0.2/16 scope global eth0
+
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -s -S
+
+---&gt; start another console type the following commands
+
+$sudo docker run -v /absulote/path/to/work:/home/user/work -it ft2team/ubuntu_dev:latest su - user
+$cd work/kern4.1_arm64_env/
+// start gdb and load vmlinux
+$ aarch64-linux-gnu-gdb
+(gdb) file out/vmlinux
+Reading symbols from /media/disk2/03study/kern4.1_arm64_env/out/vmlinux...done.
+
+(gdb) directory linux-4.1.16/
+// read source code
+Source directories searched: /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16:cdir:cwd
+
+(gdb) target remote 172.17.0.2:1234 # using the ip address which you remembered.
+// access qemu guest
+Remote debugging using localhost:1234
+0x0000000040000000 in ?? ()
+
+(gdb) break start_kernel
+Breakpoint 2 at 0xffffffc0007ed5d8: file /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c, line 493.
+(gdb) c
+Continuing.
+
+Breakpoint 2, start_kernel () at /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c:493
+493 {
+(gdb) list
+488 vmalloc_init();
+489 ioremap_huge_init();
+490 }
+
+(gdb) s
+502 set_task_stack_end_magic(&amp;init_task);
+(gdb) info r
+x0 0x34d5d91d 886429981
+x1 0x40b68000 1085702144
+x2 0x40 64
+x3 0x3f 63
+x4 0xffffffc000ac7000 -274866606080
+x5 0xffffffc00081f000 -274869391360
+x6 0xffffffc000aca000 -274866593792
+x7 0xffffffc000b624a8 -274865970008
+x8 0x0 0
+x9 0x1124 4388
+x10 0x34b5193519 226376627481
+x11 0x0 0
+x12 0x0 0
+x13 0x16 22
+x14 0x0 0
+
+dmesg log have no timestamp
+echo Y &gt; /sys/module/printk/parameters/time
+</pre></div>
 
 <hr>
 

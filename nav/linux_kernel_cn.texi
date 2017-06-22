@@ -50,13 +50,126 @@ Published by
 
 @menu
 * Docker 打包环境::
+* linux kernel 环境创建::
 @c * Copying::  free time team
 @end menu
 
 @node Docker 打包环境
 @section Docker 打包环境
 
+@itemize
+@item
+@b{环境准备}
+@end itemize
+@ @ @ @ @ @ @ @ 先安装docker, ubuntu-16.04 及以上版本，可以用命令 sudo apt-get install docker.io 安装。
+
+@ @ @ @ @ @ @ @ 其他系统可以从网上找资料安装。
+
+@ @ @ @ @ @ @ @ 下载环境: sudo docker pull ft2team/ubuntu_dev
+
+@ @ @ @ @ @ @ @ 创建工作目录: mkdir work
+
+@itemize
+@item
+@b{环境介绍}
+@end itemize
+
+@ @ @ @ @ @ @ @ Docker环境有两个用户，分别是root和user。
+
+@ @ @ @ @ @ @ @ user name: root, password: <empty>
+
+@ @ @ @ @ @ @ @ user name: user, password: 123
 
 
+@node linux kernel 环境创建
+@section linux kernel 环境创建
+
+@itemize
+@item
+@b{下载linux kernel源代码}
+@end itemize
+
+@ @ @ @ @ @ @ @ 进入工作目录，下载linux kernel源代码。
+
+@ @ @ @ @ @ @ @ cd work
+
+@ @ @ @ @ @ @ @ git clone https://github.com/sys-build/kern4.1_arm64_env.git
+
+@itemize
+@item
+@b{编译、调试}
+@end itemize
+
+@example
+---> build
+sudo docker run -v /absulote/path/to/work:/home/user/work -it ft2team/ubuntu_dev:latest su - user
+cd work/kern4.1_arm64_env/linux-4.1.16
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out user_defconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
+
+---> run
+cd ..
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0"
+
+---> online debug using gdb
+
+$ip addr # remember the following ip address: 172.17.0.2
+...
+inet 172.17.0.2/16 scope global eth0
+
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0" -s -S
+
+---> start another console type the following commands
+
+$sudo docker run -v /absulote/path/to/work:/home/user/work -it ft2team/ubuntu_dev:latest su - user
+$cd work/kern4.1_arm64_env/
+// start gdb and load vmlinux
+$ aarch64-linux-gnu-gdb
+(gdb) file out/vmlinux
+Reading symbols from /media/disk2/03study/kern4.1_arm64_env/out/vmlinux...done.
+
+(gdb) directory linux-4.1.16/
+// read source code
+Source directories searched: /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16:cdir:cwd
+
+(gdb) target remote 172.17.0.2:1234 # using the ip address which you remembered.
+// access qemu guest
+Remote debugging using localhost:1234
+0x0000000040000000 in ?? ()
+
+(gdb) break start_kernel
+Breakpoint 2 at 0xffffffc0007ed5d8: file /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c, line 493.
+(gdb) c
+Continuing.
+
+Breakpoint 2, start_kernel () at /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c:493
+493 @{
+(gdb) list
+488 vmalloc_init();
+489 ioremap_huge_init();
+490 @}
+
+(gdb) s
+502 set_task_stack_end_magic(&init_task);
+(gdb) info r
+x0 0x34d5d91d 886429981
+x1 0x40b68000 1085702144
+x2 0x40 64
+x3 0x3f 63
+x4 0xffffffc000ac7000 -274866606080
+x5 0xffffffc00081f000 -274869391360
+x6 0xffffffc000aca000 -274866593792
+x7 0xffffffc000b624a8 -274865970008
+x8 0x0 0
+x9 0x1124 4388
+x10 0x34b5193519 226376627481
+x11 0x0 0
+x12 0x0 0
+x13 0x16 22
+x14 0x0 0
+
+dmesg log have no timestamp
+echo Y > /sys/module/printk/parameters/time
+@end example
 
 @bye
