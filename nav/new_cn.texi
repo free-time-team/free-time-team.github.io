@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle title
+@settitle 最新文章及消息
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,22 +35,19 @@ Published by
 
 @ifnottex
 @node Top
-@top top
+@top 最新文章及消息
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::
+* 最新文章及消息::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node 最新文章及消息
+@chapter 最新文章及消息
 
-
-
-
-
+@ @ @ @ linux 内核打包学习环境 ===> @url{https://free-time-team.github.io/nav/linux_kernel_cn.html, linux kernel study}
 
 @bye
