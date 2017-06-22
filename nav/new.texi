@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle title
+@settitle News
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,7 +35,7 @@ Published by
 
 @ifnottex
 @node Top
-@top top
+@top News
 
 This manual is for program, version version.
 @end ifnottex
@@ -48,9 +48,6 @@ This manual is for program, version version.
 @node Introduction
 @chapter Introduction
 
-
-
-
-
+暂不支持英文版本，请访问左侧中文菜单。
 
 @bye

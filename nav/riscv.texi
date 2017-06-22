@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle title
+@settitle Risc-V
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,7 +35,7 @@ Published by
 
 @ifnottex
 @node Top
-@top top
+@top Risc-V
 
 This manual is for program, version version.
 @end ifnottex
@@ -49,7 +49,7 @@ This manual is for program, version version.
 @chapter Introduction
 
 
-
+暂不支持英文版本，请访问左侧中文版本。
 
 
 

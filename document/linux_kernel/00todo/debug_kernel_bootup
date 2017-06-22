@@ -45,6 +45,3 @@ Section Headers:
        00000000001e8ae0  0000000000000000   A       0     0     4096
        >>> hex(0xffffffc0005d9000-0xffffffbfc0000000)
        '0x405d9000L'
-
-  [ 5] .init.rodata.str1 PROGBITS         ffffffc0007c1ae0  00751ae0
-       0000000000000768  0000000000000001 AMS       0     0     8
