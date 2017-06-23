@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle title
+@settitle 汇编语言学习
 
 @copying
 This manual is for Document, version 1.0.
@@ -41,12 +41,12 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::
+* ARM 汇编语言学习环境搭建::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node ARM 汇编语言学习环境搭建
+@chapter ARM 汇编语言学习环境搭建
 
 
 
