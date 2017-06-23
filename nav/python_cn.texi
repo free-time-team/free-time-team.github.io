@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle title
+@settitle Python
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,7 +35,7 @@ Published by
 
 @ifnottex
 @node Top
-@top top
+@top Python
 
 This manual is for program, version version.
 @end ifnottex
@@ -48,9 +48,7 @@ This manual is for program, version version.
 @node Introduction
 @chapter Introduction
 
-
-
-
-
+欢迎加入qq群讨论。
+群号: 124649495, 学习和研究从python 入门到各个专业领域的技术。
 
 @bye
