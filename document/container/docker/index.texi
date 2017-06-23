@@ -42,6 +42,7 @@ This manual is for program, version version.
 
 @menu
 * Docker usage::
+* Docker Images::
 @c * Copying:: Your rights and freedoms.
 @end menu
 
@@ -52,5 +53,9 @@ This manual is for program, version version.
 
 @url{./docker_basic.html, Basic usage}
 
+@node Docker Images
+@chapter Docker Images
+
+@url{./ft2_team_images.html, ft2 team docker images}
 
 @bye
