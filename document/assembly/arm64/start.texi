@@ -1,0 +1,98 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle ARM64 assembly
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top ARM64 assembly
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Introduction::
+@c * Copying::  free time team
+@end menu
+
+@node Introduction
+@chapter Introduction
+
+@b{Get code ==> } $ git clone https://github.com/sys-build/env_arm64_study.git
+
+@b{Change Directioy ==> } $ cd env_arm64_study
+
+@b{Code list}
+
+@example
+$ cat main.c
+#include <stdio.h>
+
+extern int add(int, int);
+int main()
+@{
+	printf("hello arm64, 1+2=%d \n", add(1, 2));
+	return 0;
+@}
+
+$ cat hello.s
+	.align	2
+	.global	add
+	.type	add, %function
+add:
+	add	w0, w0, w1
+	ret
+
+	.align	2
+	.global	add_long
+	.type	add_long, %function
+add_long:
+	add	x0, x0, x1
+	ret
+
+	.align	2
+	.global	add64
+	.type	add64, %function
+add64:
+	add	x0, x0, x1
+	ret
+@end example
+
+@b{Build and run}
+@example
+user@@13e8173e8de4:~/work$ aarch64-linux-gnu-gcc -o hello hello.s main.c -static
+user@@13e8173e8de4:~/work$ qemu-aarch64 hello
+hello arm64, 1+2=3
+@end example
+
+@bye

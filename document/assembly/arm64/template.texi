@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle 汇编语言学习
+@settitle title
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,32 +35,22 @@ Published by
 
 @ifnottex
 @node Top
-@top 汇编语言学习
+@top top
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* ARM 汇编语言学习环境搭建::
-* ARM32 汇编学习::
-* ARM64 汇编学习::
+* Introduction::
 @c * Copying::  free time team
 @end menu
 
-@node ARM 汇编语言学习环境搭建
-@chapter ARM 汇编语言学习环境搭建
+@node Introduction
+@chapter Introduction
 
-这是一个基于 Docker + Ubuntu + qemu 的打包集成命令行环境。
 
-@ @ @b{Docker安装 ==> } @url{https://free-time-team.github.io/document/container/docker/ubuntu.html, install docker on ubuntu}
 
-@ @ @b{开发环境下载及简介 ==> } @url{https://free-time-team.github.io/document/container/docker/ft2_team_images.html, ubuntu envrionment} -> ubuntu_dev
 
-@node ARM32 汇编学习
-@chapter ARM32 汇编学习
-
-@node ARM64 汇编学习
-@chapter ARM64 汇编学习
 
 
 @bye
