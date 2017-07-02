@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle todo
+@settitle title
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,20 +35,18 @@ Published by
 
 @ifnottex
 @node Top
-@top todo
+@top top
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* todo::
+* Introduction::
 @c * Copying::  free time team
 @end menu
 
-@node todo
-@chapter todo
-
-
+@node Introduction
+@chapter Introduction
 
 
 

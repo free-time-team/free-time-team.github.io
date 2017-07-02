@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -47,5 +47,8 @@ This manual is for program, version version.
 
 @node Index
 @chapter Index
+
+===> @url{./c_cpp/prj_opensource.html, opensource project}
+
 
 @bye

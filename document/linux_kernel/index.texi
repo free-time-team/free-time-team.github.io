@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -42,35 +42,17 @@ This manual is for program, version version.
 
 @menu
 * Linux kernel::
-@c * Copying::
+@c * Copying::  free time team
 @end menu
 
 @node Linux kernel
 @chapter Linux kernel
 
-@itemize
-@item
-@b{Compile} @url{./compile.html, view}
-@end itemize
+===> @url{./kernel_analysis/index.html, kernel analysis}
 
-@itemize
-@item
-@b{Buddy} @url{./buddy.html, view}
-@end itemize
+===> @url{./kernel_debug/index.html, kernel debug}
 
-@itemize
-@item
-@b{slub} @url{./slub.html, view}
-@end itemize
 
-@itemize
-@item
-@b{process} @url{./process.html, view}
-@end itemize
 
-@itemize
-@item
-@b{softirq} @url{./softirq.html, view}
-@end itemize
 
 @bye

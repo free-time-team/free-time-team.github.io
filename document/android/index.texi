@@ -50,11 +50,13 @@ This manual is for program, version version.
 
 @itemize @bullet
 @item
-@b{Envrionment} @url{environment/index.html, android envrionment}
+@b{===>} @url{environment/index.html, android envrionment}
 @end itemize
 
-
-
+@itemize @bullet
+@item
+@b{===>} @url{arch/index.html, android architecture}
+@end itemize
 
 
 

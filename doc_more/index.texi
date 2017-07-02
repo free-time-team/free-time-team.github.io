@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle todo
+@settitle more document
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,22 +35,20 @@ Published by
 
 @ifnottex
 @node Top
-@top todo
+@top more document
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* todo::
+* more document::
 @c * Copying::  free time team
 @end menu
 
-@node todo
-@chapter todo
+@node more document
+@chapter more document
 
-
-
-
+===> @url{./math/index.html, math}
 
 
 

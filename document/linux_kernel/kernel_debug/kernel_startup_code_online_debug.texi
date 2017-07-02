@@ -1,0 +1,169 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle kernel startup code online debug
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top kernel startup code online debug
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* kernel startup code online debug::
+@c * Copying::  free time team
+@end menu
+
+@node kernel startup code online debug
+@chapter kernel startup code online debug
+
+@c todo list
+@c http://laokaddk.blog.51cto.com/368606/945057/      // gdb tui mode
+@c http://www.alivepea.me/kernel/gdb-kernel-startup/   // gdb kernel startup
+@c https://www.douban.com/group/topic/47199891/      // gdb 调试内核的启动
+
+@example
+kernel startup code online debug
+	$ aarch64-linux-gnu-readelf -S out/vmlinux
+	There are 35 section headers, starting at offset 0x5cc61c0:
+
+	Section Headers:
+	  [Nr] Name              Type             Address           Offset
+	       Size              EntSize          Flags  Link  Info  Align
+	  [ 0]                   NULL             0000000000000000  00000000
+	       0000000000000000  0000000000000000           0     0     0
+	  [ 1] .head.text        PROGBITS         ffffffc000080000  00010000
+	       0000000000002000  0000000000000000  AX       0     0     4096
+	  [ 2] .text             PROGBITS         ffffffc000082000  00012000
+	       000000000053e560  0000000000000000  AX       0     0     4096
+	  [ 3] .text.init        PROGBITS         ffffffc0005c0560  00550560
+	       0000000000000070  0000000000000000  AX       0     0     16
+	  [ 4] .rodata           PROGBITS         ffffffc0005c1000  00551000
+	       00000000001eb388  0000000000000000   A       0     0     4096
+	  [ 5] .init.rodata.str1 PROGBITS         ffffffc0007ac388  0073c388
+	       0000000000000768  0000000000000001 AMS       0     0     8
+	  [ 6] .pci_fixup        PROGBITS         ffffffc0007acaf0  0073caf0
+	       00000000000021f0  0000000000000000   A       0     0     8
+	  [ 7] __ksymtab         PROGBITS         ffffffc0007aece0  0073ece0
+	       000000000000d890  0000000000000000   A       0     0     8
+	  [ 8] __ksymtab_gpl     PROGBITS         ffffffc0007bc570  0074c570
+	       000000000000bdd0  0000000000000000   A       0     0     8
+	  [ 9] __ksymtab_strings PROGBITS         ffffffc0007c8340  00758340
+	       000000000001d6aa  0000000000000000   A       0     0     1
+	  [10] __param           PROGBITS         ffffffc0007e59f0  007759f0
+	       00000000000016c0  0000000000000000   A       0     0     8
+	  [11] __modver          PROGBITS         ffffffc0007e70b0  007770b0
+	       0000000000000f50  0000000000000000   A       0     0     8
+	  [12] __ex_table        PROGBITS         ffffffc0007e8000  00778000
+	       0000000000005580  0000000000000000   A       0     0     8
+	  [13] .notes            NOTE             ffffffc0007ed580  0077d580
+	       0000000000000024  0000000000000000   A       0     0     4
+	  [14] .init.text        PROGBITS         ffffffc0007ee000  0077e000
+	       000000000002fd84  0000000000000000  AX       0     0     16
+	  [15] .exit.text        PROGBITS         ffffffc00081dd84  007add84
+	       00000000000018b4  0000000000000000  AX       0     0     4
+	  [16] .init.data        PROGBITS         ffffffc00081f640  007af640
+	       0000000000298500  0000000000000000  WA       0     0     32
+	  [17] .data..percpu     PROGBITS         ffffffc000ab8000  00a48000
+	       0000000000006d40  0000000000000000  WA       0     0     64
+	  [18] .altinstructions  PROGBITS         ffffffc000abf000  00a4f000
+	       0000000000003d74  0000000000000000   A       0     0     1
+	  [19] .altinstr_replace PROGBITS         ffffffc000ac2d74  00a52d74
+	       000000000000147c  0000000000000000  AX       0     0     1
+	  [20] .data             PROGBITS         ffffffc000ac5000  00a55000
+	       000000000006e3e8  0000000000000000  WA       0     0     4096
+	  [21] .pecoff_edata_pad PROGBITS         ffffffc000b333e8  00ac33e8
+	       0000000000000018  0000000000000000  WA       0     0     1
+	  [22] .bss              NOBITS           ffffffc000b34000  00ac3400
+	       00000000000324a8  0000000000000000  WA       0     0     4096
+	  [23] .comment          PROGBITS         0000000000000000  00ac3400
+	       0000000000000063  0000000000000001  MS       0     0     1
+	  [24] .debug_line       PROGBITS         0000000000000000  00ac3463
+	       00000000004f7432  0000000000000000           0     0     1
+	  [25] .debug_info       PROGBITS         0000000000000000  00fba895
+	       0000000003eb0a2e  0000000000000000           0     0     1
+	  [26] .debug_abbrev     PROGBITS         0000000000000000  04e6b2c3
+	       00000000001e9371  0000000000000000           0     0     1
+	  [27] .debug_aranges    PROGBITS         0000000000000000  05054640
+	       0000000000015ca0  0000000000000000           0     0     16
+	  [28] .debug_ranges     PROGBITS         0000000000000000  0506a2e0
+	       00000000002d3e20  0000000000000000           0     0     16
+	  [29] .debug_frame      PROGBITS         0000000000000000  0533e100
+	       000000000015e240  0000000000000000           0     0     8
+	  [30] .debug_str        PROGBITS         0000000000000000  0549c340
+	       000000000019168f  0000000000000001  MS       0     0     1
+	  [31] .debug_loc        PROGBITS         0000000000000000  0562d9cf
+	       0000000000698666  0000000000000000           0     0     1
+	  [32] .shstrtab         STRTAB           0000000000000000  05cc6035
+	       0000000000000185  0000000000000000           0     0     1
+	  [33] .symtab           SYMTAB           0000000000000000  05cc6a80
+	       000000000018e7f0  0000000000000018          34   47679     8
+	  [34] .strtab           STRTAB           0000000000000000  05e55270
+	       000000000010932e  0000000000000000           0     0     1
+	Key to Flags:
+	  W (write), A (alloc), X (execute), M (merge), S (strings)
+	  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)
+	  O (extra OS processing required) o (OS specific), p (processor specific)
+	...
+	add-symbol-file out/vmlinux 0x40082000  -s .head.text 0x40080000 -s .rodata 0x405c1000
+	...
+	ctrl+x+2   // open gdb tui mode
+        ctrl+x then ctrl+a  // return to classic
+        ...
+	   ┌──/home/zzy/sdb/01study/kern4.1_arm64_env/linux-4.1.16/arch/arm64/kernel/head.S───────────────────────────────────────────────────────────┐
+	   │100     efi_head:                                                                                                                                                                          │
+	   │101             /*                                                                                                                                                                         │
+	   │102              * This add instruction has no meaningful effect except that                                                                                                               │
+	   │103              * its opcode forms the magic "MZ" signature required by UEFI.                                                                                                             │
+	   │104              */                                                                                                                                                                        │
+	B+ │105             add     x13, x18, #0x16                                                                                                                                                    │
+	  >│106             b       stext                                                                                                                                                              │
+	   │107     #else                                                                                                                                                                              │
+	   │108             b       stext                           // branch to kernel start, magic                                                                                                   │
+	   │109             .long   0                               // reserved                                                                                                                        │
+	   ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+	B+ │0x40080000 <efi_head>           add    x13, x18, #0x16                                                                                                                                     │
+	  >│0x40080004 <efi_head+4>         b      0x40081000 <stext>                                                                                                                                  │
+	   │0x40080008 <efi_head+8>         .inst  0x00080000 ; undefined                                                                                                                              │
+	   │0x4008000c <efi_head+12>        .inst  0x00000000 ; undefined                                                                                                                              │
+	(gdb)  b efi_head
+
+@end example
+
+
+
+
+
+
+@bye

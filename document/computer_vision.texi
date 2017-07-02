@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -47,6 +47,8 @@ This manual is for program, version version.
 
 @node Graphics plat
 @chapter Graphics plat
+
+@c todo http://www.linuxidc.com/Linux/2012-12/75255.htm
 
 @example
 

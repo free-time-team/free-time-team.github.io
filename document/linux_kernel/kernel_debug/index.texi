@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle todo
+@settitle Kernel debug
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,21 +35,29 @@ Published by
 
 @ifnottex
 @node Top
-@top todo
+@top Kernel debug
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* todo::
+* Kernel debug::
 @c * Copying::  free time team
 @end menu
 
-@node todo
-@chapter todo
+@node Kernel debug
+@chapter Kernel debug
 
+@c todo list
+@c // debug kernel macro
+@c http://www.alivepea.me/kernel/gdb-macro/
 
+@c // backtrace
+@c http://www.alivepea.me/prog/how-backtrace-work/
 
+===> @url{kernel_startup_code_online_debug.html, kernel startup code online debug}
+
+===> @url{start_kernel.html, start_kernel debug}
 
 
 

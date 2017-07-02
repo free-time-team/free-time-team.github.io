@@ -41,12 +41,12 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
-* todo::
+* Introduction::
 @c * Copying::  free time team
 @end menu
 
-@node todo
-@chapter todo
+@node Introduction
+@chapter Introduction
 
 
 

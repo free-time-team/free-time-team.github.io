@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle todo
+@settitle android overview
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,22 +35,56 @@ Published by
 
 @ifnottex
 @node Top
-@top todo
+@top android overview
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* todo::
+* android overview::
 @c * Copying::  free time team
 @end menu
 
-@node todo
-@chapter todo
+@node android overview
+@chapter android overview
 
+@b{Preloader 启动过程，原理，做了什么东西，目的}
 
+@b{Bootloader 启动过程，原理，做了什么东西，目的}
 
+@b{Kernel的启动流程}
 
+@b{Android的启动流程}
+
+@b{Makefile}
+
+@b{Ramconsole原理}
+
+@b{Cmdline原理}
+
+@b{Init.rc的工作原理}
+
+@b{内存管理机制}
+
+@b{进程调度}
+
+@b{Android log 机制}
+
+@b{Logd/logcat}
+
+@b{Ramdump机制}
+
+@b{Watchdog 机制}
+
+@b{信号处理}
+
+@b{Reboot reason的实现以及意义，用途}
+
+@b{Bugreport机制}
+
+@b{Device tree机制}
+
+@b{Android启动流程}
 
 
 

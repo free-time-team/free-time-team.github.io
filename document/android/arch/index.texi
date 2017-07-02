@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle todo
+@settitle android architecture
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,22 +35,20 @@ Published by
 
 @ifnottex
 @node Top
-@top todo
+@top android architecture
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* todo::
+* android architecture::
 @c * Copying::  free time team
 @end menu
 
-@node todo
-@chapter todo
+@node android architecture
+@chapter android architecture
 
-
-
-
+===> @url{./android_overview.html, Android overview}
 
 
 

@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle todo
+@settitle math
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,20 +35,22 @@ Published by
 
 @ifnottex
 @node Top
-@top todo
+@top math
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* todo::
+* Introduction::
 @c * Copying::  free time team
 @end menu
 
-@node todo
-@chapter todo
+@node Introduction
+@chapter Introduction
 
-
+@c https://www.zhihu.com/question/19708711                              // 拓扑学
+@c https://www.zhihu.com/question/26427252   // 拉马努金圆周率公式
+@c https://zhuanlan.zhihu.com/p/20512381       // 拉马努金
 
 
 
