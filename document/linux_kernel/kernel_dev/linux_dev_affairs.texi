@@ -1,0 +1,126 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle linux development affairs
+
+@copying
+This manual is for HTC, version version.
+
+Copyright @copyright{} years copyright-owner.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title HTC document
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top linux development affairs
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* linux development affairs::
+@c * Copying:: Your rights and freedoms.
+@end menu
+
+@node linux development affairs
+@chapter linux development affairs
+
+@ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ V0.00 Draft
+----
+
+
+@ @ @ @ 这几天给linux kernel -> intel gpu 模块提交了一个patch，对于新手来说，碰到了很多问题。现在分享出来，欢迎大家讨论。
+在写patch之前，需要先阅读这篇文章: Documentation/process/submitting-patches.rst
+我在第一次提patch的时候，会在mail 开头写类似 "Hi All"，之类的字样，按照规范，不需要这些。
+下面举例说明。
+
+@ @ @ @ 这是一个patch的例子，包含了提交一个patch的基本内容 => @url{./resource/0001-drm-i915-Fix-a-memeory-leak-in-intel_gvt_init_gtt.txt, a patch example}，
+这个 patch 会作为邮件的全部内容，必要内容概括如下：
+@example
+From: Your real name <Your E-mail address>
+Subject: mail title
+
+Issue or feature description
+
+Cc: Maintainer name <Maintainer's E-mail address>
+Signed-off-by: Your real name <Your E-mail address>
+---
+Patch content
+--
+1.9.1
+@end example
+@ @ @ @ 其实这个patch还有一个问题，那就是我没有用真名，社区规定，提交patch一定要用真实名字。
+
+@ @ @ @ 邮件的title也有一定的格式，例如: [PATCH] drm/i915: Fix a memory leak in intel_gvt_init_gtt()。方括号里面放置Case的种类, 冒号前面包括模块名称，冒号后面是对patch的简短描述。
+
+@ @ @ @ 做patch需要download一套最新的kernel develop code，然后将code update到最新。一般common的code，你需要从  torvalds tree
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git，获取一份最新代码。但有的特殊模块，比如 Intel GPU 虚拟化的子模块，他们内部会有一个develop tree
+git clone https://github.com/01org/gvt-linux.git。intel develop tree 和 torvalds tree 代码可能不同步，因此我这个patch会先进到 intel develop tree。一般来说，不同的tree都可以从
+https://git.kernel.org, 找到。 但是有的内部开发tree，从这个地址可能找不到，因此需要发mail给 Maintainer Get。
+比如说，Intel develop tree，在那个网站就找不到，如下是mail摘要:
+@example
+On 2017.07.04 11:41:02 +0000, zhiyuan_zhu@@htc.com wrote:
+> Sorry, I can't found the branch "gvt-staging " from the website:
+> https://git.kernel.org, Would you please help to provide your gvt-staging git ?
+
+https://github.com/01org/gvt-linux
+
+That's our gvt develop tree, you can find 'gvt-staging' branch there.
+
+We should improve our doc for develop process.
+@end example
+
+@ @ @ @ 至此开发者的流程已经走完了，但是patch流，还没有走完。一般来说，patch流程有: (1) develop tree -> (2) linux next ->  (3) torvalds mainline,
+如果是直接基于torvalds mainline做开发，那么就不会有第一步。
+另外提交patch的邮箱，最好用htc mail、gmail或者其它。 126、sina 等等mail，可能会,有问题。
+Outlook 客户端提交patch，也可能会碰到问题，应该先用 patch format 做出patch文件，然后用git-email提交。
+
+@ @ @ @ 您收到Maintainer Merge通知之后，可以到codebase去查看自己的提交记录。
+@example
+commit 4c47ec60defb22fe5db110b8390c74353c85b4e6
+Author: Zhou, Wenjia <zhiyuan_zhu@@htc.com>
+Date:   Tue Jul 4 15:47:00 2017 +0800
+
+    drm/i915/gvt: Fix a memory leak in intel_gvt_init_gtt()
+
+    It will causes memory leak, if the function setup_spt_oos() fail,
+    in the function intel_gvt_init_gtt(),
+    which allocated by get_zeroed_page() and mapped by dma_map_page().
+
+    Unmap and free the page,  after STP oos initialize fail,
+    it will fix this issue.
+
+    Signed-off-by: Zhou, Wenjia <zhiyuan_zhu@@htc.com>
+    Signed-off-by: Zhenyu Wang <zhenyuw@@linux.intel.com>
+@end example
+
+@ @ @ @ 最后感谢 Zijun Hu <zijun_hu@@htc.com> 对我的前期的指导。
+
+感谢 Wang zhi <zhi.a.wang@@intel.com> 百忙之中多次指出我mail的问题，并且帮我做了一个patch样例。
+
+感谢 Zhenyu Wang <zhenyuw@@linux.intel.com> 多次指出我mail的问题，并且Merge到 delelop tree。
+
+@bye

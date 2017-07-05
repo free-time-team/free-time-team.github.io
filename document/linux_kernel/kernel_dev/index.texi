@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle zzy_title
+@settitle kernel development
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,24 +35,23 @@ Published by
 
 @ifnottex
 @node Top
-@top zzy_top
+@top kernel development
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Introduction::
+* kernel development::
 @c * Copying::  free time team
 @end menu
 
-@node Introduction
-@chapter Introduction
+@node kernel development
+@chapter kernel development
 
+===> @url{./linux_dev_affairs.html, linux development affairs}
 
+===> @url{./zijun_hu.html, zijun_hu linux kernel patch}
 
-
-
-
-
+===> @url{./wenjia_zhou.html, wenjia_zhou linux kernel patch}
 
 @bye

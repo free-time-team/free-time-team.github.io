@@ -52,7 +52,7 @@ This manual is for program, version version.
 
 ===> @url{./kernel_debug/index.html, kernel debug}
 
-
+===> @url{./kernel_dev/index.html, kernel development}
 
 
 @bye

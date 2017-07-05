@@ -1,0 +1,159 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Linux kernel patch by zijun_zhu
+
+@copying
+This manual is for Linux kernel patch, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Linux kernel patch by zijun_zhu
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Author introduction::
+* Memory Management ::
+@c * Copying::  free time team
+@end menu
+
+@node Author introduction
+@chapter Author introduction
+
+Author: Zijun Hu
+
+@node Memory Management
+@chapter Memory Management
+
+PATCH author: Zijun Hu
+
+@cartouche
+Subject : mm/memblock.c: fix index adjustment error in __next_mem_range_rev() Mainline
+
+URL: @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=fb399b4854d2159a4d23fbfbd7daaed914fd54fa}
+
+LKML URL: @url{https://lkml.org/lkml/2016/7/25/513}
+@end cartouche
+---
+@cartouche
+Subject : mm/memblock.c: fix NULL dereference error Mainline
+
+URL: @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=e47608ab6dbe63fefe60c211a30b3fc78a1b5d5e}
+
+LKML URL: @url{https://lkml.org/lkml/2016/8/2/20}
+@end cartouche
+---
+@cartouche
+Subject: arm64: remove duplicate macro __KERNEL__ check Mainline
+
+URL: @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=a842789837c0e3734357c6b4c54d39d60a1d24b1}
+
+LKML URL: @url{https://lkml.org/lkml/2016/9/1/231}
+@end cartouche
+---
+@cartouche
+Subject : mm/percpu.c: correct max_distance calculation for pcpu_embed_first_chunk() Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=93c76b6b2faaad7bfbc0cda840763aa4819ef26e}
+
+LKML URL : @url{https://lkml.org/lkml/2016/10/5/189}
+@end cartouche
+---
+@cartouche
+Subject : mm/percpu.c: fix potential memory leakage for pcpu_embed_first_chunk() Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9b7396624a7b503220d85428654634b60762f2b0}
+
+LKML URL : @url{https://lkml.org/lkml/2016/10/5/196}
+@end cartouche
+---
+@cartouche
+Subject : mm/vmalloc.c: fix align value calculation error Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=252e5c6e2e5b4557599ef86ea5d02b0395e9056c}
+
+LKML URL : @url{https://lkml.org/lkml/2016/8/19/676}
+@end cartouche
+---
+@cartouche
+Subject : mm/nobootmem.c: remove duplicate macro ARCH_LOW_ADDRESS_LIMIT statements Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=2382705f22c1436a153800cf6051b08f0ea14838}
+
+LKML URL : @url{https://lkml.org/lkml/2016/8/29/309}
+@end cartouche
+---
+@cartouche
+Subject : mm/bootmem.c: replace kzalloc() by kzalloc_node() Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1d8bf926f8739bd35d054097907fef35d881e403}
+
+LKML URL : @url{https://lkml.org/lkml/2016/8/29/315}
+@end cartouche
+---
+@cartouche
+Subject : linux/mm.h: canonicalize macro PAGE_ALIGNED() definition Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1061b0d21e16550e7d7893a5deee2e49ea3990ad}
+
+LKML URL : @url{https://lkml.org/lkml/2016/9/27/217}
+@end cartouche
+---
+@cartouche
+Subject : percpu: ensure the requested alignment is power of two Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/?id=3ca45a46f8af8c4a92dd8a08eac57787242d5021}
+
+LKML URL: @url{https://lkml.org/lkml/2016/10/19/679}
+@end cartouche
+---
+@cartouche
+Subject : mm/vmalloc.c: simplify /proc/vmallocinfo implementation Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=1061b0d21e16550e7d7893a5deee2e49ea3990ad}
+
+LKML URL: @url{https://lkml.org/lkml/2016/10/12/112}
+@end cartouche
+---
+@cartouche
+Subject : mm/percpu.c: fix panic triggered by BUG_ON() falsely Mainline
+
+URL : @url{https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/?id=27b20646fe716340719f403e43759c39d2c019b6}
+
+LKML URL : @url{https://lkml.org/lkml/2016/10/11/312}
+@end cartouche
+---
+All patches can be filtered by author zijun_hu from kernel mainline
+
+URL https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/
+
+@bye

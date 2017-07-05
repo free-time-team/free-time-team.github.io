@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for HTC, version version.
+
+Copyright (C) years copyright-owner.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>linux development affairs</title>
+
+<meta name="description" content="linux development affairs">
+<meta name="keywords" content="linux development affairs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">linux development affairs</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-linux-development-affairs-2" href="#linux-development-affairs">1 linux development affairs</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#linux-development-affairs" accesskey="n" rel="next">linux development affairs</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="linux-development-affairs-1"></a>
+<h1 class="top">linux development affairs</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#linux-development-affairs" accesskey="1">linux development affairs</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="linux-development-affairs"></a>
+<div class="header">
+<p>
+Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="linux-development-affairs-2"></a>
+<h2 class="chapter">1 linux development affairs</h2>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;V0.00 Draft
+&mdash;-
+</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这几天给linux kernel -&gt; intel gpu 模块提交了一个patch，对于新手来说，碰到了很多问题。现在分享出来，欢迎大家讨论。
+在写patch之前，需要先阅读这篇文章: Documentation/process/submitting-patches.rst
+我在第一次提patch的时候，会在mail 开头写类似 &quot;Hi All&quot;，之类的字样，按照规范，不需要这些。
+下面举例说明。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这是一个patch的例子，包含了提交一个patch的基本内容 =&gt; <a href="./resource/0001-drm-i915-Fix-a-memeory-leak-in-intel_gvt_init_gtt.txt">a patch example</a>，
+这个 patch 会作为邮件的全部内容，必要内容概括如下：
+</p><div class="example">
+<pre class="example">From: Your real name &lt;Your E-mail address&gt;
+Subject: mail title
+
+Issue or feature description
+
+Cc: Maintainer name &lt;Maintainer's E-mail address&gt;
+Signed-off-by: Your real name &lt;Your E-mail address&gt;
+---
+Patch content
+--
+1.9.1
+</pre></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;其实这个patch还有一个问题，那就是我没有用真名，社区规定，提交patch一定要用真实名字。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;邮件的title也有一定的格式，例如: [PATCH] drm/i915: Fix a memory leak in intel_gvt_init_gtt()。方括号里面放置Case的种类, 冒号前面包括模块名称，冒号后面是对patch的简短描述。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;做patch需要download一套最新的kernel develop code，然后将code update到最新。一般common的code，你需要从  torvalds tree
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git，获取一份最新代码。但有的特殊模块，比如 Intel GPU 虚拟化的子模块，他们内部会有一个develop tree
+git clone https://github.com/01org/gvt-linux.git。intel develop tree 和 torvalds tree 代码可能不同步，因此我这个patch会先进到 intel develop tree。一般来说，不同的tree都可以从
+https://git.kernel.org, 找到。 但是有的内部开发tree，从这个地址可能找不到，因此需要发mail给 Maintainer Get。
+比如说，Intel develop tree，在那个网站就找不到，如下是mail摘要:
+</p><div class="example">
+<pre class="example">On 2017.07.04 11:41:02 +0000, zhiyuan_zhu@htc.com wrote:
+&gt; Sorry, I can't found the branch &quot;gvt-staging &quot; from the website:
+&gt; https://git.kernel.org, Would you please help to provide your gvt-staging git ?
+
+https://github.com/01org/gvt-linux
+
+That's our gvt develop tree, you can find 'gvt-staging' branch there.
+
+We should improve our doc for develop process.
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;至此开发者的流程已经走完了，但是patch流，还没有走完。一般来说，patch流程有: (1) develop tree -&gt; (2) linux next -&gt;  (3) torvalds mainline,
+如果是直接基于torvalds mainline做开发，那么就不会有第一步。
+另外提交patch的邮箱，最好用htc mail、gmail或者其它。 126、sina 等等mail，可能会,有问题。
+Outlook 客户端提交patch，也可能会碰到问题，应该先用 patch format 做出patch文件，然后用git-email提交。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;您收到Maintainer Merge通知之后，可以到codebase去查看自己的提交记录。
+</p><div class="example">
+<pre class="example">commit 4c47ec60defb22fe5db110b8390c74353c85b4e6
+Author: Zhou, Wenjia &lt;zhiyuan_zhu@htc.com&gt;
+Date:   Tue Jul 4 15:47:00 2017 +0800
+
+    drm/i915/gvt: Fix a memory leak in intel_gvt_init_gtt()
+
+    It will causes memory leak, if the function setup_spt_oos() fail,
+    in the function intel_gvt_init_gtt(),
+    which allocated by get_zeroed_page() and mapped by dma_map_page().
+
+    Unmap and free the page,  after STP oos initialize fail,
+    it will fix this issue.
+
+    Signed-off-by: Zhou, Wenjia &lt;zhiyuan_zhu@htc.com&gt;
+    Signed-off-by: Zhenyu Wang &lt;zhenyuw@linux.intel.com&gt;
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;最后感谢 Zijun Hu &lt;zijun_hu@htc.com&gt; 对我的前期的指导。
+</p>
+<p>感谢 Wang zhi &lt;zhi.a.wang@intel.com&gt; 百忙之中多次指出我mail的问题，并且帮我做了一个patch样例。
+</p>
+<p>感谢 Zhenyu Wang &lt;zhenyuw@linux.intel.com&gt; 多次指出我mail的问题，并且Merge到 delelop tree。
+</p>
+<hr>
+
+
+
+</body>
+</html>

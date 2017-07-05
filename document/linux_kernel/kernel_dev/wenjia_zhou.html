@@ -7,10 +7,10 @@ Copyright (C) years free time team.
 Permission is granted to -->
 <!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Linux kernel</title>
+<title>Linux kernel patch by wenjia_zhou</title>
 
-<meta name="description" content="Linux kernel">
-<meta name="keywords" content="Linux kernel">
+<meta name="description" content="Linux kernel patch by wenjia_zhou">
+<meta name="keywords" content="Linux kernel patch by wenjia_zhou">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -50,7 +50,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">Linux kernel</h1>
+<h1 class="settitle" align="center">Linux kernel patch by wenjia_zhou</h1>
 
 
 
@@ -61,7 +61,7 @@ ul.no-bullet {list-style: none}
 <div class="contents">
 
 <ul class="no-bullet">
-  <li><a name="toc-Linux-kernel-2" href="#Linux-kernel">1 Linux kernel</a></li>
+  <li><a name="toc-Intel_005fi915_005fgpu-1" href="#Intel_005fi915_005fgpu">1 Intel_i915_gpu</a></li>
 </ul>
 </div>
 
@@ -69,33 +69,51 @@ ul.no-bullet {list-style: none}
 <a name="Top"></a>
 <div class="header">
 <p>
-Next: <a href="#Linux-kernel" accesskey="n" rel="next">Linux kernel</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#Intel_005fi915_005fgpu" accesskey="n" rel="next">Intel_i915_gpu</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="Linux-kernel-1"></a>
-<h1 class="top">Linux kernel</h1>
+<a name="Linux-kernel-patch-by-wenjia_005fzhou"></a>
+<h1 class="top">Linux kernel patch by wenjia_zhou</h1>
 
 <p>This manual is for program, version version.
 </p>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#Linux-kernel" accesskey="1">Linux kernel</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Intel_005fi915_005fgpu" accesskey="1">Intel_i915_gpu</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
-<a name="Linux-kernel"></a>
+<a name="Intel_005fi915_005fgpu"></a>
 <div class="header">
 <p>
 Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="Linux-kernel-2"></a>
-<h2 class="chapter">1 Linux kernel</h2>
+<a name="Intel_005fi915_005fgpu-1"></a>
+<h2 class="chapter">1 Intel_i915_gpu</h2>
 
-<p>===&gt; <a href="./kernel_analysis/index.html">kernel analysis</a>
-</p>
-<p>===&gt; <a href="./kernel_debug/index.html">kernel debug</a>
-</p>
-<p>===&gt; <a href="./kernel_dev/index.html">kernel development</a>
-</p>
+<p><b>Fix a memory leak in intel_gvt_init_gtt</b>
+</p><div class="example">
+<pre class="example">Intel develop tree: https://github.com/01org/gvt-linux.git
+
+commit 4c47ec60defb22fe5db110b8390c74353c85b4e6
+Author: Zhou, Wenjia &lt;zhiyuan_zhu@htc.com&gt;
+Date:   Tue Jul 4 15:47:00 2017 +0800
+
+    drm/i915/gvt: Fix a memory leak in intel_gvt_init_gtt()
+
+    It will causes memory leak, if the function setup_spt_oos() fail,
+    in the function intel_gvt_init_gtt(),
+    which allocated by get_zeroed_page() and mapped by dma_map_page().
+
+    Unmap and free the page,  after STP oos initialize fail,
+    it will fix this issue.
+
+    Signed-off-by: Zhou, Wenjia &lt;zhiyuan_zhu@htc.com&gt;
+    Signed-off-by: Zhenyu Wang &lt;zhenyuw@linux.intel.com&gt;
+</pre></div>
+
+
+
+
 
 <hr>
 

@@ -1,0 +1,30 @@
+From 2889f2eeedaf4862f9a27135d3ba2a2fe6122e00 Mon Sep 17 00:00:00 2001
+From: Wenjia Zhou <zhiyuan_zhu@htc.com>
+Date: Tue, 4 Jul 2017 15:43:21 +0800
+Subject: [PATCH] drm/i915: Fix a memeory leak in intel_gvt_init_gtt()
+
+If the call to setup_spt_oos() fails, the scratch page and its related
+dma mapping should be freed.
+
+Cc: Zhenyuw Wang <zhenyuw@linux.intel.com>
+Signed-off-by: Wenjia Zhou <zhiyuan_zhu@htc.com>
+---
+ drivers/gpu/drm/i915/gvt/gtt.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+index 66374db..6166e34 100644
+--- a/drivers/gpu/drm/i915/gvt/gtt.c
++++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -2259,6 +2259,8 @@ int intel_gvt_init_gtt(struct intel_gvt *gvt)
+ 		ret = setup_spt_oos(gvt);
+ 		if (ret) {
+ 			gvt_err("fail to initialize SPT oos\n");
++			dma_unmap_page(dev, daddr, 4096, PCI_DMA_BIDIRECTIONAL);
++			__free_page(gvt->gtt.scratch_ggtt_page);
+ 			return ret;
+ 		}
+ 	}
+-- 
+1.9.1
+
