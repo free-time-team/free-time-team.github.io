@@ -1,0 +1,406 @@
+volatile int stop = 0;
+
+void handler (int)
+{
+    stop = 1;
+}
+
+void event_loop (int sock)
+{
+    signal (SIGINT, handler);
+
+    while (1) {
+        if (stop) {
+            printf ("do cleanup\n");
+            return;
+        }
+        char buf [1];
+        recv (sock, buf, 1, 0);
+        printf ("perform an action\n");
+    }
+}
+Ok. Looks good. What's the problem with that?
+
+The problem is that recv is a blocking function. If Ctrl+C is pressed while the event loop is blocked in recv, you'll get a kind of deadlock: Signal handler is executed as expected, it sets 'stop' to 1, but then the execution blocks. The event loop is stuck in recv and has no opportunity to check whether 'stop' was set to 1.
+
+The deadlock unblocks only when new data arrive via the socket.
+
+网上说，上面这段代码可能会造成死锁，如果在recv的时候，按下ctrl c之后，会一直卡着，直到下一次来新的数据。 但是如果recv执行完了，不是马上又会进入while循环的吗？ 这个时候应该可以检查stop值的呀。
+Jerry 18:00:59
+
+在binder connect的时候，一直有中断信号过来，这种逻辑好象有点没道理，对吧？
+
+信号的理解没问题。
+Jerry 18:07:00
+根据这个callback，能确定是死在connect函数的+8这个地方对吧？
+  | state=S schedstat=( 81795310 99843653 426 ) utm=5 stm=3 core=2
+  #00  pc 00021fa8  /system/lib/libc.so (connect+8)
+  #01  pc 0002f887  /system/lib/libc.so (__system_property_set+278)
+Jerry 18:08:14
+
+(gdb) disassemble connect
+Dump of assembler code for function connect:
+   0x00021f50 <+0>:	mov	r12, r7
+   0x00021f54 <+4>:	ldr	r7, [pc, #20]	; 0x21f70
+   0x00021f58 <+8>:	svc	0x00000000
+Jerry 18:08:52
+是不是可以说明在connect做系统调用的时候，被信号中断了？
+
+那个例子，看样子是没有问题的，recv会被中断，返回EINTR，不会死锁。
+
+你可以自己编译测试下。
+Jerry 18:10:27
+恩。
+Jerry 18:11:07
+应该只是会在recv的时候卡一会儿，等到数据接收完了，还是会正常返回，对吧？
+
+执行完中断信号的函数，recv就直接返回-1，errno被设置成EINTR了。
+Jerry 18:13:51
+恩 了解了。
+Jerry 18:14:19
+那么现在我碰到的这个例子，是不是说：binder一直在执行connect的时候，一直都碰到有信号中断？
+Jerry 18:15:20
+但是这种理解有点不合理，不可能有这么多信号都发往binder，而且让binder没来得及处理完connect对吧？
+那么有没有什么意外情况，导致这种现象呢？
+
+是这样的，recv调用，就陷入内核了，但中断来了，中断函数必须返回用户态执行，所以，其实在中断handler执行前，就已经返回到用户态了，然后执行中断handler，handler执行完后，由于设置中断handler时没有指定SA_RESTART标志，所以不会自动重试，recv就返回-1，errno设置为EINTR。
+
+如果设置了SA_RESTART，就会自动重新进行recv内核调用。
+
+这样才会死锁。
+Jerry 18:18:48
+哦，这个有点不好懂，我再理解一下。
+Jerry 18:19:31
+我现在碰到的connect的这个问题，是不是也是一样的理解方式。 svc指令就是陷入内核操作？
+
+你仔细看man 7 signal。
+Jerry 18:20:01
+恩。
+
+svc应该是。
+Jerry 18:20:37
+那么现在我碰到的这个例子，是不是说：binder一直在执行connect的时候，一直都碰到有信号中断？
+       --- 我现在碰到的这个问题，字面上是这么理解吗？
+
+不一定被中断了，可能一直在内核调用，没有返回。
+Jerry 18:26:16
+connect函数陷入内核后，按道理应该很快就执行完了，为什么会一直在内核调用呢？
+
+这就不知道了，peer没有反应是有可能的。
+Jerry 18:28:03
+peer是谁对谁？
+Jerry 18:28:37
+还有个问题就是，peer没有反应，为什么不出错返回呢？
+扬讯_李晓岚 15:00:00
+tcp会有超时，但用的是AF_LOCAL，我不清楚有没有超时。
+Jerry 18:32:19
+哦，AF_LOCAL
+Jerry 18:32:41
+查什么资料确定是否超时呢？
+Jerry 18:33:04
+还有个问题就是，我现在想要debug，可以加什么样的log呢？
+
+在peer端加代码，看是否收到了连接请求试试。
+Jerry 18:34:09
+peer端是哪里？
+
+init
+Jerry 18:34:23
+perpority 的service吗？
+
+如果代码没改的话，我记得是在init进程里面。
+Jerry 18:35:12
+perpority 的service 应该是在init里面。
+Jerry 18:35:59
+是在perpority 的server里面加。这个没错吧？
+
+是的。
+
+如果是协议栈或内核的问题，我就不清楚该怎么找原因了，对他们不熟悉。
+Jerry 18:38:14
+协议栈和内核的问题，一般出什么样的问题，会导致这种现象呢？
+
+不清楚。
+Jerry 18:38:38
+了解。
+Jerry 18:41:43
+你目前的疑点是：peer会不断的超时重连，对吧？
+Jerry 19:21:39
+你刚才提到peer，这个是p2p通信吗？
+
+tcp连接中peer不就指对端。
+Jerry 19:24:02
+指的是一个tcp连接吗？
+
+指tcp连接另一端的程序。
+Jerry 19:25:03
+哦，长见识了。
+
+getpeername这函数名见过？
+印象中好象见过。
+Jerry 19:37:37
+tcp本身就会有重连机制，对吧？
+
+没有。
+Jerry 19:39:29
+说错了，是timeout机制。
+
+只是syn包会重试，其它的数据包有重发机制。
+Jerry 19:41:31
+你刚才提到的，kernel里面可能会一直去连peer。为什么没有timeout呢？
+
+这是和协议栈相关的，tcp我知道有timeot，AF_LOCAL我不清楚。
+Jerry 20:14:10
+recv调用，就陷入内核了，但中断来了，中断函数必须返回用户态执行，所以，其实在中断handler执行前，就已经返回到用户态了，然后执行中断handler，handler执行完后，如果设置中断handler时指定了SA_RESTART标志，就会自动重试，就死锁了。
+         --- 你的意思是不是说：一个信号中断，引起的死锁？
+
+no
+Jerry 20:15:35
+
+是这样的，recv调用，就陷入内核了，但中断来了，中断函数必须返回用户态执行，所以，其实在中断handler执行前，就已经返回到用户态了，然后执行中断handler，handler执行完后，由于设置中断handler时没有指定SA_RESTART标志，所以不会自动重试，recv就返回-1，errno设置为EINTR。
+如果设置了SA_RESTART，就会自动重新进行recv内核调用。
+这样才会死锁。
+Jerry 20:15:53
+你前面说的死锁的逻辑是怎么样的？
+
+这里并没有死锁，只是说达不到你想要的目的——退出。
+
+也不是因为中断引起的。
+
+程序的原意是，ctrl+c退出程序。
+Jerry 20:16:46
+如果设置了SA_RESTART，会导致谁重启呢? 是recv的kernel执行路径吗？
+
+谁进行restart我不清楚，可能是libc，也可能是内核本身。
+Jerry 20:18:04
+这样才会死锁。
+         --- 这句话指的是什么？
+
+说了不是死锁，只是达不到程序的本意——退出。
+
+设置了SA_RESTART，recv就不会返回，在没有收到数据前。即使被ctrl+c中断，也会重试。
+Jerry 20:19:57
+哦 这个了解了。
+Jerry 20:21:51
+connect这个函数，你让我在peer端加log，是为了验证timeout的问题。
+如果说timeout设置的很大，是不是在kernel里面就会一直卡着？
+你刚才的意思是这么理解吗？
+
+差不多吧。
+Jerry 20:24:13
+如果说timeout的值很大。造成在kernel卡住的原因是不是也可以按照理解recv的方式理解？
+
+是的。
+Jerry 20:25:36
+就是说某个信号设置了restart，binder在connect的时候被这个信号中断了，然后connect陷入内核一直重连。
+Jerry 20:25:42
+这样理解吗？
+
+这里的代码和SA_RESTART无关，是那个while宏显示重试的。
+Jerry 20:27:25
+这里我有点糊涂呢。
+Jerry 20:28:01
+不是说只有一直不断的来中断，这个while才会不停的循环吗？
+
+就算没有中断，connect也可能一直没有返回，因为连接确实没有成功建立。
+
+那个while宏只是确保中断不会导致connect失败。
+
+所以，connect返回，要么是连接建立，要么是发生错误，而不可能是因为中断导致connect返回失败。
+Jerry 20:33:33
+哦。
+Jerry 20:33:48
+什么样的时候会导致：一直连不上，但是也没错误呢？
+
+不知道
+Jerry 20:36:19
+还有个问题：connect 的内部实现，最终是在kernel 的协议栈的code里面，对吧？
+
+是 。
+Jerry 20:37:05
+我现在debug，是不是可以在peer端加(也就是init里面)，然后在kernel 的协议栈里面加？
+
+协议栈应该很复杂，不到万不得已，千万不要碰。
+Jerry 20:38:58
+如果在peer端加了log，发现一直重连，怎么办呢？
+
+不准备个两三星期的，梳理清楚协议栈大致流程，估计很难找到路径。
+Jerry 20:39:16
+
+
+纯属猜测，没看过代码。
+Jerry 20:46:36
+void event_loop (int sock)
+{
+    while (1) {
+        char buf [1];
+        recv (sock, buf, 1, 0);
+        printf ("perform an action\n");
+    }
+}
+The above program works great. However, interrupting the program using Ctrl+C kills it immediately, which may be a problem if we want to do some clean-up, for example, release some system-wide resources.
+
+To handle Ctrl+C in a custom way we have to implement a signal handler:
+
+volatile int stop = 0;
+
+void handler (int)
+{
+    stop = 1;
+}
+
+void event_loop (int sock)
+{
+    signal (SIGINT, handler);
+
+    while (1) {
+        if (stop) {
+            printf ("do cleanup\n");
+            return;
+        }
+        char buf [1];
+        recv (sock, buf, 1, 0);
+        printf ("perform an action\n");
+    }
+}
+Ok. Looks good. What's the problem with that?
+
+The problem is that recv is a blocking function. If Ctrl+C is pressed while the event loop is blocked in recv, you'll get a kind of deadlock: Signal handler is executed as expected, it sets 'stop' to 1, but then the execution blocks. The event loop is stuck in recv and has no opportunity to check whether 'stop' was set to 1.
+
+The deadlock unblocks only when new data arrive via the socket. Then 'stop' is checked and the program exits decently. However, there's no guarantee that new data will arrive in a reasonable time, so pressing Ctrl+C may seem to have no effect. The program is probably going to terminate at some later point, but at the moment it's just stuck.
+Jerry 20:47:31
+对于这两段程序，按下ctrl c 之后，为什么第一个程序可能会卡在recv函数里面，但是第二个函数不会呢？
+
+第一个是直接结束。
+Jerry 20:48:56
+是第二段程序里面加了信号处理 造成的，对吧？
+Jerry 20:49:05
+恩
+Jerry 20:49:36
+第一个程序直接就退出process了，但是第二个程序有指定的handler。
+
+你自己编译试试就知道了。
+Jerry 20:50:19
+恩。
+Jerry 20:51:19
+想来想去，我还是觉得我现在碰到的这个问题卡在connect里面，很不合理呢。
+Jerry 21:02:12
+这个地方可以加一个连接超时时间吗？ 就是加一个socket option。
+Jerry 21:03:41
+哦，还有就是，我们在set property函数里面加了重试机制，如果没设置成功，我们会重试5次。 目前碰到的这个问题，可能是这个原因造成的吗？
+
+上面那段例子，signal函数的行为有点问题，如果你测试上面那段代码。
+Jerry 21:20:30
+哦。
+
+By default, in glibc 2 and later, the signal() wrapper function does not invoke the kernel system call.   Instead,  it  calls
+sigaction(2)  using  flags  that  supply BSD semantics.  This default behavior is provided as long as the _BSD_SOURCE feature
+test macro is defined.  By default, _BSD_SOURCE is defined; it is also implicitly defined if one defines _GNU_SOURCE, and can
+of course be explicitly defined.
+
+On  glibc 2 and later, if the _BSD_SOURCE feature test macro is not defined, then signal() provides System V semantics.  (The
+default implicit definition of _BSD_SOURCE is not provided if one invokes gcc(1) in one of its standard  modes  (-std=xxx  or
+-ansi)  or  defines  various  other  feature  test  macros  such  as  _POSIX_SOURCE, _XOPEN_SOURCE, or _SVID_SOURCE; see fea‐
+ture_test_macros(7).)
+Jerry 21:20:40
+我准备先学习一下signal 的基础。
+
+默认情况下，glibc使用的signal函数是bsd语义的，意思是SA_RESTART默认加上。
+Jerry 21:21:54
+哦。
+erry  21:23:46
+我们在这个地方加一个timeout机制，会有问题吗？
+
+对AF_LOCAL不熟。
+Jerry  21:27:32
+假设在user space加了timeout机制，user space不会卡住了，但是kernel空间的code会不会卡住呢？
+Jerry  21:27:43
+因为kernel 会不停的连，对吧？
+
+AF_LOCAL man手册没见到超时的介绍。
+Jerry  21:29:58
+是没法加timeout的option吗？
+
+你试试呗。
+Jerry  21:30:24
+user space不会卡住了，但是kernel空间的code会不会卡住呢？
+Jerry  21:30:49
+还有就是，我们在set property函数里面加了重试机制，如果没设置成功，我们会重试5次。 目前碰到的这个问题，可能是这个原因造成的吗？
+
+
+到底设置的是什么属性？
+Jerry  21:33:02
+我在log里面看不出来是设置的什么属性呢。
+
+你打出来看看。
+Jerry  21:33:25
+恩。
+21:34:51
+The contact declined to receive "bugreport.txt_"(12.58MB). The file has not been sent.
+21:34:51
+The contact declined to receive "tombstone_08"(1.17MB). The file has not been sent.
+Jerry  21:38:06
+还有就是这个问题是做重启测试出来的。
+
+那估计是ctl.stop属性。
+Jerry  21:40:50
+这个属性是什么意思？
+
+停止服务用的。
+Jerry  21:41:36
+这个会引起我现在碰到的问题吗？
+
+不知道。
+
+#include<stdio.h>
+#include<sys/socket.h>
+#include<signal.h>
+
+volatile int stop = 0;
+
+void handler (int t)
+{
+  stop = 1;
+}
+
+void event_loop (int sock)
+{
+  signal (SIGINT, handler);
+
+  while (1) {
+    if (stop) {
+      printf ("do cleanup\n");
+      return;
+    }
+    char buf [1];
+    recv (sock, buf, 1, 0);
+    perror("recv");
+    printf ("perform an action\n");
+  }
+}
+
+int main(){
+  event_loop(0);
+  return 0;
+}
+扬讯_李晓岚  18:15:32
+leexiaolan@ubuntu-1204-amd64-metek:~/workspace/tmp$ gcc -o recv recv.c -ansi
+leexiaolan@ubuntu-1204-amd64-metek:~/workspace/tmp$ ./recv < /dev/tcp/172.168.11.66/8888
+^Crecv: Interrupted system call
+perform an action
+do cleanup
+
+bash
+
+bash的特殊文件，bash连接到172.168.11.66的8888端口，
+Jerry  21:49:53
+哦。
+
+我就不需要在代码里面去建立连接了，直接用stdin就行了。
+
+省得socket，connect，调用。
+不加-ansi就是例子里面描述的那样。
+
+-ansi影响signal的语义。
+Jerry  21:52:22
+了解了。

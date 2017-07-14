@@ -1,0 +1,765 @@
+:hi Search term=standout ctermfg=0 ctermbg=3
+
+4. WinManager 插件
+(1). 帮助手册查看
+     :help winmanager
+
+(2). 功能
+     管理各个窗口, 或者说整合各个窗口.
+
+(3). 安装
+     下载WinManager.zip压缩包, 解压后把*.vim文件放到 $HOME/.vim/plugin 目录中,
+     把*.txt文件放到 $HOME/.vim/doc 目录中.
+
+(4). 使用方法
+     在.vimrc中加入如下设置:
+     let g:winManagerWindowLayout='FileExplorer|BufExplorer'  // 这里可以设置/
+     为多个窗口, 如'FileExplorer|BufExplorer|TagList'
+     let g:persistentBehaviour=0             // 只剩一个窗口时, 退出vim.
+     let g:winManagerWidth=20
+     let g:defaultExplorer=1
+     nmap <silent> <leader>fir :FirstExplorerWindow<cr>
+     nmap <silent> <leader>bot :BottomExplorerWindow<cr>
+     nmap <silent> <leader>wm :WMToggle<cr>
+
+(5). 使用例子
+     在终端输入vim启动vim:
+     $vim
+     在正常模式下, 敲入 ",wm" 即可看到, vim的左侧新建了两个窗口:FileExplorer和
+     BufExplorer, 这样我们即可在FileExplorer窗口很方便地对目录进行查看, 编辑等
+     操作; 在BufExplorer窗口中查看当前vim已经打开那些文件.
+
+5. c.vim 插件
+(1). 帮助手册查看
+     help csupport
+
+(2). 功能
+     C/C++-IDE for Vim/gVim. 简单的说, 就是如果安装配置好后, vim/gvim就是一个
+     c/c++编程的一个IDE, 其功能堪比windows里常用的vc.
+
+(3). 安装
+     下载cvim.zip压缩包后, 把压缩包copy到 $HOME/.vim 目录(windows下, copy 到
+             C:/Program Files/Vim/vimfiles)下解压, 即可.
+         unzip cvim.zip    // 解压命令
+
+(4). 使用方法
+     安装好后就可以直接用了, 具体例子看"使用例子".
+
+(5). 使用例子
+     在终端用vim打开一个c文件:
+         $vim hello.c
+     进入vim, 敲入 "/im" 即可发现一个main函数框架就这样快捷简单完美地写出.
+
+     我比效常用的的操作有(第一列为命令, 第二列为说明, 第三列为该命令所支持的模
+             式(n:普通模式, v:可视模式, i:插入模式):
+           -- Help -----------------------------------------------
+           /hm       show manual for word under the cursor(n,i)
+           /hp       show plugin help                      (n,i)
+
+           -- Comments -------------------------------------------
+           /cl       end-of-line comment                 (n,v,i)
+           /cj       adjust end-of-line comment(s)      (n,v,i)
+           /cs       set end-of-line comment column      (n)
+           /c*       code -> comment /* */               (n,v)
+           /cc       code -> comment //                  (n,v)
+           /co       comment -> code                     (n,v)
+           /cfr      frame comment                       (n,i)
+           /cfu      function comment                    (n,i)
+           /cme      method description                  (n,i)
+           /ccl      class description                  (n,i)
+           /cd       date                                (n,v,i)
+           /ct       date /& time                        (n,v,i)
+
+           -- Statements ------------------------------------------
+           /sd       do { } while                        (n,v,i)
+           /sfo      for { }                            (n,v,i)
+           /sife     if { } else { }                    (n,v,i)
+           /se       else { }                            (n,v,i)
+           /swh      while { }                          (n,v,i)
+           /ss       switch                              (n,v,i)
+
+           -- Preprocessor -----------------------------------------
+           /p<       #include <>                        (n,i)
+           /p''      #include ""                        (n,i)
+           /pd       #define                            (n,i)
+           /pu       #undef                              (n,i)
+           /pie      #if  #else #endif                  (n,v,i)
+           /pid      #ifdef #else #endif                (n,v,i)
+           /pin      #ifndef #else #endif                (n,v,i)
+           /pind     #ifndef #def #endif                (n,v,i)
+           /pi0      #if 0 #endif                        (n,v,i)
+           /pr0      remove #if 0 #endif                (n,i)
+           /pe       #error                              (n,i)
+           /pl       #line                              (n,i)
+           /pp       #pragma                            (n,i)
+
+           -- Idioms ------------------------------------------------
+           /if       function                            (n,v,i)
+           /isf      static function                    (n,v,i)
+           /im       main()                              (n,v,i)
+           /i0       for( x=0; x<n; x+=1 )              (n,v,i)
+           /in       for( x=n-1; x>=0; x-=1 )            (n,v,i)
+           /ie       enum   + typedef                    (n,i)
+           /is       struct + typedef                    (n,i)
+           /iu       union  + typedef                    (n,i)
+           /ip       printf()                            (n,i)
+           /isc      scanf()                            (n,i)
+           /ica      p=calloc()                          (n,i)
+           /ima      p=malloc()                          (n,i)
+           /isi      sizeof()                            (n,v,i)
+           /ias      assert()                            (n,v)
+           /ii       open input file                    (n,i)
+           /io       open output file                    (n,i)
+
+           -- Snippets ------------------------------------------------
+           /nr       read code snippet                  (n,i)
+           /nw       write code snippet                  (n,v,i)
+           /ne       edit code snippet                  (n,i)
+           /np       pick up prototype                  (n,v,i)
+           /ni       insert prototype(s)                (n,i)
+           /nc       clear  prototype(s)                (n,i)
+           /ns       show   prototype(s)                (n,i)
+           /ntl      edit local templates                (n,i)
+           /ntg      edit global templates              (n,i)
+           /ntr      rebuild templates                  (n,i)
+
+           -- C++ ----------------------------------------------------
+           /+co      cout  <<  << endl;                  (n,i)
+           /+c       class                              (n,i)
+           /+cn      class (using new)                   (n,i)
+           /+ci      class implementation                (n,i)
+           /+cni     class (using new) implementation    (n,i)
+           /+mi      method implementation              (n,i)
+           /+ai      accessor implementation            (n,i)
+
+           /+tc      template class                      (n,i)
+           /+tcn     template class (using new)          (n,i)
+           /+tci     template class implementation      (n,i)
+           /+tcni    template class (using new) impl.    (n,i)
+           /+tmi     template method implementation      (n,i)
+           /+tai     template accessor implementation    (n,i)
+
+           /+tf      template function                  (n,i)
+           /+ec      error class                        (n,i)
+           /+tr      try ... catch                      (n,v,i)
+           /+ca      catch                              (n,v,i)
+           /+c.      catch(...)                          (n,v,i)
+
+           -- Run ---------------------------------------------------
+           /rc       save and compile                    (n,i)
+           /rl       link                                (n,i)
+           /rr       run                                (n,i)
+           /ra       set comand line arguments          (n,i)
+           /rm       run make                            (n,i)
+           /rg       cmd. line arg. for make            (n,i)
+           /rp       run splint                          (n,i)
+           /ri       cmd. line arg. for splint          (n,i)
+           /rk       run CodeCheck (TM)                  (n,i)
+           /re       cmd. line arg. for CodeCheck(TM)  (n,i)
+           /rd       run indent                          (n,v,i)
+           /rh       hardcopy buffer                    (n,v,i)
+           /rs       show plugin settings                (n,i)
+           /rx       set xterm size                      (n, only Linux/UNIX & GUI)
+           /ro       change output destination          (n,i)
+
+     关于此插件的更多功能和各种说明, 请查看帮助手册, help csupport.
+
+
+#=============================================================================
+6. omnicppcoplete 插件
+(1). 帮助手册查看
+     :help omnicppcoplete
+(2). 功能
+     实现像vc那样的代码自动补全功能, 比如 this-><Ctrl+X><Ctrl+O> 后, 将出现一个
+     提示框, 其中包含了this指针所有可以接收的函数或数据成员等.
+(3). 安装
+     把下载下来的 omnicppcoplete-0.41.zip 压缩包copy到 $HOME/.vim/(windows 复
+             制到 C:/Program Files/Vim/vimfiles ), 然后解压, 即可.
+(4). 使用方法
+     在.vimrc中添加以下两条语句:
+         set nocp   "不兼容vi
+         filetype plugin on  "开启文件类型识别功能
+     进入c++源码目录, 在终端执行命令 ctags -R --c++-kinds=+p --fields=+iaS
+     --extra=+q .
+(5). 使用例子
+     编写c++代码时, 如要自动补全, 敲入 Ctrl+X Ctrl+O, 即可在出现的提示框中用
+     Ctrl+N 选择符合要求的.
+
+
+#=============================================================================
+7. a.vim插件
+(1). 帮助手册查看
+     这个插件没有帮助手册, 不过大可放心使用, 其提供的功能也不是很多, 就几条命令
+     , 但是用起来真的是很方便.
+(2). 功能
+     在 .h 和 .c/.cpp 文件中切换. (英文原句 "A few of quick commands to swtich
+             between source files and header files quickly.")
+(3). 安装
+     把下载到的a.vim插件放到 $HOME/.vim/plugin 目录下, 即可.
+(4). 使用方法
+     只要在vim中输入以下命令即可完成相应的功能:
+         :A switches to the header file corresponding to the current file being
+             edited (or vise versa)
+         :AS splits and switches
+         :AV vertical splits and switches
+         :AT new tab and switches
+         :AN cycles through matches
+         :IH switches to file under cursor
+         :IHS splits and switches
+         :IHV vertical splits and switches
+         :IHT new tab and switches
+         :IHN cycles through matches
+         <Leader>ih switches to file under cursor
+         <Leader>is switches to the alternate file of file under cursor(e.g.
+                 on  <foo.h> switches to foo.cpp)
+         <Leader>ihn cycles through matches
+
+#=============================================================================
+8. VisualMark.vim插件
+(1). 帮助手册查看
+     这个插件没有帮助手册, 不过大可放心使用, 其提供的功能也不是很多, 就几条命令
+     , 但是用起来真的是很方便.
+(2). 功能
+     高亮书签.
+(3). 安装
+     把下载好的VisualMark.vim插件放到 $HOME/.vim/plugin 目录下, 即可.
+(4). 使用方法
+     只要在vim中执行以下命令即可完成相应的功能:
+          1.  For gvim, use "Ctrl + F2" to toggle a visual mark.
+              For both vim and gvim, use "mm" to toggle a visual mark.
+          2.  Use "F2" to navigate through the visual marks forward in the
+          file.
+          3.  Use "Shift + F2" to navigate backwards.
+
+#=============================================================================
+9. Mark.vim插件
+(1). 帮助手册查看
+      这个插件没有帮助手册, 不过大可放心使用, 其提供的功能也不是很多, 就几条命
+      令, 但是用起来真的是很方便.
+
+(2). 功能
+      这个插件与vim中自带的'*'与'#'非常相像. 不同之处是: vim中的'*'与'#'命令只
+      能同时高亮一个同类词组(或正则表达式的搜索结果), 而Mark.vim插件可以同时高
+      亮多个.
+
+(3). 安装
+     把下载好的Mark.vim插件放到 $HOME/.vim/plugin 目录中, 即可.
+
+(4). 使用方法
+     /m      mark or unmark the word under (or before) the cursor
+     /r      manually input a regular expression. 用于搜索.
+     /n      clear this mark (i.e. the mark under the cursor), or clear all
+             highlighted marks .
+     /*      把光标向前切换到当前被Mark的MarkWords中的下一个MarkWord.
+     /#      把光标向后切换到当前被Mark的MarkWords中的上一个MarkWord.
+     //      把光标向前切换到所有被Mark的MarkWords中的下一个MarkWord.
+     /?      把光标向后切换到所有被Mark的MarkWords中的上一个MarkWord.
+
+         说明: 这些命令中的 '/' 是 vim 中的 mapleader, 你也可以设置为别的: 如,
+         若要设置为 ',', 把下面这条语句加到.vimrc文件中, 即可,
+             let mapleader=","
+
+
+#=============================================================================
+10. code_complete.vim插件
+(1). 帮助手册查看
+(2). 功能
+      函数参数提示.
+
+(3). 安装
+      下载code_complete.vim插件放到 C:/Program Files/Vim/vimfiles 目录中, 即可.
+
+(4). 使用方法
+      进入源码目录, 执行如下命令:
+      ctags -R --c-kinds=+p --fields=+S .
+
+(5). 使用例子
+" Usage:
+ "           hotkey:
+ "              "<tab>" (default value of g:completekey)
+ "               Do all the jobs with this key, see
+ "           example:
+ "               press <tab> after function name and (
+ "                 foo ( <tab>
+ "               becomes:
+ "                 foo ( /<first param>`,/<second param>` )
+ "               press <tab> after code template
+ "                 if <tab>
+ "               becomes:
+ "                 if( /<...>` )
+ "                 {
+ "                     /<...>`
+ "                 }
+
+
+#=============================================================================
+11. autoproto.vim
+Using this script, typing ``(`` will result in (|), where | is the cursor
+         position and the double backticks are just marking input. Typing a
+         ``)`` will move the cursor outside the parens. This moving outside
+works even in nested scenarios. Typing ``if(my_array['key`` results in
+         if(my_array['key|']) and ``)`` gets you if(my_array['key'])|.
+
+ The paired characters are: [, (, ｛, ", ';   //"
+
+If you like this script, you should also check out surround.vim
+
+
+
+
+#=============================================================================
+12. pyclewn
+pyclewn在unix, windows下的安装方法:
+http://pyclewn.wiki.sourceforge.net/install+
+
+下载安装python
+http://www.python.org/download/
+
+python补丁(pywin32-212.win32-py2.6.txt)(对pyclewn)下载安装
+http://sourceforge.net/project/platformdownload.php?group_id=78018
+
+下载安装MimGW或Cywin
+
+下载安装pyclewn
+http://sourceforge.net/project/showfiles.php?group_id=212808
+
+(1). 帮助手册查看
+(2). 功能
+(3). 安装
+(4). 使用方法
+(5). 使用例子
+
+
+#=============================================================================
+13. project.vim
+(1). 帮助手册查看
+     :help project.txt
+
+(2). 功能
+     组织管理工程, 方便于浏览, 打开, 查找文件等.
+
+(3). 安装
+     下载project.vim压缩包(如: project.gz), 然后把解压的两个文件project.vim 和
+     project.txt 分别放到 $HOME/.vim/plugin 和 $HOME/.vim/doc 目录中.
+
+(4). 使用方法
+     在.vimrc中加入以下设置:
+         // 切换打开和关闭project窗口
+         nmap <silent> <Leader>P <Plug>ToggleProject
+         //插件项目窗口宽度.    默认值: 24
+         let g:proj_window_width=20 //当按空格键 <space> 或者单击鼠标左键/
+                                 <LeftMouse>时项目窗口宽度增加量,默认值:100
+         let g:proj_window_increment=90
+         let g:proj_flags='i'    //当选择打开一个文件时会在命令行显示文件名和当
+                                 前工作路径.
+         let g:proj_flags='m'    //在常规模式下开启 |CTRL-W_o| 和
+                                 |CTRL-W_CTRL_O| 映射, 使得当前缓冲区成为唯一可
+                                 见的缓冲区, 但是项目窗口仍然可见.
+         let g:proj_flags='s'    //开启语法高亮.
+         let g:proj_flags='t'    //用按 <space> 进行窗口加宽.
+         let g:proj_flags='c'    //设置后, 在项目窗口中打开文件后会自动关闭项目
+                                 窗口.
+         //let g:proj_flags='F'   //显示浮动项目窗口. 关闭窗口的自动调整大小和窗
+                                 口替换.
+         let g:proj_flags='L'    //自动根据CD设置切换目录.
+         //let g:proj_flags='n'    //显示行号.
+         let g:proj_flags='S'    //启用排序.
+         let g:proj_flags='T'    //子项目的折叠在更新时会紧跟在当前折叠下方显示(
+                                 而不是其底部).
+         let g:proj_flags='v'    //设置后将, 按 /G 搜索时用 :vimgrep 取代 :grep.
+         //let g:proj_run1='!p4 edit %f'    //g:proj_run1 ...  g:proj_run9 用法.
+         let g:proj_run3='silent !gvim %f'
+
+(5). 使用例子
+     1. 在源码目录下建立一个工程文件: exampleProject
+         $ gvim exampleProject
+
+     2. 在exampleProject文件中定入:
+        MyProject="E:/desktop_item/tmp/0virtual/nehe2/LVHM/test" CD=. flag=r
+        filter="*akefile*" {
+         Header file=. CD=. flag=r filter="*.h" {
+         }
+         Source file=. CD=. flag=r filter="*.cpp" {
+         }
+        }
+
+     3. 在光标定位到第一行, 敲入:
+         /R
+        exampleProject文件改变, 如下:
+              MyProject="E:/desktop_item/tmp/0virtual/nehe2/LVHM/test" CD=./
+                              flag=r filter="*akefile*" {
+               makefile
+               Header file=. CD=. flag=r filter="*.h" {
+                MainFrm.h
+                Resource.h
+                StdAfx.h
+                test.h
+                testDoc.h
+                testView.h
+               }
+               Source file=. CD=. flag=r filter="*.cpp" {
+                MainFrm.cpp
+                StdAfx.cpp
+                test.cpp
+                testDoc.cpp
+                testView.cpp
+               }
+              }
+
+     4. 小测一下:
+         把光标某个文件名上, 敲下 Enter 可以看到, 对应的文件在左边的窗口显示出
+         来.
+
+     5. 更多用法参考.vimrc的相关设置的说明或 help project.txt 查找帮助.
+
+
+#=============================================================================
+14. NERD_tree.vim
+(1). 帮助手册查看
+     help NERD_tree
+
+(2). 功能
+     目录树, 同时还可以对文件进行打开操作等.
+
+(3). 安装
+     下载NERD_tree压缩包, 然后把解压的两个文件NERD_tree.vim 和 NERD_tree.txt 分
+     别放到$HOME/.vim/plugin 和 $HOME/.vim/doc 目录中.
+
+(4). 使用方法
+
+(5). 使用例子
+     // let loaded_nerd_tree=1    // 禁用所有与NERD_tree有关的命令
+     nmap <silent> <leader>tto :NERDTreeToggle<cr>
+     let NERDTreeIgnore=['/.vim$','/~$']    // 不显示指定的类型的文件
+     let NERDTreeShowHidden=0    // 不显示隐藏文件(好像只在linux环境中有效)
+     let NERDTreeSortOrder=['//$','/.cpp$','/.c$','/.h$','*']    // 排序
+     let NERDTreeCaseSensitiveSort=0     // 不分大小写排序
+     let NERDTreeWinSize=30
+     // let NERDTreeShowLineNumbers=1
+     let NERDTreeShowBookmarks=1
+     let NERDTreeQuitOnOpen=1    // 打开文件后, 关闭NERDTrre窗口
+     // let NERDTreeHighlightCursorline=1     // 高亮NERDTrre窗口的当前行
+     // nmap <silent> <leader>tmk :Bookmark expand(/"<cword>/")<cr>
+
+
+#=============================================================================
+15. NERD_commenter.vim
+(1). 帮助手册查看
+     help NERD_commenter.
+
+(2). 功能
+     源码文档注释.
+
+(3). 安装
+     下载NERD_commenter压缩包, 然后把解压的两个文件NERD_commenter.vim 和
+     NERD_commenter.txt 分别放到$HOME/.vim/plugin 和 $HOME/.vim/doc 目录中.
+
+(4). 使用方法
+(5). 使用例子
+     " let NERD_java_alt_style=1
+     " Default mapping: [count],cc  " 以行为单位进行注释.
+     " ,c<space>    "comment <--> uncomment.
+     " ,cm          " 以段作为单位进行注释.
+     " ,cs          " 简洁美观式注释.
+     " ,cy          " Same as ,cc except that the commented line(s) are yanked first.
+     " ,c$          " 注释当前光标到行未的内容.
+     " ,cA          " 在行尾进行手动输入注释内容.
+     " ,ca          " 切换注释方式(/**/ <--> //).
+     " ,cl          " Same cc, 并且左对齐.
+     " ,cb          " Same cc, 并且两端对齐.
+     " ,cu          " Uncomments the selected line(s).
+
+
+#=============================================================================
+ 16. sketch.vim   用鼠标作画
+map <silent> <leader>ske :call ToggleSketch()<CR>
+
+
+
+
+#=============================================================================
+17. Calendar.vim
+map <silent> <leader>cal :Calendar<cr>
+map <silent> <leader>cah :CalendarH<cr>
+
+
+
+#=============================================================================
+18. DoxygenToolkit.vim
+(1). 代码文档工具
+let g:DoxygenToolkit_commentType = "C"
+ let g:DoxygenToolkit_briefTag_pre="@Synopsis  "
+let g:DoxygenToolkit_paramTag_pre="@Param"
+ let g:DoxygenToolkit_returnTag="@Returns  "
+let g:DoxygenToolkit_blockHeader="--------------------------------------------------------------------------"
+let g:DoxygenToolkit_blockFooter="----------------------------------------------------------------------------"
+let g:DoxygenToolkit_authorName="Mathias Lorente"
+let g:DoxygenToolkit_licenseTag="My own license"
+
+
+
+#=============================================================================
+19. cpp.vim
+(1). c/c++类名, 函数等高亮
+install details
+Make a backup copy of syntax/vim.cpp and overwrite syntax/vim.cpp with this file.
+
+
+
+#=============================================================================
+20. javacomplete.vim
+(1). 帮助手册查看
+     :help javacomplete.txt
+(2). 功能
+     进行java类, 包, 方法等补全.
+(3). 安装
+     1. 下载, 解压, 把相应的文件copy到相应的目录下.
+     2. 对Reflection.java进行编译, 编译命令为:
+         javac -source 1.4 Reflection.java
+     3. 把编译生成的Reflection.class文件移动到vim的$HOME目录下.(注意是移动, 而
+             不是复制, 最好保证系统中只有一个Reflection.class文件, 且在vim的
+             $HOME目录下.)
+     4. 在.vimrc中加入:
+         setlocal completefunc=javacomplete#CompleteParamsInfo
+         autocmd FileType c set omnifunc=ccomplete#Complete
+         autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+         autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+         autocmd FileType java set omnifunc=javacomplete#Complete
+         autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+         autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+         autocmd FileType python set omnifunc=pythoncomplete#Complete
+         autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+(4). 使用方法
+(5). 使用例子
+      Math.<C-X><C-O>
+
+
+
+#=============================================================================
+21. JumpInCode_Plus.vim
+(1). 帮助手册查看
+     http://www.vim.org/scripts/script.php?script_id=2862
+
+(2). 功能
+     <leader>jc  Generate tags and cscope database from current directory to :
+                    CurrentDirectory/OutDB/cscope.out,tags
+     <leader>jst       list existed tags full name and choose tags
+     <leader>jsc      list existed cscope database full name and choose cscope.out
+
+(3). 安装
+     把JumpInCode_Plus.vim 放到 $VIM/vimfiles/plugin
+
+(4). 使用方法
+(5). 使用例子
+
+
+
+#=============================================================================
+22. txtbrowser.zip
+(1). 帮助手册查看
+     http://www.vim.org/scripts/script.php?script_id=2899
+     http://guoyoooping.blog.163.com/blog/static/1357051832009112910162389/
+     :help txtbrowser
+
+(2). 功能
+        show the document map and syntax highlight in plain text.
+
+(3). 安装
+     :help txtbrowser
+     1. 请首先安装taglist插件(http://www.vim.org/scripts/script.php?script_id=273),
+     我相信玩Vim的没有几个人没有安装这个插件吧.
+
+     2. 下载插件后解压缩到目录$HOME/.vim(或$HOME/vimfiles, $VIM/vimfiles). 然后将解压后
+     的.ctag, 剪切到$HOME目录下即可, 安装完成后你的文件夹下应该有下面的几个文件(请
+     注意目录结构):
+         $HOME/.ctags - 用于标题标签的生成.
+         $HOME/.vim/syntax/txt.vim - .txt文件的语法高亮文件.
+         $HOME/.vim/plugin/txtbrowser.vim - 浏览工具.
+         $HOME/.vim/doc/txtbrowser.txt - 英文帮助文档.
+         $HOME/.vim/doc/txtbrowser.cnx - 中文帮助文档.(别忘了打开然后执行
+                           ":helptags ."生成标签)
+     由于版本1.1.1之前采用老的插件名, 请在安装前先删除低版本插件(主要是帮助文件, 原来的
+     名字叫txt.txt和txt_cn.txt), 否则在安装新的帮助文档时会提示标签已经存在..
+
+     3. 在你的.vimrc文件里加入下面三行, 然后重启你的Vim:
+         syntax on
+         let tlist_txt_settings = 'txt;c:content;f:figures;t:tables'
+         au BufRead,BufNewFile *.txt setlocal ft=txt
+
+     4. 本插件所有文件以fenc=utf8发布. 签于taglist对中文的支持有限, 你需要保证你的文
+     档的enc值和fenc的值相等(例如, enc=cp936, fenc=cp936). 如果不等请将fenc的值设为
+     相应的enc的值保(如:set fenc=cp936)存后并刷新(:TlistUpdate).
+
+(4). 使用方法
+     :help txtbrowser
+(5). 使用例子
+
+
+
+#=============================================================================
+ 23.  FindMate.vim
+(1). 帮助手册查看
+     help FindMate
+     http://www.vim.org/scripts/script.php?script_id=2871
+
+(2). 功能
+     快速查找文件
+
+(3). 安装
+     下载FindMate压缩包, 然后把解压的两个文件FindMate.vim 和 FindMate.txt 分别放到
+     $HOME/.vim/plugin 和 $HOME/.vim/doc 目录中.
+
+(4). 使用方法
+         You can launch FindMate by typing:
+               ,, File_name
+         Or
+               :FindMate File_name
+         The shortcut can be redefined by using:
+               map your_shortcut   <Plug>FindMate
+         In your .vimrc file
+
+(5). 使用例子
+
+
+
+
+#=============================================================================
+24. ZoomWin.vim
+(1). 帮助手册查看
+     http://www.vim.org/scripts/script.php?script_id=508
+
+(2). 功能
+     Press <c-w>o : the current window zooms into a full screen
+     Press <c-w>o again: the previous set of windows is restored
+
+(3). 安装
+     Press <c-w>o : the current window zooms into a full screen
+     Press <c-w>o again: the previous set of windows is restored
+
+(4). 使用方法
+(5). 使用例子
+
+
+
+#=============================================================================
+25. cpp_src.tar.bz2
+     tags for std c++ (STL, streams, ...) : Modified libstdc++ headers for use with ctags
+(1). 帮助手册查看
+     http://www.vim.org/scripts/script.php?script_id=2358
+
+(2). 功能
+(3). 安装
+     install details:
+     1. unpack
+     2. run
+         $ ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ cpp_src
+         $ mv tags cpp # or whatever
+     3. In Vim:
+         set tags+=/my/path/to/tags/cpp
+
+(4). 使用方法
+(5). 使用例子
+
+
+
+
+#=============================================================================
+26. grep.vim
+(1). 帮助手册查看
+     http://www.vim.org/scripts/script.php?script_id=311
+
+(2). 功能
+     The grep plugin integrates the grep, fgrep, egrep, and agrep tools with
+     Vim and allows you to search for a pattern in one or more files and jump
+     to them.
+
+(3). 安装
+     1).
+     To use this plugin, you need the grep, fgrep, egrep, agrep, find and
+     xargs utilities. These tools are present in most of the Unix installations.
+     For MS-Windows systems, you can download the GNU grep and find utilities
+     from the following sites:
+        http://gnuwin32.sourceforge.net/packages/grep.htm
+        http://gnuwin32.sourceforge.net/packages/findutils.htm
+     2).
+     把下载得到的grep.vim复制到 $HOME/plugin 目录中.
+
+(4). 使用方法
+     :Grep
+
+(5). 使用例子
+
+#=============================================================================
+27. autocomplpop.zip
+(1). 帮助手册查看
+     :help acp
+     http://www.vim.org/scripts/script.php?script_id=1879
+
+(2). 功能
+     With this plugin, your vim comes to automatically opens popup menu for
+     completions when you enter characters or move the cursor in Insert mode. It
+     won't prevent you continuing entering characters.
+
+(3). 安装
+     autocomplpop.zip
+     mv plugin/acp.vim $HOME/.vim/plugin/acp.vim
+     mv autoload/acp.vim $HOME/.vim/autoload/acp.vim
+     mv doc/acp.jax $HOME/.vim/doc/acp.jax
+     mv doc/acp.txt $HOME/.vim/doc/acp.txt
+
+(4). 使用方法
+     Once this plugin is installed, auto-popup is enabled at startup by default.
+     Which completion method is used depends on the text before the cursor. The
+     default behavior is as follows:
+         kind      filetype    text before the cursor ~
+         Keyword   *           two keyword characters
+         Filename  *           a filename character + a path separator
+                               +0 or more filename character
+         Omni      ruby        ".", "::" or non-word character + ":"
+                               (|+ruby| required.)
+         Omni      python      "."(|+python| required.)
+         Omni      xml         "<", "</" or("<" + non-">" characters + " ")
+         Omni      html/xhtml  "<", "</" or("<" + non-">" characters + " ")
+         Omni      css         (":", ";", "{", "^", "@", or "!")
+                               +0 or 1 space
+
+(5). 使用例子
+#=============================================================================
+ " http://www.vim.org/scripts/script.php?script_id=1638  " SourceCodeObedience
+ " http://www.vim.org/scripts/script.php?script_id=1581  " lookupfile
+ " http://insenvim.sourceforge.net/index.php            " Vim Intellisense
+
+/// todo
+1 vimrc配置
+set nocompatible
+"检测文件的类型
+filetype on
+"记录历史的行数
+set history=1000
+"背景使用黑色
+set background=dark
+"下面两行在进行编写代码时，在格式对起上很有用；
+"第一行，vim使用自动对起，也就是把当前行的对起格式应用到下一行；
+"第二行，依据上面的对起格式，智能的选择对起方式，对于类似C语言编“写上很有用
+set autoindent
+set smartindent
+"第一行设置tab键为4个空格，第二行设置当行之间交错时使用4个空格
+set tabstop=4
+set shiftwidth=4
+"设置匹配模式，类似当输入一个左括号时会匹配相应的那个右括号
+set showmatch
+"去除vim的GUI版本中的toolbar
+set guioptions-=T
+"当vim进行编辑时，如果命令错误，会发出一个响声，该设置去掉响声
+set vb t_vb=
+"在编辑过程中，在右下角显示光标位置的状态行
+set ruler
+"默认情况下，寻找匹配是高亮度显示的，该设置关闭高亮显示
+set nohls
+"查询时非常方便，如要查找book单词，当输入到/b时，会自动找到第一
+"个b开头的单词，当输入到/bo时，会自动找到第一个bo开头的单词，依
+"次类推，进行查找时，使用此设置会快速找到答案，当你找要匹配的单词
+"时，别忘记回车
+set incsearch
+" 启动的时候不显示那个援助索马里儿童的提示
+set shortmess=atI

@@ -1,0 +1,6 @@
+// converting all files in a folder to md using pandoc on mac
+http://stackoverflow.com/questions/26126362/converting-all-files-in-a-folder-to-md-using-pandoc-on-mac
+
+markdown
+http://www.importnew.com/11778.html
+http://dillinger.io/

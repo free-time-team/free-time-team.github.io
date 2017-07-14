@@ -1,0 +1,2 @@
+1. Gtk-WARNING **: connot open display:
+sudo startx

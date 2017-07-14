@@ -1,0 +1,47 @@
+
+# client_examples/backchannel.c
+# client_examples/backchannel.o
+GTK_VERSION = gtk+-2.0
+CFLAGS = -g -Wall `pkg-config --cflags ${GTK_VERSION}`
+LDFLAGS = -g -Wall `pkg-config --libs ${GTK_VERSION}`
+CC = gcc
+LIBS = -lm
+
+
+OBJ = obj
+INCLUDES = -I. -I./common
+OBJS = libvncclient/cursor.o libvncclient/listen.o libvncclient/rfbproto.o \
+        libvncclient/sockets.o \
+        libvncclient/tls_none.o libvncclient/vncviewer.o \
+        common/minilzo.o tools_code/log.o \
+        client_examples/gtkvncviewer.o
+SRCS = libvncclient/cursor.c libvncclient/listen.c libvncclient/rfbproto.c \
+        libvncclient/sockets.c \
+        libvncclient/tls_none.c libvncclient/vncviewer.c \
+        common/minilzo.c tools_code/log.c \
+        client_examples/gtkvncviewer.c
+HDRS = rfb/keysym.h rfb/rfb.h rfb/rfbclient.h rfb/rfbconfig.h rfb/rfbint.h \
+        rfb/rfbproto.h \
+        rfb/rfbregion.h
+
+all: client
+
+# The variable $@ has the value of the target. In this case $@ = psort
+client: ${OBJS}
+    ${CC} ${INCLUDES} -o $@ ${OBJS} ${LIBS} ${LDFLAGS}
+
+.c.o:
+    ${CC} ${CFLAGS} ${INCLUDES} -o $@ -c $<
+
+depend:
+    makedepend ${SRCS}
+
+clean:
+    rm *.o core *~
+
+tar:
+    tar cf code.tar Makefile *.c *.h testfile1
+
+print:
+    more Makefile $(HDRS) $(SRCS) |
+enscript -2r -p listing.ps

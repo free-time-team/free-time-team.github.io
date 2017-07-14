@@ -1,0 +1,123 @@
+// fb.c
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <linux/fb.h>
+#include <time.h>
+#include <sys/mman.h>
+#include"fb.h"
+
+color_t color={0,0,150,100}; //the color of background
+color_t color1={0,255,0,0}; //in window red
+
+int init_fb()
+ {
+  int fbfd = 0;
+ struct fb_var_screeninfo vinfo;
+ struct fb_fix_screeninfo finfo;
+ long int screensize = 0;
+ char *fbp = 0;
+ int x = 0, y = 0;
+ long int location = 0;
+ long int location1 = 0;
+ fbfd = open("/dev/fb0", O_RDWR); // Open the file for reading and writing
+  if (!fbfd)
+  {
+  printf("Error: cannot open framebuffer device.\n");
+  exit(0);
+  }
+  printf("The framebuffer device was opened successfully.\n");
+  // Get fixed screen information
+  if (ioctl(fbfd, FBIOGET_FSCREENINFO, &finfo))
+  {
+  printf("Error reading fixed information.\n");
+   exit(0);
+  }
+  // Get variable screen information
+  if (ioctl(fbfd, FBIOGET_VSCREENINFO, &vinfo))
+  {
+  printf("Error reading variable information.\n");
+   exit(0);
+  }
+  printf("%dx%d, %dbpp\n", vinfo.xres, vinfo.yres, vinfo.bits_per_pixel);
+        // Figure out the size of the screen in bytes
+  screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8; // 8
+  printf("screensize is %ldKB\n",screensize/1024);
+        // Map the device to memory
+  fbp = (char *)mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
+  if((int)fbp == -1)
+  {
+  printf("Error: failed to map framebuffer device to memory.\n");
+  exit(0);
+  }
+  printf("The framebuffer device was mapped to memory successfully.\n");
+
+ for (x = 0; x < DISPLAY_WIDE; x++)
+  for (y = 0; y < DISPLAY_HIGH; y++)
+  {
+  location = (x+1100+vinfo.xoffset) * (vinfo.bits_per_pixel/8) +(y+100+vinfo.yoffset) * finfo.line_length;
+ //if (vinfo.bits_per_pixel == 32)
+
+   *(fbp + location + 3) = color.t;// No transparency
+   *(fbp + location + 2) = color.r;// A red
+   *(fbp + location + 1) = color.g;// A green
+   *(fbp + location) = color.b; // Some blue
+
+  }
+  /*
+    function:in window display red
+    author :sjmp
+     time :2012.06.02
+  */
+  for (x = 0; x < DISPLAY_WIDE-10; x++)
+  for (y = 0; y < DISPLAY_HIGH-10; y++)
+  {
+  location1 = (x+5+(1100+vinfo.xoffset)) * (vinfo.bits_per_pixel/8) +(y+(5+100+vinfo.yoffset)) * finfo.line_length;
+   *(fbp + location1 + 3) = color1.t;
+   *(fbp + location1 + 2) = color1.r;
+   *(fbp + location1 + 1) = color1.g;
+   *(fbp + location1) = color1.b;
+
+   }
+  munmap(fbp, screensize);
+  return 0;
+  close(fbfd);
+ }
+
+// fb.h
+#ifndef FBI_H_
+#define FBI_H_
+
+#define DISPLAY_WIDE 130 //display wide
+#define DISPLAY_HIGH 150 //display high
+
+
+typedef struct
+ {
+   int t;
+   int r;
+   int g;
+   int b;
+ } color_t;
+
+int init_fb();
+
+#endif
+
+// main.c
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <linux/fb.h>
+#include <time.h>
+#include <sys/mman.h>
+#include"fb.h"
+
+int main()
+{
+    init_fb();//init framebuffer
+    return 0;
+}

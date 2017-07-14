@@ -1,0 +1,12 @@
+vimdiff usage
+]c :        - next difference
+[c :        - previous difference
+do          - diff obtain
+dp          - diff put
+zo          - open folded text
+zc          - close folded text
+:diffupdate - re-scan the files for differences
+
+resource
+http://vim.wikia.com/wiki/A_better_Vimdiff_Git_mergetool  // a better vimdiff git mergetool
+http://www.rosipov.com/blog/use-vimdiff-as-git-mergetool/ // use vimdiff as git mergetool

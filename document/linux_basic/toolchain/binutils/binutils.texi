@@ -1,0 +1,214 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle binutils
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top binutils
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* binutils::
+@c * Copying::  free time team
+@end menu
+
+@node binutils
+@chapter binutils
+
+GNU Binary Utilities
+http://sourceware.org/binutils/docs/binutils/
+
+Table of Contents
+
+Introduction
+1 ar
+1.1 Controlling ar on the Command Line
+1.2 Controlling ar with a Script
+2 nm
+3 objcopy
+4 objdump
+5 ranlib
+6 size
+7 strings
+8 strip
+9 c++filt
+10 addr2line
+11 nlmconv
+12 windmc
+13 windres
+14 dlltool
+14.1 The format of the dlltool .def file
+15 readelf
+16 elfedit
+17 Common Options
+18 Selecting the Target System
+18.1 Target Selection
+18.2 Architecture Selection
+19 Reporting Bugs
+19.1 Have You Found a Bug?
+19.2 How to Report Bugs
+Appendix A GNU Free Documentation License
+Binutils Index
+Next: ar, Up: (dir)
+
+Introduction
+
+This brief manual contains documentation for the gnu binary utilities (GNU Binutils) version 2.26:
+
+This document is distributed under the terms of the GNU Free Documentation License version 1.3. A copy of the license is included in the section entitled “GNU Free Documentation License”.
+
+ar: Create, modify, and extract from archives
+nm: List symbols from object files
+objcopy: Copy and translate object files
+objdump: Display information from object files
+ranlib: Generate index to archive contents
+size: List section sizes and total size
+strings: List printable strings from files
+strip: Discard symbols
+c++filt: Filter to demangle encoded C++ symbols
+cxxfilt: MS-DOS name for c++filt
+addr2line: Convert addresses to file and line
+nlmconv: Converts object code into an NLM
+windmc: Generator for Windows message resources
+windres: Manipulate Windows resources
+dlltool: Create files needed to build and use DLLs
+readelf: Display the contents of ELF format files
+elfedit: Update the ELF header of ELF files
+Common Options: Command-line options for all utilities
+Selecting the Target System: How these utilities determine the target
+Reporting Bugs: Reporting Bugs
+GNU Free Documentation License: GNU Free Documentation License
+Binutils Index: Binutils Index
+-----------------
+
+addr2line
+arm-eabi-addr2line -C -f -e xxx.so [addr]
+example: addr2line -Cfe vmlinux 0xffffffc0006e49b8 0xffffffc00016498c 0xffffffc0001678f0 0xffffffc0000bf434 0xffffffc000084410
+       -a   --addresses
+           Display address before function names or file and line number information.  The address is printed with a 0x prefix to easily identify it.
+       -b bfdname --target=bfdname
+           Specify that the object-code format for the object files is bfdname.
+       -C   --demangle[=style]
+           Decode (demangle) low-level symbol names into user-level names.  Besides removing any initial underscore prepended by the system, this makes C++
+           function names readable.  Different compilers have different mangling styles. The optional demangling style argument can be used to choose an
+           appropriate demangling style for your compiler.
+       -e filename --exe=filename
+           Specify the name of the executable for which addresses should be translated.  The default file is a.out.
+       -f  --functions
+           Display function names as well as file and line number information.
+       -s  --basenames
+           Display only the base of each file name.
+       -i  --inlines
+           If the address belongs to a function that was inlined, the source information for all enclosing scopes back to the first non-inlined function will
+           also be printed.  For example, if "main" inlines "callee1" which inlines "callee2", and address is from "callee2", the source information for
+           "callee1" and "main" will also be printed.
+       -j  --section
+           Read offsets relative to the specified section instead of absolute addresses.
+       -p  --pretty-print
+           Make the output more human friendly: each location are printed on one line.  If option -i is specified, lines for all enclosing scopes are prefixed
+           with (inlined by).
+       @@file
+           Read command-line options from file.  The options read are inserted in place of the original @@file option.  If file does not exist, or cannot be read,
+           then the option will be treated literally, and not removed.
+           Options in file are separated by whitespace.  A whitespace character may be included in an option by surrounding the entire option in either single or
+           double quotes.  Any character (including a backslash) may be included by prefixing the character to be included with a backslash.  The file may itself
+           contain additional @@file options; any such options will be processed recursively.
+
+nm
+#01 pc 00086be3  /system/lib/libandroid_runtime.so (android::javaObjectForIBinder(_JNIEnv*, android: p<android::IBinder> const&)+30)
+$arm-eabi-nm -A libandroid_runtime.so | grep "00086b"
+U   An undefined symbol, usually an external symbol reference.
+T   A symbol defined in the text section, usually a function name.
+t    A local symbol defined in the text section. In a C program, this usu-ally equates to a static function.
+D   An initialized data value.
+C   An uninitialized data value.
+http://www.thegeekstuff.com/2012/03/linux-nm-command/
+http://www.cnblogs.com/yc_sunniwell/archive/2010/07/22/1782685.html
+
+ldd
+(list dynamic dependencies) utility is a simple tool used to list the dynamic libraries required by any executable.
+
+c++filt
+It is possible to recover the demangled function names
+nm cpp_test | grep demo | c++filt
+
+strings
+The  strings utility is designed specifically to extract string content from
+files, often without regard for the format of those files.
+
+dump symbol file
+arm-eabi-objdump -t vmlinux > sym.txt
+arm-eabi-readelf -s vmlinux > sym.txt
+crash > sym -l
+
+disassembly
+arm-eabi-objdump -S -D -l vmlinux > vmlinux.S
+
+arm-eabi-readelf -a vmlinux | grep "page_address"
+0xc0257d54 <page_address>: 0x80acb0b0
+0xc0257f78 <set_page_address>: @@0xc0ddec58
+0xc0e15528 <page_address_init>: 0x80aab0b0
+ 35061: c0d8900a    13 OBJECT  LOCAL  DEFAULT    9 __kstrtab_page_address
+ 35069: c0d7e28c     4 OBJECT  LOCAL  DEFAULT    7 __kcrctab_page_address
+ 35086: c10fe3c0  8192 OBJECT  LOCAL  DEFAULT   26 page_address_htable
+ 35088: c1100bc0     8 OBJECT  LOCAL  DEFAULT   26 page_address_pool
+ 35091: c1100be0  8192 OBJECT  LOCAL  DEFAULT   26 page_address_maps
+ 35098: c0d736a0     8 OBJECT  LOCAL  DEFAULT    5 __ksymtab_page_address
+173448: c0257f78   348 FUNC    GLOBAL DEFAULT    2 set_page_address
+177039: c0257d54   212 FUNC    GLOBAL DEFAULT    2 page_address
+177102: c0261530   156 FUNC    GLOBAL DEFAULT    2 page_address_in_vma
+184422: c0e15528   160 FUNC    GLOBAL DEFAULT   17 page_address_init
+186568: 865b8f4f     0 NOTYPE  GLOBAL DEFAULT  ABS __crc_page_address
+
+arm-eabi-objdump  -S -D -l -d --start-address=0xc0257d54 --stop-address=0xc0257e28 vmlinux
+
+reference
+https://www.gnu.org/software/binutils/
+https://sourceware.org/binutils/docs-2.25/binutils/index.html
+http://blog.csdn.net/andyhuabing/article/details/7074979
+http://bytesthink.com/blog/?p=133
+http://blog.csdn.net/helldevil/article/details/6682211
+http://bootloader.wikidot.com/linux:android:crashlog
+http://www.fanli7.net/a/bianchengyuyan/C__/20120511/121926.html
+http://www.thegeekstuff.com/2012/03/linux-nm-command/
+http://www.cnblogs.com/yc_sunniwell/archive/2010/07/22/1782685.html
+
+
+
+
+
+
+@bye

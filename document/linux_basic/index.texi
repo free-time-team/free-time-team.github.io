@@ -1,0 +1,63 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Linux basic
+
+@copying
+This manual is for linux basic Document, version 1.0
+
+Copyright @copyright{} years free time team
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Linux basic
+
+This manual is for linux basic, version1.0
+@end ifnottex
+
+@menu
+* Linux basic::
+@c * Copying::  free time team
+@end menu
+
+@node Linux basic
+@chapter Linux basic
+
+==> @url{./editor/index.html, editor}
+
+==> @url{./tools/index.html, tools}
+
+==> @url{./toolchain/index.html, toolchain}
+
+==> @url{./linux/index.html, linux}
+
+==> @url{./linux_distro/index.html, linux_distro}
+
+==> @url{./linux_init/index.html, linux_init}
+
+@bye

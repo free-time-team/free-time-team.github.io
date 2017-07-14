@@ -1,0 +1,72 @@
+// file system
+http://www.chiark.greenend.org.uk/~peterb/linux/raidextract/stripesize
+http://blog.csdn.net/robinlovesnow/article/details/7567037
+https://ext4.wiki.kernel.org/index.php/Ext4_Disk_Layout
+https://oss.oracle.com/projects/ocfs2/dist/documentation/disklayout.pdf
+http://vbird.dic.ksu.edu.tw/linux_basic/0230filesystem_1.php
+http://www.ibm.com/developerworks/library/l-linux-filesystem/ // Anatomy of the Linux file system
+
+https://scyangzhu.wordpress.com/page/4/
+http://e2fsprogs.sourceforge.net/ext2intro.html
+
+....
+// todo
+gentoo
+mkfs
+dosfstools // dos fs tools
+https://packages.gentoo.org/  // gentoo packages
+
+// partition
+linux partition
+http://blog.csdn.net/aaronychen/article/details/2270048 // linux磁盘分区详解
+https://wiki.archlinux.org/index.php/partitioning       // partitioning
+http://tldp.org/HOWTO/Partition/fdisk_partitioning.html // fdisk partitioning
+
+// fstab file example
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+proc            /proc           proc    nodev,noexec,nosuid 0       0
+# / was on /dev/sda1 during installation
+UUID=ab5e7d3d-2866-4de8-81b6-a621435327a3 /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=5e1421d8-8ffc-402b-b124-58dfa339c349 none            swap    sw              0       0
+
+# mount some normal partitions
+/dev/sda3     /mnt/sda3           ext4        defaults   0 0
+/dev/sda4     /mnt/sda4           ext4        defaults   0 0
+/dev/sdb      /mnt/sdb            ext4        defaults   0 0
+
+reference
+// fstab
+http://www.linuxstall.com/fstab/
+http://en.wikipedia.org/wiki/Fstab
+
+
+git clone https://github.com/zzyjsjcom/e2fsprogs_1.42.12.git
+cd e2fsprogs_1.42.12/
+./configure
+make
+
+Creating an initialized file
+$ dd if=/dev/zero of=file.img bs=10m count=1
+
+Use the losetup command to associate a loop device with the file
+$ losetup /dev/loop0 file.img
+
+Create a file system on the device with mke2fs
+$ mke2fs -c /dev/loop0 10000
+
+Creating a mount point and mounting the file system through the loop device
+$ mkdir /mnt/point1
+$ mount -t ext2 /dev/loop0 /mnt/point1
+
+From this simple demonstration, it's easy to see how powerful the Linux file system (and the loop device) can be. You can use this same approach to create encrypted file systems with the loop device on a file. This is useful to protect your data by transiently mounting your file using the loop device when needed.
+
+// data recovery
+https://www.ibm.com/developerworks/cn/linux/1312_caoyq_linuxrestore/
+http://www.dedoimedo.com/computers/linux-data-recovery.html

@@ -1,0 +1,73 @@
+mru
+http://www.vim.org/scripts/script.php?script_id=521
+1. Copy the mru.vim file to one of the following directories:  ~/.vim/plugin
+2. Restart Vim.
+3. You can use the mru
+:MRU
+
+tagbar
+<F1>          显示键映射帮助。
+<CR>/<Enter>  跳转到当前光标下的 tag。如果是伪标签或一般的头信息则没作用.
+p             源文件跳转到当前光标下的 tag。但光标停留在 Tagbar 窗口。
+<LeftMouse>   如果点击折叠图标，按折叠的当前状态开打开或关闭折叠。
+<2-LeftMouse> 同 <CR>。如果希望使用单击替代双击，参考 |g:tagbar_singleclick|。
+<Space>       在命令行显示当前 tag 的原型信息。(比如行号)
++/zo          打开当前光标下的折叠。
+-/zc          如果光标下有折叠则关闭光标下的折叠，如果没有则关闭当前的折叠。
+o/za          切换光标下的折叠状态，如果光标下没有折叠，切换当前的折叠状态。
+*/zR          通过设置折叠级别(foldlevel)为 99 来打开所有的折叠。
+=/zM          通过设置折叠级别为 0 来关闭所有的折叠。
+<C-N>         转到下一个顶层 tag。
+<C-P>         转到前一个顶层 tag。
+s             在 tag 名称排序和文件顺序排序中切换。
+x             切换 Tagbar 窗口的最大化。
+q             关闭 Tagbar 窗口。
+
+vim easymotion
+" 更改快捷键
+map f <Plug>(easymotion-prefix)
+map ff <Plug>(easymotion-s)
+map fs <Plug>(easymotion-f)
+map fl <Plug>(easymotion-lineforward)
+map fj <Plug>(easymotion-j)
+map fk <Plug>(easymotion-k)
+map fh <Plug>(easymotion-linebackward)
+" 忽略大小写
+let g:EasyMotion_smartcase = 1
+...
+ff 全屏搜索
+fs 往下搜索
+fF 往上搜索
+fl 行内向右搜索
+fj 行间向下搜索
+fk 行间向上搜索
+fh 行内向左搜索
+fw 往下搜索一个单词开始处
+fb 往上搜索一个单词开始处
+fe 往下搜索一个单词结尾处
+fge 往下搜索一个单词结尾处
+
+ctrlp
+Basic Usage
+Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.
+Run :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode.
+Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.
+Check :help ctrlp-commands and :help ctrlp-extensions for other commands.
+...
+Once CtrlP is open:
+Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+Press <c-f> and <c-b> to cycle between modes.
+Press <c-d> to switch to filename only search instead of full path.
+Press <c-r> to switch to regexp mode.
+Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+Use <c-y> to create a new file and its parent directories.
+Use <c-z> to mark/unmark multiple files and <c-o> to open them.
+
+todo ctrlsf plugin
+https://github.com/dyng/ctrlsf.vim
+
+vim plugin
+http://blog.guorongfei.com/2015/10/06/vim-plugin/
+http://mirnazim.org/writings/vim-plugins-i-use/

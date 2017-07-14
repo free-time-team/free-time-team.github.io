@@ -1,0 +1,144 @@
+
+wget基本用法
+
+1. 常用用法
+
+-c选项: 断点续传
+
+2. wget用法速查
+http://hi.baidu.com/hkuieagle/item/6e771cdb4c2b82e355347f4a
+Wget支持 HTTP, HTTPS, FTP和HTTP代理。
+特性：
+(1). 非交互式，意味着wget可以在一直后台运行，用户甚至无需登录。
+(2). wget可以追踪HTML,XHTML,CSS中的链接，从而方便的创建站点的本地镜像。
+(3). 支持通配符，支持时间戳
+(4). 健壮的设计使其可以在缓慢或不稳定的网络中使用。
+(5). 支持使用代理。
+(6). 支持IPV6(需编译时加入支持)
+(7). 内建特性提供微调机制让你下载到你想要的连接。
+(8). 几乎所有这些特性都是可配置的，通过命令行参数或配置文件
+(9). wget是自由，每个人都可以在GPL框架下使用，修改和再发布
+
+调用：wget [OPTION]... [URL]...
+(1) URL格式：
+http://host[:port]/directory/file
+ftp://host[:port]/directory/file
+或者在URL中使用 用户名和密码：
+ftp://user:password@host/path
+http://user:password@host/path
+(这种做法不安全，其它用户可以用ps命令看到用户名 密码！)
+对于ftp，wget支持类型设置：type=a (ascii 模式，‘i' 二进制模式)
+ftp://host/directory/file;type=a
+(2) 基本选项：
+-V(--version): 打印版本
+-h(--help):      打印帮助
+-b(--backgroud): 启动后在后台运行，默认output重定向到wget-log，可以通过-o 指定。
+-e(--execute): 运行命令，如同在.wgetrc中的命令一样，但在.wgetrc所有命令之后运行
+(3) 日志和输入文件选项
+-o LOGFILE(--output-file=LOGFILE): 记录所有消息至LOGFILE中
+-a LOGFILE(--append-output=LOGFILE):添加日志至LOGFILE中
+-d(--debug):打开调试模式（需编译时添加debug支持）
+-q(--quiet):关闭输出
+-v(--verbose):冗余输出（默认）
+-nv(--no-verbose): 关闭冗余输出
+-i FILE(--input-file=FILE):从本地或外部文件中读URLS，本地文件使用--force-html强制作为html文件处理，外部文件自动当作html
+-F(--force-html): 当从文件输入时，将文件当作html处理
+-B URL(--base=URL): 解析相对链接时，使用URL作为参考点（可与-i配合使用）
+(4) 下载选项：
+--bind-address=ADDRESS: 绑定地址
+-t NUMBER(--tries=NUMBER）： 设置重试次数，0或inf为无限次，默认20次，"connection refused" or "not found"除外。
+-O FILE(--output-document=FILE): 所有下载文件均写入FILE中。
+-nc(--no-clobber):加入此选项则当下载同一文件时,wget拒绝下载新版
+-c(--continue): 当前目录下有不完整的文件时，断点续传之。
+--progress=TYPE：设置进度显示格式，有dot和bar两种。
+-N(--timestamping): 打开时间戳功能。
+-S(--server-response)： 打印HTTP服务器发送的头信息或FTP服务器的响应。
+--spider: 只检查文件是否存在，不下载（类似web spider)。
+-T seconds(--timeout=seconds): 设置超时时间，相当于同时设置`--dns-timeout', `--connect-timeout', 和`--read-timeout'
+--dns-timeout=SECONDS:设置dns解析超时时间
+--connect-timeout=SECONDS:设置连接超时时间
+--read-timeout=SECONDS：设置空闲超时时间
+--limit-rate=AMOUNT：下载速度限制
+-w SECONDS(--wait=SECONDS):设置下载时间间距
+--waitretry=SECONDS:设置错误重试时间间隔
+--random-wait:设置等待时间为0.5至1.5*WAIT seconds间的随机值
+--no-proxy：不使用代理
+-Q QUOTA(--quota=QUOTA):设置下载配额。
+--no-dns-cache:不使用dns缓存，即每次连接重新要求解析
+--restrict-file-names=MODES：设置本地保存文件名的格式。
+-4(--inet4-only):只用ipv4
+-6(--inet6-only):只用ipv6
+--prefer-family=none/IPv4/IPv6：设置首选类型。
+--retry-connrefused：设置当connection refused时重试
+--user=USER --password=PASSWORD指定用户名，密码。（不安全！）
+--ask-password：每个连接弹出密码输入框。
+--no-iri：关闭internationalized URI（IRI）支持，用--iri打开（默认）
+--local-encoding=ENCODING：设置本地编码，供wget由本地URLS参数转至UTF-8时使用
+--remote-encoding=ENCODING：设置远程编码，供wget转换远端编码至UTF-8时使用。
+(5) 目录选项
+-nd(--no-directories):不创建分层目录（所有文件都下至当前目录）
+-x(--force-directories):与-nd相反，强制创建下载目录
+-nH(--no-host-directories):不创建以主机为前缀的目录。
+--protocol-directories：使用协议名称组成本地目录名
+--cut-dirs=NUMBER：减去NUMBER个目录作为目录名
+-P PREFIX（--directory-prefix=PREFIX）： 文件下载至PREFIX
+(6) HTTP选项
+--default-page=NAME：使用NAME作为默认主页名
+-E(--adjust-extension):本地存储文件时加.html后缀
+--http-user=USER --http-password=PASSWORD:
+--no-http-keep-alive:关闭keep alive功能
+--no-cache:关闭服务器端的缓存功能
+--no-cookies：不使用cookies
+--load-cookies FILE：从FILE加载饼干
+--save-cookies FILE:保存饼干至FILE
+--keep-session-cookies:保存会话饼干，与上个选项一起用
+--ignore-length：忽略HTTP头中的Content-Length内容
+--header=HEADER-LINE：构造HTTP头
+--max-redirect=NUMBER：指定最大重定向数目
+--proxy-user=USER --proxy-password=PASSWORD
+--referer=URL：在HTTP头中包含Referer: URL
+--save-headers：保存HTTP服务器发送的报头
+-U AGENT-STRING（--user-agent=AGENT-STRING）：设置用户标示
+--post-data=STRING --post-file=FILE：使用POST方法发送STRING或FILE中的内容（key1=value1&key2=value2格式）
+--content-disposition：试验性的支持Content-Disposition头
+--auth-no-challenge：让wget发送基本HTTP认证信息
+(7) HTTPS（SSL/TLS）选项
+--secure-protocol=PROTOCOL：选择安全协议类型（auto,SSLv2,SSLv3,TLSv1）
+--no-check-certificate：不检查证书
+--certificate=FILE：指定客户端证书
+--certificate-type=TYPE：指定客户端证书类型
+--private-key=FILE：从FILE读取私钥
+--private-key-type=TYPE：指定私钥类型
+--ca-certificate=FILE：指定CA文件
+--ca-directory=DIRECTORY：指定CA文件所在目录
+--random-file=FILE：在没有/dev/random文件的系统上，使用FILE作为随机数的源
+--egd-file=FILE：使用FILE作为EGD套接字
+(8) FTP选项
+--ftp-user=USER --ftp-password=PASSWORD
+--no-remove-listing：不移除临时文件.listing
+--no-glob：关闭FTP多文件获取功能（使用通配符）
+--no-passive-ftp：关闭被动FTP模式
+--retr-symlinks：下载链接指向的文件，而不是链接文件本身
+(9) 递归下载
+-r(--recursive)：打开递归下载功能
+-l DEPTH(--level=DEPTH):设置下载目录深度
+--delete-after：每个文件下载后即删除
+-k(--convert-links):下载完毕后，转换链接为相对链接
+-K(--backup-converted)：当转换连接时，保留原始备份为.orig
+-m(--mirror):镜像下载，相当于同时打开-r -N -l inf --no-remove-listing
+-p(--page-requisites):下载单页面所需的所有元素
+--strict-comments：打开严格HTML注释解析
+(10) 递归下载时的接受/拒绝选项
+-A ACCLIST（--accept ACCLIST）：指定接受的文件（逗号隔开的后缀名，或句式）
+-R REJLIST --reject REJLIST：拒绝文件名单
+-D DOMAIN-LIST（--domains=DOMAIN-LIST）：设置追随的域名（逗号隔开）
+--exclude-domains DOMAIN-LIST：设置不追随的域名
+--follow-ftp：在HTML文档中追踪FTP
+--follow-tags=LIST：设置追踪的tag
+--ignore-tags=LIST:设置忽略的tag
+--ignore-case：匹配文件或目录时忽略大小写
+-H(--span-hosts)：递归下载时，允许垮主机
+-L(--relative):只追踪相对链接
+-I LIST(--include-directories=LIST):设置追踪目录（逗号隔开，可含通配符）
+-X LIST(--exclude-directories=LIST): 排除的追踪目录
+-np(--no-parent):不进入父母录

@@ -1,0 +1,582 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle vim
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top vim
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* learning materials for vim::
+* vim start::
+* vim basic command::
+* vim ide::
+* vim more plugin::
+@c * multi-window::
+@c * vimgrep::
+@c * vim folding::
+@c * vimdiff::
+@c * often used command for vim::
+@c * copying:: free  time team
+@end menu
+
+@node learning materials for vim
+@chapter learning materials for vim
+
+@example
+@url{http://www.vim.org/, vim's home}
+@url{https://wiki.archlinux.org/index.php/Vim, vim document form archlinux wiki}
+@url{http://liuzhijun.iteye.com/category/270228, vim everyday}
+@url{http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/, learn vim progressively}
+@url{http://easwy.com/blog/archives/advanced-vim-skills-catalog/, advanced vim skills}
+@url{http://www.oualline.com/vim/10/top_10.html, top 10 things vi user need to know about vim}
+@url{http://coolshell.cn/articles/11312.html, no plugin skills}
+@end example
+
+@node vim start
+@chapter vim sart
+
+@b{Install vim for ubuntu}
+@example
+sudo apt-get install vim
+@end example
+
+@b{Vim tutorial}
+@example
+Open ubuntu shell
+zzy@@zzy:~$ vimtutor
+===============================================================================
+=    W e l c o m e   t o   t h e   V I M   T u t o r    -    Version 1.7      =
+===============================================================================
+
+     Vim is a very powerful editor that has many commands, too many to
+     explain in a tutor such as this.  This tutor is designed to describe
+     enough of the commands that you will be able to easily use Vim as
+     an all-purpose editor.
+...
+@end example
+
+@b{Linux change keymap}
+@example
+setxkbmap -option ctrl:swapcaps  // swap ctrl and caps lock
+@end example
+
+@b{Modes}
+@example
+We have three vim modes:
+Command mode: all keystrokes are interpreted as commands
+Insert mode: most keystrokes are inserted as text (leaving out those with modifier keys)
+Visual mode: helps to visually select some text, may be seen as a submode of the the command mode.
+@end example
+
+@b{Switch between vim modes}
+@example
+To switch from the insert or visual mode to the command mode, type <Esc>.
+
+To switch from the command mode to the insert mode type one of
+@b{i} -> switch to insert mode before the current position
+@b{a} -> switch to insert mode after the current position (append)
+@b{I} -> jump to the first non-blank character in the current line and switch to the insert mode
+@b{A} -> jump to the last character of the current line and switch to the insert mode
+
+To switch from the command mode to the visual mode type one of
+@b{v} -> switch to the visual mode (character oriented)
+@b{V} ->switch to the visual mode (line oriented)
+@b{Ctrl-v} -> switch to the block-visual mode (select rectangles of text)
+All commands that take a range (for example subtitution, delete, copy or indentation) work with the visual mode too.
+
+Reference: http://blog.interlinked.org/tutorials/vim_tutorial.html
+@end example
+
+@image{./00resource/vim_mode, .jpg}
+
+@b{Vim commands overview}
+
+@image{./00resource/vim_cn, .jpg}
+
+@node vim basic command
+@chapter vim basic command
+
+@b{move}
+@example
+0   "移动到行首
+$   "移动行尾
+^     "移动到行首的第一个非空白字符
+
+w   "向前移动一个单词
+b    "向后移动一个单词
+
+ctrl+i   " 往前跳
+ctrl+o  " 返回
+ctrl+]   " 进入函数
+
+Ctrl-f    即 PageDown 翻页。
+Crtl-b    即 PageUp 翻页。
+
+zt scrolls to the top
+zz scrolls to the middle
+zb scrolls to the bottom
+@end example
+
+@b{jump commands}
+@example
+%   配对寻找 @{@}、[]、()、#if #else #endif
+@{     跳到上一段的开头
+@}     跳到下一段的的开头.
+(     移到这个句子的开头
+)     移到下一个句子的开头
+[[    跳往上一个函数
+]]    跳往下一个函数
+@end example
+
+@b{hlsearch}
+@example
+:set hlsearch 高亮所有匹配字符串
+:nohlsearch 临时关闭，他的缩写形式是：:noh
+:set nohlsearch 彻底关闭，只有重新:set hlsearch才可以高亮搜索
+* 向后搜索光标所在位置的单词
+# 向前搜索光标所在位置的单词
+n和N可以继续向后或向前搜索匹配的字符串
+:nnormap <silent> <Space> :nohlsearch<Bar>:echo<CR>按空格关闭高亮，清空所有已经显示的
+如果你想在高亮与不高亮之间快速切换，可以做一个映射 ： :noremap <F4> :set hlsearch! hlsearch?<CR>
+按回车，临时返回高亮搜索
+:nnoremap <CR> :nohlsearch<CR><CR>
+@end example
+
+@b{cut}
+@example
+dd          剪切当前行
+ndd        n表示大于1的数字，剪切n行
+:1,10d    从第一行剪切到第10行
+dw         从光标处剪切至一个单子/单词的末尾，包括空格
+de          从光标处剪切至一个单子/单词的末尾，不包括空格
+d$          从当前光标剪切到行末
+d0          从当前光标位置（不包括光标位置）剪切之行首
+d3l         从光标位置（包括光标位置）向右剪切3个字符
+d5G       将当前行（包括当前行）至第5行（不包括它）剪切
+d3B       从当前光标位置（不包括光标位置）反向剪切3个单词
+dH         剪切从当前行至所显示屏幕顶行的全部行
+dM        剪切从当前行至命令M所指定行的全部行
+dL         剪切从当前行至所显示屏幕底的全部行
+"_d        剪切到另一个寄存器
+@end example
+
+@b{copy}
+@example
+yy：复制当前行
+nyy：n表示大于1的数字，复制n行
+yw：从光标处复制至一个单子/单词的末尾，包括空格
+ye：从光标处复制至一个单子/单词的末尾，不包括空格
+y$：从当前光标复制到行末
+y0：从当前光标位置（不包括光标位置）复制之行首
+y3l：从光标位置（包括光标位置）向右复制3个字符
+y5G：将当前行（包括当前行）至第5行（不包括它）复制
+y3B：从当前光标位置（不包括光标位置）反向复制3个单词
+@end example
+
+@b{paste}
+@example
+p：在当前光标处下面粘贴内容。
+P：在当前光标处上面粘贴内容。
+@end example
+
+@b{Insert 模式下执行命令}
+@example
+可以在 Insert 模式下执行任何一个 Normal 模式下的命令： Ctrl-o（键入Ctrl + 英文字母O 后输入要执行的命令）
+@end example
+
+@b{indent}
+@example
+gg=G
+http://stackoverflow.com/questions/506075/how-do-i-fix-the-indentation-of-an-entire-file-in-vi
+http://vim.wikia.com/wiki/Indenting_source_code
+@end example
+
+@b{case insensitive search}
+@example
+:set ic   // case insensitive search
+:set noic // to go back to case-sensitive searches use
+// ic is shorthand for ignorecase
+or /\c <word>   // case insensitive search
+@end example
+
+@b{copy to clipboard}
+@example
+1. shift+v 选择要复制的内容， 或者ctrl+v选择要复制的内容
+    command: "+y
+@end example
+
+@b{vim binary}
+@example
+// open for read
+vim <(xxd test)
+@end example
+
+@b{open for read/write}
+@example
+:set binary
+:%!xxd
+:%!xxd -r
+@end example
+
+@b{Go to definition using g}
+@example
+gd will take you to the local declaration.
+gD will take you to the global declaration.
+g* search for the word under the cursor (like *, but g* on 'rain' will find words like 'rainbow').
+g# same as g* but in backward direction.
+gg goes to the first line in the buffer (or provide a count before the command for a specific line).
+G goes to the last line (or provide a count before the command for a specific line).
+@end example
+
+@b{vimdiff}
+@example
+vimdiff file1 file2
+vimdiff <(xxd file1) <(xxd file2)
+http://usevim.com/2012/06/20/vim-binary-files/
+http://www.cnblogs.com/killkill/archive/2010/06/23/1763785.html
+http://xineohpanihc.iteye.com/blog/1148741
+http://blog.sina.com.cn/s/blog_4ddef8f80102v13k.html
+@end example
+
+@b{file explorer}
+@example
+:e .	Open integrated file explorer
+:Sex	Split window and open integrated file explorer
+:Sex!	Same as :Sex but split window vertically
+http://www.oschina.net/news/43167/130-essential-vim-commands
+@end example
+
+@b{tab command}
+@example
+:tab split filename -> use tab to display buffers
+gt ->   go to next tab
+gT ->  go to previous tab
+0gt ->  switch to 1st tab
+5gt ->  switch to 5th tab
+@end example
+
+@b{using an external program}
+@example
+:! -> call any external program
+:!make -> run make on current path
+@end example
+
+@b{switching case of characters}
+@example
+You can change the case of text:
+Toggle case "HellO" to "hELLo" with g~ then a movement.
+Uppercase "HellO" to "HELLO" with gU then a movement.
+Lowercase "HellO" to "hello" with gu then a movement.
+Alternatively, you can visually select text then press ~ to toggle case, or U to convert to uppercase, or u to convert to lowercase.
+@end example
+
+@b{ExamplesEdit}
+@example
+~
+Toggle case of the character under the cursor, or all visually-selected characters.
+3~
+Toggle case of the next three characters.
+g~3w
+Toggle case of the next three words.
+g~iw
+Toggle case of the current word (inner word – cursor anywhere in word).
+g~$
+Toggle case of all characters to end of line.
+g~~
+Toggle case of the current line (same as V~).
+The above uses ~ to toggle case. In each example, you can replace ~ with u to convert to lowercase, or with U to convert to uppercase. For example:
+U
+Uppercase the visually-selected text.
+First press v or V then move to select text.
+If you don't select text, pressing U will undo all changes to the current line.
+gUU
+Change the current line to uppercase (same as VU).
+gUiw
+Change current word to uppercase.
+u
+Lowercase the visually-selected text.
+If you don't select text, pressing u will undo the last change.
+guu
+Change the current line to lowercase (same as Vu).
+http://vim.wikia.com/wiki/Switching_case_of_characters
+@end example
+
+@b{reference}
+@example
+http://www.cnblogs.com/wangkangluo1/archive/2012/04/12/2444952.html  // vim commands
+https://www.ibm.com/developerworks/cn/linux/l-cn-tip-vim/   // 高效vim
+http://liuzhijun.iteye.com/blog/1826508
+@end example
+
+@b{ab command}
+@example
+ab命令可以将一长串字符用缩写来定义，这有点象Linux中的alias，比如Linux中的ll命令就是ls -l的别名，ab的语法为：
+
+:ab #i #include
+:ab #d #define
+abbr就是对phrase的简写，在insert 模式中，输入abbr，再按非字母字符（比如空格，点号等）Vim就自动把phrase插入到光标处位置。
+此情景一般用在频繁输入的字符中，通常建议abbr选择使用频率很低的字符，比如Eclipse常用的一个快捷键syso，你可以定义成如下：
+:ab syso  public static void main(String[] args)
+
+:unab syso
+如果你就是想输入'syso'这个原生字符串，可以用这个命令取消
+@end example
+
+:ab
+列出当前定义的缩写有哪些可以用命令
+
+@node vim ide
+@chapter vim ide
+
+@b{start}
+@example
+create file： ~/.vimrc
+create directory： ~/.vim ~/.vim/doc  ~/.vim/plugin ~/.vim/syntax
+@end example
+
+@b{basic set}
+@example
+set number          " set line number
+set hlsearch        " set highlight search
+syntax on             " syntax hightlight
+@end example
+
+@b{help}
+@example
+:help keycodes
+@end example
+
+@b{file explorer}
+@example
+:e .
+@end example
+
+@b{ctags}
+@example
+sudo apt-get install ctags
+goto source code's top directory, run: ctags -R
+@end example
+
+@b{taglist}
+@example
+download: http://www.vim.org/scripts/script.php?script_id=273
+unpack taglist_xx.zip in  ~/.vim directory
+manual: help taglist.txt
+
+add the following code to ~/.vimrc file
+let Tlist_Show_One_File=1     "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow=1   "如果taglist窗口是最后一个窗口，则退出vim
+
+command in vim environment
+:Tlist
+@end example
+
+@b{cscope}
+@example
+sudo apt-get install cscope
+cscope -Rbkq
+
+// add
+cscope add cscope.out
+
+// find
+0或者s   —— 查找这个C符号
+1或者g  —— 查找这个定义
+2或者d  —— 查找被这个函数调用的函数（们）
+3或者c  —— 查找调用这个函数的函数（们）
+4或者t   —— 查找这个字符串
+6或者e  —— 查找这个egrep匹配模式
+7或者f   —— 查找这个文件
+8或者i   —— 查找#include这个文件的文件（们）
+
+// help
+使用方法：
+:cs help
+
+// example
+cscope find g print
+cscope find f cstest.h
+
+// help
+cscope commands:
+add  : Add a new database             (Usage: add file|dir [pre-path] [flags])
+find : Query for a pattern            (Usage: find c|d|e|f|g|i|s|t name)
+       c: Find functions calling this function
+       d: Find functions called by this function
+       e: Find this egrep pattern
+       f: Find this file
+       g: Find this definition
+       i: Find files #including this file
+       s: Find this C symbol
+       t: Find this text string
+help : Show this message              (Usage: help)
+kill : Kill a connection              (Usage: kill #)
+reset: Reinit all connections         (Usage: reset)
+show : Show connections               (Usage: show)
+
+http://blog.chinaunix.net/uid-12461657-id-3051440.html
+http://www.cnblogs.com/sunblackshine/archive/2011/08/25/2152962.html
+http://easwy.com/blog/archives/advanced-vim-skills-cscope/
+http://vim.wikia.com/wiki/Cscope
+@end example
+
+@b{NERDTree}
+@example
+http://www.vim.org/scripts/script.php?script_id=1658
+let NERDTreeDirArrows=0
+
+:NERDTree
+@end example
+
+@b{winmanager}
+@example
+unzip -n /home/zzy/winmanager.zip -d ~/.vim
+在.vimrc文件中添加
+let g:winManagerWindowLayout='FileExplorer|TagList'
+@end example
+
+@b{mark}
+@example
+download
+http://www.vim.org/scripts/script.php?script_id=1238
+
+install
+copy mark.vim to ~/.vim/plugin
+
+usage
+\m      mark or unmark the word under (or before) the cursor
+\n      clear this mark (i.e. the mark under the cursor), or clear all highlighted marks .
+\r      manually input a regular expression. 用于搜索.
+\*      把光标向前切换到当前被Mark的MarkWords中的下一个MarkWord.
+\#      把光标向后切换到当前被Mark的MarkWords中的上一个MarkWord.
+\/      把光标向前切换到所有被Mark的MarkWords中的下一个MarkWord.
+\?      把光标向后切换到所有被Mark的MarkWords中的上一个MarkWord.
+
+Highlighting:
+  Normal mode:
+    \m mark or unmark the word under (or before) the cursor
+          Place the cursor under the word to be highlighted, press \m, then the word will be colored.
+    \r manually input a regular expression
+          To highlight an arbitrary regular expression, press \r and input the regexp.
+    \n clear this mark (i.e. the mark under the cursor), or clear all highlighted marks
+  Visual mode:
+    \m mark or unmark a visual selection
+          Select some text in Visual mode, press \m, then the selection will be colored.
+    \r manually input a regular expression (base on the selection text)
+  Command line:
+    :Mark regexp   to mark a regular expression
+    :Mark regexp   with exactly the same regexp to unmark it
+    :Mark          to clear all marks
+
+说明: 这些命令中的 '/' 是 vim 中的 mapleader, 你也可以设置为别的: 如,
+若要设置为 ',', 把下面这条语句加到.vimrc文件中, 即可,
+let mapleader=","
+@end example
+
+@b{vim color scheme}
+@example
+git clone https://github.com/fugalh/desert.vim.git
+mkdir ~/.vim/colors
+cp desert.vim/colors/desert.vim ~/.vim/colors/
+colorscheme desert -> add to ~/.vimrc
+https://www.linux.com/learn/weekend-project-take-control-vims-color-scheme
+@end example
+
+@b{reference}
+@example
+https://github.com/yangyangwithgnu/use_vim_as_ide
+http://blog.csdn.net/wooin/article/details/1858917  // vim搭建IDE设置参考
+http://blog.csdn.net/wooin/article/details/2004470  // vim IDE续
+http://blog.csdn.net/wooin/article/details/1887737  // vimrc配置范例
+http://www.vim.org/scripts/script.php?script_id=1658  // NERD tree 文件系统导航
+http://www.vim.org/scripts/script.php?script_id=273  // taglist 方便查看源文件结构
+http://www.vim.org/scripts/script.php?script_id=1581 // lookupfile 文件查找插件
+http://noworry.blog.51cto.com/6223479/1114812  // vim IDE 搭建
+http://blog.csdn.net/daniel_ustc/article/details/8299096 // vim + ctags + taglist配置和使用，一键安装 ctags和cscope的方法，vim语法高亮,自动缩进，python 自动缩进设置
+@end example
+
+@node vim more plugin
+@chapter vim more plugin
+
+@b{mru}
+@example
+http://www.vim.org/scripts/script.php?script_id=521
+1. Copy the mru.vim file to one of the following directories:  ~/.vim/plugin
+2. Restart Vim.
+3. You can use the mru
+:MRU
+@end example
+
+@b{tagbar}
+@example
+<F1>          显示键映射帮助。
+<CR>/<Enter>  跳转到当前光标下的 tag。如果是伪标签或一般的头信息则没作用.
+p             源文件跳转到当前光标下的 tag。但光标停留在 Tagbar 窗口。
+<LeftMouse>   如果点击折叠图标，按折叠的当前状态开打开或关闭折叠。
+<2-LeftMouse> 同 <CR>。如果希望使用单击替代双击，参考 |g:tagbar_singleclick|。
+<Space>       在命令行显示当前 tag 的原型信息。(比如行号)
++/zo          打开当前光标下的折叠。
+-/zc          如果光标下有折叠则关闭光标下的折叠，如果没有则关闭当前的折叠。
+o/za          切换光标下的折叠状态，如果光标下没有折叠，切换当前的折叠状态。
+*/zR          通过设置折叠级别(foldlevel)为 99 来打开所有的折叠。
+=/zM          通过设置折叠级别为 0 来关闭所有的折叠。
+<C-N>         转到下一个顶层 tag。
+<C-P>         转到前一个顶层 tag。
+s             在 tag 名称排序和文件顺序排序中切换。
+x             切换 Tagbar 窗口的最大化。
+q             关闭 Tagbar 窗口。
+@end example
+
+@b{vim easymotion}
+@example
+" 更改快捷键
+map f <Plug>(easymotion-prefix)
+map ff <Plug>(easymotion-s)
+map fs <Plug>(easymotion-f)
+map fl <Plug>(easymotion-lineforward)
+map fj <Plug>(easymotion-j)
+map fk <Plug>(easymotion-k)
+map fh <Plug>(easymotion-linebackward)
+" 忽略大小写
+let g:EasyMotion_smartcase = 1
+...
+ff 全屏搜索
+fs 往下搜索
+@end example
+
+@bye

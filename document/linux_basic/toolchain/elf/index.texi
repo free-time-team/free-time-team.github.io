@@ -1,0 +1,95 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle elf
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top elf
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* elf::
+@c * Copying::  free time team
+@end menu
+
+@node elf
+@chapter elf
+
+@example
+elf
+https://www.cs.stevens.edu/~jschauma/631/elf.html
+elf introduction
+http://sp1.wikidot.com/elfobjfile
+Dynamic Linking and Loading
+http://www.iecc.com/linker/linker10.html
+Position Independent Code(PIC) in shared libraries
+http://eli.thegreenplace.net/2011/11/03/position-independent-code-pic-in-shared-libraries/
+PLT redirection through shared object injection into a running process
+http://www.codeproject.com/Articles/30824/PLT-redirection-through-shared-object-injection-in
+trying to load position independent code on cortex-m3
+http://stackoverflow.com/questions/5024387/trying-to-load-position-independent-code-on-cortex-m3
+
+ARM-ELF文件格式与GNU ARM Linker机制
+http://blog.chinaunix.net/uid-20672488-id-3391344.html
+
+arm elf
+http://infocenter.arm.com/help/topic/com.arm.doc.ihi0044e/IHI0044E_aaelf.pdf
+-----------
+
+.init_array
+https://sourceware.org/ml/binutils/2009-01/msg00286.html
+http://stackoverflow.com/questions/28101243/how-to-find-global-static-initializations
+
+c++ global initialization
+http://blog.sina.com.cn/s/blog_a9303fd901019kvq.html
+
+android linker 浅析
+http://blog.csdn.net/dinuliang/article/details/5509009
+
+// exe to elf
+http://stackoverflow.com/questions/2568291/how-to-convert-peportable-executable-format-to-elf-in-linux
+http://www.agner.org/optimize/#objconv
+
+
+
+@end example
+
+
+
+
+
+
+@bye

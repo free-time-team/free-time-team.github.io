@@ -1,0 +1,4 @@
+linux daemon
+http://www.netzmafia.de/skripten/unix/linux-daemon-howto.html
+http://stackoverflow.com/questions/17954432/creating-a-daemon-in-linux
+http://felix-lin.com/linux/%E5%89%B5%E5%BB%BA-daemon-%E7%A8%8B%E5%BC%8F/

@@ -1,0 +1,118 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle texinfo
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top texinfo
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* learning materials for texinfo::
+* often used command for texinfo::
+@c * Copying:: free time team
+@end menu
+
+@node learning materials for texinfo
+@chapter learning materials for texinfo
+@itemize @bullet
+@item
+@b{Reference} @url{http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html, texinfo document}
+@end itemize
+
+@node often used command for texinfo
+@chapter often used command for texinfo
+
+@itemize @bullet
+@item
+@b{comment}
+@end itemize
+
+@example
+@@c this is comment
+@end example
+
+@itemize @bullet
+@item
+@b{box}
+@end itemize
+
+@example
+@@cartouche
+@@example
+text @@c box example
+@@end example
+@@end cartouche
+@end example
+
+@itemize @bullet
+@item
+@b{bold}
+@end itemize
+
+@example
+@@b@{text@}
+@end example
+
+@itemize @bullet
+@item
+@b{url}
+@end itemize
+
+@example
+@@url@{url link, text@}
+@end example
+
+@itemize @bullet
+@item
+@b{item}
+@end itemize
+
+@example
+@@itemize @@bullet
+@@item
+item test
+@@end itemize
+@end example
+
+
+
+
+
+
+
+
+@bye

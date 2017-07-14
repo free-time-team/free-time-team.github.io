@@ -1,0 +1,79 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle make
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top make
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* make::
+@c * Copying::  free time team
+@end menu
+
+@node make
+@chapter make
+
+@example
+GNU make
+https://www.gnu.org/software/make/manual/html_node/index.html // document
+https://www.gnu.org/software/make/manual/html_node/Include.html // including
+https://www.gnu.org/software/make/manual/html_node/Conditional-Syntax.html // syntax of condition
+
+你知道单独编译system img，命令行上是接什么吗？
+make systemimage
+thanks。
+make systemimage-nodeps只打包已有的system文件夹，而不管依赖。
+换ninja了没？android 7aosp肯定是ninja编译了。
+前面一个命令只是生成一堆binary，后面一个命令会打包出system.img，对吧？
+前一个会生成system.img。
+我们还是用的openjdk。
+后一个是手动修改system文件夹内容，重新打包用的。
+我们还是android M。
+mtk的android N，还没有release出来。
+你这是敲什么命令出来的帮助信息？
+这是makefile
+哦
+@end example
+
+
+
+
+
+
+
+@bye

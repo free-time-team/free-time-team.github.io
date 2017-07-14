@@ -1,0 +1,477 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>basic tools</title>
+
+<meta name="description" content="basic tools">
+<meta name="keywords" content="basic tools">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">basic tools</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-basic-tools-2" href="#basic-tools">1 basic tools</a></li>
+  <li><a name="toc-binary-tools-1" href="#binary-tools">2 binary tools</a></li>
+  <li><a name="toc-storage-1" href="#storage">3 storage</a></li>
+  <li><a name="toc-IDA-1" href="#IDA">4 IDA</a></li>
+  <li><a name="toc-virtualbox-1" href="#virtualbox">5 virtualbox</a></li>
+  <li><a name="toc-cron-1" href="#cron">6 cron</a></li>
+  <li><a name="toc-misc-1" href="#misc">7 misc</a></li>
+  <li><a name="toc-putty-1" href="#putty">8 putty</a></li>
+  <li><a name="toc-remmina-1" href="#remmina">9 remmina</a></li>
+  <li><a name="toc-uart-tool-1" href="#uart-tool">10 uart tool</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#basic-tools" accesskey="n" rel="next">basic tools</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="basic-tools-1"></a>
+<h1 class="top">basic tools</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#basic-tools" accesskey="1">basic tools</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#binary-tools" accesskey="2">binary tools</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#storage" accesskey="3">storage </a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#IDA" accesskey="4">IDA</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#virtualbox" accesskey="5">virtualbox</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#cron" accesskey="6">cron</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#misc" accesskey="7">misc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#putty" accesskey="8">putty</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#remmina" accesskey="9">remmina</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#uart-tool">uart tool</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="basic-tools"></a>
+<div class="header">
+<p>
+Next: <a href="#binary-tools" accesskey="n" rel="next">binary tools</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="basic-tools-2"></a>
+<h2 class="chapter">1 basic tools</h2>
+
+<p><b>compare tool</b>
+</p>
+<p>sudo apt-get install meld
+</p>
+<hr>
+<a name="binary-tools"></a>
+<div class="header">
+<p>
+Next: <a href="#storage" accesskey="n" rel="next">storage</a>, Previous: <a href="#basic-tools" accesskey="p" rel="prev">basic tools</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="binary-tools-1"></a>
+<h2 class="chapter">2 binary tools</h2>
+
+<p><b>hexedit</b>
+</p><div class="example">
+<pre class="example">open
+	hexedit file_name
+
+close
+	ctrl+x
+
+ofen used
+	&lt;:  go to start of the file
+	&gt; :  go to end of the file
+	Right:  next character
+	Left:   previous character
+	Down:   next line
+	Up:     previous line
+	Home:   beginning of line
+	End:    end of line
+	PUp:    page forward
+	PDown:  page backward
+
+reference
+    http://linux.die.net/man/1/hexedit
+    http://blog.csdn.net/dssxk/article/details/7998743 // 命令集
+</pre></div>
+
+<p><b>bvi</b>
+</p><div class="example">
+<pre class="example">open
+	bvi test.iso
+
+search binary
+	Additional search commands: Similar to the text search commands there are additional hex-search functions '\' and '#'
+  which allow to search for any byte value.Example:  &quot;\62 76 69&quot; will search for the string &quot;bvi&quot;.
+  Spaces between hex value are optional, so searching for &quot;6775636B6573&quot; will find &quot;guckes&quot;.
+
+: command
+set cm=16
+
+help
+	man bvi
+	bvi help
+note: cannot handle large file
+</pre></div>
+
+<hr>
+<a name="storage"></a>
+<div class="header">
+<p>
+Next: <a href="#IDA" accesskey="n" rel="next">IDA</a>, Previous: <a href="#binary-tools" accesskey="p" rel="prev">binary tools</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="storage-1"></a>
+<h2 class="chapter">3 storage</h2>
+
+<p><b>mkfs</b>
+</p>
+<p>mkfs -t ext4 /dev/sdb
+</p>
+<p>http://www.linfo.org/mkfs.html
+</p>
+<p>http://blog.csdn.net/asx20042005/article/details/7264867
+</p>
+<p><b>fstab</b>
+</p>
+<p>A simple /etc/fstab, using kernel name descriptors:
+</p>
+<p>/etc/fstab
+</p>
+<p># &lt;file system&gt;        &lt;dir&gt;         &lt;type&gt;    &lt;options&gt;             &lt;dump&gt; &lt;pass&gt;
+</p>
+<p>/dev/sda1              /             ext4      defaults,noatime      0      1
+</p>
+<p>/dev/sda2              none          swap      defaults              0      0
+</p>
+<p>/dev/sdb              /home         ext4      defaults,noatime      0      2
+</p>
+<p>Field definitions
+</p>
+<p>Each line in the /etc/fstab file contains the following fields separated by spaces or tabs:
+</p>
+<p>file_system    dir    type    options    dump    pass
+</p>
+<p>file system
+</p>
+<p>The partition or storage device to be mounted.
+</p>
+<p>dir
+</p>
+<p>The mountpoint where &lt;file system&gt; is mounted to.
+</p>
+<p>type
+</p>
+<p>The file system type of the partition or storage device to be mounted. Many different file systems are supported: ext2, ext3, ext4, btrfs, reiserfs, xfs, jfs, smbfs, iso9660, vfat, ntfs, swap and auto. The auto type lets the mount command guess what type of file system is used. This is useful for optical media (CD/DVD).
+</p>
+<p>options
+</p>
+<p>Mount options of the filesystem to be used. See the mount man page. Please note that some options are specific to filesystems; to discover them see below in the aforementioned mount man page.
+</p>
+<p>dump
+</p>
+<p>Used by the dump utility to decide when to make a backup. Dump checks the entry and uses the number to decide if a file system should be backed up. Possible entries are 0 and 1. If 0, dump will ignore the file system; if 1, dump will make a backup. Most users will not have dump installed, so they should put 0 for the dump entry.
+</p>
+<p>pass
+</p>
+<p>Used by fsck to decide which order filesystems are to be checked. Possible entries are 0, 1 and 2. The root file system should have the highest priority 1 (unless its type is btrfs, in which case this field should be 0) - all other file systems you want to have checked should have a 2. File systems with a value 0 will not be checked by the fsck utility.
+</p>
+<p>https://wiki.archlinux.org/index.php/Fstab
+</p>
+<p>https://en.wikipedia.org/wiki/Fstab
+</p>
+<hr>
+<a name="IDA"></a>
+<div class="header">
+<p>
+Next: <a href="#virtualbox" accesskey="n" rel="next">virtualbox</a>, Previous: <a href="#storage" accesskey="p" rel="prev">storage</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="IDA-1"></a>
+<h2 class="chapter">4 IDA</h2>
+
+<div class="example">
+<pre class="example">IDA学习笔记
+http://blog.csdn.net/hgy413/article/details/7721147
+
+x86 加密exe文件调试
+https://hex-rays.com/products/ida/support/tutorials/unpack_pe/manual.shtml
+
+android代码动态加载技术
+http://bbs.pediy.com/showthread.php?t=142256
+
+IDA 6.7
+http://bbs.pediy.com/showthread.php?t=197589
+
+http://www.openrce.org/articles/
+http://www.woodmann.com/forum/activity.php?s=cd5ff61f934e5106725928ba52c4b495
+http://old.idapalace.net/
+http://www.hexblog.com/
+</pre></div>
+
+<hr>
+<a name="virtualbox"></a>
+<div class="header">
+<p>
+Next: <a href="#cron" accesskey="n" rel="next">cron</a>, Previous: <a href="#IDA" accesskey="p" rel="prev">IDA</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="virtualbox-1"></a>
+<h2 class="chapter">5 virtualbox</h2>
+
+<div class="example">
+<pre class="example">ssh access
+
+Settings -&gt; Network -&gt; NAT -&gt; Port Forwarding -&gt; 0.0.0.0 2222 10.0.2.15 22
+
+share mouse
+General -&gt; Advanced
+Shared Clipboard: Bidirectional
+Drag'n'Drop: Bidirectional
+
+share folder
+Settings -&gt; Shared Folders
+
+VirtualBox some errors
+1. Cannot Register the Hard Drive Because a Hard Drive with UUID Already Exists
+$ VBoxManage internalcommands sethduuid xp.vdi
+UUID changed to: 1749f020-c7fc-4b3a-871d-3f90756092345
+
+resize
+1.VBoxManage clonehd mywin7/mywin7.vdi  mywin7/mywin7-2.vdi --format VDI
+2.VBoxManage modifyhd mywin7/mywin7-2.vdi --resize 51200
+3.计算机--&gt;磁盘管理--&gt;扩展
+
+// impack vdi image
+1. sdelete -z (execute in win7)
+2. shutdown win7
+3. vboxmanage modifyhd zj_win7.vdi --compact (execute in ubuntu)
+
+win7
+单击&quot;开始&quot;--&gt;&quot;运行&quot;按钮，弹出&quot;运行&quot;对话框，输入&quot;dcpromo&quot;，
+单击&quot;确定&quot;按钮 --&gt; 弹出&quot;Active Directory删除向导&quot; 窗口，
+单击&quot;下一步&quot;；在&quot;删除Active Directory&quot;窗口中选定&quot;这个服务器是域中的最后一个域控制器&quot;,
+单击&quot;下一步&quot;；弹出&quot;网络凭证&quot;窗口,在&quot;用户名&quot; 、密码&quot;文本框中输入密码(建立活动目录时的密码),
+单击&quot;下一步&quot;；弹出&quot;管理员密码&quot;窗口,在&quot;密码&quot;及&quot;确认密码&quot;文本框中输入密码(同前),单击&quot;下一步&quot;；
+此时出现&quot;摘要&quot;信息，若一切正常，则单击 &quot;下一步&quot;；
+系统将根据您的选择，删除活动目录,经过几分钟之后,删除结束；
+在&quot;完成Active Directory降级向导&quot;窗口中,单击&quot;完成&quot;,即完成活动目录的删除.重新启动计算机,删除活动目录即会生效
+</pre></div>
+
+<hr>
+<a name="cron"></a>
+<div class="header">
+<p>
+Next: <a href="#misc" accesskey="n" rel="next">misc</a>, Previous: <a href="#virtualbox" accesskey="p" rel="prev">virtualbox</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="cron-1"></a>
+<h2 class="chapter">6 cron</h2>
+
+<div class="example">
+<pre class="example">change default edit
+env EDITOR=vim crontab -e  or
+sudo select-editor
+
+每天22:25执行脚本test, 参数为121231
+crontab -e
+25 22 * * * /home/zzy/test 121231
+
+reference
+http://askubuntu.com/questions/2368/how-do-i-set-up-a-cron-job
+https://help.ubuntu.com/community/CronHowto
+http://www.linuxquestions.org/questions/red-hat-31/how-to-change-the-default-crontab-editor-395750/
+</pre></div>
+
+<hr>
+<a name="misc"></a>
+<div class="header">
+<p>
+Next: <a href="#putty" accesskey="n" rel="next">putty</a>, Previous: <a href="#cron" accesskey="p" rel="prev">cron</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="misc-1"></a>
+<h2 class="chapter">7 misc</h2>
+
+<p>==&gt; everything
+</p>
+<hr>
+<a name="putty"></a>
+<div class="header">
+<p>
+Next: <a href="#remmina" accesskey="n" rel="next">remmina</a>, Previous: <a href="#misc" accesskey="p" rel="prev">misc</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="putty-1"></a>
+<h2 class="chapter">8 putty</h2>
+
+<div class="example">
+<pre class="example">putty 颜色配置
+Default Foreground: 255/255/255
+Default Background: 51/51/51
+ANSI Black: 77/77/77
+ANSI Green: 152/251/152
+ANSI Yellow: 240/230/140
+ANSI Blue: 205/133/63
+ANSI Blue Bold 135/206/235
+ANSI Magenta: 255/222/173 or 205/92/92
+ANSI Cyan: 255/160/160
+ANSI Cyan Bold: 255/215/0
+ANSI White: 245/222/179
+
+full screen hotkey
+Behaviour -&gt; Full screen on Alt-Enter -&gt; save
+
+resource
+http://keepalived.iteye.com/blog/1559012
+http://blog.csdn.net/tianlesoftware/article/details/5831605
+http://newzk.blog.51cto.com/2301427/584374
+</pre></div>
+
+<hr>
+<a name="remmina"></a>
+<div class="header">
+<p>
+Next: <a href="#uart-tool" accesskey="n" rel="next">uart tool</a>, Previous: <a href="#putty" accesskey="p" rel="prev">putty</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="remmina-1"></a>
+<h2 class="chapter">9 remmina</h2>
+
+<div class="example">
+<pre class="example">ubuntu config
+sudo apt-get install remmina
+sudo apt-get install libfreerdp
+sudo apt-get install remmina-plugin-rdp
+sudo apt-get install remmina-plugin-gnome
+sudo apt-get install remmina-plugin-vnc
+sudo apt-get install remmina-common
+sudo apt-get install libfreerdp1 libfreerdp-plugins-standard
+
+win7 config
+计算机 -&gt; 属性 -&gt; 远程设置 -&gt; 允许运行任意版本远程桌面的计算机连接
+
+ubuntu config
+create a new remote desktop file -&gt;
+</pre></div>
+
+<hr>
+<a name="uart-tool"></a>
+<div class="header">
+<p>
+Previous: <a href="#remmina" accesskey="p" rel="prev">remmina</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="uart-tool-1"></a>
+<h2 class="chapter">10 uart tool</h2>
+
+<div class="example">
+<pre class="example">minicom
+// port set
+A -    Serial Device      : /dev/ttyUSB0
+
+// commands
+Ctrl+A L // save log to file
+Ctrl A Z  // Minicom Command Summary
+
+// quit
+Ctrl+A Q
+Ctrl+A  Z Q
+
+// set baut rate
+qct 115200
+mtk 921600
+A: &lt;next&gt;, 选择下一个波特率
+8N1
+
+ckermit
+// install and usage
+sudo apt-get install ckermit
+sudo kermit         // command state
+sudo kermit -c     // connect state
+ctrl+\  c                // return to command state from connect state
+c                          // enter connect state from command state
+
+// kermrc
+cat ~/.kermrc
+set line /dev/ttyUSB0
+set speed 921600
+set carrier-watch off
+set handshake none
+set flow-control none
+robust
+set file type bin
+set file name lit
+set rec pack 1000
+set send pack 1000
+set window 5
+
+// kermit session
+sudo kermit
+set line /dev/ttyUSB[0/1]
+set speed 921600
+log session
+c
+
+// resource
+http://linux.die.net/man/1/kermit
+</pre></div>
+
+<hr>
+
+
+
+</body>
+</html>

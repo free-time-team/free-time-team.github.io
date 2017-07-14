@@ -1,0 +1,982 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>shell</title>
+
+<meta name="description" content="shell">
+<meta name="keywords" content="shell">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">shell</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-resource-1" href="#resource">1 resource</a></li>
+  <li><a name="toc-basic-commands-1" href="#basic-commands">2 basic commands</a></li>
+  <li><a name="toc-development-commands-1" href="#development-commands">3 development commands</a></li>
+  <li><a name="toc-trick-1" href="#trick">4 trick</a></li>
+  <li><a name="toc-regular-expression-1" href="#regular-expression">5 regular expression</a></li>
+  <li><a name="toc-environment-1" href="#environment">6 environment</a></li>
+  <li><a name="toc-scripting-1" href="#scripting">7 scripting</a></li>
+  <li><a name="toc-find-command-1" href="#find-command">8 find command</a></li>
+  <li><a name="toc-grep-command-1" href="#grep-command">9 grep command</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#resource" accesskey="n" rel="next">resource</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="shell"></a>
+<h1 class="top">shell</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#resource" accesskey="1">resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#basic-commands" accesskey="2">basic commands</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#development-commands" accesskey="3">development commands</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#trick" accesskey="4">trick</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#regular-expression" accesskey="5">regular expression</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#environment" accesskey="6">environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#scripting" accesskey="7">scripting</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#find-command" accesskey="8">find command</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#grep-command" accesskey="9">grep command</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="resource"></a>
+<div class="header">
+<p>
+Next: <a href="#basic-commands" accesskey="n" rel="next">basic commands</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="resource-1"></a>
+<h2 class="chapter">1 resource</h2>
+
+<p>http://www.tecmint.com/category/linux-commands/  // linux commands
+</p>
+<p>http://linux.die.net                                                    // linux die man website
+</p>
+<p>http://c.biancheng.net/cpp/view/6994.html              // shell study
+</p>
+<p>https://proyuacouart.wikispaces.com/file/view/Classic_Shell_Scripting.pdf  // shell study
+</p>
+<hr>
+<a name="basic-commands"></a>
+<div class="header">
+<p>
+Next: <a href="#development-commands" accesskey="n" rel="next">development commands</a>, Previous: <a href="#resource" accesskey="p" rel="prev">resource</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="basic-commands-1"></a>
+<h2 class="chapter">2 basic commands</h2>
+
+<p><b>list subdirectory total size by sort</b>
+</p>
+<p>du -sh * | sort -rh
+</p>
+<p><b>Hotkeys</b>
+</p>
+<p>F11: swich among full command screen and ordinary command screen
+</p>
+<p>Ctrl+u:  Erase the whole current line and move the cursor to the beginning of the current line.
+</p>
+<p><b>chown/chmod</b>
+</p>
+<p>Use the chown command to change file owner and group information. Use the chmod command to change file access permissions such as read, write, and access.
+</p>
+<p>chown owner-user file
+</p>
+<p>chown owner-user:owner-group file
+</p>
+<p>chown owner-user:owner-group directory
+</p>
+<p>chown options owner-user:owner-group file
+</p>
+<p><b>nautilus</b>
+</p>
+<p>nautilus .   // 文件管理窗口
+</p>
+<p><b>ls</b>
+</p>
+<p>$ ls -l
+</p>
+<p>total 600
+</p>
+<p>-rw-r&ndash;r&ndash;   1 test users  18693 Nov  8 00:36 COPYING
+</p>
+<p><b>chown/chmod</b>
+</p>
+<p>chown -R test:users test
+</p>
+<p>chmod -R u+rwx test
+</p>
+<p><b>wc</b>
+</p>
+<p>-c  #print the byte counts
+</p>
+<p>-m  #print the character counts
+</p>
+<p>-l  #print the newline counts
+</p>
+<p>-L  #print the length of the longest line
+</p>
+<p>-w  #print the word counts
+</p>
+<p>&ndash;help #display this help and exit
+</p>
+<p><b>head</b>
+</p>
+<p>// Display the first fifteen lines of myfile.txt.
+</p>
+<p>head -15 myfile.txt
+</p>
+<p>http://www.linfo.org/head.html
+</p>
+<p>http://www.cnblogs.com/peida/archive/2012/11/06/2756278.html
+</p>
+<p>http://www.computerhope.com/unix/uhead.htm
+</p>
+<p>http://my.oschina.net/lovedreamland/blog/366349
+</p>
+<p><b>tail</b>
+</p>
+<p>tail -f a.log
+</p>
+<p><b>scp</b>
+</p>
+<p>$ scp
+</p>
+<p>usage: scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
+</p>
+<p>[-l limit] [-o ssh_option] [-P port] [-S program]
+</p>
+<p>[[user@]host1:]file1 ... [[user@]host2:]file2
+</p>
+<p>// cp remote file to local
+</p>
+<p>scp user@ip:~/a.sh ~/share
+</p>
+<p>// cp local file to remote
+</p>
+<p>scp minicom.log user@ip:~/BuildCode/BuildCode
+</p>
+<p><b>file</b>
+</p>
+<p>Identify a file’s type by examining specific fields within the file
+</p>
+<p><b>dd</b>
+</p>
+<p>dd if=input.bin of=output.bin ibs=1 count=281542 skip=17408
+</p>
+<p>if=file        输入文件名　标准输入确省
+</p>
+<p>of=file        输出文件名，标准输出确省
+</p>
+<p>ibs=n          输入块大小，n字节（默认512）
+</p>
+<p>count          只复制由count参数指定数量的输入块
+</p>
+<p>skip=n         拷贝之前越过n个输入块
+</p>
+<p>obs=n          输出块大小,n字节（默认512）
+</p>
+<p>bs=n           同时设置输入输出块大小
+</p>
+<p>cbs=n          转换缓冲区大小
+</p>
+<p>files=n        在中断之前拷贝和转换n个输入文件
+</p>
+<p>oseek=n        拷贝之前从输出文件开始查找n个块
+</p>
+<p>iseek          拷贝之前从输入文件开始查找n个块
+</p>
+<p>seek=n         等同于oseek
+</p>
+<p>cono=ascic     将EBCDIC码转换为ASCII
+</p>
+<p>ebcdic         ASCII-&gt;;EBCDIC
+</p>
+<p>ibm            ASCII转换为EBCDIC码时轻微不同的映象
+</p>
+<p>blolk          将新栈中断的ASCII码记录转换为固定长度
+</p>
+<p>unblock        将固定长度的ASCII码记录转换为新行中断记录
+</p>
+<p>lcase          变换字将至低等情况
+</p>
+<p>ucase          变换字将至高等情况
+</p>
+<p>swab           交换每对字节
+</p>
+<p>noerrir        出错时不停止处理
+</p>
+<p>sync           将每个块填充到ibs
+</p>
+<p><b>nautilus</b>
+</p>
+<p>view the directory
+</p>
+<p>nautilus ~
+</p>
+<p><b>history</b>
+</p>
+<p>list history command list
+</p>
+<p><b>man</b>
+</p>
+<p>Use n and Shift+n for the next and previous matches.
+</p>
+<p>hit /, and type your search pattern.
+</p>
+<p>Patterns can be regular expressions, for example, you could search for the word &quot;option&quot; by typing
+</p>
+<p>/[Oo]ption
+</p>
+<p>Or find all of the long arguments with
+</p>
+<p>/(&ndash;)[a-Z]
+</p>
+<p>To cancel the search, hit Ctrl+C.
+</p>
+<p><b>ls</b>
+</p>
+<p>ls -lh
+</p>
+<p>-h, &ndash;human-readable  with -l, print sizes in human readable format  (e.g., 1K 234M 2G)
+</p>
+<p><b>md5sum</b>
+</p>
+<p>// check file md5 value
+</p>
+<p>md5sum file_name
+</p>
+<p>md5sum -c md5sums
+</p>
+<p><b>sha1sum</b>
+</p>
+<p>the same as md5sum
+</p>
+<p><b>rename</b>
+// 批量修改文件名
+rename -v &rsquo;s/\[Linux英文原版图书系列\].//&rsquo; *.pdf
+</p>
+<p>// 当前文件夹下所有名字为 xxx_check 的目录重命名为 xxx
+find . -maxdepth 1 -type d | grep &quot;_check&quot; | xargs rename &rsquo;s/_check//&rsquo;
+</p>
+<p>There are four parts to this substitute command
+</p>
+<p>s  Substitute command
+</p>
+<p>/../../  Delimiter
+</p>
+<p>one  Regular Expression Pattern Search Pattern
+</p>
+<p>ONE  Replacement string
+</p>
+<p><b>find</b>
+</p>
+<p>find . -name &quot;init.project.rc&quot;
+</p>
+<p>find . -name &quot;*[Ww][Aa][Tt][Cc][Hh][Dd][Oo][Gg]*&quot; &gt; watchdog_doc.txt
+</p>
+<p>find . -type d -name &quot;code&quot;
+</p>
+<p>find ./ -name &quot;.git&quot; | xargs rm -rf  // delete all .git directory
+</p>
+<p>find ~ -maxdepth 1  -name &quot;.*&quot;    // only search user home directory
+</p>
+<p><b>disk tools</b>
+</p>
+<p>sudo fdisk -l
+</p>
+<p>df -l
+</p>
+<p>parted
+</p>
+<p><b>du</b>
+</p>
+<p>du -sh  // total disk usage size of current directory
+</p>
+<p>du -sh * // total disk usage size of every file and every subdirectory of current directory
+</p>
+<p>http://www.tecmint.com/check-linux-disk-usage-of-files-and-directories/
+</p>
+<p><b>grep</b>
+</p>
+<p>grep ENABLE_SSDTESTD -nir .
+</p>
+<p>match [KEY]
+</p>
+<p>grep &quot;\[KEY\]&quot;
+</p>
+<p>-s: ignor prompt infomation
+</p>
+
+<p>grep mulitple words
+</p>
+<p>//In this example, search warning, error, and critical words in a text log file called /var/log/messages, enter:
+</p>
+<p>grep &rsquo;warning\|error\|critical&rsquo; /var/log/messages
+</p>
+<p>//To just match words, add -w swith:
+</p>
+<p>grep -w &rsquo;warning\|error\|critical&rsquo; /var/log/messages
+</p>
+<p>//egrep command can skip the above syntax and use the following syntax:
+</p>
+<p>egrep -w &rsquo;warning|error|critical&rsquo; /var/log/messages
+</p>
+<p>//I recommend that you pass the -i (ignore case) and &ndash;color option as follows:
+</p>
+<p>egrep -wi &ndash;color &rsquo;warning|error|critical&rsquo; /var/log/messages
+</p>
+<p>http://www.cyberciti.biz/faq/searching-multiple-words-string-using-grep/
+</p>
+<p>&quot;\babc\b&quot;  // 加前后边界，精确匹配 “abc”
+</p>
+<p>-i  // 不区分大小写
+</p>
+<p>-I  // 不搜索二进制文件
+</p>
+<p>// 搜索包含 arch_reset 但是不包含 charger
+</p>
+<p>grep &quot;arch_reset&quot; . -nr | grep -v  &quot;charger&quot;
+</p>
+<p><b>ln</b>
+</p>
+<p>ln -s /media/disk2 /home/user_name/disk2
+</p>
+<p><b>kill</b>
+</p>
+<p>kill libreoffice
+</p>
+<p>ps -e | grep soffice.bin
+</p>
+<p>kill pid
+</p>
+<p>kill goagent in ubuntu
+</p>
+<p>netstat -nap | grep &quot;py&quot;
+</p>
+<p>kill -9 &lt;process id&gt;
+</p>
+<p><b>hexdump</b>
+</p>
+<p>hexdump -C vmlinux_l50 | more
+</p>
+<p>-C      Canonical hex+ASCII display.  Display the input offset in hexadecimal, followed by sixteen space-separated, two column, hexadecimal bytes, followed by the same sixteen
+</p>
+<p>bytes in %_p format enclosed in &ldquo;|&rdquo; characters.
+</p>
+<p><b>tar</b>
+</p>
+<p>tar -cvf /tmp/etc.tar /etc                    // just tar, not compression
+</p>
+<p>tar -zcvf /tmp/etc.tar.gz /etc              // gzip compression
+</p>
+<p>tar -jcvf /tmp/etc.tar.bz2 /etc             // bzip2 compression
+</p>
+<p>tar -zxvf /tmp/etc.tar.gz                      // decompress etc.tar.gz file
+</p>
+<p>tar -zxvf /tmp/etc.tar.gz etc/passwd   // 将 /tmp/etc.tar.gz 内的 etc/passwd 解开而已,etc.tar.gz 内的根目录 / 是被拿掉了
+</p>
+<p>tar -zxvpf /tmp/etc.tar.gz /etc            // -p 保留原本文件属性
+</p>
+<p>split -d -b 100m  a.tar.gz                 // 切割压缩包
+</p>
+<p>cat x* &gt; a.tar.gz                                //  切割后的分卷合并
+</p>
+<p>//decompress to directory
+</p>
+<p>mkdir aaa
+</p>
+<p>tar -zxf a.tar.gz -C aaa  // decompress a.tar to directory aaa
+</p>
+<p>// decompress to separate directory
+</p>
+<p>for A in ./1/1.tar.gz ./2/2.tar.gz ; do echo $(dirname $A); tar -zxf $A -C $(dirname $A); done
+</p>
+<p><b>zip/unzip</b>
+</p>
+
+<p>install: sudo apt-get install zip
+</p>
+<p>zip a.zip 1.txt 2.txt 3.txt
+</p>
+<p>zip -r a.zip 1.txt 2.txt dir
+</p>
+<p>unzip a.zip
+</p>
+<p>zip -r zzy_config.zip .gitconfig .git-template .ssh/ .vim .vimrc   // backup my configs
+</p>
+<p><b>find &amp; rm</b>
+</p>
+<p>// 查找所有.git目录，并且删除
+</p>
+<p>find . -name .git -type d -print -exec rm -rf {} \;
+</p>
+<p><b>md5sums</b>
+</p>
+<p>// create md5sums
+</p>
+<p>find . -type f -print0 | xargs -0 md5sum &gt; md5sums
+</p>
+<p>// check md5sums
+</p>
+<p>md5sum -c checksums_backup.md5
+</p>
+<p>http://info.michael-simons.eu/2008/10/25/recursively-md5sum-all-files-in-a-directory-tree/
+</p>
+<p><b>reference</b>
+</p>
+<p>[1] http://www.cnblogs.com/peida/archive/2012/12/18/2822758.html
+</p>
+<p>[2] http://hi.baidu.com/microji/item/8bb148143a912326f7625c03
+</p>
+<p>[3] http://www.tecmint.com/history-command-examples/
+</p>
+<p>[4] http://linux.die.net/man/2/stat   //linux die 上查找 stat函数
+</p>
+<p>[6] http://zhangyu.blog.51cto.com/197148/137069  // dd 命令用法
+</p>
+<hr>
+<a name="development-commands"></a>
+<div class="header">
+<p>
+Next: <a href="#trick" accesskey="n" rel="next">trick</a>, Previous: <a href="#basic-commands" accesskey="p" rel="prev">basic commands</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="development-commands-1"></a>
+<h2 class="chapter">3 development commands</h2>
+
+<p><b>size</b>
+</p>
+<p>list section sizes and total size.
+</p>
+<p>example
+</p>
+<p>$size a.out
+</p>
+<p>text  data  bss dec  hex filename
+</p>
+<p>1176  504  16 1696  6a0 a.out
+</p>
+<hr>
+<a name="trick"></a>
+<div class="header">
+<p>
+Next: <a href="#regular-expression" accesskey="n" rel="next">regular expression</a>, Previous: <a href="#development-commands" accesskey="p" rel="prev">development commands</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="trick-1"></a>
+<h2 class="chapter">4 trick</h2>
+
+<p><b>cd alias</b>
+</p>
+<p>alias ..=&quot;cd ..&quot;
+</p>
+<p>alias ..2=&quot;cd ../..&quot;
+</p>
+<p>alias ..3=&quot;cd ../../..&quot;
+</p>
+<p>alias ..4=&quot;cd ../../../..&quot;
+</p>
+<p>alias ..5=&quot;cd ../../../../..&quot;
+</p>
+<p>alias ..6=&quot;cd ../../../../../..&quot;
+</p>
+<p>alias ..7=&quot;cd ../../../../../../..&quot;
+</p>
+<p>alias ..8=&quot;cd ../../../../../../../..&quot;
+</p>
+<p>alias ..9=&quot;cd ../../../../../../../../..&quot;
+</p>
+<p><b>mkdircd</b>
+</p>
+<p>function mkdircd () { mkdir -p &quot;$@&quot; &amp;&amp; eval cd &quot;\&quot;\$$#\&quot;&quot;; }
+</p>
+<hr>
+<a name="regular-expression"></a>
+<div class="header">
+<p>
+Next: <a href="#environment" accesskey="n" rel="next">environment</a>, Previous: <a href="#trick" accesskey="p" rel="prev">trick</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="regular-expression-1"></a>
+<h2 class="chapter">5 regular expression</h2>
+
+<div class="example">
+<pre class="example">// resource
+http://en.wikipedia.org/wiki/Regular_expression
+
+元字符
+^  匹配行开头
+$ 匹配行结尾
+
+examples
+^cat$  匹配只包含 cat 的行。
+</pre></div>
+
+<hr>
+<a name="environment"></a>
+<div class="header">
+<p>
+Next: <a href="#scripting" accesskey="n" rel="next">scripting</a>, Previous: <a href="#regular-expression" accesskey="p" rel="prev">regular expression</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="environment-1"></a>
+<h2 class="chapter">6 environment</h2>
+
+<p><b>distribution setup script</b>
+</p>
+<p>ubuntu: ~/.bashrc
+</p>
+<p>mint: ~/.profile
+</p>
+
+<p><b>environment</b>
+</p>
+<p>PATH - Display lists directories the shell searches, for the commands.
+</p>
+<p>HOME - User&rsquo;s home directory to store files.
+</p>
+<p>TERM - Set terminal emulator being used by UNIX.
+</p>
+<p>PS1 - Display shell prompt in the Bourne shell and variants.
+</p>
+<p>MAIL - Path to user&rsquo;s mailbox.
+</p>
+<p>TEMP - Path to where processes can store temporary files.
+</p>
+<p>JAVA_HOME - Sun (now Oracle) JDK path.
+</p>
+<p>ORACLE_HOME - Oracle database installation path.
+</p>
+<p>TZ - Timezone settings
+</p>
+<p>PWD - Path to the current directory.
+</p>
+<p>HISTFILE - The name of the file in which command history is saved
+</p>
+<p>HISTFILESIZE -The maximum number of lines contained in the history file
+</p>
+<p>HOSTNAME -The system&rsquo;s host name
+</p>
+<p>LD_LIBRARY_PATH -It is a colon-separated set of directories where libraries should be searched for.
+</p>
+<p>USER -Current logged in user&rsquo;s name.
+</p>
+<p>DISPLAY -Network name of the X11 display to connect to, if available.
+</p>
+<p>SHELL -The current shell.
+</p>
+<p>TERMCAP -	 Database entry of the terminal escape codes to perform various terminal functions.
+</p>
+<p>OSTYPE -	 Type of operating system.
+</p>
+<p>MACHTYPE -	 The CPU architecture that the system is running on.
+</p>
+<p>EDITOR -	 The user&rsquo;s preferred text editor.
+</p>
+<p>PAGER -	 The user&rsquo;s preferred text pager.
+</p>
+<p>MANPATH - Colon separated list of directories to search for manual pages.
+</p>
+<p>Display Environment Variable
+</p>
+<p><b>display all environment variables</b>
+</p>
+<p>$ set
+</p>
+<p>OR
+</p>
+<p>$ printenv
+</p>
+<p>OR
+</p>
+<p>$ env
+</p>
+<p><b>display search path</b>
+</p>
+<p>echo $PATH
+</p>
+<p><b>display prompt settings</b>
+</p>
+<p>echo $PS1
+</p>
+<p><b>more examples</b>
+</p>
+<p>echo $USER
+</p>
+<p>echo $PWD
+</p>
+<p>echo $MAIL
+</p>
+<p>echo $JAVA_PATH
+</p>
+<p>echo $DB2INSTANCE
+</p>
+<p><b>Change or Set Environment Variable</b>
+</p>
+<p>You can use the following command to change the environment variable for the current session as per your shell.
+</p>
+<p>For Korn shell (KSH)
+</p>
+<p>The syntax is as follows:
+</p>
+<p>var=value
+</p>
+<p>export var
+</p>
+<p>To set JAVA_PATH, enter:
+</p>
+
+<p>JAVA_PATH=/opt/jdk/bin
+</p>
+<p>export JAVA_PATH
+</p>
+<p>For Bourne shell (sh and bash)
+</p>
+<p>The syntax is as follows:
+</p>
+
+<p>export var=value
+</p>
+<p>To set PATH, enter:
+</p>
+
+<p>export PATH=$PATH:/opt/bin:/usr/local/bin:$HOME/bin
+</p>
+<p>For C shell (csh or tcsh)
+</p>
+<p>The syntax is as follows:
+</p>
+
+<p>setenv var value
+</p>
+<p>Set EDITOR to vim, enter:
+</p>
+
+<p>setenv EDITOR vim
+</p>
+<p>Example: UNIX C Shell Startup Configuration Files For Environment Variable
+</p>
+<p>C shell use the following files:
+</p>
+<p>/etc/csh.login - It is executed if C shell is your login shell.
+</p>
+<p>$HOME/.cshrc and $HOME/.login - These files are executed every time C Shell starts. The ~/.login is csh login script, read by login shell, after ~/.cshrc at login.
+</p>
+<p>The above set or setenv commands can be placed in the ~/.cshrc or ~/.login files. A sample $HOME/.cshrc file is as follows:
+</p>
+
+<p>alias h		history 25
+alias j		jobs -l
+alias la	ls -a
+alias lf	ls -FA
+alias ll	ls -lA
+</p>
+<hr>
+<a name="scripting"></a>
+<div class="header">
+<p>
+Next: <a href="#find-command" accesskey="n" rel="next">find command</a>, Previous: <a href="#environment" accesskey="p" rel="prev">environment</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="scripting-1"></a>
+<h2 class="chapter">7 scripting</h2>
+
+<p><b>shell trace</b>
+</p>
+<p>set -x    // open command trace
+</p>
+<p>After  expanding each simple command, for command, case command, select command, or arithmetic for command, display the expanded value of PS4, followed by the command and its expanded arguments or associated word list.
+</p>
+<p>set +x   // close command trace
+</p>
+<p><b>resource</b>
+</p>
+<p>// linux shell scripting tutorial
+</p>
+<p>http://bash.cyberciti.biz/guide/Main_Page
+</p>
+<hr>
+<a name="find-command"></a>
+<div class="header">
+<p>
+Next: <a href="#grep-command" accesskey="n" rel="next">grep command</a>, Previous: <a href="#scripting" accesskey="p" rel="prev">scripting</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="find-command-1"></a>
+<h2 class="chapter">8 find command</h2>
+
+<p><b>delete .git directory</b>
+find . -name .git -exec rm -rf {} \;
+</p>
+<p>find . -name .git | xargs rm -rf
+</p>
+<p>// todo
+</p>
+<p>http://www.cnblogs.com/peida/archive/2012/11/13/2767374.html // find 命令概览
+</p>
+<p>http://www.cnblogs.com/peida/archive/2012/11/14/2769248.html // find 命令之exec
+</p>
+<p>http://www.cnblogs.com/peida/archive/2012/11/15/2770888.html // find 命令之xargs
+</p>
+<p>// todo
+</p>
+<p>find command
+</p>
+<p>过滤掉设备文件，socket文件和proc文件，只搜普通文件。
+</p>
+<p>device/htc/htc_e56ml_dtul/htc_e56ml_dtul.mk
+</p>
+<p>我编译，e56ml 的工程，这个mk应该会在编译的时候读到，对吧？
+</p>
+<p>不一定。
+</p>
+<p>得看AndroidProducts.mk指定是否直接或间接包含。
+</p>
+<p>device的makefile都是通过device目录的AndroidProducts.mk指定的PRODUCT_MAKEFILES包含进去的。
+</p>
+<p>-type c
+</p>
+<p>File is of type c:
+</p>
+<p>b      block (buffered) special
+</p>
+<p>c      character (unbuffered) special
+</p>
+<p>d      directory
+</p>
+<p>p      named pipe (FIFO)
+</p>
+<p>f      regular file
+</p>
+<p>l      symbolic link; this is never true if the -L option or the -follow option is in effect, unless the  sym-
+</p>
+<p>bolic link is broken.  If you want to search for symbolic links when -L is in effect, use -xtype.
+</p>
+<p>s      socket
+</p>
+<p>D      door (Solaris)
+grep
+</p>
+<p>-D ACTION, &ndash;devices=ACTION
+</p>
+<p>If  an  input  file  is a device, FIFO or socket, use ACTION to process it.  By default, ACTION is read, which
+</p>
+<p>means that devices are read just as if they were ordinary files.  If ACTION  is  skip,  devices  are  silently
+</p>
+<p>skipped.
+</p>
+<hr>
+<a name="grep-command"></a>
+<div class="header">
+<p>
+Previous: <a href="#find-command" accesskey="p" rel="prev">find command</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="grep-command-1"></a>
+<h2 class="chapter">9 grep command</h2>
+
+<p><b>reference</b>
+</p>
+<p>http://www.cyberciti.biz/faq/howto-use-grep-command-in-linux-unix/
+</p>
+<p><b>syntax</b>
+</p>
+<p>grep &rsquo;word&rsquo; filename
+</p>
+<p>grep &rsquo;word&rsquo; file1 file2 file3
+</p>
+<p>grep &rsquo;string1 string2&rsquo;  filename
+</p>
+<p>cat otherfile | grep &rsquo;something&rsquo;
+</p>
+<p>command | grep &rsquo;something&rsquo;
+</p>
+<p>command option1 | grep &rsquo;data&rsquo;
+</p>
+<p>grep &ndash;color &rsquo;data&rsquo; fileName
+</p>
+<p>option -i
+</p>
+<p>You can force grep to ignore word case i.e match boo, Boo, BOO and all other combination with the -i option:
+</p>
+<p>$ grep -i &quot;boo&quot; /etc/passwd
+</p>
+<p><b>Use grep recursively</b>
+</p>
+<p>You can search recursively i.e. read all files under each directory for a string &quot;192.168.1.5&quot;
+</p>
+<p>$ grep -r &quot;192.168.1.5&quot; /etc/
+</p>
+<p>OR
+</p>
+<p>$ grep -R &quot;192.168.1.5&quot; /etc/
+</p>
+<p>Sample outputs:
+</p>
+<p>/etc/ppp/options:# ms-wins 192.168.1.50
+</p>
+<p>/etc/ppp/options:# ms-wins 192.168.1.51
+</p>
+<p>/etc/NetworkManager/system-connections/Wired connection 1:addresses1=192.168.1.5;24;192.168.1.2;
+</p>
+<p>You will see result for 192.168.1.5 on a separate line preceded by the name of the file (such as /etc/ppp/options) in which it was found. The inclusion of the file names in the output data can be suppressed by using the -h option as follows:
+</p>
+<p>$ grep -h -R &quot;192.168.1.5&quot; /etc/
+</p>
+<p>OR
+</p>
+<p>$ grep -hR &quot;192.168.1.5&quot; /etc/
+</p>
+
+<p>Sample outputs:
+</p>
+<p># ms-wins 192.168.1.50
+</p>
+<p># ms-wins 192.168.1.51
+</p>
+<p>addresses1=192.168.1.5;24;192.168.1.2;
+</p>
+<p>Use grep to search words only
+</p>
+<p>When you search for boo, grep will match fooboo, boo123, barfoo35 and more. You can force the grep command to select only those lines containing matches that form whole words i.e. match only boo word:
+</p>
+<p>$ grep -w &quot;boo&quot; file
+</p>
+<p>Use grep to search 2 different words
+</p>
+<p>Use the egrep command as follows:
+</p>
+<p>$ egrep -w &rsquo;word1|word2&rsquo; /path/to/file
+</p>
+<p>Count line when words has been matched
+</p>
+<p>The grep can report the number of times that the pattern has been matched for each file using -c (count) option:
+</p>
+<p>$ grep -c &rsquo;word&rsquo; /path/to/file
+</p>
+<p>Pass the -n option to precede each line of output with the number of the line in the text file from which it was obtained:
+</p>
+<p>$ grep -n &rsquo;root&rsquo; /etc/passwd
+</p>
+<p>Sample outputs:
+</p>
+<p>1:root:x:0:0:root:/root:/bin/bash
+</p>
+<p>1042:rootdoor:x:0:0:rootdoor:/home/rootdoor:/bin/csh
+</p>
+<p>3319:initrootapp:x:0:0:initrootapp:/home/initroot:/bin/ksh
+</p>
+<p>Grep invert match
+</p>
+<p>You can use -v option to print inverts the match; that is, it matches only those lines that do not contain the given word. For example print all line that do not contain the word bar:
+</p>
+<p>$ grep -v bar /path/to/file
+</p>
+<p>UNIX / Linux pipes and grep command
+</p>
+<p>grep command often used with shell pipes. In this example, show the name of the hard disk devices:
+</p>
+<p># dmesg | egrep &rsquo;(s|h)d[a-z]&rsquo;
+</p>
+<p>Display cpu model name:
+</p>
+<p># cat /proc/cpuinfo | grep -i &rsquo;Model&rsquo;
+</p>
+<p>However, above command can be also used as follows without shell pipe:
+</p>
+<p># grep -i &rsquo;Model&rsquo; /proc/cpuinfo
+</p>
+<p>Sample outputs:
+</p>
+<p>model        : 30
+</p>
+<p>model name    : Intel(R) Core(TM) i7 CPU       Q 820  &nbsp;1.73GHz
+</p>
+<p>model        : 30
+</p>
+<p>model name    : Intel(R) Core(TM) i7 CPU       Q 820  &nbsp;1.73GHz
+</p>
+<p>How do I list just the names of matching files?
+</p>
+
+<p>Use the -l option to list file name whose contents mention main():
+</p>
+<p>$ grep -l &rsquo;main&rsquo; *.c
+</p>
+<p>Finally, you can force grep to display output in colors, enter:
+</p>
+<p>$ grep &ndash;color vivek /etc/passwd
+</p>
+<p>find . | grep &quot;kernel&quot; | sort | xargs grep -h -e &quot;^Update: \[&quot; -e &quot;Lagacy mode&quot; &gt; ~/disk2/b.txt
+</p>
+<p>grep &quot;HTC_HEADSET_CONFIG_MSM_RPC&quot; -nir .
+</p>
+<p>find . | xargs  grep &quot;07-16&quot; | grep &quot;\[LED\]&quot; &gt; ~/disk2/led.log.20140717.txt
+</p>
+<p>find ./ -maxdepth 1 | xargs grep &quot;system&quot;
+</p>
+<hr>
+
+
+
+</body>
+</html>

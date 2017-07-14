@@ -1,0 +1,54 @@
+http://www.busybox.net
+...
+1、BusyBox 的诞生
+2、busybox的用法
+3、配置busybox
+4、编译并安装busybox
+
+概述
+　　BusyBox 是一个集成了一百多个最常用linux命令和工具的软件。BusyBox 包含了一些简单的工具，例如ls、 cat 和 echo等等，还包含了一些更大、更复杂的工具，例如 grep、find、mount 以及 telnet。有些人将 BusyBox 称为 Linux 工具里的瑞士军刀。简单的说BusyBox就好像是个大工具箱，它集成压缩了 Linux 的许多工具和命令，也包含了 Android 系统的自带的shell。
+
+1、BusyBox 的诞生
+　　BusyBox 最初是由 Bruce Perens 在 1996 年为 Debian GNU/Linux 安装盘编写的。其目标是在一张软盘上创建一个可引导的 GNU/Linux 系统，这可以用作安装盘和急救盘。
+
+2、busybox的用法
+　　可以这样用busybox
+　　#busybox ls
+　　他的功能就相当运行ls命令
+　　最常用的用法是建立指向busybox的链接,不同的链接名完成不同的功能.
+　　#ln -s busybox ls
+　　#ln -s busybox rm
+　　#ln -s busybox mkdir
+　　然后分别运行这三个链接:
+　　#./ls
+　　#./rm
+　　#./mkdir
+　　就可以分别完成了ls rm 和mkdir命令的功能.虽然他们都指向同一个可执行程序busybox，但是只要链接名不同,完成的功能就不同，很多linux网站都提供busybox的源代码下载。
+
+3、配置busybox
+　　busybox的配置程序和linux内核菜单配置方式简直一模一样.熟悉用make menuconfig方式配置linux内核的朋友很容易上手.
+　　#cp busybox-1.00.tar.gz /babylinux
+　　#cd /babylinux
+　　#tar xvfz busybox-1.00.tar.gz
+　　#cd busybox-1.00
+　　#make menuconfig
+　　下面是需要编译进busybox的功能选项。
+　　General Configuration应该选的选项
+　　Show verbose applet usage messages
+　　Runtime SUID/SGID configuration via /etc/busybox.conf
+　　Build Options
+　　Build BusyBox as a static binary (no shared libs)
+　　这个选项是一定要选择的,这样才能把busybox编译成静态链接的可执行文件,运行时才独立于其他函数库.否则必需要其他库文件才能运行,在单一个linux内核不能使它正常工作.
+　　Installation Options
+　　Don't use /usr
+　　这个选项也一定要选,否则make install 后busybox将安装在原系统的/usr下,这将覆盖掉系统原有的命令.选择这个选项后,make install后会在busybox目录下生成一个叫_install的目录,里面有busybox和指向它的链接.
+　　其它选项都是一些linux基本命令选项,自己需要哪些命令就编译进去,一般用默认的就可以了，配置好后退出并保存。
+
+4、编译并安装busybox
+　　#make
+　　#make install
+　　编译好后在busybox目录下生成子目录_install,里面的内容:
+　　drwxr-xr-x 2 root root 4096 11月 24 15:28 bin
+　　rwxrwxrwx 1 root root 11 11月 24 15:28 linuxrc -> bin/busybox
+　　drwxr-xr-x 2 root root 4096 11月 24 15:28 sbin
+　　其中可执行文件busybox在bin目录下,其他的都是指向他的符号链接.

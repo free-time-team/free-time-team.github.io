@@ -1,0 +1,358 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle basic tools
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top basic tools
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* basic tools::
+* binary tools::
+* storage ::
+* IDA::
+* virtualbox::
+* cron::
+* misc::
+* putty::
+* remmina::
+* uart tool::
+@c * Copying::  free time team
+@end menu
+
+@node basic tools
+@chapter basic tools
+
+@b{compare tool}
+
+sudo apt-get install meld
+
+@node binary tools
+@chapter binary tools
+
+@b{hexedit}
+@example
+open
+	hexedit file_name
+
+close
+	ctrl+x
+
+ofen used
+	<:  go to start of the file
+	> :  go to end of the file
+	Right:  next character
+	Left:   previous character
+	Down:   next line
+	Up:     previous line
+	Home:   beginning of line
+	End:    end of line
+	PUp:    page forward
+	PDown:  page backward
+
+reference
+    http://linux.die.net/man/1/hexedit
+    http://blog.csdn.net/dssxk/article/details/7998743 // 命令集
+@end example
+
+@b{bvi}
+@example
+open
+	bvi test.iso
+
+search binary
+	Additional search commands: Similar to the text search commands there are additional hex-search functions '\' and '#'
+  which allow to search for any byte value.Example:  "\62 76 69" will search for the string "bvi".
+  Spaces between hex value are optional, so searching for "6775636B6573" will find "guckes".
+
+: command
+set cm=16
+
+help
+	man bvi
+	bvi help
+note: cannot handle large file
+@end example
+
+@node storage
+@chapter storage
+
+@b{mkfs}
+
+mkfs -t ext4 /dev/sdb
+
+http://www.linfo.org/mkfs.html
+
+http://blog.csdn.net/asx20042005/article/details/7264867
+
+@b{fstab}
+
+A simple /etc/fstab, using kernel name descriptors:
+
+/etc/fstab
+
+# <file system>        <dir>         <type>    <options>             <dump> <pass>
+
+/dev/sda1              /             ext4      defaults,noatime      0      1
+
+/dev/sda2              none          swap      defaults              0      0
+
+/dev/sdb              /home         ext4      defaults,noatime      0      2
+
+Field definitions
+
+Each line in the /etc/fstab file contains the following fields separated by spaces or tabs:
+
+file_system    dir    type    options    dump    pass
+
+file system
+
+The partition or storage device to be mounted.
+
+dir
+
+The mountpoint where <file system> is mounted to.
+
+type
+
+The file system type of the partition or storage device to be mounted. Many different file systems are supported: ext2, ext3, ext4, btrfs, reiserfs, xfs, jfs, smbfs, iso9660, vfat, ntfs, swap and auto. The auto type lets the mount command guess what type of file system is used. This is useful for optical media (CD/DVD).
+
+options
+
+Mount options of the filesystem to be used. See the mount man page. Please note that some options are specific to filesystems; to discover them see below in the aforementioned mount man page.
+
+dump
+
+Used by the dump utility to decide when to make a backup. Dump checks the entry and uses the number to decide if a file system should be backed up. Possible entries are 0 and 1. If 0, dump will ignore the file system; if 1, dump will make a backup. Most users will not have dump installed, so they should put 0 for the dump entry.
+
+pass
+
+Used by fsck to decide which order filesystems are to be checked. Possible entries are 0, 1 and 2. The root file system should have the highest priority 1 (unless its type is btrfs, in which case this field should be 0) - all other file systems you want to have checked should have a 2. File systems with a value 0 will not be checked by the fsck utility.
+
+https://wiki.archlinux.org/index.php/Fstab
+
+https://en.wikipedia.org/wiki/Fstab
+
+@node IDA
+@chapter IDA
+
+@example
+IDA学习笔记
+http://blog.csdn.net/hgy413/article/details/7721147
+
+x86 加密exe文件调试
+https://hex-rays.com/products/ida/support/tutorials/unpack_pe/manual.shtml
+
+android代码动态加载技术
+http://bbs.pediy.com/showthread.php?t=142256
+
+IDA 6.7
+http://bbs.pediy.com/showthread.php?t=197589
+
+http://www.openrce.org/articles/
+http://www.woodmann.com/forum/activity.php?s=cd5ff61f934e5106725928ba52c4b495
+http://old.idapalace.net/
+http://www.hexblog.com/
+@end example
+
+@node virtualbox
+@chapter virtualbox
+
+@example
+ssh access
+
+Settings -> Network -> NAT -> Port Forwarding -> 0.0.0.0 2222 10.0.2.15 22
+
+share mouse
+General -> Advanced
+Shared Clipboard: Bidirectional
+Drag'n'Drop: Bidirectional
+
+share folder
+Settings -> Shared Folders
+
+VirtualBox some errors
+1. Cannot Register the Hard Drive Because a Hard Drive with UUID Already Exists
+$ VBoxManage internalcommands sethduuid xp.vdi
+UUID changed to: 1749f020-c7fc-4b3a-871d-3f90756092345
+
+resize
+1.VBoxManage clonehd mywin7/mywin7.vdi  mywin7/mywin7-2.vdi --format VDI
+2.VBoxManage modifyhd mywin7/mywin7-2.vdi --resize 51200
+3.计算机-->磁盘管理-->扩展
+
+// impack vdi image
+1. sdelete -z (execute in win7)
+2. shutdown win7
+3. vboxmanage modifyhd zj_win7.vdi --compact (execute in ubuntu)
+
+win7
+单击"开始"-->"运行"按钮，弹出"运行"对话框，输入"dcpromo"，
+单击"确定"按钮 --> 弹出"Active Directory删除向导" 窗口，
+单击"下一步"；在"删除Active Directory"窗口中选定"这个服务器是域中的最后一个域控制器",
+单击"下一步"；弹出"网络凭证"窗口,在"用户名" 、密码"文本框中输入密码(建立活动目录时的密码),
+单击"下一步"；弹出"管理员密码"窗口,在"密码"及"确认密码"文本框中输入密码(同前),单击"下一步"；
+此时出现"摘要"信息，若一切正常，则单击 "下一步"；
+系统将根据您的选择，删除活动目录,经过几分钟之后,删除结束；
+在"完成Active Directory降级向导"窗口中,单击"完成",即完成活动目录的删除.重新启动计算机,删除活动目录即会生效
+@end example
+
+@node cron
+@chapter cron
+
+@example
+change default edit
+env EDITOR=vim crontab -e  or
+sudo select-editor
+
+每天22:25执行脚本test, 参数为121231
+crontab -e
+25 22 * * * /home/zzy/test 121231
+
+reference
+http://askubuntu.com/questions/2368/how-do-i-set-up-a-cron-job
+https://help.ubuntu.com/community/CronHowto
+http://www.linuxquestions.org/questions/red-hat-31/how-to-change-the-default-crontab-editor-395750/
+@end example
+
+@node misc
+@chapter misc
+
+==> everything
+
+@node putty
+@chapter putty
+
+@example
+putty 颜色配置
+Default Foreground: 255/255/255
+Default Background: 51/51/51
+ANSI Black: 77/77/77
+ANSI Green: 152/251/152
+ANSI Yellow: 240/230/140
+ANSI Blue: 205/133/63
+ANSI Blue Bold 135/206/235
+ANSI Magenta: 255/222/173 or 205/92/92
+ANSI Cyan: 255/160/160
+ANSI Cyan Bold: 255/215/0
+ANSI White: 245/222/179
+
+full screen hotkey
+Behaviour -> Full screen on Alt-Enter -> save
+
+resource
+http://keepalived.iteye.com/blog/1559012
+http://blog.csdn.net/tianlesoftware/article/details/5831605
+http://newzk.blog.51cto.com/2301427/584374
+@end example
+
+@node remmina
+@chapter remmina
+
+@example
+ubuntu config
+sudo apt-get install remmina
+sudo apt-get install libfreerdp
+sudo apt-get install remmina-plugin-rdp
+sudo apt-get install remmina-plugin-gnome
+sudo apt-get install remmina-plugin-vnc
+sudo apt-get install remmina-common
+sudo apt-get install libfreerdp1 libfreerdp-plugins-standard
+
+win7 config
+计算机 -> 属性 -> 远程设置 -> 允许运行任意版本远程桌面的计算机连接
+
+ubuntu config
+create a new remote desktop file ->
+@end example
+
+@node uart tool
+@chapter uart tool
+
+@example
+minicom
+// port set
+A -    Serial Device      : /dev/ttyUSB0
+
+// commands
+Ctrl+A L // save log to file
+Ctrl A Z  // Minicom Command Summary
+
+// quit
+Ctrl+A Q
+Ctrl+A  Z Q
+
+// set baut rate
+qct 115200
+mtk 921600
+A: <next>, 选择下一个波特率
+8N1
+
+ckermit
+// install and usage
+sudo apt-get install ckermit
+sudo kermit         // command state
+sudo kermit -c     // connect state
+ctrl+\  c                // return to command state from connect state
+c                          // enter connect state from command state
+
+// kermrc
+cat ~/.kermrc
+set line /dev/ttyUSB0
+set speed 921600
+set carrier-watch off
+set handshake none
+set flow-control none
+robust
+set file type bin
+set file name lit
+set rec pack 1000
+set send pack 1000
+set window 5
+
+// kermit session
+sudo kermit
+set line /dev/ttyUSB[0/1]
+set speed 921600
+log session
+c
+
+// resource
+http://linux.die.net/man/1/kermit
+@end example
+
+@bye

@@ -1,0 +1,717 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>debug tools</title>
+
+<meta name="description" content="debug tools">
+<meta name="keywords" content="debug tools">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">debug tools</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-resource-1" href="#resource">1 resource</a></li>
+  <li><a name="toc-native-coredump-1" href="#native-coredump">2 native coredump</a></li>
+  <li><a name="toc-trace32-1" href="#trace32">3 trace32</a></li>
+  <li><a name="toc-crash-1" href="#crash">4 crash</a></li>
+  <li><a name="toc-debug-tools-2" href="#debug-tools">5 debug tools</a></li>
+  <li><a name="toc-kernel-oops-1" href="#kernel-oops">6 kernel oops</a></li>
+  <li><a name="toc-valgrind-1" href="#valgrind">7 valgrind</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#resource" accesskey="n" rel="next">resource</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="debug-tools-1"></a>
+<h1 class="top">debug tools</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#resource" accesskey="1">resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#native-coredump" accesskey="2">native coredump</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#trace32" accesskey="3">trace32</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#crash" accesskey="4">crash</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#debug-tools" accesskey="5">debug tools</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#kernel-oops" accesskey="6">kernel oops</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#valgrind" accesskey="7">valgrind</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="resource"></a>
+<div class="header">
+<p>
+Next: <a href="#native-coredump" accesskey="n" rel="next">native coredump</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="resource-1"></a>
+<h2 class="chapter">1 resource</h2>
+
+<div class="example">
+<pre class="example">http://elinux.org/Kernel_Debugging_Tips
+http://lkml.iu.edu//hypermail/linux/kernel/0408.1/2037.html
+http://www.linuxjournal.com/content/linux-kernel-testing-and-debugging
+http://www.ibm.com/developerworks/cn/linux/sdk/l-debug/index.html   // article
+http://www.cppblog.com/whspecial/archive/2011/06/09/148353.aspx  // article
+http://hi.baidu.com/timegoneby/item/18faad28a0cafc85af48f59d  // article
+http://valgrind.org/                                         //
+
+// android linux 内核编译调试
+http://bbs.pediy.com/showthread.php?t=192746
+
+// android 逆向动态调试的三种工具
+http://bbs.pediy.com/showthread.php?t=189982
+</pre></div>
+
+<hr>
+<a name="native-coredump"></a>
+<div class="header">
+<p>
+Next: <a href="#trace32" accesskey="n" rel="next">trace32</a>, Previous: <a href="#resource" accesskey="p" rel="prev">resource</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="native-coredump-1"></a>
+<h2 class="chapter">2 native coredump</h2>
+
+<div class="example">
+<pre class="example">set envirnment
+source build/envsetup.sh; partner_setup XXX;
+cp app_process file from /out/target/product/XXX/symbols/system/bin to /out/target/product/XXX/symbols/system/lib
+cp coredump file to /out/target/product/XXX/symbols/system/lib
+cd to /out/target/product/XXX/symbols/system/lib
+arm-eabi-gdb app_process ***.core
+</pre></div>
+
+<hr>
+<a name="trace32"></a>
+<div class="header">
+<p>
+Next: <a href="#crash" accesskey="n" rel="next">crash</a>, Previous: <a href="#native-coredump" accesskey="p" rel="prev">native coredump</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="trace32-1"></a>
+<h2 class="chapter">3 trace32</h2>
+
+<div class="example">
+<pre class="example">1 view register value
+Register or R or r
+
+2 view call stack
+Var.Frame [/Args /Locals /Caller]
+or v.f [/a /l /c]
+
+3 List stack symbol
+data.view %symbol.long r(rxxx)
+data.view %symbol.long r(r13)
+
+4 read address value
+v.v xxx
+v.v % (struct mutex *)0xedcf8a1c
+v.v %s (struct task_struct*)0xE9EE6E40
+
+5 dump information
+1 data.dump r(r#)
+data.dump r(r4)
+2 data.dump 0x...
+
+6 load binary file
+data.load.binary directory load_address
+data.load.binary C:\log_study\A5_CHL_281\DDRCS0.BIN 0x0
+
+7 load elf file
+data.load.elf diretory /nocode
+data.load.elf C:\log_study\A5_CHL_281\vmlinux /nocode
+
+8 mmu
+mmu.list
+
+
+1)	do t32_startup_script.cmm : 加载ramdump解析后的启动脚本。
+
+2)	加载C code 命令：
+(1)	y.SPATH.srd += &lt;path&gt;
+如：y.SPATH.srd += F:\Project\A3UL_ATT\kernel
+(2)	SYMBOL.SPATH.SETRECURSEDIR &lt;path&gt;
+        如：SYMBOL.SPATH.SETRECURSEDIR F:\Project\A3UL_ATT\kernel
+
+3)	显示进程列表: task.dtask
+
+4)	查看函数调用栈
+Var.Frame (/Args /Locals /Caller)   （括号内为可选项）
+或缩写 v.f (/a /l /c)
+
+5)	查看指定PC值的函数的调用栈
+r.s pc  0xc007d398
+r.s r13 0xcae1fde0
+v.frame 或 v.f
+
+6)	查看CPU寄存器值
+register.view 或 register 或 r
+
+7)	修改CPU寄存器的值
+register.set &lt;reg&gt; &lt;value&gt;
+如： r.s R9 0xFFFFFFFF
+
+8)	List stack symbol
+data.view %symbol.long r(rxxx)
+如：data.view %symbol.long r(r13)
+data.view %symbol.long 0xe5715e50
+
+9)
+?	var.view %Format (struct *)&lt;Address&gt;
+?	Show Variable (v.v)
+?	%Format: such as %STRING, %HEX, %DECIMAL, %BINARY, %DUMP… (optional)
+?	struct *: Variable Structure
+?	Address: The Variable Address
+
+
+?	var.view %Format &lt;variable&gt;
+?	To show &lt;variable&gt; by structure view
+?	%Format: such as %STRING, %HEX, %DECIMAL, %BINARY, %DUMP… (optional)
+
+
+延伸：(1) 读取Apps Frequency
+             v.v (`\acpuclock-8226\drv_data`) 或 v.v a7ssmux-&gt;c-&gt;rate
+      (2) 读取voltage
+             v.v the_cpr
+
+10)	 查看内存某个地址里的数据
+(1) data.dump r(r#)
+如：data.dump r(r4)
+       (2) data.dump &lt;address&gt;  (0x开头)
+
+11)	 查看某个地址对应的代码
+data.list &lt;address&gt; 如果不指定地址，T32 默认PC 寄存器的值
+
+12)	 设置内存中某地址中的数据
+ data.set &lt;address&gt; %Format &lt;value | string&gt;
+?	To modify address in memory as a value / string with %Format
+?	Ex: d.set 0xFC00120 %Quad 0xFFFFFFFF
+
+13)	 加载二进制文件
+data.load.binary  &lt;file path&gt;  &lt;address&gt;
+如：data.load.binary C:\log_study\A5_CHL_281\DDRCS0.BIN 0x0
+
+14)	 加载elf文件
+data.load.elf  &lt;file path&gt; /nocode
+如：data.load.elf C:\log_study\A5_CHL_281\vmlinux /nocode
+
+15)	 查看物理地址和虚拟地址的映射表
+     mmu.list or mmu.dump
+</pre></div>
+
+<hr>
+<a name="crash"></a>
+<div class="header">
+<p>
+Next: <a href="#debug-tools" accesskey="n" rel="next">debug tools</a>, Previous: <a href="#trace32" accesskey="p" rel="prev">trace32</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="crash-1"></a>
+<h2 class="chapter">4 crash</h2>
+
+<div class="example">
+<pre class="example">install
+1.	Build termcap and install
+\\10.33.8.3\rd\Documents\SSD1\SSD1_BSP_Team\7. TOOLS\Crash-tool\termcap-1.3.1.tar.gz
+# uncompress termcap-1.3.1.tar.gz  to “ ~/tmp”
+$   tar xvzf termcap-1.3.1.tar.gz
+$   cd termcap-1.3.1
+#build termcap
+$   ./configure  --prefix=~/tmp/ termcap-1.3.1
+#install termcap
+$   sudo cp libtermcap.a /usr/lib
+
+2.	Build crash and install
+\\10.33.8.3\rd\Documents\SSD1\SSD1_BSP_Team\7. TOOLS\Crash-tool\crash-7.1.0.tar.gz
+#build crash
+$    make target=ARM64 CROSS_COMPILE=aarch64-linux-android-
+#install crash
+$   sudo make install
+
+3.	test crash.
+$ crash  vmlinux  SYS_CORDUMP
+crash&gt; bt
+PID: 0      TASK: ffffffc000ed9290  CPU: 0   COMMAND: &quot;swapper/0&quot;
+#0 [ffffffc000ec7d10] __switch_to at ffffffc000085a9c
+#1 [ffffffc000ec7d20] __schedule at ffffffc000a31fb0
+#2 [ffffffc000ec7d50] schedule at ffffffc000a323d4
+#3 [ffffffc000ec7ef0] schedule_preempt_disabled at ffffffc000a32824
+#4 [ffffffc000ec7f00] cpu_startup_entry at ffffffc0000fc950
+#5 [ffffffc000ec7f20] rest_init at ffffffc000a1d180
+#6 [ffffffc000ec7f80] start_kernel at ffffffc000e5e804s
+
+crash --cpu=4 -m phys_base=0x80000000 vmlinux ***EL.RAM
+
+search
+// search data from memory
+crash&gt; search 0xffffffc06c73eac8
+ffffffc06c73eac8: ffffffc06c73eac8
+ffffffc06c73ead0: ffffffc06c73eac8
+
+crash&gt; search 0xffffffc06c73eac8 -m 0xff
+ffffffc0288edb70: ffffffc06c73ea60
+ffffffc047428460: ffffffc06c73ea00
+
+crash&gt; search 0xffffffc06c73eac8 -m 0xff0000
+ffffff800435dac8: ffffffc06c4feac8
+ffffff800435dad0: ffffffc06c4feac8
+
+vtop
+// virtual address to physical address
+crash&gt; vtop 0xffffffc06cdf5000
+VIRTUAL           PHYSICAL
+ffffffc06cdf5000  acdf5000
+
+PAGE DIRECTORY: ffffffc00007d000
+   PGD: ffffffc00007d808 =&gt; 42ffe003
+   PMD: ffffffc002ffeb30 =&gt; acc00711
+  PAGE: acc00000  (2MB)
+
+  PTE     PHYSICAL  FLAGS
+acc00711  acc00000  (VALID|SHARED|AF)
+
+      PAGE               PHYSICAL      MAPPING       INDEX CNT FLAGS
+ffffffbc025d0d98         acdf5000                0        0  1 80 slab
+
+reference
+http://people.redhat.com/anderson/crash_whitepaper/
+http://docs.oracle.com/cd/E37670_01/E41138/html/ch10s02.html
+http://magazine.redhat.com/2007/08/15/a-quick-overview-of-linux-kernel-crash-dump-analysis/
+http://www.ibm.com/developerworks/cn/linux/l-cn-dumpanalyse/
+https://help.ubuntu.com/12.04/serverguide/kernel-crash-dump.html
+
+</pre></div>
+
+<hr>
+<a name="debug-tools"></a>
+<div class="header">
+<p>
+Next: <a href="#kernel-oops" accesskey="n" rel="next">kernel oops</a>, Previous: <a href="#crash" accesskey="p" rel="prev">crash</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="debug-tools-2"></a>
+<h2 class="chapter">5 debug tools</h2>
+
+<div class="example">
+<pre class="example">addr2line
+arm-eabi-addr2line -C -f -e xxx.so [addr]
+example: addr2line -Cfe vmlinux 0xffffffc0006e49b8 0xffffffc00016498c 0xffffffc0001678f0 0xffffffc0000bf434 0xffffffc000084410
+       -a   --addresses
+           Display address before function names or file and line number information.  The address is printed with a 0x prefix to easily identify it.
+       -b bfdname --target=bfdname
+           Specify that the object-code format for the object files is bfdname.
+       -C   --demangle[=style]
+           Decode (demangle) low-level symbol names into user-level names.  Besides removing any initial underscore prepended by the system, this makes C++
+           function names readable.  Different compilers have different mangling styles. The optional demangling style argument can be used to choose an
+           appropriate demangling style for your compiler.
+       -e filename --exe=filename
+           Specify the name of the executable for which addresses should be translated.  The default file is a.out.
+       -f  --functions
+           Display function names as well as file and line number information.
+       -s  --basenames
+           Display only the base of each file name.
+       -i  --inlines
+           If the address belongs to a function that was inlined, the source information for all enclosing scopes back to the first non-inlined function will
+           also be printed.  For example, if &quot;main&quot; inlines &quot;callee1&quot; which inlines &quot;callee2&quot;, and address is from &quot;callee2&quot;, the source information for
+           &quot;callee1&quot; and &quot;main&quot; will also be printed.
+       -j  --section
+           Read offsets relative to the specified section instead of absolute addresses.
+       -p  --pretty-print
+           Make the output more human friendly: each location are printed on one line.  If option -i is specified, lines for all enclosing scopes are prefixed
+           with (inlined by).
+       @file
+           Read command-line options from file.  The options read are inserted in place of the original @file option.  If file does not exist, or cannot be read,
+           then the option will be treated literally, and not removed.
+           Options in file are separated by whitespace.  A whitespace character may be included in an option by surrounding the entire option in either single or
+           double quotes.  Any character (including a backslash) may be included by prefixing the character to be included with a backslash.  The file may itself
+           contain additional @file options; any such options will be processed recursively.
+
+nm
+#01 pc 00086be3  /system/lib/libandroid_runtime.so (android::javaObjectForIBinder(_JNIEnv*, android: p&lt;android::IBinder&gt; const&amp;)+30)
+$arm-eabi-nm -A libandroid_runtime.so | grep &quot;00086b&quot;
+U   An undefined symbol, usually an external symbol reference.
+T   A symbol defined in the text section, usually a function name.
+t    A local symbol defined in the text section. In a C program, this usu-ally equates to a static function.
+D   An initialized data value.
+C   An uninitialized data value.
+http://www.thegeekstuff.com/2012/03/linux-nm-command/
+http://www.cnblogs.com/yc_sunniwell/archive/2010/07/22/1782685.html
+
+ldd
+(list dynamic dependencies) utility is a simple tool used to list the dynamic libraries required by any executable.
+
+c++filt
+It is possible to recover the demangled function names
+nm cpp_test | grep demo | c++filt
+
+strings
+The  strings utility is designed specifically to extract string content from
+files, often without regard for the format of those files.
+
+dump symbol file
+arm-eabi-objdump -t vmlinux &gt; sym.txt
+arm-eabi-readelf -s vmlinux &gt; sym.txt
+crash &gt; sym -l
+
+disassembly
+arm-eabi-objdump -S -D -l vmlinux &gt; vmlinux.S
+
+arm-eabi-readelf -a vmlinux | grep &quot;page_address&quot;
+0xc0257d54 &lt;page_address&gt;: 0x80acb0b0
+0xc0257f78 &lt;set_page_address&gt;: @0xc0ddec58
+0xc0e15528 &lt;page_address_init&gt;: 0x80aab0b0
+ 35061: c0d8900a    13 OBJECT  LOCAL  DEFAULT    9 __kstrtab_page_address
+ 35069: c0d7e28c     4 OBJECT  LOCAL  DEFAULT    7 __kcrctab_page_address
+ 35086: c10fe3c0  8192 OBJECT  LOCAL  DEFAULT   26 page_address_htable
+ 35088: c1100bc0     8 OBJECT  LOCAL  DEFAULT   26 page_address_pool
+ 35091: c1100be0  8192 OBJECT  LOCAL  DEFAULT   26 page_address_maps
+ 35098: c0d736a0     8 OBJECT  LOCAL  DEFAULT    5 __ksymtab_page_address
+173448: c0257f78   348 FUNC    GLOBAL DEFAULT    2 set_page_address
+177039: c0257d54   212 FUNC    GLOBAL DEFAULT    2 page_address
+177102: c0261530   156 FUNC    GLOBAL DEFAULT    2 page_address_in_vma
+184422: c0e15528   160 FUNC    GLOBAL DEFAULT   17 page_address_init
+186568: 865b8f4f     0 NOTYPE  GLOBAL DEFAULT  ABS __crc_page_address
+
+arm-eabi-objdump  -S -D -l -d --start-address=0xc0257d54 --stop-address=0xc0257e28 vmlinux
+
+reference
+https://www.gnu.org/software/binutils/
+https://sourceware.org/binutils/docs-2.25/binutils/index.html
+http://blog.csdn.net/andyhuabing/article/details/7074979
+http://bytesthink.com/blog/?p=133
+http://blog.csdn.net/helldevil/article/details/6682211
+http://bootloader.wikidot.com/linux:android:crashlog
+http://www.fanli7.net/a/bianchengyuyan/C__/20120511/121926.html
+http://www.thegeekstuff.com/2012/03/linux-nm-command/
+http://www.cnblogs.com/yc_sunniwell/archive/2010/07/22/1782685.html
+</pre></div>
+
+<hr>
+<a name="kernel-oops"></a>
+<div class="header">
+<p>
+Next: <a href="#valgrind" accesskey="n" rel="next">valgrind</a>, Previous: <a href="#debug-tools" accesskey="p" rel="prev">debug tools</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="kernel-oops-1"></a>
+<h2 class="chapter">6 kernel oops</h2>
+
+<div class="example">
+<pre class="example">Understanding a Kernel Oops!
+
+Understanding a kernel panic and doing the forensics to trace the bug is considered a hacker’s job. This is a complex task that requires sound knowledge of both the architecture you are working on, and the internals of the Linux kernel. Depending on type of error detected by the kernel, panics in the Linux kernel are classified as hard panics (Aiee!) and soft panics (Oops!). This article explains the workings of a Linux kernel ‘Oops’, helps to create a simple version, and then debug it. It is mainly intended for beginners getting into Linux kernel development, who need to debug the kernel. Knowledge of the Linux kernel, and C programming, is assumed.
+An “Oops” is what the kernel throws at us when it finds something faulty, or an exception, in the kernel code. It’s somewhat like the segfaults of user-space. An Oops dumps its message on the console; it contains the processor status and the CPU registers of when the fault occurred. The offending process that triggered this Oops gets killed without releasing locks or cleaning up structures. The system may not even resume its normal operations sometimes; this is called an unstable state. Once an Oops has occurred, the system cannot be trusted any further.
+
+Let’s try to generate an Oops message with sample code, and try to understand the dump.
+
+Setting up the machine to capture an Oops
+
+The running kernel should be compiled with CONFIG_DEBUG_INFO, and syslogd should be running. To generate and understand an Oops message, Let’s write a  sample kernel module, oops.c:
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/init.h&gt;
+
+static void create_oops() {
+        *(int *)0 = 0;
+}
+
+static int __init my_oops_init(void) {
+        printk(&quot;oops from the module\n&quot;);
+        create_oops();
+       return (0);
+}
+static void __exit my_oops_exit(void) {
+        printk(&quot;Goodbye world\n&quot;);
+}
+
+module_init(my_oops_init);
+module_exit(my_oops_exit);
+The associated Makefile for this module is as follows:
+
+obj-m   := oops.o
+KDIR    := /lib/modules/$(shell uname -r)/build
+PWD     := $(shell pwd)
+SYM=$(PWD)
+
+all:
+        $(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
+Once executed, the module generates the following Oops:
+
+BUG: unable to handle kernel NULL pointer dereference at (null)
+IP: [&lt;ffffffffa03e1012&gt;] my_oops_init+0x12/0x21 [oops]
+PGD 7a719067 PUD 7b2b3067 PMD 0
+Oops: 0002 [#1] SMP
+last sysfs file: /sys/devices/virtual/misc/kvm/uevent
+CPU 1
+Pid: 2248, comm: insmod Tainted: P           2.6.33.3-85.fc13.x86_64
+RIP: 0010:[&lt;ffffffffa03e1012&gt;]  [&lt;ffffffffa03e1012&gt;] my_oops_init+0x12/0x21 [oops]
+RSP: 0018:ffff88007ad4bf08  EFLAGS: 00010292
+RAX: 0000000000000018 RBX: ffffffffa03e1000 RCX: 00000000000013b7
+RDX: 0000000000000000 RSI: 0000000000000046 RDI: 0000000000000246
+RBP: ffff88007ad4bf08 R08: ffff88007af1cba0 R09: 0000000000000004
+R10: 0000000000000000 R11: ffff88007ad4bd68 R12: 0000000000000000
+R13: 00000000016b0030 R14: 0000000000019db9 R15: 00000000016b0010
+FS:  00007fb79dadf700(0000) GS:ffff880001e80000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 000000008005003b
+CR2: 0000000000000000 CR3: 000000007a0f1000 CR4: 00000000000006e0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Process insmod (pid: 2248, threadinfo ffff88007ad4a000, task ffff88007a222ea0)
+Stack:
+ffff88007ad4bf38 ffffffff8100205f ffffffffa03de060 ffffffffa03de060
+ 0000000000000000 00000000016b0030 ffff88007ad4bf78 ffffffff8107aac9
+ ffff88007ad4bf78 00007fff69f3e814 0000000000019db9 0000000000020000
+Call Trace:
+[&lt;ffffffff8100205f&gt;] do_one_initcall+0x59/0x154
+[&lt;ffffffff8107aac9&gt;] sys_init_module+0xd1/0x230
+[&lt;ffffffff81009b02&gt;] system_call_fastpath+0x16/0x1b
+Code: &lt;c7&gt; 04 25 00 00 00 00 00 00 00 00 31 c0 c9 c3 00 00 00 00 00 00 00
+RIP  [&lt;ffffffffa03e1012&gt;] my_oops_init+0x12/0x21 [oops]
+RSP &lt;ffff88007ad4bf08&gt;
+CR2: 0000000000000000
+Understanding the Oops dump
+
+Let’s have a closer look at the above dump, to understand some of the important bits of information.
+
+BUG: unable to handle kernel NULL pointer dereference at (null)
+The first line indicates a pointer with a NULL value.
+
+IP: [&lt;ffffffffa03e1012&gt;] my_oops_init+0x12/0x21 [oops]
+IP is the instruction pointer.
+
+Oops: 0002 [#1] SMP
+This is the error code value in hex. Each bit has a significance of its own:
+
+bit 0 == 0 means no page found, 1 means a protection fault
+bit 1 == 0 means read, 1 means write
+bit 2 == 0 means kernel, 1 means user-mode
+[#1] — this value is the number of times the Oops occurred. Multiple Oops can be triggered as a cascading effect of the first one.
+CPU 1
+This denotes on which CPU the error occurred.
+
+Pid: 2248, comm: insmod Tainted: P           2.6.33.3-85.fc13.x86_64
+The Tainted flag points to P here. Each flag has its own meaning. A few other flags, and their meanings, picked up from kernel/panic.c:
+
+P — Proprietary module has been loaded.
+F — Module has been forcibly loaded.
+S — SMP with a CPU not designed for SMP.
+R — User forced a module unload.
+M — System experienced a machine check exception.
+B — System has hit bad_page.
+U — Userspace-defined naughtiness.
+A — ACPI table overridden.
+W — Taint on warning.
+RIP: 0010:[&lt;ffffffffa03e1012&gt;]  [&lt;ffffffffa03e1012&gt;] my_oops_init+0x12/0x21 [oops]
+RIP is the CPU register containing the address of the instruction that is getting executed. 0010 comes from the code segment register. my_oops_init+0x12/0x21 is the &lt;symbol&gt; + the offset/length.
+
+RSP: 0018:ffff88007ad4bf08  EFLAGS: 00010292
+RAX: 0000000000000018 RBX: ffffffffa03e1000 RCX: 00000000000013b7
+RDX: 0000000000000000 RSI: 0000000000000046 RDI: 0000000000000246
+RBP: ffff88007ad4bf08 R08: ffff88007af1cba0 R09: 0000000000000004
+R10: 0000000000000000 R11: ffff88007ad4bd68 R12: 0000000000000000
+R13: 00000000016b0030 R14: 0000000000019db9 R15: 00000000016b0010
+This is a dump of the contents of some of the CPU registers.
+
+Stack:
+ffff88007ad4bf38 ffffffff8100205f ffffffffa03de060 ffffffffa03de060
+ 0000000000000000 00000000016b0030 ffff88007ad4bf78 ffffffff8107aac9
+ ffff88007ad4bf78 00007fff69f3e814 0000000000019db9 0000000000020000
+The above is the stack trace.
+
+Call Trace:
+[&lt;ffffffff8100205f&gt;] do_one_initcall+0x59/0x154
+[&lt;ffffffff8107aac9&gt;] sys_init_module+0xd1/0x230
+[&lt;ffffffff81009b02&gt;] system_call_fastpath+0x16/0x1b
+The above is the call trace — the list of functions being called just before the Oops occurred.
+
+Code: &lt;c7&gt; 04 25 00 00 00 00 00 00 00 00 31 c0 c9 c3 00 00 00 00 00 00 00
+The Code is a hex-dump of the section of machine code that was being run at the time the Oops occurred.
+
+Debugging an Oops dump
+
+The first step is to load the offending module into the GDB debugger, as follows:
+
+[root@DELL-RnD-India oops]# gdb oops.ko
+GNU gdb (GDB) Fedora (7.1-18.fc13)
+Reading symbols from /code/oops/oops.ko...done.
+(gdb) add-symbol-file oops.o 0xffffffffa03e1000
+add symbol table from file &quot;oops.o&quot; at
+    .text_addr = 0xffffffffa03e1000
+Next, add the symbol file to the debugger. The add-symbol-file command’s first argument is oops.o and the second argument is the address of the text section of the module. You can obtain this address from /sys/module/oops/sections/.init.text (where oops is the module name):
+
+(gdb) add-symbol-file oops.o 0xffffffffa03e1000
+add symbol table from file &quot;oops.o&quot; at
+    .text_addr = 0xffffffffa03e1000
+(y or n) y
+Reading symbols from /code/oops/oops.o...done.
+From the RIP instruction line, we can get the name of the offending function, and disassemble it.
+
+(gdb) disassemble my_oops_init
+Dump of assembler code for function my_oops_init:
+   0x0000000000000038 &lt;+0&gt;:    push   %rbp
+   0x0000000000000039 &lt;+1&gt;:    mov    $0x0,%rdi
+   0x0000000000000040 &lt;+8&gt;:    xor    %eax,%eax
+   0x0000000000000042 &lt;+10&gt;:    mov    %rsp,%rbp
+   0x0000000000000045 &lt;+13&gt;:    callq  0x4a &lt;my_oops_init+18&gt;
+   0x000000000000004a &lt;+18&gt;:    movl   $0x0,0x0
+   0x0000000000000055 &lt;+29&gt;:    xor    %eax,%eax
+   0x0000000000000057 &lt;+31&gt;:    leaveq
+   0x0000000000000058 &lt;+32&gt;:    retq
+End of assembler dump.
+Now, to pin point the actual line of offending code, we add the starting address and the offset. The offset is available in the same RIP instruction line. In our case, we are adding 0x0000000000000038 + 0x012 =  0x000000000000004a. This points to the movl instruction.
+
+(gdb) list *0x000000000000004a
+0x4a is in my_oops_init (/code/oops/oops.c:6).
+1    #include &lt;linux/kernel.h&gt;
+2    #include &lt;linux/module.h&gt;
+3    #include &lt;linux/init.h&gt;
+4
+5    static void create_oops() {
+6        *(int *)0 = 0;
+7    }
+This gives the code of the offending function.
+
+References
+
+The kerneloops.org website can be used to pick up a lot of Oops messages to debug. The Linux kernel documentation directory has information about Oops — kernel/Documentation/oops-tracing.txt. This, and numerous other online resources, were used while creating this article.
+
+reference
+http://www.opensourceforu.com/2011/01/understanding-a-kernel-oops/
+http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/plain/Documentation/oops-tracing.txt?id=HEAD
+</pre></div>
+
+<hr>
+<a name="valgrind"></a>
+<div class="header">
+<p>
+Previous: <a href="#kernel-oops" accesskey="p" rel="prev">kernel oops</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="valgrind-1"></a>
+<h2 class="chapter">7 valgrind</h2>
+
+<div class="example">
+<pre class="example">valgrind 安装方法与测试例子
+
+1. 安装:
+(1) 到www.valgrind.org下载最新版valgrind-3.7.0.tar.bz2
+(2) 解压安装包：tar –jxvf valgrind-3.7.0.tar.bz2
+(3) 解压后生成目录valgrind-3.7.0
+(4) cd valgrind-3.7.0
+(5) ./configure
+(6) make
+(7) sudo make install
+注意: 如果当前linux的gcc是2.15或者以上版本, 3.7.0是不支持的。解决方案, 在configure文件的6404行添加如下代码:
+2.15)
+{ $as_echo &quot;$as_me:${as_lineno-$LINENO@}: result: 2.15 family&quot; &gt;&amp;5
+$as_echo &quot;2.15 family&quot; &gt;&amp;6; }
+
+$as_echo &quot;#define GLIBC_2_14 1&quot; &gt;&gt;confdefs.h
+
+DEFAULT_SUPP=&quot;glibc-2.X.supp ${DEFAULT_SUPP}&quot;
+DEFAULT_SUPP=&quot;glibc-2.34567-NPTL-helgrind.supp ${DEFAULT_SUPP}&quot;
+DEFAULT_SUPP=&quot;glibc-2.X-drd.supp ${DEFAULT_SUPP}&quot;
+;;
+
+2. 测试举例
+
+// file test1.c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+char *p = malloc(100);
+char a[100];
+
+a[100] = 0; // error1, cannot detect this error
+p[100] = 0; // error2
+// error3 // not free
+return 0;
+}
+
+编译:
+gcc -Wall -o test1 test1.c
+
+用valgrind运行:
+gcc -Wall -o test1 test1.c
+
+注意: 用valgrind运行是可能出错, 观察错误，可能出现如下片段:
+valgrind: that exports the above-named function using the standard
+valgrind: calling conventions for this platform. The package you need
+valgrind: to install for fix (1) is called
+valgrind:
+valgrind: On Debian, Ubuntu: libc6-dbg
+valgrind: On SuSE, openSuSE, Fedora, RHEL: glibc-debuginfo
+
+对于unbuntu系统，执行命令
+sudo apt-get install libc6-dbg
+libc6-dbg安装成功后即可。
+
+</pre></div>
+
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

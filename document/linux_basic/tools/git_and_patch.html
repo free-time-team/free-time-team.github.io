@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>git and patch</title>
+
+<meta name="description" content="git and patch">
+<meta name="keywords" content="git and patch">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">git and patch</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-resource-1" href="#resource">1 resource</a></li>
+  <li><a name="toc-started-1" href="#started">2 started</a></li>
+  <li><a name="toc-usage-1" href="#usage">3 usage</a></li>
+  <li><a name="toc-conflict-1" href="#conflict">4 conflict</a></li>
+  <li><a name="toc-cherry-pick-1" href="#cherry-pick">5 cherry pick</a></li>
+  <li><a name="toc-rebase-1" href="#rebase">6 rebase</a></li>
+  <li><a name="toc-patch-1" href="#patch">7 patch</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#resource" accesskey="n" rel="next">resource</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="git-and-patch"></a>
+<h1 class="top">git and patch</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#resource" accesskey="1">resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#started" accesskey="2">started</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#usage" accesskey="3">usage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#conflict" accesskey="4">conflict</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#cherry-pick" accesskey="5">cherry pick</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#rebase" accesskey="6">rebase</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#patch" accesskey="7">patch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="resource"></a>
+<div class="header">
+<p>
+Next: <a href="#started" accesskey="n" rel="next">started</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="resource-1"></a>
+<h2 class="chapter">1 resource</h2>
+
+<div class="example">
+<pre class="example">git manual
+https://www.kernel.org/pub/software/scm/git/docs/user-manual.html
+
+git简明教程
+http://rogerdudler.github.io/git-guide/index.zh.html
+
+git user's manual
+http://schacon.github.io/git/user-manual.html#birdview-on-the-source-code
+
+15分钟学会使用Git和远程代码库
+http://blog.jobbole.com/53573/
+
+Git常用命令解说
+http://www.uml.org.cn/pzgl/201208073.asp
+
+kernel hackers' guide  to git
+http://linux.yyz.us/git-howto.html
+
+kernel development with git
+http://wiki.wlug.org.nz/KernelDevelopmentWithGit
+
+git tips
+http://kernelnewbies.org/GitTips
+
+others
+http://blog.csdn.net/ithomer/article/details/7527877
+http://blog.csdn.net/wfdtxz/article/details/7973608
+http://www.oschina.net/translate/git-fetch-and-merge
+http://wlog.cn/soft/git-quick-start.html
+https://git-scm.com/book/zh-tw/v1/Git-%E5%9F%BA%E7%A4%8E-%E6%AA%A2%E8%A6%96%E6%8F%90%E4%BA%A4%E7%9A%84%E6%AD%B7%E5%8F%B2%E8%A8%98%E9%8C%84 // git log
+</pre></div>
+
+
+<hr>
+<a name="started"></a>
+<div class="header">
+<p>
+Next: <a href="#usage" accesskey="n" rel="next">usage</a>, Previous: <a href="#resource" accesskey="p" rel="prev">resource</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="started-1"></a>
+<h2 class="chapter">2 started</h2>
+
+<div class="example">
+<pre class="example">First time using Git
+// cd myproject
+git init
+// add all your files.  Use can use specific filenames or directories instead of '.'
+git add .
+git commit -a -m 'Initial Fcommit'
+git remote add origin ssh://zzyjsjcom@git.code.sf.net/p/git-zzy/code
+git push -u origin master
+
+Existing repository using Git
+cd myproject
+git remote add origin ssh://zzyjsjcom@git.code.sf.net/p/git-zzy/code
+git push -u origin master
+
+push codes after project exist
+git add -A
+git commit -a -m &quot;delete something&quot;
+git push
+
+create a new branch
+// Create the branch on your local machine and switch in this branch
+git checkout -b [branch_name]
+// Push the branch on github :
+git push origin [branch_name]
+https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
+https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+https://www.atlassian.com/git/tutorials/using-branches
+
+git fetch
+git 命令，我只想更新服务器上的一个文件到本地，有什么命令吗？
+git fetch
+git checkout  origin/master    +文件名
+http://www.baoziv587.com/blog/12/
+fetch从服务器上下载所有，用co修改本地文件。
+origin/master  是本地branch的名字，对吧？
+remote branch。
+remote branch带本地的拷贝。
+remotes/origin/master
+      --- 就是类似于这样的名字，把前面的remotes 去掉？
+
+git find commit
+git blame &lt;file_name&gt;
+	result: f88e1*** (*** 2015-04-29 21:44:09 +0800 108)
+git show f88e1***
+------------------------------
+------------------------------
+gitk
+sudo apt-get install gitk
+gitk
+gitk arch/arm/boot/dts/msm8926.dtsi
+
+reference
+http://blog.gogojimmy.net/2012/01/17/how-to-use-git-1-git-basic/
+
+cherry-pick
+// git.htc.com -&gt; Download -&gt; Cherry-Pick
+git fetch ssh://user@server:29419/path/to/vendor refs/changes/73/580273/1 &amp;&amp; git cherry-pick FETCH_HEAD
+
+commands overview
+git branch -a
+git checkout -b kernel-kk-3.5 remotes/origin/qct/kernel-kk-3.5
+git checkout kernel-kk-3.5
+git branch
+git stash
+git pull
+git add arch/arm/boot/dts/xx1.dts arch/arm/boot/dts/xx2.dts
+git commit
+git commit --amend
+repo upload
+repo abandon kernel-kk-3.5
+
+git log
+git reset --hard f8f27cbf5728bfb0180a648ee425aef1b6a1444a
+git cherry-pick 13b8a7c9a818bf358028ff03be2dc8d078c4fc60
+
+// delete a branch
+git branch -d branch_name
+
+// check file history
+git blame drivers/leds/tps61310_flashlight.c
+
+upload
+vim ...
+git status
+git add ...
+git commit
+repo upload
+
+modify and upload
+vim ...
+git status
+git add ...
+git commit --amend
+repo upload
+
+patch
+git diff
+git diff &gt; temp.diff
+git log
+git diff da9ebfbb4b5560b7c2a3bdd5535968eda865d734 b179c5ed3596e1e2c34d12fbbcc3be88a7d4d016 &gt; temp.diff
+git apply xxx.patch
+
+git format-patch -1 31491445d5ab4802b02cb4a6c0aa370f413fdf01
+patch -p1&lt;vibrator_patch
+
+git am xxx.patch
+git pull --rebase
+git reset --hard HEAD
+git format-patch -1
+git status .
+git format-patch -2
+git am --resolved
+git am --abort
+
+use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory
+1. 修改kernel目录下的两个文件，用git status看状态。
+	$ git status
+	On branch remotes/origin/crc/m-rel-mtk6795+crc-wave1
+	Your branch is up-to-date with 'origin/crc/m-rel-mtk6795+crc-wave1'.
+	Changes not staged for commit:
+	  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+	  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+		modified:   drivers/usb/gadget/composite.c
+		modified:   drivers/usb/gadget/htc_attr.c
+
+2. 用git checkout -- 去掉本地对某个文件的修改
+	zzy@zzy123:~/sdb/00code/e56/kernel-3.10$ git checkout -- drivers/usb/gadget/htc_attr.c
+	zzy@zzy123:~/sdb/00code/e56/kernel-3.10$ git status
+	On branch remotes/origin/crc/m-rel-mtk6795+crc-wave1
+	Your branch is up-to-date with 'origin/crc/m-rel-mtk6795+crc-wave1'.
+	Changes not staged for commit:
+	  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+	  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+		modified:   drivers/usb/gadget/composite.c
+
+</pre></div>
+
+<hr>
+<a name="usage"></a>
+<div class="header">
+<p>
+Next: <a href="#conflict" accesskey="n" rel="next">conflict</a>, Previous: <a href="#started" accesskey="p" rel="prev">started</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="usage-1"></a>
+<h2 class="chapter">3 usage</h2>
+
+<div class="example">
+<pre class="example">remove directory
+git rm -r one-of-the-directories
+git commit -m &quot;Remove duplicated directory&quot;
+git push origin master
+http://stackoverflow.com/questions/6313126/how-to-remove-a-directory-in-my-github-repository
+
+delete branch
+git branch -d testing
+error: The branch 'testing' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D testing'.
+不過，如果你確實想要刪除該分支上的改動，可以用大寫的刪除選項 -D 強制執行，就像上面提示資訊中給出的那樣。
+https://git-scm.com/book/zh-tw/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86
+http://blog.it985.com/753.html
+</pre></div>
+
+<hr>
+<a name="conflict"></a>
+<div class="header">
+<p>
+Next: <a href="#cherry-pick" accesskey="n" rel="next">cherry pick</a>, Previous: <a href="#usage" accesskey="p" rel="prev">usage</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="conflict-1"></a>
+<h2 class="chapter">4 conflict</h2>
+
+<div class="example">
+<pre class="example">git conflict
+冲突产生后，文件系统中冲突了的文件（这里是test.txt）里面的内容会显示为类似下面这样：
+a123
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+b789
+=======
+b45678910
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc
+其中：冲突标记&lt;&lt;&lt;&lt;&lt;&lt;&lt; （7个&lt;）与=======之间的内容是我的修改，=======与&gt;&gt;&gt;&gt;&gt;&gt;&gt;之间的内容是别人的修改。
+此时，还没有任何其它垃圾文件产生。
+最简单的编辑冲突的办法，就是直接编辑冲突了的文件（test.txt），把冲突标记删掉，把冲突解决正确。
+
+git merge代码冲突
+如果系统中有一些配置文件在服务器上做了配置修改,然后后续开发又新添加一些配置项的时候,
+在发布这个配置文件的时候,会发生代码冲突:
+error: Your local changes to the following files would be overwritten by merge:
+        protected/config/main.php
+Please, commit your changes or stash them before you can merge.
+如果希望保留生产服务器上所做的改动,仅仅并入新配置项, 处理方法如下:
+git stash
+git pull
+git stash pop
+然后可以使用git diff -w +文件名 来确认代码自动合并的情况.
+反过来,如果希望用代码库中的文件完全覆盖本地工作版本. 方法如下:
+git reset --hard
+git pull
+其中git reset是针对版本,如果想针对文件回退本地修改,使用
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+git checkout HEAD file/to/restore
+
+hard drop local change
+Sometimes just clean -f does not help. In case you have untracked DIRECTORIES, -d option also needed:
+git reset --hard HEAD
+git clean -f -d
+git pull
+
+</pre></div>
+
+<hr>
+<a name="cherry-pick"></a>
+<div class="header">
+<p>
+Next: <a href="#rebase" accesskey="n" rel="next">rebase</a>, Previous: <a href="#conflict" accesskey="p" rel="prev">conflict</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="cherry-pick-1"></a>
+<h2 class="chapter">5 cherry pick</h2>
+
+<div class="example">
+<pre class="example">把某個分支上的提交轉到另一個分支上
+cherry pick
+
+http://blog.csdn.net/hudashi/article/details/7669462
+http://sg552.iteye.com/blog/1300713
+
+</pre></div>
+
+<hr>
+<a name="rebase"></a>
+<div class="header">
+<p>
+Next: <a href="#patch" accesskey="n" rel="next">patch</a>, Previous: <a href="#cherry-pick" accesskey="p" rel="prev">cherry pick</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="rebase-1"></a>
+<h2 class="chapter">6 rebase</h2>
+
+<div class="example">
+<pre class="example">提交出現衝突的時候，重新提交
+
+http://www.cnblogs.com/kym/archive/2010/08/12/1797937.html
+http://blog.csdn.net/wangjia55/article/details/8776409
+
+</pre></div>
+
+<hr>
+<a name="patch"></a>
+<div class="header">
+<p>
+Previous: <a href="#rebase" accesskey="p" rel="prev">rebase</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="patch-1"></a>
+<h2 class="chapter">7 patch</h2>
+
+<div class="example">
+<pre class="example">patch
+http://ramblings.narrabilis.com/generating-and-reading-patch-files
+这种是如果你是 git diff &gt; ***.pacth 生成的 就用git apply打
+如果你是用 git format-patch 生成的 patch 就是包含所有的commit 信息的那种就用 git am -3 -s ***.pacth 打
+</pre></div>
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

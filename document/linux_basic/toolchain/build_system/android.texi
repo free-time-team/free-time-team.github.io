@@ -1,0 +1,216 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle android
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top android
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* android::
+@c * Copying::  free time team
+@end menu
+
+@node android
+@chapter android
+
+@example
+1 android build system
+1.1 architecture
+1.1.1 build figure
+
+
+1.1.2 add logs
+$(info )
+
+1.1.3 configuration
+// todo
+
+1.1.4 environment setup
+script: build/envsetup.sh
+zzy@@zzy-ubuntu:$ source build/envsetup.sh
+HTC flags cleared.
+including device/htc/common/vendorsetup.sh
+including device/generic/x86/vendorsetup.sh
+including device/generic/armv7-a-neon/vendorsetup.sh
+including device/generic/mips/vendorsetup.sh
+including vendor/qcom/proprietary/common/vendorsetup.sh
+including vendor/qcom/proprietary/vendorsetup.sh
+including sdk/bash_completion/adb.bash
+zzy@@zzy-ubuntu:$ hmm
+Invoke ". build/envsetup.sh" from your shell to add the following functions to your environment:
+- lunch:   lunch <product_name>-<build_variant>
+- tapas:   tapas [<App1> <App2> ...] [arm|x86|mips|armv5] [eng|userdebug|user]
+- croot:   Changes directory to the top of the tree.
+- m:       Makes from the top of the tree.
+- mm:      Builds all of the modules in the current directory, but not their dependencies.
+- mmm:     Builds all of the modules in the supplied directories, but not their dependencies.
+- mma:     Builds all of the modules in the current directory, and their dependencies.
+- mmma:    Builds all of the modules in the supplied directories, and their dependencies.
+- cgrep:   Greps on all local C/C++ files.
+- jgrep:   Greps on all local Java files.
+- resgrep: Greps on all local res/*.xml files.
+- godir:   Go to the directory containing a file.
+
+1.1.5 function definitions
+// todo
+
+1.1.6 main make recipes
+// todo
+
+1.1.7 cleaning
+If you change configuration when make or make module, the build output would be automaically pruned using installclean
+*** Build configuration changed:
+....
+*** Forcing "make installclean"...
+
+1.1.8 module build templates
+Moudle build templates list
+
+
+
+add an Android.mk template
+(1) LOCAL_PATH := $(call my-dir)
+(2) include $(CLEAR_VARS)      # action
+(3) LOCAL_VARIABLE_1 := value_1
+LOCAL_VARIABLE_2 := value_2
+...
+(4) include $(BUILD_MODULE_TYPE) # action
+
+(1) Tells the build template where the current module is located.
+(2) Clears all previously set  LOCAL_* variables that might have been set for other
+modules.
+(3) Sets various  LOCAL_* variables to module-specific values.
+(4) Invokes the build template that corresponds to the current module’s type.
+
+example
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_SRC_FILES := service_manager.c binder.c
+LOCAL_MODULE := servicemanager
+ifeq ($(BOARD_USE_LVMX),true)
+LOCAL_CFLAGS += -DLVMX
+endif
+include $(BUILD_EXECUTABLE)
+
+1.1.9 output
+// todo
+more info [1]
+
+2 kernel build system
+// todo
+
+3 build commands
+hboot
+cd hboot/
+make clean
+make env-msm8226 -j8
+sudo htc_fastboot flash hboot out/target/product/msm8226/hboot.img
+
+kernel
+make ARCH=arm CROSS_COMPILE=arm-eabi- a5dwg_defconfig
+make ARCH=arm CROSS_COMPILE=arm-eabi- -j8
+
+build framework module
+// build services
+source build/envsetup.sh; partner_setup htc_a3qhdul A3QHDUL_Generic_WWE_DEBUG
+make services -j8
+
+view version
+lunch htc_a5dug-eng
+
+remote build
+vendor/tuxera/exfat/tuxera_update_htc.sh -> do_remote_build()
+
+build module
+source build/envsetup.sh; partner_setup xxx;
+make services -j8      // services.jar
+make -j8 bootimage   // boot.img
+
+compiler error
+1. mrproper
+enter kernel directory
+    make mrproper
+    make distclean
+2. fatal error: zconf.hash.c: No such file or directory
+rm -rf out/
+retry
+reference:[2]
+
+reference
+[1] http://www.it-ebooks.info/book/2073/
+    《Embedded Android》chapter 4: the build system
+[2] http://forum.xda-developers.com/showthread.php?t=1604540&page=3
+[3] http://lwn.net/Articles/21835/
+[4] https://www.kernel.org/doc/Documentation/kbuild/modules.txt
+
+------------------------
+android repo study
+	对呀，慢慢看源代码，就会搞清楚哪些文件是怎么来的。
+	是从repo这个脚本为入口点开始吧。
+	是。
+	那个还有一个trick，就是那个脚本既可以bash运行，又可以用python运行。
+	#!/usr/bin/env python
+	   -- 这一行？
+	不是。现在的版本好像已经改了，以前我看到版本是可以的。
+	我们reop init总是失败，所以repo init的时候，总是用的老的工程里面的。
+	找你们repo的管理人解决呀。
+	假设你们自己的镜像不就解决了。
+	架设。
+	有什么教程吗？
+	我可以现在自己的局域网pc中实验吗？
+	当然可以。
+	repo init --repo-url=xxxx ...
+	很简单的事。
+	qualcomm的repo应该是用的被他们改过的版本，应该没有这个问题。
+---------------------------
+android function
+// Android编译PRODUCT_COPY_FILES如果碰到重复的项目如何取值
+http://blog.csdn.net/howellzhu/article/details/42841669
+
+
+@end example
+
+
+
+
+
+
+
+
+@bye

@@ -1,0 +1,60 @@
+for (param.nProfileIndex = 0;param.nProfileIndex < 0x20; ++param.nProfileIndex) {
+    err = omx->getParameter(
+            node, OMX_IndexParamVideoProfileLevelQuerySupported,
+            &param, sizeof(param));
+
+    if (err != OK) {
+        break;
+    }
+
+    CodecProfileLevel profileLevel;
+    profileLevel.mProfile = param.eProfile;
+    profileLevel.mLevel = param.eLevel;
+
+    ALOGE("%s %d", __FUNCTION__, __LINE__);
+    caps->mProfileLevels.push(profileLevel);
+}
+
+param.nProfileIndex < 0x20这个条件是我加大。
+valgrind检测内存泄漏需要程序正常退出，而init stop service的逻辑是发送SIGKILL信号，改成SIGHUP就可以了。
+
+剩下的就是在valgrind的log里面找真正的泄漏。
+因为valgrind可能会误报。
+这样的误报叫做false positive。
+医学上叫假阳性。
+
+init stop service的逻辑是发送SIGKILL信号
+      --- 这个在code里面，对应的是在哪里
+
+init.c
+441     if (svc->pid) {
+442         NOTICE("service '%s' is being killed\n", svc->name);
+443         kill(-svc->pid, SIGKILL);
+444         notify_service_state(svc->name, "stopping");
+445     } else {
+446         notify_service_state(svc->name, "stopped");
+447     }
+
+
+因为mediaserver代码是这么写的，收到SIGHUP信号就退出。
+
+因为valgrind可能会误报。
+  --- 这个误报，怎么理解呢？
+android里面许多其他的service daemon也应该会相应sighup这个信号。
+反正zygote是响应了。
+
+不同程序，对不同信号，会做不同的操作。
+没有规定。
+
+想sigkill这种信号，根本轮不到程序处理。
+是因为sigkill 发出来之后，程序就死了吗？
+
+kernel直接干掉进程，valgrind没机会去检查哪些内存释放了，哪些没有，log也没机会写。
+valgrind启动目标程序，等目标程序main返回后，再根据其记录的内存分配和释放情况写log，valgrind和目标程序在同一进程内运行。
+如果目标程序是服务或者daemon，是不是就没办法debug了？
+
+等目标程序main返回后
+ --- 这两种东西，都不会返回的吧。
+一般写程序的作者也会遇到这样的问题，所以一般都会对一定的信号做退出处理。
+android上是使用sigkill杀掉服务进程，但linux发行版本都是发信号等服务自行退出。
+至于具体什么信号，程序作者自己定义的，service的管理脚本也是他自己提供。

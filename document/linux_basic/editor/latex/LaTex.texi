@@ -1,0 +1,66 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle LaTex
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top LaTex
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* LaTex::
+@c * copying:: free time team
+@end menu
+
+@node LaTex
+@chapter LaTex
+
+@example
+sudo apt-get install texlive-full
+sudo apt-get install liblatex-driver-perl
+pdflatex
+
+http://www.latex-tutorial.com/tutorials/
+http://blog.renren.com/share/340810614/15159950250
+http://askubuntu.com/questions/166679/how-can-i-convert-a-tex-file-to-pdf-on-via-the-command-line
+http://manpages.ubuntu.com/manpages/precise/man1/latex2pdf.1p.html
+@end example
+
+
+
+
+
+@bye

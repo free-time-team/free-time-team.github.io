@@ -1,0 +1,83 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Sed
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Sed
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* learning materials for sed::
+* often used command for sed::
+@c * copying:: free time team
+@end menu
+
+@node learning materials for sed
+@chapter learning materials for sed
+
+@itemize @bullet
+@item
+Sed introduction @url{http://www.grymoire.com/unix/sed.html, view}
+@end itemize
+
+@itemize @bullet
+@item
+Sed study[Chinese] @url{http://www.cnblogs.com/wangkangluo1/category/314369.html, view}
+@end itemize
+
+@node often used command for sed
+@chapter often used command for sed
+
+print
+@example
+sed -n '1,3p' temp.txt  // print line1 to line3
+@end example
+
+extract log
+@example
+Extract the lines which include the string from "2012-02-09" to "2012-09-10"
+sed -n '/^2012-02-09/,/^2012-09-10/p' whole.log > part.log
+@url{http://www.grymoire.com/unix/Sed.html#uh-29, reference}
+@end example
+
+add string to line tail
+@example
+sed 's/$/tail/' test1.txt
+@url{http://blog.csdn.net/qianlong4526888/article/details/8669935, reference}
+@end example
+
+@bye

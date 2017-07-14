@@ -1,0 +1,32 @@
+signal
+__send_signal debug
+ 160 #define TASK_STATE_TO_CHAR_STR "RSDTtZXxKWP"
+...
+kernel/signal.c
+1050 static const char stat_nam[] = TASK_STATE_TO_CHAR_STR;
+1051
+1052 static int __send_signal(int sig, struct siginfo *info, struct task_struct *t,
+1053                         int group, int from_ancestor_ns)
+1054 {
+1055         struct sigpending *pending;
+1056         struct sigqueue *q;
+1057         int override_rlimit;
+1058         int ret = 0, result;
+1059         unsigned state;
+1060
+1061         state = t->state ? __ffs(t->state) + 1 : 0;
+1062         printk(KERN_DEBUG "[%d:%s] sig %d to [%d:%s] stat=%c\n",
+1063                current->pid, current->comm, sig, t->pid, t->comm,
+1064                state < sizeof(stat_nam) - 1 ? stat_nam[state] : '?');
+1065
+1066         assert_spin_locked(&t->sighand->siglock);
+1067
+1068         result = TRACE_SIGNAL_IGNORED;
+1069         if (!prepare_signal(sig, t,
+1070                         from_ancestor_ns || (info == SEND_SIG_FORCED)))
+1071                 goto ret;
+1072
+1073         pending = group ? &t->signal->shared_pending : &t->pending;
+1074         /*
+1075          * Short-circuit ignored signals and support queuing
+1076          * exactly one non-rt signal, so that we can get more

@@ -1,0 +1,60 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle compiler generator
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top compiler generator
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* compiler generator::
+@c * Copying::  free time team
+@end menu
+
+@node compiler generator
+@chapter compiler generator
+
+@example
+https://en.wikipedia.org/wiki/Compiler-compiler
+@end example
+
+
+
+
+
+
+@bye

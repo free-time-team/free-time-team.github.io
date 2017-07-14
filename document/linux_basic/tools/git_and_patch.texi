@@ -1,0 +1,351 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle git and patch
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top git and patch
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* resource::
+* started::
+* usage::
+* conflict::
+* cherry pick::
+* rebase::
+* patch::
+@c * Copying::  free time team
+@end menu
+
+@node resource
+@chapter resource
+
+@example
+git manual
+https://www.kernel.org/pub/software/scm/git/docs/user-manual.html
+
+git简明教程
+http://rogerdudler.github.io/git-guide/index.zh.html
+
+git user's manual
+http://schacon.github.io/git/user-manual.html#birdview-on-the-source-code
+
+15分钟学会使用Git和远程代码库
+http://blog.jobbole.com/53573/
+
+Git常用命令解说
+http://www.uml.org.cn/pzgl/201208073.asp
+
+kernel hackers' guide  to git
+http://linux.yyz.us/git-howto.html
+
+kernel development with git
+http://wiki.wlug.org.nz/KernelDevelopmentWithGit
+
+git tips
+http://kernelnewbies.org/GitTips
+
+others
+http://blog.csdn.net/ithomer/article/details/7527877
+http://blog.csdn.net/wfdtxz/article/details/7973608
+http://www.oschina.net/translate/git-fetch-and-merge
+http://wlog.cn/soft/git-quick-start.html
+https://git-scm.com/book/zh-tw/v1/Git-%E5%9F%BA%E7%A4%8E-%E6%AA%A2%E8%A6%96%E6%8F%90%E4%BA%A4%E7%9A%84%E6%AD%B7%E5%8F%B2%E8%A8%98%E9%8C%84 // git log
+@end example
+
+
+@node started
+@chapter started
+
+@example
+First time using Git
+// cd myproject
+git init
+// add all your files.  Use can use specific filenames or directories instead of '.'
+git add .
+git commit -a -m 'Initial Fcommit'
+git remote add origin ssh://zzyjsjcom@@git.code.sf.net/p/git-zzy/code
+git push -u origin master
+
+Existing repository using Git
+cd myproject
+git remote add origin ssh://zzyjsjcom@@git.code.sf.net/p/git-zzy/code
+git push -u origin master
+
+push codes after project exist
+git add -A
+git commit -a -m "delete something"
+git push
+
+create a new branch
+// Create the branch on your local machine and switch in this branch
+git checkout -b [branch_name]
+// Push the branch on github :
+git push origin [branch_name]
+https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
+https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+https://www.atlassian.com/git/tutorials/using-branches
+
+git fetch
+git 命令，我只想更新服务器上的一个文件到本地，有什么命令吗？
+git fetch
+git checkout  origin/master    +文件名
+http://www.baoziv587.com/blog/12/
+fetch从服务器上下载所有，用co修改本地文件。
+origin/master  是本地branch的名字，对吧？
+remote branch。
+remote branch带本地的拷贝。
+remotes/origin/master
+      --- 就是类似于这样的名字，把前面的remotes 去掉？
+
+git find commit
+git blame <file_name>
+	result: f88e1*** (*** 2015-04-29 21:44:09 +0800 108)
+git show f88e1***
+------------------------------
+------------------------------
+gitk
+sudo apt-get install gitk
+gitk
+gitk arch/arm/boot/dts/msm8926.dtsi
+
+reference
+http://blog.gogojimmy.net/2012/01/17/how-to-use-git-1-git-basic/
+
+cherry-pick
+// git.htc.com -> Download -> Cherry-Pick
+git fetch ssh://user@@server:29419/path/to/vendor refs/changes/73/580273/1 && git cherry-pick FETCH_HEAD
+
+commands overview
+git branch -a
+git checkout -b kernel-kk-3.5 remotes/origin/qct/kernel-kk-3.5
+git checkout kernel-kk-3.5
+git branch
+git stash
+git pull
+git add arch/arm/boot/dts/xx1.dts arch/arm/boot/dts/xx2.dts
+git commit
+git commit --amend
+repo upload
+repo abandon kernel-kk-3.5
+
+git log
+git reset --hard f8f27cbf5728bfb0180a648ee425aef1b6a1444a
+git cherry-pick 13b8a7c9a818bf358028ff03be2dc8d078c4fc60
+
+// delete a branch
+git branch -d branch_name
+
+// check file history
+git blame drivers/leds/tps61310_flashlight.c
+
+upload
+vim ...
+git status
+git add ...
+git commit
+repo upload
+
+modify and upload
+vim ...
+git status
+git add ...
+git commit --amend
+repo upload
+
+patch
+git diff
+git diff > temp.diff
+git log
+git diff da9ebfbb4b5560b7c2a3bdd5535968eda865d734 b179c5ed3596e1e2c34d12fbbcc3be88a7d4d016 > temp.diff
+git apply xxx.patch
+
+git format-patch -1 31491445d5ab4802b02cb4a6c0aa370f413fdf01
+patch -p1<vibrator_patch
+
+git am xxx.patch
+git pull --rebase
+git reset --hard HEAD
+git format-patch -1
+git status .
+git format-patch -2
+git am --resolved
+git am --abort
+
+use "git checkout -- <file>..." to discard changes in working directory
+1. 修改kernel目录下的两个文件，用git status看状态。
+	$ git status
+	On branch remotes/origin/crc/m-rel-mtk6795+crc-wave1
+	Your branch is up-to-date with 'origin/crc/m-rel-mtk6795+crc-wave1'.
+	Changes not staged for commit:
+	  (use "git add <file>..." to update what will be committed)
+	  (use "git checkout -- <file>..." to discard changes in working directory)
+
+		modified:   drivers/usb/gadget/composite.c
+		modified:   drivers/usb/gadget/htc_attr.c
+
+2. 用git checkout -- 去掉本地对某个文件的修改
+	zzy@@zzy123:~/sdb/00code/e56/kernel-3.10$ git checkout -- drivers/usb/gadget/htc_attr.c
+	zzy@@zzy123:~/sdb/00code/e56/kernel-3.10$ git status
+	On branch remotes/origin/crc/m-rel-mtk6795+crc-wave1
+	Your branch is up-to-date with 'origin/crc/m-rel-mtk6795+crc-wave1'.
+	Changes not staged for commit:
+	  (use "git add <file>..." to update what will be committed)
+	  (use "git checkout -- <file>..." to discard changes in working directory)
+
+		modified:   drivers/usb/gadget/composite.c
+
+@end example
+
+@node usage
+@chapter usage
+
+@example
+remove directory
+git rm -r one-of-the-directories
+git commit -m "Remove duplicated directory"
+git push origin master
+http://stackoverflow.com/questions/6313126/how-to-remove-a-directory-in-my-github-repository
+
+delete branch
+git branch -d testing
+error: The branch 'testing' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D testing'.
+不過，如果你確實想要刪除該分支上的改動，可以用大寫的刪除選項 -D 強制執行，就像上面提示資訊中給出的那樣。
+https://git-scm.com/book/zh-tw/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86
+http://blog.it985.com/753.html
+@end example
+
+@node conflict
+@chapter conflict
+
+@example
+git conflict
+冲突产生后，文件系统中冲突了的文件（这里是test.txt）里面的内容会显示为类似下面这样：
+a123
+<<<<<<< HEAD
+b789
+=======
+b45678910
+>>>>>>> 6853e5ff961e684d3a6c02d4d06183b5ff330dcc
+其中：冲突标记<<<<<<< （7个<）与=======之间的内容是我的修改，=======与>>>>>>>之间的内容是别人的修改。
+此时，还没有任何其它垃圾文件产生。
+最简单的编辑冲突的办法，就是直接编辑冲突了的文件（test.txt），把冲突标记删掉，把冲突解决正确。
+
+git merge代码冲突
+如果系统中有一些配置文件在服务器上做了配置修改,然后后续开发又新添加一些配置项的时候,
+在发布这个配置文件的时候,会发生代码冲突:
+error: Your local changes to the following files would be overwritten by merge:
+        protected/config/main.php
+Please, commit your changes or stash them before you can merge.
+如果希望保留生产服务器上所做的改动,仅仅并入新配置项, 处理方法如下:
+git stash
+git pull
+git stash pop
+然后可以使用git diff -w +文件名 来确认代码自动合并的情况.
+反过来,如果希望用代码库中的文件完全覆盖本地工作版本. 方法如下:
+git reset --hard
+git pull
+其中git reset是针对版本,如果想针对文件回退本地修改,使用
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+git checkout HEAD file/to/restore
+
+hard drop local change
+Sometimes just clean -f does not help. In case you have untracked DIRECTORIES, -d option also needed:
+git reset --hard HEAD
+git clean -f -d
+git pull
+
+@end example
+
+@node cherry pick
+@chapter cherry pick
+
+@example
+把某個分支上的提交轉到另一個分支上
+cherry pick
+
+http://blog.csdn.net/hudashi/article/details/7669462
+http://sg552.iteye.com/blog/1300713
+
+@end example
+
+@node rebase
+@chapter rebase
+
+@example
+提交出現衝突的時候，重新提交
+
+http://www.cnblogs.com/kym/archive/2010/08/12/1797937.html
+http://blog.csdn.net/wangjia55/article/details/8776409
+
+@end example
+
+@node patch
+@chapter patch
+
+@example
+patch
+http://ramblings.narrabilis.com/generating-and-reading-patch-files
+这种是如果你是 git diff > ***.pacth 生成的 就用git apply打
+如果你是用 git format-patch 生成的 patch 就是包含所有的commit 信息的那种就用 git am -3 -s ***.pacth 打
+@end example
+
+@c 我猜你是需要repo的local_manifests来管理。
+@c 上面那个问题，mtk不解决，你们可以workaround。shrink data分区，预留足够空间，修改一个版本lkramdump到那部分预留空间的lba。
+@c 不是shrink data分区，只是shrink上面的ext4文件系统。
+@c 这样在data分区就会预留一块空闲空间用不到。
+@c 恩 我試試看。
+@c 你說的shrink ，意思就是創建一個文件，對吧？
+@c 减小data分区上ext4文件系统的大小。
+@c 这样data分区后部就有一部分空间ext4用不到，就不会损坏ramdump。
+@c 這部分預留空間，有辦法拿到 lba 首地址，對吧？
+@c 可以从分区表推算出来。
+@c data分区的起始lba+ext4占用的lba数量=预留空间起始lba。
+@c bootloader和linux 系統，都能訪問到shrink 區，對吧？
+@c lk直接用绝对lba访问。
+@c 系统启动后，通过dd来访问即可。
+@c shrink data分区，有什麼相關的資料嗎？
+@c resize2fs
+@c 每一個git 項目下面都有一個.git 目錄。
+@c .git 這個名字可以換成別的名字嗎？
+@c 我想在某一個以後的git項目下，添加自己的代碼，單獨管理。
+@c 可以，使用的时候需要用GIT_DIR环境变量来对应名字。
+
+
+
+@bye

@@ -59,7 +59,7 @@ This manual is for program, version version.
 
 @itemize
 @item
-@b{Linux basic} @url{linux_basic.html,view}
+@b{Linux basic} @url{linux_basic/index.html,view}
 @end itemize
 
 @itemize

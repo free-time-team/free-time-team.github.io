@@ -1,0 +1,662 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>network tool</title>
+
+<meta name="description" content="network tool">
+<meta name="keywords" content="network tool">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">network tool</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-ssh-1" href="#ssh">1 ssh</a></li>
+  <li><a name="toc-wget-1" href="#wget">2 wget</a></li>
+  <li><a name="toc-curl-1" href="#curl">3 curl</a></li>
+  <li><a name="toc-ftp-1" href="#ftp">4 ftp</a></li>
+  <li><a name="toc-vpn-1" href="#vpn">5 vpn</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#ssh" accesskey="n" rel="next">ssh</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="network-tool"></a>
+<h1 class="top">network tool</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#ssh" accesskey="1">ssh</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#wget" accesskey="2">wget</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#curl" accesskey="3">curl</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#ftp" accesskey="4">ftp</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#vpn" accesskey="5">vpn</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="ssh"></a>
+<div class="header">
+<p>
+Next: <a href="#wget" accesskey="n" rel="next">wget</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="ssh-1"></a>
+<h2 class="chapter">1 ssh</h2>
+
+<div class="example">
+<pre class="example">install for ubuntu
+sudo apt-get install openssh-server openssh-client
+
+error
+Read from socket failed: Connection reset by peer
+
+sudo rm /etc/ssh/ssh_host_*
+sudo ssh-keygen -A
+
+start and stop service
+sudo /etc/init.d/ssh start
+sudo /etc/init.d/ssh restart
+sudo /etc/init.d/ssh stop
+
+batch transfer
+使用sftp
+
+登陆: sftp username@ip
+批量获取: get -r dir
+
+scp
+$ scp
+usage: scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
+           [-l limit] [-o ssh_option] [-P port] [-S program]
+           [[user@]host1:]file1 ... [[user@]host2:]file2
+// cp remote file to local
+scp user@ip:~/a.sh ~/share
+// cp local file to remote
+scp minicom.log user@ip:~/BuildCode/BuildCode
+
+rsync
+rsync -P --rsh=ssh root@172.20.7.219:/root/tmp
+-----------------
+
+host identification changed
+$ ssh root@localhost -p 2222
+ssh_exchange_identification: read: Connection reset by peer
+zzy@debian:~$ ssh root@localhost -p 2222
+
+    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+ca:26:34:22:5f:75:5f:a5:7a:eb:95:d4:30:39:19:97.
+Please contact your system administrator.
+Add correct host key in /home/zzy/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /home/zzy/.ssh/known_hosts:2
+  remove with: ssh-keygen -f &quot;/home/zzy/.ssh/known_hosts&quot; -R [localhost]:2222
+ECDSA host key for [localhost]:2222 has changed and you have requested strict checking.
+Host key verification failed.
+
+原因是系统有改变,导致加密的密钥改变,因此本地保存的密钥失效;
+需要重新保存密钥在 ~/.ssh/known_hosts 中。
+解决方法:
+删除 ~/.ssh/known_hosts 文件中指定ip的密钥即可。
+
+---------------------
+root cannot be logined using ssh
+// vim /etc/ssh/sshd_config
+# Authentication:
+LoginGraceTime 120
+PermitRootLogin without-password
+StrictModes yes
+...
+If this option is set to “without-password”, password authentication is disabled for root.
+more info: man sshd_config
+
+</pre></div>
+
+<hr>
+<a name="wget"></a>
+<div class="header">
+<p>
+Next: <a href="#curl" accesskey="n" rel="next">curl</a>, Previous: <a href="#ssh" accesskey="p" rel="prev">ssh</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="wget-1"></a>
+<h2 class="chapter">2 wget</h2>
+
+<div class="example">
+<pre class="example">// download all website data
+wget -r -p -np -k http://www.android.com/
+另外断点续传用-nc参数 日志 用-o参数
+
+wget递归下载ftp目录文件
+
+1. 命令行
+wget -r -P .\test --ftp-user=zzy --ftp-password=****** ftp://192.168.10.133/test/*;type=i
+
+2. 命令行选项
+-r                            // 递归选项
+-P                            // 指定本地路径
+.\test                        // 把文件下载到当前目录的test目录下
+--ftp-user=                   // 后面接用户名
+--ftp-password=               // 后面接密码
+ftp://192.168.10.133/test/*   // ftp服务器路径. 下载/home/zzy/test/目录下的所有文件
+
+wget help
+GNU Wget 1.13.4, a non-interactive network retriever.
+Usage: wget [OPTION]... [URL]...
+
+Mandatory arguments to long options are mandatory for short options too.
+
+Startup:
+  -V,  --version           display the version of Wget and exit.
+  -h,  --help              print this help.
+  -b,  --background        go to background after startup.
+  -e,  --execute=COMMAND   execute a `.wgetrc'-style command.
+
+Logging and input file:
+  -o,  --output-file=FILE    log messages to FILE.
+  -a,  --append-output=FILE  append messages to FILE.
+  -d,  --debug               print lots of debugging information.
+  -q,  --quiet               quiet (no output).
+  -v,  --verbose             be verbose (this is the default).
+  -nv, --no-verbose          turn off verboseness, without being quiet.
+  -i,  --input-file=FILE     download URLs found in local or external FILE.
+  -F,  --force-html          treat input file as HTML.
+  -B,  --base=URL            resolves HTML input-file links (-i -F)
+                             relative to URL.
+       --config=FILE         Specify config file to use.
+
+Download:
+  -t,  --tries=NUMBER            set number of retries to NUMBER (0 unlimits).
+       --retry-connrefused       retry even if connection is refused.
+  -O,  --output-document=FILE    write documents to FILE.
+  -nc, --no-clobber              skip downloads that would download to
+                                 existing files (overwriting them).
+  -c,  --continue                resume getting a partially-downloaded file.
+       --progress=TYPE           select progress gauge type.
+  -N,  --timestamping            don't re-retrieve files unless newer than
+                                 local.
+  --no-use-server-timestamps     don't set the local file's timestamp by
+                                 the one on the server.
+  -S,  --server-response         print server response.
+       --spider                  don't download anything.
+  -T,  --timeout=SECONDS         set all timeout values to SECONDS.
+       --dns-timeout=SECS        set the DNS lookup timeout to SECS.
+       --connect-timeout=SECS    set the connect timeout to SECS.
+       --read-timeout=SECS       set the read timeout to SECS.
+  -w,  --wait=SECONDS            wait SECONDS between retrievals.
+       --waitretry=SECONDS       wait 1..SECONDS between retries of a retrieval.
+       --random-wait             wait from 0.5*WAIT...1.5*WAIT secs between retrievals.
+       --no-proxy                explicitly turn off proxy.
+  -Q,  --quota=NUMBER            set retrieval quota to NUMBER.
+       --bind-address=ADDRESS    bind to ADDRESS (hostname or IP) on local host.
+       --limit-rate=RATE         limit download rate to RATE.
+       --no-dns-cache            disable caching DNS lookups.
+       --restrict-file-names=OS  restrict chars in file names to ones OS allows.
+       --ignore-case             ignore case when matching files/directories.
+  -4,  --inet4-only              connect only to IPv4 addresses.
+  -6,  --inet6-only              connect only to IPv6 addresses.
+       --prefer-family=FAMILY    connect first to addresses of specified family,
+                                 one of IPv6, IPv4, or none.
+       --user=USER               set both ftp and http user to USER.
+       --password=PASS           set both ftp and http password to PASS.
+       --ask-password            prompt for passwords.
+       --no-iri                  turn off IRI support.
+       --local-encoding=ENC      use ENC as the local encoding for IRIs.
+       --remote-encoding=ENC     use ENC as the default remote encoding.
+       --unlink                  remove file before clobber.
+
+Directories:
+  -nd, --no-directories           don't create directories.
+  -x,  --force-directories        force creation of directories.
+  -nH, --no-host-directories      don't create host directories.
+       --protocol-directories     use protocol name in directories.
+  -P,  --directory-prefix=PREFIX  save files to PREFIX/...
+       --cut-dirs=NUMBER          ignore NUMBER remote directory components.
+
+HTTP options:
+       --http-user=USER        set http user to USER.
+       --http-password=PASS    set http password to PASS.
+       --no-cache              disallow server-cached data.
+       --default-page=NAME     Change the default page name (normally
+                               this is `index.html'.).
+  -E,  --adjust-extension      save HTML/CSS documents with proper extensions.
+       --ignore-length         ignore `Content-Length' header field.
+       --header=STRING         insert STRING among the headers.
+       --max-redirect          maximum redirections allowed per page.
+       --proxy-user=USER       set USER as proxy username.
+       --proxy-password=PASS   set PASS as proxy password.
+       --referer=URL           include `Referer: URL' header in HTTP request.
+       --save-headers          save the HTTP headers to file.
+  -U,  --user-agent=AGENT      identify as AGENT instead of Wget/VERSION.
+       --no-http-keep-alive    disable HTTP keep-alive (persistent connections).
+       --no-cookies            don't use cookies.
+       --load-cookies=FILE     load cookies from FILE before session.
+       --save-cookies=FILE     save cookies to FILE after session.
+       --keep-session-cookies  load and save session (non-permanent) cookies.
+       --post-data=STRING      use the POST method; send STRING as the data.
+       --post-file=FILE        use the POST method; send contents of FILE.
+       --content-disposition   honor the Content-Disposition header when
+                               choosing local file names (EXPERIMENTAL).
+       --auth-no-challenge     send Basic HTTP authentication information
+                               without first waiting for the server's
+                               challenge.
+
+HTTPS (SSL/TLS) options:
+       --secure-protocol=PR     choose secure protocol, one of auto, SSLv2,
+                                SSLv3, and TLSv1.
+       --no-check-certificate   don't validate the server's certificate.
+       --certificate=FILE       client certificate file.
+       --certificate-type=TYPE  client certificate type, PEM or DER.
+       --private-key=FILE       private key file.
+       --private-key-type=TYPE  private key type, PEM or DER.
+       --ca-certificate=FILE    file with the bundle of CA's.
+       --ca-directory=DIR       directory where hash list of CA's is stored.
+       --random-file=FILE       file with random data for seeding the SSL PRNG.
+       --egd-file=FILE          file naming the EGD socket with random data.
+
+FTP options:
+       --ftp-user=USER         set ftp user to USER.
+       --ftp-password=PASS     set ftp password to PASS.
+       --no-remove-listing     don't remove `.listing' files.
+       --no-glob               turn off FTP file name globbing.
+       --no-passive-ftp        disable the &quot;passive&quot; transfer mode.
+       --retr-symlinks         when recursing, get linked-to files (not dir).
+
+Recursive download:
+  -r,  --recursive          specify recursive download.
+  -l,  --level=NUMBER       maximum recursion depth (inf or 0 for infinite).
+       --delete-after       delete files locally after downloading them.
+  -k,  --convert-links      make links in downloaded HTML or CSS point to
+                            local files.
+  -K,  --backup-converted   before converting file X, back up as X.orig.
+  -m,  --mirror             shortcut for -N -r -l inf --no-remove-listing.
+  -p,  --page-requisites    get all images, etc. needed to display HTML page.
+       --strict-comments    turn on strict (SGML) handling of HTML comments.
+
+Recursive accept/reject:
+  -A,  --accept=LIST               comma-separated list of accepted extensions.
+  -R,  --reject=LIST               comma-separated list of rejected extensions.
+  -D,  --domains=LIST              comma-separated list of accepted domains.
+       --exclude-domains=LIST      comma-separated list of rejected domains.
+       --follow-ftp                follow FTP links from HTML documents.
+       --follow-tags=LIST          comma-separated list of followed HTML tags.
+       --ignore-tags=LIST          comma-separated list of ignored HTML tags.
+  -H,  --span-hosts                go to foreign hosts when recursive.
+  -L,  --relative                  follow relative links only.
+  -I,  --include-directories=LIST  list of allowed directories.
+  --trust-server-names             use the name specified by the redirection
+                                   url last component.
+  -X,  --exclude-directories=LIST  list of excluded directories.
+  -np, --no-parent                 don't ascend to the parent directory.
+
+Mail bug reports and suggestions to &lt;bug-wget@gnu.org&gt;.
+</pre></div>
+
+<hr>
+<a name="curl"></a>
+<div class="header">
+<p>
+Next: <a href="#ftp" accesskey="n" rel="next">ftp</a>, Previous: <a href="#wget" accesskey="p" rel="prev">wget</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="curl-1"></a>
+<h2 class="chapter">3 curl</h2>
+
+<div class="example">
+<pre class="example">curl -C- -o a.mp4 &quot;http://xxx.mp4&quot;
+detailed
+1. get一个页面
+&gt; curl http://curl.haxx.se
+
+2. get整个html数据[包括HTML头部]
+添加-i参数
+&gt; curl -i http://curl.haxx.se
+
+断點续传命令行选项
+-C-
+
+3. 只get html的头
+添加-I参数
+&gt; curl -I http://curl.haxx.se
+
+4. 显示curl的工作情况
+添加-v参数
+&gt; curl -v http://curl.haxx.se
+
+5. 带参数的url
+需要添加双撇号
+&gt; curl &quot;www.hotmail.com/when/junk.cgi?irthyear=1905&amp;press=OK&quot;
+
+6. 将获取到的数据存文件
+&gt; curl www.google.com.hk &gt; a.txt
+
+7. post 数据
+&gt; curl -d &quot;birthyear=1905&amp;press=OK&quot; www.hotmail.com/when/junk.cgi
+
+8. post ASCII数据
+文件名前加@
+&gt; curl --data-ascii &quot;@file_name&quot;
+
+9. post BINARY数据
+&gt; curl --data-binary &quot;@file_name&quot;
+
+10. post方法上传文件
+&lt;form method=&quot;POST&quot; enctype='multipart/form-data' action=&quot;upload.cgi&quot;&gt;
+&lt;input type=file name=upload&gt;
+&lt;input type=submit name=press value=&quot;OK&quot;&gt;
+&lt;/form&gt;
+对于这种页面，curl的用法如下:
+&gt; curl -F upload=@localfilename -F press=OK [URL]
+
+11. 使用PUT方法。
+HTTP协议文件上传的标准方法是使用PUT，此时curl命令使用-T参数：
+&gt; curl -T uploadfile www.uploadhttp.com/receive.cgi
+
+
+12. 有关认证。
+curl可以处理各种情况的认证页面，例如下载用户名/密码认证方式的页面（在IE中通常是出现一个输入用户名和密码的输入框）：
+&gt; curl -u name:password www.secrets.com
+如果网络是通过http代理服务器出去的，而代理服务器需要用户名和密码，那么输入：
+&gt; curl -U proxyuser:proxypassword http://curl.haxx.se
+任何需要输入用户名和密码的时候，只在参数中指定用户名而空着密码，curl可以交互式的让用户输入密码。
+
+13. 引用。
+有些网络资源访问的时候必须经过另外一个网络地址跳转过去，这用术语来说是：referer，引用。对于这种地址的资源，curl也可以下载：
+&gt; curl -e http://curl.haxx.se daniel.haxx.se
+
+14. 指定用户客户端。
+有些网络资源首先需要判断用户使用的是什么浏览器，符合标准了才能够下载或者浏览。此时curl可以把自己“伪装”成任何其他浏览器：
+&gt; curl -A &quot;Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)&quot; [URL]
+这个指令表示curl伪装成了IE5.0，用户平台是Windows 2000。（对方服务器是根据这个字串来判断客户端的类型的，所以即使使用AIX也无所谓）。使用：
+&gt; curl -A &quot;Mozilla/4.73 [en] (X11; U; Linux 2.2.15 i686)&quot; [URL]
+此时curl变成了Netscape，运行在PIII平台的Linux上了。
+
+15. COOKIES
+Cookie是服务器经常使用的一种记忆客户信息的方法。如果cookie被记录在了文件中，那么使用命令：
+&gt; curl -b stored_cookies_in_file www.cookiesite.com
+&gt; curl可以根据旧的cookie写出新cookie并发送到网站：
+&gt; curl -b cookies.txt -c newcookies.txt www.cookiesite.com
+
+16. 加密的HTTP——HTTPS。
+如果是通过OpenSSL加密的https协议传输的网页，curl可以直接访问：
+&gt; curl https://that.secure.server.com
+
+17. http认证。
+如果是采用证书认证的http地址，证书在本地，那么curl这样使用：
+&gt; curl -E mycert.pem https://that.secure.server.com
+
+curl help
+Usage: curl [options...] &lt;url&gt;
+Options: (H) means HTTP/HTTPS only, (F) means FTP only
+     --anyauth       Pick &quot;any&quot; authentication method (H)
+ -a, --append        Append to target file when uploading (F/SFTP)
+     --basic         Use HTTP Basic Authentication (H)
+     --cacert FILE   CA certificate to verify peer against (SSL)
+     --capath DIR    CA directory to verify peer against (SSL)
+ -E, --cert CERT[:PASSWD] Client certificate file and password (SSL)
+     --cert-type TYPE Certificate file type (DER/PEM/ENG) (SSL)
+     --ciphers LIST  SSL ciphers to use (SSL)
+     --compressed    Request compressed response (using deflate or gzip)
+ -K, --config FILE   Specify which config file to read
+     --connect-timeout SECONDS  Maximum time allowed for connection
+ -C, --continue-at OFFSET  Resumed transfer offset
+ -b, --cookie STRING/FILE  String or file to read cookies from (H)
+ -c, --cookie-jar FILE  Write cookies to this file after operation (H)
+     --create-dirs   Create necessary local directory hierarchy
+     --crlf          Convert LF to CRLF in upload
+     --crlfile FILE  Get a CRL list in PEM format from the given file
+ -d, --data DATA     HTTP POST data (H)
+     --data-ascii DATA  HTTP POST ASCII data (H)
+     --data-binary DATA  HTTP POST binary data (H)
+     --data-urlencode DATA  HTTP POST data url encoded (H)
+     --delegation STRING GSS-API delegation permission
+     --digest        Use HTTP Digest Authentication (H)
+     --disable-eprt  Inhibit using EPRT or LPRT (F)
+     --disable-epsv  Inhibit using EPSV (F)
+ -D, --dump-header FILE  Write the headers to this file
+     --egd-file FILE  EGD socket path for random data (SSL)
+     --engine ENGINGE  Crypto engine (SSL). &quot;--engine list&quot; for list
+ -f, --fail          Fail silently (no output at all) on HTTP errors (H)
+ -F, --form CONTENT  Specify HTTP multipart POST data (H)
+     --form-string STRING  Specify HTTP multipart POST data (H)
+     --ftp-account DATA  Account data string (F)
+     --ftp-alternative-to-user COMMAND  String to replace &quot;USER [name]&quot; (F)
+     --ftp-create-dirs  Create the remote dirs if not present (F)
+     --ftp-method [MULTICWD/NOCWD/SINGLECWD] Control CWD usage (F)
+     --ftp-pasv      Use PASV/EPSV instead of PORT (F)
+ -P, --ftp-port ADR  Use PORT with given address instead of PASV (F)
+     --ftp-skip-pasv-ip Skip the IP address for PASV (F)
+     --ftp-pret      Send PRET before PASV (for drftpd) (F)
+     --ftp-ssl-ccc   Send CCC after authenticating (F)
+     --ftp-ssl-ccc-mode ACTIVE/PASSIVE  Set CCC mode (F)
+     --ftp-ssl-control Require SSL/TLS for ftp login, clear for transfer (F)
+ -G, --get           Send the -d data with a HTTP GET (H)
+ -g, --globoff       Disable URL sequences and ranges using {} and []
+ -H, --header LINE   Custom header to pass to server (H)
+ -I, --head          Show document info only
+ -h, --help          This help text
+     --hostpubmd5 MD5  Hex encoded MD5 string of the host public key. (SSH)
+ -0, --http1.0       Use HTTP 1.0 (H)
+     --ignore-content-length  Ignore the HTTP Content-Length header
+ -i, --include       Include protocol headers in the output (H/F)
+ -k, --insecure      Allow connections to SSL sites without certs (H)
+     --interface INTERFACE  Specify network interface/address to use
+ -4, --ipv4          Resolve name to IPv4 address
+ -6, --ipv6          Resolve name to IPv6 address
+ -j, --junk-session-cookies Ignore session cookies read from file (H)
+     --keepalive-time SECONDS  Interval between keepalive probes
+     --key KEY       Private key file name (SSL/SSH)
+     --key-type TYPE Private key file type (DER/PEM/ENG) (SSL)
+     --krb LEVEL     Enable Kerberos with specified security level (F)
+     --libcurl FILE  Dump libcurl equivalent code of this command line
+     --limit-rate RATE  Limit transfer speed to this rate
+ -l, --list-only     List only names of an FTP directory (F)
+     --local-port RANGE  Force use of these local port numbers
+ -L, --location      Follow redirects (H)
+     --location-trusted like --location and send auth to other hosts (H)
+ -M, --manual        Display the full manual
+     --mail-from FROM  Mail from this address
+     --mail-rcpt TO  Mail to this receiver(s)
+     --max-filesize BYTES  Maximum file size to download (H/F)
+     --max-redirs NUM  Maximum number of redirects allowed (H)
+ -m, --max-time SECONDS  Maximum time allowed for the transfer
+     --negotiate     Use HTTP Negotiate Authentication (H)
+ -n, --netrc         Must read .netrc for user name and password
+     --netrc-optional Use either .netrc or URL; overrides -n
+     --netrc-file FILE  Set up the netrc filename to use
+ -N, --no-buffer     Disable buffering of the output stream
+     --no-keepalive  Disable keepalive use on the connection
+     --no-sessionid  Disable SSL session-ID reusing (SSL)
+     --noproxy       List of hosts which do not use proxy
+     --ntlm          Use HTTP NTLM authentication (H)
+ -o, --output FILE   Write output to &lt;file&gt; instead of stdout
+     --pass PASS     Pass phrase for the private key (SSL/SSH)
+     --post301       Do not switch to GET after following a 301 redirect (H)
+     --post302       Do not switch to GET after following a 302 redirect (H)
+ -#, --progress-bar  Display transfer progress as a progress bar
+     --proto PROTOCOLS  Enable/disable specified protocols
+     --proto-redir PROTOCOLS  Enable/disable specified protocols on redirect
+ -x, --proxy [PROTOCOL://]HOST[:PORT] Use proxy on given port
+     --proxy-anyauth Pick &quot;any&quot; proxy authentication method (H)
+     --proxy-basic   Use Basic authentication on the proxy (H)
+     --proxy-digest  Use Digest authentication on the proxy (H)
+     --proxy-negotiate Use Negotiate authentication on the proxy (H)
+     --proxy-ntlm    Use NTLM authentication on the proxy (H)
+ -U, --proxy-user USER[:PASSWORD]  Proxy user and password
+     --proxy1.0 HOST[:PORT]  Use HTTP/1.0 proxy on given port
+ -p, --proxytunnel   Operate through a HTTP proxy tunnel (using CONNECT)
+     --pubkey KEY    Public key file name (SSH)
+ -Q, --quote CMD     Send command(s) to server before transfer (F/SFTP)
+     --random-file FILE  File for reading random data from (SSL)
+ -r, --range RANGE   Retrieve only the bytes within a range
+     --raw           Do HTTP &quot;raw&quot;, without any transfer decoding (H)
+ -e, --referer       Referer URL (H)
+ -J, --remote-header-name Use the header-provided filename (H)
+ -O, --remote-name   Write output to a file named as the remote file
+     --remote-name-all Use the remote file name for all URLs
+ -R, --remote-time   Set the remote file's time on the local output
+ -X, --request COMMAND  Specify request command to use
+     --resolve HOST:PORT:ADDRESS  Force resolve of HOST:PORT to ADDRESS
+     --retry NUM   Retry request NUM times if transient problems occur
+     --retry-delay SECONDS When retrying, wait this many seconds between each
+     --retry-max-time SECONDS  Retry only within this period
+ -S, --show-error    Show error. With -s, make curl show errors when they occur
+ -s, --silent        Silent mode. Don't output anything
+     --socks4 HOST[:PORT]  SOCKS4 proxy on given host + port
+     --socks4a HOST[:PORT]  SOCKS4a proxy on given host + port
+     --socks5 HOST[:PORT]  SOCKS5 proxy on given host + port
+     --socks5-hostname HOST[:PORT] SOCKS5 proxy, pass host name to proxy
+     --socks5-gssapi-service NAME  SOCKS5 proxy service name for gssapi
+     --socks5-gssapi-nec  Compatibility with NEC SOCKS5 server
+ -Y, --speed-limit RATE  Stop transfers below speed-limit for 'speed-time' secs
+ -y, --speed-time SECONDS  Time for trig speed-limit abort. Defaults to 30
+     --ssl           Try SSL/TLS (FTP, IMAP, POP3, SMTP)
+     --ssl-reqd      Require SSL/TLS (FTP, IMAP, POP3, SMTP)
+ -2, --sslv2         Use SSLv2 (SSL)
+ -3, --sslv3         Use SSLv3 (SSL)
+     --stderr FILE   Where to redirect stderr. - means stdout
+     --tcp-nodelay   Use the TCP_NODELAY option
+ -t, --telnet-option OPT=VAL  Set telnet option
+     --tftp-blksize VALUE  Set TFTP BLKSIZE option (must be &gt;512)
+ -z, --time-cond TIME  Transfer based on a time condition
+ -1, --tlsv1         Use TLSv1 (SSL)
+     --trace FILE    Write a debug trace to the given file
+     --trace-ascii FILE  Like --trace but without the hex output
+     --trace-time    Add time stamps to trace/verbose output
+     --tr-encoding   Request compressed transfer encoding (H)
+ -T, --upload-file FILE  Transfer FILE to destination
+     --url URL       URL to work with
+ -B, --use-ascii     Use ASCII/text transfer
+ -u, --user USER[:PASSWORD]  Server user and password
+     --tlsuser USER  TLS username
+     --tlspassword STRING TLS password
+     --tlsauthtype STRING  TLS authentication type (default SRP)
+ -A, --user-agent STRING  User-Agent to send to server (H)
+ -v, --verbose       Make the operation more talkative
+ -V, --version       Show version number and quit
+ -w, --write-out FORMAT  What to output after completion
+     --xattr        Store metadata in extended file attributes
+ -q                 If used as the first parameter disables .curlrc
+</pre></div>
+
+<hr>
+<a name="ftp"></a>
+<div class="header">
+<p>
+Next: <a href="#vpn" accesskey="n" rel="next">vpn</a>, Previous: <a href="#curl" accesskey="p" rel="prev">curl</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="ftp-1"></a>
+<h2 class="chapter">4 ftp</h2>
+
+<div class="example">
+<pre class="example">​​binary 和 ascii用于切换传输模式
+关闭ftp中mput的上传确认提示:prompt
+2009年9月21日 由 zubinhe 留言 »
+今天因工作需要使用ftp上传一大批文件，是将一整个目录下的文件都上传到服务器，就用mput命令，默认的情况下，每上传一个文件都输入一下y来确认，没有时间进行这样搞，需要在命令模式，并登录系统后用prompt来关闭它：
+ftp&gt;prompt
+切换交谈式指令(使用mput/mget 时不用每个文件皆询问yes/no)
+这样就可以使用 mput *让它慢慢上传…喝茶去…
+注:
+ftp&gt; help prompt
+prompt          force interactive prompting on multiple commands
+ftp&gt; prompt
+Interactive mode off.
+ftp&gt; prompt
+Interactive mode on.
+ftp&gt; prompt
+Interactive mode off.
+ftp&gt;
+从上例也可以看出不任何参数就可以进行开发或关闭的设备，每执行一次，状态就会改变。
+</pre></div>
+
+<hr>
+<a name="vpn"></a>
+<div class="header">
+<p>
+Previous: <a href="#ftp" accesskey="p" rel="prev">ftp</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="vpn-1"></a>
+<h2 class="chapter">5 vpn</h2>
+
+<div class="example">
+<pre class="example">sudo apt-get install openconnect
+sudo apt-get install vpnc
+sudo openconnect --script /etc/vpnc/vpnc-script -u &lt;user name&gt; &lt;web site&gt;
+
+sudo openconnect --script /etc/vpnc/vpnc-script -u &lt;user name&gt; &lt;web site&gt;
+
+resource
+http://www.infradead.org/openconnect/vpnc-script.html
+http://www.infradead.org/openconnect/
+</pre></div>
+
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle resource
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top resource
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* resource::
+@c * Copying::  free time team
+@end menu
+
+@node resource
+@chapter resource
+
+@example
+android工程的编译过程
+http://bbs.pediy.com/showthread.php?t=163672
+
+makefile 分析
+整个makefile都需要parse。
+parse完，有了所有的依赖关系，再根据指定目标来确定哪些需要remake。
+make xxx -dpn观察。
+-n是不真正执行命令。
+ make -j8 bootimage -dp 2>&1 | tee /media/disk2/bootimage.log3.txt
+
+What's the difference of `./configure` option `--build`, `--host` and `--target`
+http://stackoverflow.com/questions/5139403/whats-the-difference-of-configure-option-build-host-and-target
+
+kernel
+https://www.ibm.com/developerworks/community/blogs/5144904d-5d75-45ed-9d2b-cf1754ee936a/entry/kernel-build-system?lang=en
+http://lwn.net/Articles/21835/
+https://www.kernel.org/doc/Documentation/kbuild/modules.txt
+https://www.kernel.org/doc/Documentation/kbuild/makefiles.txt
+http://stackoverflow.com/questions/8320955/how-does-the-kernel-makefile-magically-knows-what-to-compile
+http://www.linuxjournal.com/article/6568
+@end example
+
+
+
+
+
+
+@bye

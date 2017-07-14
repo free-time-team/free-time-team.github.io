@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>gdb</title>
+
+<meta name="description" content="gdb">
+<meta name="keywords" content="gdb">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">gdb</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-gdb-2" href="#gdb">1 gdb</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#gdb" accesskey="n" rel="next">gdb</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="gdb-1"></a>
+<h1 class="top">gdb</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#gdb" accesskey="1">gdb</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="gdb"></a>
+<div class="header">
+<p>
+Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="gdb-2"></a>
+<h2 class="chapter">1 gdb</h2>
+
+<div class="example">
+<pre class="example">help
+(gdb) help x
+Examine memory: x/FMT ADDRESS.
+ADDRESS is an expression for the memory address to examine.
+FMT is a repeat count followed by a format letter and a size letter.
+Format letters are o(octal), x(hex), d(decimal), u(unsigned decimal),
+  t(binary), f(float), a(address), i(instruction), c(char) and s(string).
+Size letters are b(byte), h(halfword), w(word), g(giant, 8 bytes).
+The specified number of objects of the specified size are printed
+according to the format.
+Defaults for format and size letters are those previously used.
+Default count is 1.  Default address is following last thing printed
+with this command or &quot;print&quot;.
+
+bt
+(gdb) bt
+#0  0x4161aa46 in heap_error (msg=&lt;optimized out&gt;, function=&lt;optimized out&gt;, p=0x0) at dalvik/vm/alloc/DlMalloc.cpp:46
+#1  0x4161b2b6 in dispose_chunk (m=0x41aab008, p=0x42ff2920, psize=6357088) at dalvik/vm/alloc/../../../bionic/libc/upstream-dlmalloc/malloc.c:4691
+#2  0x4161da04 in internal_bulk_free (nelem=&lt;optimized out&gt;, array=&lt;optimized out&gt;, m=0x41aab008) at dalvik/vm/alloc/../../../bionic/libc/upstream-dlmalloc/malloc.c:5618
+#3  mspace_bulk_free (msp=0x41aab008, array=&lt;optimized out&gt;, nelem=&lt;optimized out&gt;) at dalvik/vm/alloc/../../../bionic/libc/upstream-dlmalloc/malloc.c:6399
+......
+bt -a
+
+dump data
+(gdb) x/4x 0x5b8814c8
+0x5b8814c8:	0x00000000	0x00000000	0x00000000	0x00000000
+
+register
+(gdb) info register
+r0             0x51	81
+r1             0x3b0539ea	990198250
+......
+
+dump string
+(gdb) x /s 0x4300dfe1
+         0x4300dfe1 &lt;excpt_msg&gt;:   &quot;Unhandled Exception in EL3.\nx30 =\t\t0x&quot;
+
+convert hex to string
+(gdb) p (char[])0x6e6e75522f676e61
+$3 = &quot;ang/Runn&quot;
+
+get source code line
+(gdb) info line *0x00000000000adb24
+Line 408 of &quot;frameworks/av/media/libmedia/IAudioPolicyService.cpp&quot; starts at address 0xadb14 &lt;android::BpAudioPolicyService::isStreamActiveRemotely(audio_stream_type_t, unsigned int) const+104&gt;
+   and ends at 0xadb30 &lt;android::BpAudioPolicyService::isStreamActiveRemotely(audio_stream_type_t, unsigned int) const+132&gt;.
+
+dump struct
+p {struct miscdevice} 0xffffffc00040ee04
+
+get symbol for address
+(gdb) info symbol 0xffffffc000196840
+vfs_write + 168 in section .text
+
+(gdb) info symbol 0x00000000000adb24
+android::BpAudioPolicyService::isStreamActiveRemotely(audio_stream_type_t, unsigned int) const + 120 in section .text
+(gdb) disassemble 0x00000000000adb24
+
+backtrace for another cpu
+info thread  // get cpu info
+thread 3      // change cpu3
+bt                // query cpu3 backtrace
+
+info proc
+info proc all -- List all available /proc info
+info proc cmdline -- List command line arguments of the process
+info proc cwd -- List current working directory of the process
+info proc exe -- List absolute filename for executable of the process
+info proc mappings -- List of mapped memory regions
+info proc stat -- List process info from /proc/PID/stat
+info proc status -- List process info from /proc/PID/status
+
+get struct offset
+(gdb) p/d &amp;((struct task_struct *)0)-&gt;group_leader
+$2 = 1128
+
+print struct
+(gdb) ptype struct task_struct
+type = struct task_struct {
+    volatile long state;
+    void *stack;
+    atomic_t usage;
+...
+    unsigned long trace_recursion;
+}
+
+/mr option
+	(gdb) disassemble /mr stext, +0x8
+	Dump of assembler code from 0x40081000 to 0x40081008:
+	236		bl	preserve_boot_args
+	   0x0000000040081000 &lt;stext+0&gt;:	0a 00 00 94	bl	0x40081028 &lt;preserve_boot_args&gt;
+
+	237		bl	el2_setup			// Drop to EL1, w20=cpu_boot_mode
+	   0x0000000040081004 &lt;stext+4&gt;:	53 05 00 94	bl	0x40082550 &lt;el2_setup&gt;
+
+cmd parameter
+(gdb) set args parameters
+
+reference
+http://wiki.ubuntu.org.cn/index.php?title=%E7%94%A8GDB%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F&amp;variant=zh-hans
+http://blog.csdn.net/hlchou/article/details/7425492
+------------------
+
+----------------
+gdb
+info thread  // get cpu info
+thread 3      // change cpu3
+bt                // query cpu3 backtrace
+thread ID 和 cpu ID之间是一一对应的关系吗？
+
+no
+
+我想切换到某个特定的cpu看他的call stack，有什么行之有效的方法吗？
+
+这个在正常情况下是不存在的。
+
+但是log里面，很多cpu的call stack，是怎么出来的呢？
+
+那是kernel。
+
+gdb vmlinux sys_mini_dump
+现在gdb 解开的，也是kernel的img和ddr 数据。
+这个地方不是很明白。
+
+不明白什么？
+
+gdb是解kernel 和 ddr数据的，按道理，mini dump会保存有最后各个cpu数据的，为什么不能看到他们的bt呢？
+
+没准此时某个cpu在运行用户态的程序。
+
+所以说如果minidump没有抓到用户态的数据，这个时候，某个cpu的bt就拿不到，对吧？
+还有个问题，假设当时cpu1 cpu2 都在kernel 态，是不是cpu1 和 cpu2的bt都可以拿到？
+
+cpu不和bt对应。
+cpu只和一组寄存器对应。
+
+所以，你只能关系某个cpu的寄存器，去关心到底哪个线程跑在这个cpu上的错误的。
+
+kernel log里面，通常会引出某个cpu的bt，这怎么理解呢？ 好像跟你现在说的有点出入。
+
+至少在dump里面，不会明显体现出来。
+
+哦 是不是我之前都理解错了， 这些bt只是说某个cpu把它打印出来，不一定这个thread就是在这个cpu上跑的？
+
+这我就不知道。
+
+gdb debug kernel，有什么介绍框架的入门资料吗？
+
+我记得好像给你发过某个人blog的链接，介绍他怎么修改kernel，使得可能通过usb来调试kernel。
+我现在也找不到链接了。
+
+哦，我找一下。
+
+
+我下一步就是在rootfs里面增加 gcc 编译器、git工具、网络功能。
+
+你应该是链接了libc，所以需要rootfs，不管是静态链接，还是动态链接。
+libc至少需要/proc文件系统。
+
+哦 对了。
+
+/dev也可能需要，但不确定。
+
+android的 native code回到system/bin下去找linker64
+
+如果你用汇编写，肯定可以跑。
+
+后来我重新装了 gnu的 arm toolchian 才能在qemu aarch64上跑。
+恩 我想要一个通用一点的环境。
+
+改天再做一个android
+的qemu环境。
+
+http://www.contextis.com/resources/blog/kgdb-android-debugging-kernel-boss/
+还是google靠谱，一搜就是第一条。
+
+http://bootloader.wikidot.com/android:kgdb
+
+长见识了。
+
+
+
+
+</pre></div>
+
+
+
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

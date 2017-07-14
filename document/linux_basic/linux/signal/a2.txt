@@ -1,0 +1,4 @@
+
+http://en.wikipedia.org/wiki/Unix_signal // Unix signal
+http://blog.chinaunix.net/uid-24774106-id-4061386.html // Linux signal那些事儿
+http://250bpm.com/blog:12 // Signal programming

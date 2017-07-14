@@ -1,0 +1,871 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle shell
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top shell
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* resource::
+* basic commands::
+* development commands::
+* trick::
+* regular expression::
+* environment::
+* scripting::
+* find command::
+* grep command::
+@c * Copying::  free time team
+@end menu
+
+@node resource
+@chapter resource
+
+http://www.tecmint.com/category/linux-commands/  // linux commands
+
+http://linux.die.net                                                    // linux die man website
+
+http://c.biancheng.net/cpp/view/6994.html              // shell study
+
+https://proyuacouart.wikispaces.com/file/view/Classic_Shell_Scripting.pdf  // shell study
+
+@node basic commands
+@chapter basic commands
+
+@b{list subdirectory total size by sort}
+
+du -sh * | sort -rh
+
+@b{Hotkeys}
+
+F11: swich among full command screen and ordinary command screen
+
+Ctrl+u:  Erase the whole current line and move the cursor to the beginning of the current line.
+
+@b{chown/chmod}
+
+Use the chown command to change file owner and group information. Use the chmod command to change file access permissions such as read, write, and access.
+
+chown owner-user file
+
+chown owner-user:owner-group file
+
+chown owner-user:owner-group directory
+
+chown options owner-user:owner-group file
+
+@b{nautilus}
+
+nautilus .   // 文件管理窗口
+
+@b{ls}
+
+$ ls -l
+
+total 600
+
+-rw-r--r--   1 test users  18693 Nov  8 00:36 COPYING
+
+@b{chown/chmod}
+
+chown -R test:users test
+
+chmod -R u+rwx test
+
+@b{wc}
+
+-c  #print the byte counts
+
+-m  #print the character counts
+
+-l  #print the newline counts
+
+-L  #print the length of the longest line
+
+-w  #print the word counts
+
+--help #display this help and exit
+
+@b{head}
+
+// Display the first fifteen lines of myfile.txt.
+
+head -15 myfile.txt
+
+http://www.linfo.org/head.html
+
+http://www.cnblogs.com/peida/archive/2012/11/06/2756278.html
+
+http://www.computerhope.com/unix/uhead.htm
+
+http://my.oschina.net/lovedreamland/blog/366349
+
+@b{tail}
+
+tail -f a.log
+
+@b{scp}
+
+$ scp
+
+usage: scp [-12346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
+
+           [-l limit] [-o ssh_option] [-P port] [-S program]
+
+           [[user@@]host1:]file1 ... [[user@@]host2:]file2
+
+// cp remote file to local
+
+scp user@@ip:~/a.sh ~/share
+
+// cp local file to remote
+
+scp minicom.log user@@ip:~/BuildCode/BuildCode
+
+@b{file}
+
+Identify a file’s type by examining specific fields within the file
+
+@b{dd}
+
+dd if=input.bin of=output.bin ibs=1 count=281542 skip=17408
+
+if=file        输入文件名　标准输入确省
+
+of=file        输出文件名，标准输出确省
+
+ibs=n          输入块大小，n字节（默认512）
+
+count          只复制由count参数指定数量的输入块
+
+skip=n         拷贝之前越过n个输入块
+
+obs=n          输出块大小,n字节（默认512）
+
+bs=n           同时设置输入输出块大小
+
+cbs=n          转换缓冲区大小
+
+files=n        在中断之前拷贝和转换n个输入文件
+
+oseek=n        拷贝之前从输出文件开始查找n个块
+
+iseek          拷贝之前从输入文件开始查找n个块
+
+seek=n         等同于oseek
+
+cono=ascic     将EBCDIC码转换为ASCII
+
+ebcdic         ASCII->;EBCDIC
+
+ibm            ASCII转换为EBCDIC码时轻微不同的映象
+
+blolk          将新栈中断的ASCII码记录转换为固定长度
+
+unblock        将固定长度的ASCII码记录转换为新行中断记录
+
+lcase          变换字将至低等情况
+
+ucase          变换字将至高等情况
+
+swab           交换每对字节
+
+noerrir        出错时不停止处理
+
+sync           将每个块填充到ibs
+
+@b{nautilus}
+
+view the directory
+
+nautilus ~
+
+@b{history}
+
+list history command list
+
+@b{man}
+
+Use n and Shift+n for the next and previous matches.
+
+hit /, and type your search pattern.
+
+Patterns can be regular expressions, for example, you could search for the word "option" by typing
+
+/[Oo]ption
+
+Or find all of the long arguments with
+
+/(--)[a-Z]
+
+To cancel the search, hit Ctrl+C.
+
+@b{ls}
+
+ls -lh
+
+-h, --human-readable  with -l, print sizes in human readable format  (e.g., 1K 234M 2G)
+
+@b{md5sum}
+
+// check file md5 value
+
+md5sum file_name
+
+md5sum -c md5sums
+
+@b{sha1sum}
+
+the same as md5sum
+
+@b{rename}
+// 批量修改文件名
+rename -v 's/\[Linux英文原版图书系列\].//' *.pdf
+
+// 当前文件夹下所有名字为 xxx_check 的目录重命名为 xxx
+find . -maxdepth 1 -type d | grep "_check" | xargs rename 's/_check//'
+
+There are four parts to this substitute command
+
+s  Substitute command
+
+/../../  Delimiter
+
+one  Regular Expression Pattern Search Pattern
+
+ONE  Replacement string
+
+@b{find}
+
+find . -name "init.project.rc"
+
+find . -name "*[Ww][Aa][Tt][Cc][Hh][Dd][Oo][Gg]*" > watchdog_doc.txt
+
+find . -type d -name "code"
+
+find ./ -name ".git" | xargs rm -rf  // delete all .git directory
+
+find ~ -maxdepth 1  -name ".*"    // only search user home directory
+
+@b{disk tools}
+
+sudo fdisk -l
+
+df -l
+
+parted
+
+@b{du}
+
+du -sh  // total disk usage size of current directory
+
+du -sh * // total disk usage size of every file and every subdirectory of current directory
+
+http://www.tecmint.com/check-linux-disk-usage-of-files-and-directories/
+
+@b{grep}
+
+grep ENABLE_SSDTESTD -nir .
+
+match [KEY]
+
+grep "\[KEY\]"
+
+-s: ignor prompt infomation
+
+
+grep mulitple words
+
+//In this example, search warning, error, and critical words in a text log file called /var/log/messages, enter:
+
+grep 'warning\|error\|critical' /var/log/messages
+
+//To just match words, add -w swith:
+
+grep -w 'warning\|error\|critical' /var/log/messages
+
+//egrep command can skip the above syntax and use the following syntax:
+
+egrep -w 'warning|error|critical' /var/log/messages
+
+//I recommend that you pass the -i (ignore case) and --color option as follows:
+
+egrep -wi --color 'warning|error|critical' /var/log/messages
+
+http://www.cyberciti.biz/faq/searching-multiple-words-string-using-grep/
+
+"\babc\b"  // 加前后边界，精确匹配 “abc”
+
+-i  // 不区分大小写
+
+-I  // 不搜索二进制文件
+
+// 搜索包含 arch_reset 但是不包含 charger
+
+grep "arch_reset" . -nr | grep -v  "charger"
+
+@b{ln}
+
+ln -s /media/disk2 /home/user_name/disk2
+
+@b{kill}
+
+kill libreoffice
+
+ps -e | grep soffice.bin
+
+kill pid
+
+kill goagent in ubuntu
+
+netstat -nap | grep "py"
+
+kill -9 <process id>
+
+@b{hexdump}
+
+hexdump -C vmlinux_l50 | more
+
+     -C      Canonical hex+ASCII display.  Display the input offset in hexadecimal, followed by sixteen space-separated, two column, hexadecimal bytes, followed by the same sixteen
+
+             bytes in %_p format enclosed in ``|'' characters.
+
+@b{tar}
+
+tar -cvf /tmp/etc.tar /etc                    // just tar, not compression
+
+tar -zcvf /tmp/etc.tar.gz /etc              // gzip compression
+
+tar -jcvf /tmp/etc.tar.bz2 /etc             // bzip2 compression
+
+tar -zxvf /tmp/etc.tar.gz                      // decompress etc.tar.gz file
+
+tar -zxvf /tmp/etc.tar.gz etc/passwd   // 将 /tmp/etc.tar.gz 内的 etc/passwd 解开而已,etc.tar.gz 内的根目录 / 是被拿掉了
+
+tar -zxvpf /tmp/etc.tar.gz /etc            // -p 保留原本文件属性
+
+split -d -b 100m  a.tar.gz                 // 切割压缩包
+
+cat x* > a.tar.gz                                //  切割后的分卷合并
+
+//decompress to directory
+
+mkdir aaa
+
+tar -zxf a.tar.gz -C aaa  // decompress a.tar to directory aaa
+
+// decompress to separate directory
+
+for A in ./1/1.tar.gz ./2/2.tar.gz ; do echo $(dirname $A); tar -zxf $A -C $(dirname $A); done
+
+@b{zip/unzip}
+
+
+install: sudo apt-get install zip
+
+zip a.zip 1.txt 2.txt 3.txt
+
+zip -r a.zip 1.txt 2.txt dir
+
+unzip a.zip
+
+zip -r zzy_config.zip .gitconfig .git-template .ssh/ .vim .vimrc   // backup my configs
+
+@b{find & rm}
+
+// 查找所有.git目录，并且删除
+
+find . -name .git -type d -print -exec rm -rf @{@} \;
+
+@b{md5sums}
+
+// create md5sums
+
+find . -type f -print0 | xargs -0 md5sum > md5sums
+
+// check md5sums
+
+md5sum -c checksums_backup.md5
+
+http://info.michael-simons.eu/2008/10/25/recursively-md5sum-all-files-in-a-directory-tree/
+
+@b{reference}
+
+[1] http://www.cnblogs.com/peida/archive/2012/12/18/2822758.html
+
+[2] http://hi.baidu.com/microji/item/8bb148143a912326f7625c03
+
+[3] http://www.tecmint.com/history-command-examples/
+
+[4] http://linux.die.net/man/2/stat   //linux die 上查找 stat函数
+
+[6] http://zhangyu.blog.51cto.com/197148/137069  // dd 命令用法
+
+@node development commands
+@chapter development commands
+
+@b{size}
+
+list section sizes and total size.
+
+example
+
+$size a.out
+
+text  data  bss dec  hex filename
+
+1176  504  16 1696  6a0 a.out
+
+@node trick
+@chapter trick
+
+@b{cd alias}
+
+alias ..="cd .."
+
+alias ..2="cd ../.."
+
+alias ..3="cd ../../.."
+
+alias ..4="cd ../../../.."
+
+alias ..5="cd ../../../../.."
+
+alias ..6="cd ../../../../../.."
+
+alias ..7="cd ../../../../../../.."
+
+alias ..8="cd ../../../../../../../.."
+
+alias ..9="cd ../../../../../../../../.."
+
+@b{mkdircd}
+
+function mkdircd () @{ mkdir -p "$@@" && eval cd "\"\$$#\""; @}
+
+@node regular expression
+@chapter regular expression
+
+@example
+// resource
+http://en.wikipedia.org/wiki/Regular_expression
+
+元字符
+^  匹配行开头
+$ 匹配行结尾
+
+examples
+^cat$  匹配只包含 cat 的行。
+@end example
+
+@node environment
+@chapter environment
+
+@b{distribution setup script}
+
+ubuntu: ~/.bashrc
+
+mint: ~/.profile
+
+
+@b{environment}
+
+PATH - Display lists directories the shell searches, for the commands.
+
+HOME - User's home directory to store files.
+
+TERM - Set terminal emulator being used by UNIX.
+
+PS1 - Display shell prompt in the Bourne shell and variants.
+
+MAIL - Path to user's mailbox.
+
+TEMP - Path to where processes can store temporary files.
+
+JAVA_HOME - Sun (now Oracle) JDK path.
+
+ORACLE_HOME - Oracle database installation path.
+
+TZ - Timezone settings
+
+PWD - Path to the current directory.
+
+HISTFILE - The name of the file in which command history is saved
+
+HISTFILESIZE -The maximum number of lines contained in the history file
+
+HOSTNAME -The system's host name
+
+LD_LIBRARY_PATH -It is a colon-separated set of directories where libraries should be searched for.
+
+USER -Current logged in user's name.
+
+DISPLAY -Network name of the X11 display to connect to, if available.
+
+SHELL -The current shell.
+
+TERMCAP -	 Database entry of the terminal escape codes to perform various terminal functions.
+
+OSTYPE -	 Type of operating system.
+
+MACHTYPE -	 The CPU architecture that the system is running on.
+
+EDITOR -	 The user's preferred text editor.
+
+PAGER -	 The user's preferred text pager.
+
+MANPATH - Colon separated list of directories to search for manual pages.
+
+Display Environment Variable
+
+@b{display all environment variables}
+
+$ set
+
+OR
+
+$ printenv
+
+OR
+
+$ env
+
+@b{display search path}
+
+echo $PATH
+
+@b{display prompt settings}
+
+echo $PS1
+
+@b{more examples}
+
+echo $USER
+
+echo $PWD
+
+echo $MAIL
+
+echo $JAVA_PATH
+
+echo $DB2INSTANCE
+
+@b{Change or Set Environment Variable}
+
+You can use the following command to change the environment variable for the current session as per your shell.
+
+For Korn shell (KSH)
+
+The syntax is as follows:
+
+var=value
+
+export var
+
+To set JAVA_PATH, enter:
+
+
+JAVA_PATH=/opt/jdk/bin
+
+export JAVA_PATH
+
+For Bourne shell (sh and bash)
+
+The syntax is as follows:
+
+
+export var=value
+
+To set PATH, enter:
+
+
+export PATH=$PATH:/opt/bin:/usr/local/bin:$HOME/bin
+
+For C shell (csh or tcsh)
+
+The syntax is as follows:
+
+
+setenv var value
+
+Set EDITOR to vim, enter:
+
+
+setenv EDITOR vim
+
+Example: UNIX C Shell Startup Configuration Files For Environment Variable
+
+C shell use the following files:
+
+/etc/csh.login - It is executed if C shell is your login shell.
+
+$HOME/.cshrc and $HOME/.login - These files are executed every time C Shell starts. The ~/.login is csh login script, read by login shell, after ~/.cshrc at login.
+
+The above set or setenv commands can be placed in the ~/.cshrc or ~/.login files. A sample $HOME/.cshrc file is as follows:
+
+
+alias h		history 25
+alias j		jobs -l
+alias la	ls -a
+alias lf	ls -FA
+alias ll	ls -lA
+
+@node scripting
+@chapter scripting
+
+@b{shell trace}
+
+set -x    // open command trace
+
+After  expanding each simple command, for command, case command, select command, or arithmetic for command, display the expanded value of PS4, followed by the command and its expanded arguments or associated word list.
+
+set +x   // close command trace
+
+@b{resource}
+
+// linux shell scripting tutorial
+
+http://bash.cyberciti.biz/guide/Main_Page
+
+@node find command
+@chapter find command
+
+@b{delete .git directory}
+find . -name .git -exec rm -rf @{@} \;
+
+find . -name .git | xargs rm -rf
+
+// todo
+
+http://www.cnblogs.com/peida/archive/2012/11/13/2767374.html // find 命令概览
+
+http://www.cnblogs.com/peida/archive/2012/11/14/2769248.html // find 命令之exec
+
+http://www.cnblogs.com/peida/archive/2012/11/15/2770888.html // find 命令之xargs
+
+// todo
+
+find command
+
+过滤掉设备文件，socket文件和proc文件，只搜普通文件。
+
+device/htc/htc_e56ml_dtul/htc_e56ml_dtul.mk
+
+我编译，e56ml 的工程，这个mk应该会在编译的时候读到，对吧？
+
+不一定。
+
+得看AndroidProducts.mk指定是否直接或间接包含。
+
+device的makefile都是通过device目录的AndroidProducts.mk指定的PRODUCT_MAKEFILES包含进去的。
+
+      -type c
+
+              File is of type c:
+
+              b      block (buffered) special
+
+              c      character (unbuffered) special
+
+              d      directory
+
+              p      named pipe (FIFO)
+
+              f      regular file
+
+              l      symbolic link; this is never true if the -L option or the -follow option is in effect, unless the  sym-
+
+                     bolic link is broken.  If you want to search for symbolic links when -L is in effect, use -xtype.
+
+              s      socket
+
+              D      door (Solaris)
+grep
+
+       -D ACTION, --devices=ACTION
+
+              If  an  input  file  is a device, FIFO or socket, use ACTION to process it.  By default, ACTION is read, which
+
+              means that devices are read just as if they were ordinary files.  If ACTION  is  skip,  devices  are  silently
+
+              skipped.
+
+@node grep command
+@chapter grep command
+
+@b{reference}
+
+http://www.cyberciti.biz/faq/howto-use-grep-command-in-linux-unix/
+
+@b{syntax}
+
+grep 'word' filename
+
+grep 'word' file1 file2 file3
+
+grep 'string1 string2'  filename
+
+cat otherfile | grep 'something'
+
+command | grep 'something'
+
+command option1 | grep 'data'
+
+grep --color 'data' fileName
+
+option -i
+
+You can force grep to ignore word case i.e match boo, Boo, BOO and all other combination with the -i option:
+
+$ grep -i "boo" /etc/passwd
+
+@b{Use grep recursively}
+
+You can search recursively i.e. read all files under each directory for a string "192.168.1.5"
+
+$ grep -r "192.168.1.5" /etc/
+
+OR
+
+$ grep -R "192.168.1.5" /etc/
+
+Sample outputs:
+
+/etc/ppp/options:# ms-wins 192.168.1.50
+
+/etc/ppp/options:# ms-wins 192.168.1.51
+
+/etc/NetworkManager/system-connections/Wired connection 1:addresses1=192.168.1.5;24;192.168.1.2;
+
+You will see result for 192.168.1.5 on a separate line preceded by the name of the file (such as /etc/ppp/options) in which it was found. The inclusion of the file names in the output data can be suppressed by using the -h option as follows:
+
+$ grep -h -R "192.168.1.5" /etc/
+
+OR
+
+$ grep -hR "192.168.1.5" /etc/
+
+
+Sample outputs:
+
+# ms-wins 192.168.1.50
+
+# ms-wins 192.168.1.51
+
+addresses1=192.168.1.5;24;192.168.1.2;
+
+Use grep to search words only
+
+When you search for boo, grep will match fooboo, boo123, barfoo35 and more. You can force the grep command to select only those lines containing matches that form whole words i.e. match only boo word:
+
+$ grep -w "boo" file
+
+Use grep to search 2 different words
+
+Use the egrep command as follows:
+
+$ egrep -w 'word1|word2' /path/to/file
+
+Count line when words has been matched
+
+The grep can report the number of times that the pattern has been matched for each file using -c (count) option:
+
+$ grep -c 'word' /path/to/file
+
+Pass the -n option to precede each line of output with the number of the line in the text file from which it was obtained:
+
+$ grep -n 'root' /etc/passwd
+
+Sample outputs:
+
+1:root:x:0:0:root:/root:/bin/bash
+
+1042:rootdoor:x:0:0:rootdoor:/home/rootdoor:/bin/csh
+
+3319:initrootapp:x:0:0:initrootapp:/home/initroot:/bin/ksh
+
+Grep invert match
+
+You can use -v option to print inverts the match; that is, it matches only those lines that do not contain the given word. For example print all line that do not contain the word bar:
+
+$ grep -v bar /path/to/file
+
+UNIX / Linux pipes and grep command
+
+grep command often used with shell pipes. In this example, show the name of the hard disk devices:
+
+# dmesg | egrep '(s|h)d[a-z]'
+
+Display cpu model name:
+
+# cat /proc/cpuinfo | grep -i 'Model'
+
+However, above command can be also used as follows without shell pipe:
+
+# grep -i 'Model' /proc/cpuinfo
+
+Sample outputs:
+
+model        : 30
+
+model name    : Intel(R) Core(TM) i7 CPU       Q 820  @ 1.73GHz
+
+model        : 30
+
+model name    : Intel(R) Core(TM) i7 CPU       Q 820  @ 1.73GHz
+
+How do I list just the names of matching files?
+
+
+Use the -l option to list file name whose contents mention main():
+
+$ grep -l 'main' *.c
+
+Finally, you can force grep to display output in colors, enter:
+
+$ grep --color vivek /etc/passwd
+
+find . | grep "kernel" | sort | xargs grep -h -e "^Update: \[" -e "Lagacy mode" > ~/disk2/b.txt
+
+grep "HTC_HEADSET_CONFIG_MSM_RPC" -nir .
+
+find . | xargs  grep "07-16" | grep "\[LED\]" > ~/disk2/led.log.20140717.txt
+
+find ./ -maxdepth 1 | xargs grep "system"
+
+@bye
