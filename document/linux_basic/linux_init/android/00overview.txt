@@ -1,0 +1,26 @@
+Process 0
+The ancestor of all processes, called process 0, the idle process, or, for historical reasons, the swapper process, is a kernel thread created from scratch during the initialization phase of Linux (see Appendix A). This ancestor process uses the following statically allocated data structures (data structures for all other processes are dynamically allocated):
+A process descriptor stored in the init_task variable, which is initialized by the INIT_TASK macro.
+A thread_info descriptor and a Kernel Mode stack stored in the init_thread_union variable and initialized by the INIT_THREAD_INFO macro.
+The following tables, which the process descriptor points to:
+
+init_mm
+init_fs
+init_files
+init_signals
+init_sighand
+The tables are initialized, respectively, by the following macros:
+INIT_MM
+INIT_FS
+INIT_FILES
+INIT_SIGNALS
+INIT_SIGHAND
+The master kernel Page Global Directory stored in swapper_pg_dir (see the section "Kernel Page Tables" in Chapter 2).
+The start_kernel( ) function initializes all the data structures needed by the kernel, enables interrupts, and creates another kernel thread, named process 1 (more commonly referred to as the init process ):
+    kernel_thread(init, NULL, CLONE_FS|CLONE_SIGHAND);
+The newly created kernel thread has PID 1 and shares all per-process kernel data structures with process 0. When selected by the scheduler, the init process starts executing the init( ) function.
+After having created the init process, process 0 executes the cpu_idle( ) function, which essentially consists of repeatedly executing the hlt assembly language instruction with the interrupts enabled (see Chapter 4). Process 0 is selected by the scheduler only when there are no other processes in the TASK_RUNNING state.
+In multiprocessor systems there is a process 0 for each CPU. Right after the power-on, the BIOS of the computer starts a single CPU while disabling the others. The swapper process running on CPU 0 initializes the kernel data structures, then enables the other CPUs and creates the additional swapper processes by means of the copy_process( ) function passing to it the value 0 as the new PID. Moreover, the kernel sets the cpu field of the tHRead_info descriptor of each forked process to the proper CPU index.
+
+Process 1
+The kernel thread created by process 0 executes the init( ) function, which in turn completes the initialization of the kernel. Then init( ) invokes the execve( ) system call to load the executable program init. As a result, the init kernel thread becomes a regular process having its own per-process kernel data structure (see Chapter 20). The init process stays alive until the system is shut down, because it creates and monitors the activity of all processes that implement the outer layers of the operating system

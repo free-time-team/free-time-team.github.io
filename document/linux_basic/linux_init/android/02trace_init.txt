@@ -1,0 +1,17 @@
+resource
+system/core/rootdir/init.rc
+system/core/rootdir/etc/init.qcom.rc
+device/htc/common/rootdir/etc/init.target.rc
+
+syntax
+disabled: This service will not automatically start with its class. It must be explicitly started by name.
+oneshot: Do not restart the service when it exits.
+
+grep word from rc files
+grep mount_all -rs system/core/init system/core/rootdir device/
+
+reference
+https://github.com/android/platform_system_core/blob/master/init/readme.txt
+http://elinux.org/Android_Booting
+http://www.androidenea.com/2009/08/init-process-and-initrc.html
+http://stackoverflow.com/questions/8905593/whats-language-of-init-rc-in-android

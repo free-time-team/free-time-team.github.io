@@ -1,0 +1,8 @@
+init property handle
+main // core/init/init.c
+-> handle_property_set_fd // core/init/property_service.c
+
+http://book.51cto.com/art/201305/395921.htm
+http://blog.csdn.net/martingang/article/details/8170894
+https://bbs.sjtu.edu.cn/bbscon,board,Security,file,M.1322531146.A.html
+http://www.cnblogs.com/chenbin7/archive/2012/12/03/2799597.html

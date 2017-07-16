@@ -3,10 +3,10 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Linux init
+@settitle openrc
 
 @copying
-This manual is for editor, version 1.0.
+This manual is for Document, version 1.0.
 
 Copyright @copyright{} years free time team.
 
@@ -35,23 +35,24 @@ Published by
 
 @ifnottex
 @node Top
-@top Linux init
+@top openrc
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Linux init::
-@c * copying:: free time team
+* openrc::
+@c * Copying::  free time team
 @end menu
 
-@node Linux init
-@chapter Linux init
+@node openrc
+@chapter openrc
 
-==> @url{./android/index.html, android}
 
-==> @url{./systemd/index.html, systemd}
 
-==> @url{./openrc/index.html, openrc}
+
+
+
+
 
 @bye

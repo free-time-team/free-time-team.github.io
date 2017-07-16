@@ -1,0 +1,3 @@
+https://wiki.archlinux.org/index.php/Systemd
+http://www.freedesktop.org/wiki/Software/systemd/
+http://en.wikipedia.org/wiki/Systemd
