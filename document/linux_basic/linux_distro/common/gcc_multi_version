@@ -1,0 +1,24 @@
+​gcc修改编译器默认版本
+
+方法一:
+查看系统装了哪些版本的gcc: ls /usr/bin/gcc* -l
+可能的显示如下
+lrwxrwxrwx 1 root root      7 2011-08-14 15:17 /usr/bin/gcc -> gcc-4.6
+-rwxr-xr-x 1 root root 224544 2011-10-06 05:47 /usr/bin/gcc-4.4
+-rwxr-xr-x 1 root root 237072 2011-09-17 17:25 /usr/bin/gcc-4.5
+-rwxr-xr-x 1 root root 302104 2011-09-17 05:43 /usr/bin/gcc-4.6
+
+由上面显示可以看出默认安装的是gcc-4.6，现在来改成gcc-4.4
+删除gcc－4.6的软连接文件/usr/bin/gcc。（只是删除软连接）
+rm /usr/bin/gcc
+然后建一个软连接，指向gcc-4.4。
+ln -s /usr/bin/gcc-4.4 /usr/bin/gcc
+
+方法二：
+修改默认gcc和g++为4.4的版本
+update-alternatives --remove-all gcc
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.4 40
+update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.4 40
+配置默认的gcc和g++
+update-alternatives --config gcc
+update-alternatives --config g++

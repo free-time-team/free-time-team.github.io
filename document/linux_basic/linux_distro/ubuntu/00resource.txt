@@ -1,0 +1,11 @@
+download iso image
+http://old-releases.ubuntu.com/releases/
+http://releases.ubuntu.com/
+
+[debian 开发者手册]
+http://www.debian.org/doc/manuals/developers-reference/
+deb http://www.backports.org/debian/ etch-backports  main
+deb-src http://www.backports.org/debian/ etch-backports  main
+
+http://hi.baidu.com/zzcqh/blog/category/Debian
+http://hi.baidu.com/hy200304/blog/item/05956f51af01ee2142a75bb1.html

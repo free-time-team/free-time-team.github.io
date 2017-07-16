@@ -1,0 +1,42 @@
+install gentoo system
+https://wiki.gentoo.org/wiki/Handbook:X86/Full/Installation
+http://www.zhihu.com/question/19672940
+http://bg.biedalian.com/2014/04/07/gentoo-install-1.html
+https://wiki.gentoo.org/wiki/Main_Page
+
+compile and run kernel
+make menuconfig
+make && make modules_install
+make install
+
+make xxx_defconfig.
+xxx_defconfig去$(ARCH)/configs目录找。
+不是交叉编译，可以不指定ARCH和CROSS_COMPILE。
+如果gcc不能在$(PATH)中找到，也需要指定CROSS_COMPILE，带绝对路径。
+$(CROSS_COMPILE)gcc, $(CROSS_COMPILE)ld等就是make使用的gcc和ld。
+至于CROSS_COMPILE是绝对路径，还是文件名前缀，然后在$PATH里找，这就是随便了。
+只有code，直接找makefile里面使用CROSS_COMPILE的地方就行了。
+
+grub2-mkconfig -o /boot/grub/grub.cfg
+grub-mkconfig -o /boot/grub/grub.cfg  // for compile by myself
+
+debug kernel
+我今天用你的 gentoo 32bit 的系统，试了一下 crash /usr/src/linux/vmlinux
+之前的64bit系统，看上去是 crash tool 内置的 gdb 编译时配置错误了
+This GDB was configured as "x86_64-unknown-linux-gnu"
+正常的应该显示为
+x86_64-pc-linux-gnu
+
+你加什么选项，可以得到带符号表的vmlinux。
+make menuconfig
+-> kenel hacking
+-> compile-time check xxx
+ -> compile-time check xxx
+      -> compile the kernel with debug info
+
+
+gentoo emerge
+http://dongweiming.github.io/blog/archives/gentoobijijiuportageyuruanjianbao/
+
+resource
+https://forums.gentoo.org/

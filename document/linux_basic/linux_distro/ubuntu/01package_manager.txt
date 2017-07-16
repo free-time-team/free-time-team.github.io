@@ -1,0 +1,92 @@
+apt-get usage
+1. apt-get update
+此条命令是apt-get的起点，对于一个新安装的debian系统，我们都会同步一下软件库，好判定最新版本是什么，
+只有这样才能进行下一步的安装
+
+2. 安装vim
+apt-get install vim
+也可以自动确认 apt-get -y install vim
+
+3.删除软件
+apt-get remove vim
+
+4.升级软件 apt-get upgrade
+
+5.系统升级：(apt-get dist-upgrade)
+当转移整个系统时，如stable转换到testing，或是系统运行好一段时间都应该下这个指令。
+
+6.清理软件包：(apt-get clean)
+我们通过apt-get安装的任何软体都会先下载到 /var/cache/apt/archives/ 以及 /var/cache/apt/archive/partial/ 目录底下，
+一般预设 apt-get 在安装完软件后是不会自动清空.deb文件，这样我们就需要手工清楚软件包，执行 apt-get clean 后就会自动清理了
+
+apt-cache usage
+1.apt-cache showpkg
+显示软件包的一些常规信息
+例: apt-cache showpkg openssh
+
+2.apt-cache stats
+显示相关的统计信息顯示相關的統計資訊
+
+3.apt-cache dump
+显示缓存中的每个软件包的简要描述信息
+
+4.apt-cache unmet
+显示不符合一致性的依赖关系
+
+5.apt-cache show
+显示指定软件包的记录信息。类似于rpm -qi
+
+6.apt-cache search
+查找软件包，类似于rpm -qa|grep package_name
+例: apt-cache search openssh
+
+7.apt-cache depends
+显示软件包的依赖性关系
+
+8.apt-cache pkgnames
+列出所有的软件包
+
+sources
+http://www.debian.org/mirror/list
+
+几个比较快的
+deb ftp://ftp.cn.debian.org/debian/ stable main #contrib non-free
+deb http://mirrors.163.com/debian/ stable main #contrib non-free
+deb-src http://mirrors.163.com/debian/ stable main #contrib non-free
+deb http://security.debian.org/ stable/updates main
+
+其他常用sources
+# 香港主站
+deb http://ftp.hk.debian.org/debian squeeze-proposed-updates main contrib non-free
+deb-src http://ftp.hk.debian.org/debian squeeze-proposed-updates main contrib non-free
+
+# 网易镜像
+deb http://mirrors.163.com/debian squeeze-proposed-updates main contrib non-free
+deb-src http://mirrors.163.com/debian squeeze-proposed-updates main contrib non-free
+
+# 台湾主站
+deb http://ftp.tw.debian.org/debian squeeze-proposed-updates main contrib non-free
+deb-src http://ftp.tw.debian.org/debian squeeze-proposed-updates main contrib non-free
+
+# 搜狐镜像
+deb http://mirrors.sohu.com/debian squeeze-proposed-updates main contrib non-free
+deb-src http://mirrors.sohu.com/debian squeeze-proposed-updates main contrib non-free
+
+apt-get下载文件路径
+apt-get install **这样的命令会下载文件放在 /var/cache/apt/archives目录下，然后安装。这样这个目录所占空间会越来越大，幸运的是apt提供了相应的管理工具apt-get clean删除/var/cache/apt/archives/ 和 /var/cache/apt/archives/partial/目录下所有包(锁定的除外)。
+apt-get autoclean仅删除不再能被下载的包.  另外aptitude clean也可删除/var/cache/apt/archives/ 和 /var/cache/apt/archives/partial/目录下所有包(锁定的除外)。
+
+apt-spy
+1. 更新软件包列表并安装apt-spy
+#apt-get install apt-spy
+2. 自动下载列表并使用apt-spy测试最快的源
+#apt-spy update
+#apt-spy -d stable -a Asia
+3. 查看生成的配置文件，里面是最快的源
+#cat /etc/apt/sources.list.d/apt-spy.list
+#cp /etc/apt/sources.list.d/apt-spy.list /etc/apt/sources.list
+#apt-get update
+
+error
+libpq-dev: Depends: libpq5 (= 8.4.1-1) but 8.4.4-0ubuntu9.10 is to be installed
+apt-get install libpq5=8.4.1-1

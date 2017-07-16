@@ -1,0 +1,2 @@
+lspci
+cat /proc/cpuinfo

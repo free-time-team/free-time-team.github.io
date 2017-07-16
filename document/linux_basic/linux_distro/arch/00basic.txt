@@ -1,0 +1,56 @@
+wiki website
+https://wiki.archlinux.org
+
+download and install
+https://www.archlinux.org/download/
+https://wiki.archlinux.org/index.php/Installation_guide
+http://www.cnblogs.com/mad/p/3280041.html
+
+add user
+useradd -m -g users -s /bin/bash zzy
+passwd zzy
+
+del user
+userdel peter
+groupdel peter
+usermod –G peter peter   （强制删除该用户的主目录和主目录下的所有文件和子目录）
+http://www.cnblogs.com/xd502djj/archive/2011/11/23/2260094.html
+
+add sudoer
+At this point, you can make the non-root user a “sudoer”. A sudoer can run a command as root by passing it through the sudo command.
+First, install sudo:
+pacman -S sudo
+before edit: chmod u+w /etc/sudoers
+after edit: chmod u-w /etc/sudoers
+Then, add the following lines to /etc/sudoers (you can omit the comments of course, and replace archie with your user name):
+# The basic structure of a user spec looks like this:
+# who where = (as_whom) how: what
+zzy ALL=(ALL) NOPASSWD: ALL
+http://www.cs.columbia.edu/~jae/4118/arch-setup-2015-1.html
+https://wiki.archlinux.org/index.php/Users_and_groups
+
+arch for virtualbox
+http://www.cs.columbia.edu/~jae/4118/arch-setup-2015-1.html
+https://wiki.archlinux.org/index.php/VirtualBox
+http://superuser.com/questions/654693/ssh-port-on-virtual-machine-is-closed
+http://superuser.com/questions/424083/virtualbox-host-ssh-to-guest
+
+Ashlie's answer is correct, but I believe robinloop may have downloaded a recent version of Arch, with systemd installed, in which case the Open SSH server will be started with
+sudo systemctl enable sshd
+sudo systemctl start sshd
+You may check whether ssh correctly started by means of
+sudo systemctl status sshd
+
+set host 0.0.0.0:2222 guest 10.0.2.15:22
+ssh -p 2222 root@0.0.0.0
+
+install common software
+pacman -S python
+pacman -S gcc
+pacman -S vim
+pacman -S net-tools
+pacman -S git
+
+adjust resolution
+http://www.kafan.cn/edu/4429821.html
+https://wiki.sabayon.org/index.php?title=HOWTO:_Using_Custom_Framebuffer_Resolution_with_GRUB2

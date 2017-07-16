@@ -3,10 +3,10 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Linux distribution
+@settitle debian
 
 @copying
-This manual is for editor, version 1.0.
+This manual is for Document, version 1.0.
 
 Copyright @copyright{} years free time team.
 
@@ -35,31 +35,24 @@ Published by
 
 @ifnottex
 @node Top
-@top Linux distribution
+@top debian
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Linux distribution::
-@c * copying:: free time team
+* debian::
+@c * Copying::  free time team
 @end menu
 
-@node Linux distribution
-@chapter Linux distribution
+@node debian
+@chapter debian
 
-==> @url{./common/index.html, common}
 
-==> @url{./arch/index.html, arch}
 
-==> @url{./gentoo/index.html, gentoo}
 
-==> @url{./ubuntu/index.html, ubuntu}
 
-==> @url{./kali/index.html, kali}
 
-==> @url{./debian/index.html, debian}
 
-==> @url{./xfce/index.html, xfce}
 
 @bye

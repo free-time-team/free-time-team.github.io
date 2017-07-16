@@ -1,0 +1,33 @@
+install ubuntu from ubuntu
+复制引导文件
+下载 Ubuntu 的 desktop 光盘镜像iso文件，如 ubuntu-12.04-desktop-i386.iso：http://mirrors.sohu.com/ubuntu-releases/12.04/
+其他下载地址：
+http://mirrors.163.com/ubuntu-releases/
+http://mirrors.sohu.com/ubuntu-releases/
+http://cn.archive.ubuntu.com/ubuntu-releases/
+http://ubuntu.srt.cn/ubuntu-releases/
+http://tw.archive.ubuntu.com/ubuntu-releases/
+http://mirror.switch.ch/ftp/ubuntu-cdimage/
+http://ftp.heanet.ie/mirrors/ubuntu-cdimage/
+http://ftp.kddlabs.co.jp/020/Linux/packages/ubuntu/releases-cd/
+
+双击下载的ISO镜像文件，用归档管理器打开它；
+在窗口中找到casper文件夹，双击打开这个文件夹
+解压文件initrd.lz和vmlinuz，放到第一个分区中，把下载的ISO文件也放在里面
+
+修改grub.cfg文件
+打开终端，输入命令 sudo gedit /boot/grub/grub.cfg 打开文本编辑器；
+在文档的最后，添加一个启动项，iso文件名要改成跟下载相同的，分区位置也改成相应的；
+menuentry "Install Ubuntu12.04" {
+set root=(hd0,1)
+linux /vmlinuz boot=casper noacpi iso-scan/filename=/ubuntu-12.04-desktop-amd64.iso ro quiet splash locale=zh_CN.UTF-8 noprompt --
+initrd /initrd.lz
+}
+保存好文件，检查一下在第一分区中有3个复制过来的文件，仔细检查一下；
+
+reboot and install
+重新启动计算机，在出现启动菜单时，按方向键选择“Install Ubuntu12.04”，按回车键进入后开始安装，参阅：http://teliute.org/linux/Ubsetup/lesson21/lesson21.html
+
+resource
+// install ubuntu from ubuntu
+http://teliute.org/linux/Ubsetup/jichu2/jichu2.html

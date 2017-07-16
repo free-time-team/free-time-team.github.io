@@ -1,0 +1,2 @@
+make usb boot
+sudo dd if=/home/zzy/debian-8.2.0-amd64-CD-1.iso of=/dev/sdc bs=8M;sync

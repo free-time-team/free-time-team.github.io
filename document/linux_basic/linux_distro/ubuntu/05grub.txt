@@ -1,0 +1,17 @@
+ubuntu 修改操作系统启动顺序
+1. 备份/boot/grub/grub.cfg文件为 grub.cfg.bak
+    sudo cp /boot/grub/grub.cfg /boot/grub/grub.cfg.bak
+
+2. 修改启动顺序
+    sudo gedit /boot/grub/grub.cfg
+
+在打开顶文件中找到 set default = "0"，可以看出默认是第一项 (从 0 开始计数)。然后找到以 menuentry 开头的所有行.
+下面是我的电脑上该文件的内容，一共 7 行，最后一行是 Windows XP 项。
+以我的文件内容为例，我只要 set default = "6"(注意：从 0 开始计数)就可以把 Windows XP 改为默认启动系统。
+menuentry 'Ubuntu，Linux 2.6.32-22-generic'
+menuentry 'Ubuntu，Linux 2.6.32-22-generic (恢复模式)'
+menuentry 'Ubuntu，Linux 2.6.32-21-generic'
+menuentry 'Ubuntu，Linux 2.6.32-21-generic (恢复模式)'
+menuentry "Memory test (memtest86+)"
+menuentry "Memory test (memtest86+, serial console 115200)"
+menuentry "Microsoft Windows XP Professional (on /dev/sda1)"

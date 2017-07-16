@@ -1,0 +1,87 @@
+terminator
+sudo apt-get install terminator
+
+chromium
+http://community.linuxmint.com/tutorial/view/764
+sudo add-apt-repository ppa:chromium-daily/stable
+sudo apt-get update
+sudo apt-get install chromium-browser
+
+download tool
+sudo apt-get install curl
+
+ssh
+sudo apt-get install openssh-server
+
+youdao dict
+sudo add-apt-repository ppa:xdlailai/openyoudao
+sudo apt-get update
+sudo apt-get install openyoudao
+
+chm viewer
+sudo apt-get install kchmviewer
+
+skype
+sudo gedit /etc/apt/sources.list
+add:  deb http://download.skype.com/linux/repos/debian/ stable non-free  to sources.list file
+sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 0xd66b746e
+sudo apt-get update
+sudo apt-get install skype
+
+curl
+apt-get install curl
+
+ssh
+apt-get install openssh-client
+apt-get install openssh-server
+
+input method
+apt-get install ibus-pinyin
+1. 点击Dash home(乌龟图标), 弹出应用程序搜索器.
+2. 输入input, 选择Keyboard Input Methods.
+3. Input Method -> Select an
+input method -> chinese -> Pinyin -> Add
+
+ubuntu unity
+1. Ctrl+alt+T启动终端或者Ctrl+alt+F1登录字符界面，执行以下命令重新安装Ubuntu unity：
+   sudo apt-get install ubuntu-desktop
+   sudo apt-get install unity
+   sudo apt-get install unity-common
+   sudo apt-get install unity-lens*
+   sudo apt-get install unity-services
+   sudo apt-get install unity-asset-pool
+备注：后面两行命令执行时如果提示已经安装过了，那就不需要了。
+2. 更新ubuntu及组件
+   sudo apt-get update
+   sudo apt-get upgrade
+3. 移除所有无效的包和缓存
+   sudo apt-get autoremove
+   sudo apt-get autoclean
+
+Ubuntu图形界面基本安装与桌面环境
+http://os.51cto.com/art/201001/176340.htm
+安装基本Ubuntu图形界面：apt-get install xorg gdm ssh 你可以用/etc/init.d/gdm start　测试是否成功．一般是肯定成功的，所以你可以不用试了，然后再用’Ctrl + Alt + F1′.切换出去，因为我们还有很多东西要继续
+
+安装Gnome桌面:apt-get install gnome-session gnome-menus gnome-panel metacity nautilus 如果你想完全使用Gnome作为桌面的话你还需要安装：apt-get install gnome-applets gnome-control-center gnome-volume-manager libsmbclient gnome-screensaver menu network-manager-gnome gnome-utils gnome-system-tools gnome-netstatus-applet gnome-nettool libgnomevfs2-extra
+
+必须安装的软件：apt-get install gnome-terminal gedit firefox
+
+安装系统主题等：apt-get install ubuntu-artwork ubuntu-sounds human-theme usplash-theme-ubuntu，如果你想用gnome自带的那么：apt-get install gnome-themes tango-icon-theme tango-icon-theme-extras，个人觉得还是ubuntu的好看点，二选一就可以了 安装Ubuntu图形化工具，让你管理软件和驱动更容易apt-get install gnome-app-install update-manager restricted-manager
+
+3D桌面：apt-get install beryl-manager emerald-themes，完成后’System Tools’下的’Beryl Manager’自己设置吧视频音频：apt-get install gstreamer0.10-ffmpeg gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly gstreamer0.10-plugins-bad-multiverse gstreamer0.10-plugins-ugly-multiverse
+
+其他软件：apt-get install gnomebaker eog gaim gcalctool gimp gthumb file-roller ekiga evince mozilla-thunderbird openoffice.org openoffice.org-gnome rhythmbox totem-xine totem-mozilla xsane，我只建议安装gcalctool　file-roller evince mozilla-thunderbird　rhythmbox totem－xine totem-mozilla,分别是计算器，解压缩，又见客户端，音乐播放器，视频播放器及firefox视
+频插件；如果你是刻录机则还要 gnomebaker，扫描仪：xsane……
+受限驱动：apt-get install ubuntu-restricted-extras
+打印：apt-get install cupsys cupsys-bsd cupsys-client cupsys-common cupsys-driver-gutenprint foo2zjs foomatic-db foomatic-db-engine  foomatic-db-hpijs foomatic-filters gimp-print gnome-cups-manager，非办公环境就不需要了
+
+好了，一个完全属于你的系统诞生了，重启吧，对了，如果你的系统登陆登出都没有声音是因为你忘了apt-get install esound
+补充:中文支持 apt-get install language-pack-zh
+服务器装了基本系统后，用apt-get install ubuntu-desktop 装了桌面（占了1.4g左右的磁盘空间）
+升级并安装x windows(GNOME)桌面环境
+sudo apt-get update
+安装 X 窗口系统：sudo apt-get install x-window-system-core。
+
+安装登录管理器：sudo apt-get install xdm/gdm/kdm[注]。最常见的Ubuntu图形化登录管理器包括 XDM、GDM、KDM，用户可根据自己的需要选择其中之一。
+
+安装桌面环境或窗口管理器：sudo apt-get install Ubuntu-desktop/kubuntu -desktop/xubuntu-desktop。这将分别安装 GNOME、KDE、XFCE 桌面环境。对于 GNOME、KDE、XFCE 这些桌面环境来说，为了获得更强的定制效果，也可仅安装最基本的组件，如：sudo apt-get install gnome-core/kde-core/xfce4。当然，如果不需要桌面环境，也可选择安装窗口管理器代替。那样的话，可以执行指令 sudo apt-get install fluxbox/icewm/enlightenment/fvwm。

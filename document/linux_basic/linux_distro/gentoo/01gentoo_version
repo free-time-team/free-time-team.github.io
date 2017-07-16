@@ -1,0 +1,55 @@
+information
+install-x86-minimal-20150414.iso
+linux-3.18.11
+grub-2.02
+
+kernel study
+cp -rdp linux-3.18.11-gentoo linux-3.18.11-zzy
+cd linux-3.18.11-zzy
+git init
+git add -A .
+git config --global user.email "zzyjsjcom@126.com"
+git config --global user.name "zhiyuan_zhu"
+git commit -a -m "first commit"
+git remote add origin https://github.com/zzyjsjcom/linux-3.18.11-zzy.git
+git push -u origin master
+
+https://github.com/zzyjsjcom/linux-3.18.11-zzy.git
+
+git clone https://github.com/zzyjsjcom/linux-3.18.11-zzy.git
+
+// kernel log
+dmesg > a.txt
+
+
+grub study
+make
+make install
+grub2-mkconfig -o /boot/grub/grub.cfg
+
+autoreconf -ivf
+automake -ivf
+./configure
+make
+make config
+make install
+
+grub-install /dev/sda
+rm -r /boot/grub/*
+grub-mkconfig -o /boot/grub/grub.cfg
+
+git init
+git add -A .
+git commit -a -m "first commit"
+git remote add origin https://github.com/zzyjsjcom/grub-2.02-zzy.git
+git push -u origin master
+git clone https://github.com/zzyjsjcom/grub-2.02-zzy.git
+
+// grub source research
+http://my.oschina.net/u/135465/blog/130180
+http://www.vinoca.org/2011/10/29/grub%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/
+http://bbs.chinaunix.net/thread-2178378-1-1.html
+http://shayi1983.blog.51cto.com/4681835/1582288
+http://blog.csdn.net/u011013137/article/details/9160873
+http://blog.chinaunix.net/uid-7295895-id-3011226.html
+http://blog.csdn.net/cppgp/article/details/2060146

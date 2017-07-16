@@ -1,0 +1,33 @@
+install sudo
+https://wiki.gentoo.org/wiki/Sudo
+emerge sudo
+before edit: chmod u+w /etc/sudoers
+after edit: chmod u-w /etc/sudoers
+Then, add the following lines to /etc/sudoers (you can omit the comments of course, and replace archie with your user name):
+# The basic structure of a user spec looks like this:
+# who where = (as_whom) how: what
+archie ALL=(ALL) NOPASSWD: ALL
+
+install vim with cscope
+sudo emerge -f vim
+sudo find / -name "vim-7.4.tar.bz2"
+cd /usr/portage/distfiles/
+sudo tar -jxf vim-7.4.tar.bz2
+cd vim74/
+./configure --enable-cscope --prefix=/usr
+make
+./src/vim --version | grep cscope
+sudo make install
+
+install e2fsprogs
+emerge -s e2fsprogs
+sudo emerge --fetchonly sys-fs/e2fsprogs
+
+install gdb
+curl -O http://ftp.gnu.org/gnu/gdb/gdb-7.8.tar.xz
+tar -Jxf gdb-7.8.tar.xz
+cd gdb-7.8
+./configure --prefix=/usr --with-system-readline &&
+make
+sudo make -C gdb install
+http://www.linuxfromscratch.org/blfs/view/7.6/general/gdb.html

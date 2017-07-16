@@ -1,0 +1,9 @@
+
+// main website
+http://www.xfce.org
+
+// download
+http://www.xfce.org/download
+
+// build xfce from source
+http://docs.xfce.org/xfce/building

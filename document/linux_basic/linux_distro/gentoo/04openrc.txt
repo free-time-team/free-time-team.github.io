@@ -1,0 +1,1 @@
+只知道ubuntu的发展路径是sysvInit->upstart->systemd，刚出的15.04默认已经是systemd了。

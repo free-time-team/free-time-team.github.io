@@ -1,0 +1,289 @@
+localhost linux # emerge cscope
+
+ * IMPORTANT: 10 news items need reading for repository 'gentoo'.
+ * Use eselect news to read news items.
+
+Calculating dependencies... done!
+
+>>> Verifying ebuild manifests
+
+>>> Emerging (1 of 1) dev-util/cscope-15.8a::gentoo
+>>> Downloading 'http://distfiles.gentoo.org/distfiles/cscope-15.8a.tar.gz'
+--2015-04-20 02:05:09--  http://distfiles.gentoo.org/distfiles/cscope-15.8a.tar.gz
+Resolving distfiles.gentoo.org... 137.226.34.42, 64.50.233.100, 140.211.166.134, ...
+Connecting to distfiles.gentoo.org|137.226.34.42|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 601232 (587K) [application/octet-stream]
+Saving to: '/usr/portage/distfiles/cscope-15.8a.tar.gz'
+
+/usr/portage/distfi 100%[=====================>] 587.14K  37.4KB/s   in 13s
+
+2015-04-20 02:05:26 (44.8 KB/s) - '/usr/portage/distfiles/cscope-15.8a.tar.gz' saved [601232/601232]
+
+ * cscope-15.8a.tar.gz SHA256 SHA512 WHIRLPOOL size ;-) ...                                                                                    [ ok ]
+>>> Unpacking source...
+>>> Unpacking cscope-15.8a.tar.gz to /var/tmp/portage/dev-util/cscope-15.8a/work
+>>> Source unpacked in /var/tmp/portage/dev-util/cscope-15.8a/work
+>>> Preparing source in /var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a ...
+ * Applying cscope-15.7a-ocs-sysdir.patch ...                                                                                                  [ ok ]
+ * Running eautoreconf in '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a' ...
+ * Running aclocal ...                                                                                                                         [ ok ]
+ * This package has a configure.in file which has long been deprecated.  Please
+ * update it to use configure.ac instead as newer versions of autotools will die
+ * when it finds this file.  See https://bugs.gentoo.org/426262 for details.
+ * Running autoconf --force ...                                                                                                                [ ok ]
+ * Running autoheader ...                                                                                                                      [ ok ]
+ * Running automake --add-missing --copy --force-missing ...                                                                                   [ ok ]
+ * Running elibtoolize in: cscope-15.8a/
+>>> Source prepared.
+>>> Configuring source in /var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a ...
+ * econf: updating cscope-15.8a/config.guess with /usr/share/gnuconfig/config.guess
+ * econf: updating cscope-15.8a/config.sub with /usr/share/gnuconfig/config.sub
+./configure --prefix=/usr --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu --mandir=/usr/share/man --infodir=/usr/share/info --datadir=/usr/share --sysconfdir=/etc --localstatedir=/var/lib --disable-dependency-tracking --libdir=/usr/lib
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking build system type... i686-pc-linux-gnu
+checking host system type... i686-pc-linux-gnu
+checking for i686-pc-linux-gnu-gcc... i686-pc-linux-gnu-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether i686-pc-linux-gnu-gcc accepts -g... yes
+checking for i686-pc-linux-gnu-gcc option to accept ISO C89... none needed
+checking for style of include used by make... GNU
+checking dependency style of i686-pc-linux-gnu-gcc... none
+checking whether i686-pc-linux-gnu-gcc and cc understand -c and -o together... yes
+checking for flex... flex
+checking lex output file root... lex.yy
+checking lex library... -lfl
+checking whether yytext is a pointer... yes
+checking for bison... bison -y
+checking how to run the C preprocessor... i686-pc-linux-gnu-gcc -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+configure: checking "location of ncurses.h file"...
+Found ncurses on /usr/include/ncurses.h
+checking for ncurses version... 5.9
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking regex.h usability... yes
+checking regex.h presence... yes
+checking for regex.h... yes
+checking for regcomp in -lregex... no
+checking for gnome-config... no
+checking for pkg-config... true
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking for ANSI C header files... (cached) yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking sys/window.h usability... no
+checking sys/window.h presence... no
+checking for sys/window.h... no
+checking sys/termios.h usability... yes
+checking sys/termios.h presence... yes
+checking for sys/termios.h... yes
+checking for unistd.h... (cached) yes
+checking signal.h usability... yes
+checking signal.h presence... yes
+checking for signal.h... yes
+checking floss.h usability... no
+checking floss.h presence... no
+checking for floss.h... no
+checking io.h usability... no
+checking io.h presence... no
+checking for io.h... no
+checking for an ANSI C-conforming const... yes
+checking for mode_t... yes
+checking for pid_t... yes
+checking for size_t... yes
+checking for sighandler_t... no
+checking for sigsetjmp... yes
+checking return type of signal handlers... void
+checking for strchr... yes
+checking for memcpy... yes
+checking for memset... yes
+checking for setmode... no
+checking for _setmode... no
+checking for getcwd... yes
+checking for regcmp... no
+checking for regcomp... yes
+checking for strerror... yes
+checking for lstat... yes
+checking for fixkeypad... no
+checking for getopt_long... yes
+checking for stdarg.h... yes
+checking for varargs.h... no
+checking for unsigned long long int... yes
+checking for vsnprintf... yes
+checking whether vsnprintf is C99 compliant... yes
+checking for snprintf... yes
+checking whether snprintf is C99 compliant... yes
+checking for vsnprintf... (cached) yes
+checking whether vsnprintf is C99 compliant... (cached) yes
+checking for vasprintf... yes
+checking for asprintf... yes
+checking for vasprintf... (cached) yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating doc/Makefile
+config.status: creating src/Makefile
+config.status: creating contrib/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+>>> Source configured.
+>>> Compiling source in /var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a ...
+make 'CURSES_LIBS=-lncurses '
+make  all-recursive
+make[1]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+Making all in doc
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/doc'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/doc'
+Making all in src
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/src'
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c fscanner.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c egrep.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c alloc.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c basename.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c build.c
+build.c: In function 'build':
+build.c:261:13: warning: ignoring return value of 'fscanf', declared with attribute warn_unused_result [-Wunused-result]
+       fscanf(oldrefs, "%ld", &totalterms);
+             ^
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c command.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c compath.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c crossref.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c dir.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c display.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c edit.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c exec.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c find.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c help.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c history.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c input.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c invlib.c
+invlib.c: In function 'invopen':
+invlib.c:638:8: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+   fread(invcntl->iindex, (int) invcntl->param.supsize, 1,
+        ^
+invlib.c: In function 'invstep':
+invlib.c:704:7: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+  fread(invcntl->logblk, (int) invcntl->param.sizeblk, 1,
+       ^
+invlib.c: In function 'invfind':
+invlib.c:781:8: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+   fread(invcntl->logblk, (int)invcntl->param.sizeblk, 1,
+        ^
+invlib.c: In function 'boolfile':
+invlib.c:978:7: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+  fread(&posting, sizeof(posting), 1, file);
+       ^
+invlib.c:993:10: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+     fread(&posting, (int) sizeof(posting), 1, file);
+          ^
+invlib.c:1002:10: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+     fread(&posting, (int) sizeof(posting), 1, file);
+          ^
+invlib.c:1008:10: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+     fread(&posting, (int) sizeof(posting), 1, file);
+          ^
+invlib.c:1022:10: warning: ignoring return value of 'fread', declared with attribute warn_unused_result [-Wunused-result]
+     fread(&posting, (int) sizeof(posting), 1, file);
+          ^
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c logdir.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c lookup.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c main.c
+main.c: In function 'main':
+main.c:618:13: warning: ignoring return value of 'fscanf', declared with attribute warn_unused_result [-Wunused-result]
+       fscanf(oldrefs, "%ld", &totalterms);
+             ^
+main.c:676:9: warning: ignoring return value of 'fgets', declared with attribute warn_unused_result [-Wunused-result]
+    fgets(path, sizeof(path), names);
+         ^
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c mouse.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c mygetenv.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c mypopen.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c vpaccess.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c vpfopen.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c vpinit.c
+i686-pc-linux-gnu-gcc -DHAVE_CONFIG_H -I. -I..     -O2 -march=i686 -pipe -c vpopen.c
+i686-pc-linux-gnu-gcc  -O2 -march=i686 -pipe  -Wl,-O1 -Wl,--as-needed -o cscope fscanner.o egrep.o alloc.o basename.o build.o command.o compath.o crossref.o dir.o display.o edit.o exec.o find.o help.o history.o input.o invlib.o logdir.o lookup.o main.o mouse.o mygetenv.o mypopen.o vpaccess.o vpfopen.o vpinit.o vpopen.o -lncurses  -lfl
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/src'
+Making all in contrib
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/contrib'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/contrib'
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+make[1]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+>>> Source compiled.
+>>> Test phase [not enabled]: dev-util/cscope-15.8a
+
+>>> Install cscope-15.8a into /var/tmp/portage/dev-util/cscope-15.8a/image/ category dev-util
+make DESTDIR=/var/tmp/portage/dev-util/cscope-15.8a/image/ install
+Making install in doc
+make[1]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/doc'
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/doc'
+make[2]: Nothing to be done for 'install-exec-am'.
+ /bin/mkdir -p '/var/tmp/portage/dev-util/cscope-15.8a/image//usr/share/man/man1'
+ /usr/bin/install -c -m 644 cscope.1 '/var/tmp/portage/dev-util/cscope-15.8a/image//usr/share/man/man1'
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/doc'
+make[1]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/doc'
+Making install in src
+make[1]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/src'
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/src'
+ /bin/mkdir -p '/var/tmp/portage/dev-util/cscope-15.8a/image//usr/bin'
+  /usr/bin/install -c cscope '/var/tmp/portage/dev-util/cscope-15.8a/image//usr/bin'
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/src'
+make[1]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/src'
+Making install in contrib
+make[1]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/contrib'
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/contrib'
+ /bin/mkdir -p '/var/tmp/portage/dev-util/cscope-15.8a/image//usr/bin'
+ /usr/bin/install -c ocs '/var/tmp/portage/dev-util/cscope-15.8a/image//usr/bin'
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/contrib'
+make[1]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a/contrib'
+make[1]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+make[2]: Entering directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+make[2]: Nothing to be done for 'install-exec-am'.
+make[2]: Nothing to be done for 'install-data-am'.
+make[2]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+make[1]: Leaving directory '/var/tmp/portage/dev-util/cscope-15.8a/work/cscope-15.8a'
+>>> Completed installing cscope-15.8a into /var/tmp/portage/dev-util/cscope-15.8a/image/
+
+strip: i686-pc-linux-gnu-strip --strip-unneeded -R .comment -R .GCC.command.line -R .note.gnu.gold-version
+   usr/bin/cscope
+ecompressdir: bzip2 -9 /usr/share/doc
+ecompressdir: bzip2 -9 /usr/share/man
+
+>>> Installing (1 of 1) dev-util/cscope-15.8a::gentoo
+
+>>> Recording dev-util/cscope in "world" favorites file...
+>>> Auto-cleaning packages...
+
+>>> No outdated packages were found on your system.
+
+ * GNU info directory index is up-to-date.
+
+ * IMPORTANT: 10 news items need reading for repository 'gentoo'.
+ * Use eselect news to read news items.

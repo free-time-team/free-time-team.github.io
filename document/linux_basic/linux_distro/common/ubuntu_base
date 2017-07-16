@@ -1,0 +1,33 @@
+quick
+F11: 全屏cmd窗口
+
+check version
+$ uname -a
+Linux zzy-ubuntu 3.5.0-23-generic #35~precise1-Ubuntu SMP Fri Jan 25 17:13:26 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 12.04.2 LTS
+Release:        12.04
+Codename:       precise
+
+ubuntu sudo
+xxx is not in the sudoers file解决方法
+用sudo时提示"xxx is not in the sudoers file. This incident will be reported.其中XXX是你的用户名，也就是你的用户名没有权限使用sudo,我们只要修改一下/etc/sudoers文件就行了。下面是修改方 法：
+
+1）进入超级用户模式。也就是输入"su -",系统会让你输入超级用户密码，输入密码后就进入了超级用户模式。（当然，你也可以直接用root用）
+2）添加文件的写权限。也就是输入命 令"chmod u+w /etc/sudoers"。
+3）编辑/etc/sudoers文件。也就是输入命令"vim /etc/sudoers",输入"i"进入编辑模式，找到这一 行："root ALL=(ALL) ALL"在起下面添加"xxx ALL=(ALL) ALL"(这里的xxx是你的用户名)，然后保存（就是先按一 下Esc键，然后输入":wq"）退出。
+4）撤销文件的写 权限。也就是输入命令"chmod u-w /etc/sudoers"。
+
+安装完ubuntu后，为了安全起见，root用户是没有设置密码及启用状态的。
+
+输入以下命令并按提示输入新的密码即可使用sudo命令。
+$ sudo passwd root
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+
+Ubuntu Packages Search
+http://packages.ubuntu.com/

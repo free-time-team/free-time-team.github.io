@@ -1,0 +1,5 @@
+
+Desktop Ubuntu 14.04.3 LTS
+curl -O -C- "http://mirrors.163.com/ubuntu-releases/14.04.3/ubuntu-14.04.3-desktop-amd64.iso"
+The Long Term Support (LTS) version of the Ubuntu operating system for desktop PCs and laptops,
+Ubuntu 14.04.3 LTS comes with five years of security and maintenance updates, guaranteed.

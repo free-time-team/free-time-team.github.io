@@ -1,0 +1,22 @@
+environment
+ubuntu13.10 example
+
+commands
+sudo apt-get install build-essential kernel-package libncurses5-dev
+sudo apt-cache search linux-source
+follow the prompts, type:
+sudo apt-get install linux-source-x.x.x
+cd /usr/src
+sudo tar -xjvf linux-x.x.x.tar.bz2
+sudo ln -s linux-source-x.x.x linux
+cd linux
+make menuconfig
+make
+make modules
+make modules_install
+make install
+reboot
+
+reference
+http://www.360doc.com/content/12/0604/12/8890849_215794364.shtml
+http://www.thegeekstuff.com/2013/06/compile-linux-kernel/

@@ -1,0 +1,3 @@
+remove a panel
+remove panel 2 for example
+panel -> panel preferences -> panel 2 -> Remvoe the currently selected panel

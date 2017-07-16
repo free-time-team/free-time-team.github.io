@@ -1,0 +1,39 @@
+emerge usage
+1 查看 Portage 树 lls /usr/portage –classify 注，也能切换到更深的目录查看类别，软件包等
+2 搜寻软件包
+emerge –search mozilla 或者emerge -s mozilla # 搜寻和anjuta有关的软件信息
+Searching… [ Results for search key : anjuta ] [ Applications found : 1 ]
+*  dev-util/anjuta Latest version available: 2.32.1.1 Latest version installed:
+2.32.1.1 Size of files: 9,934 kB Homepage:
+http://www.anjuta.org Description:   A versatile IDE for GNOME License:
+GPL-2
+3 搜寻相关描述信息 dongwm@localhost ~ $sudo emerge –searchdesc mozilla
+4 更新portage dongwm@localhost ~ $sudo emerge –sync #要以 rsync 更新 Portage,因为不更新portage树的话 gentoo软件会停留在一些版本上，系统会很快变得过时
+5 预编译 也就是假装编译，其实并没有编译安装 dongwm@localhost ~ $sudo emerge –pretend anjuta （不编译安装，可以用来查看这个软件包将安装的依赖性软件，简写: -p）
+6 只获取软件的源码 dongwm@localhost ~ $sudo emerge –fetchonly anjuta  [不编译安装，下载这个软件的源代码以及他的依赖性软件，简写：-f]
+7 安装指定版本的 dongwm@localhost ~ $sudo emerge “<anjuta-2.22”
+8 显示安装软件所有的依赖性 dongwm@localhost ~ $sudo emerge –emptytree –pretend anjuta
+9 查看软件所需源代码的网址 dongwm@localhost ~ $sudo emerge –fetchonly –pretend anjuta
+10 不理会依赖关系而安装 dongwm@localhost ~ $sudo emerge –nodeps anjuta
+11 安装软件的依赖关系 dongwm@localhost ~ $sudo emerge –onlydeps anjuta
+12 列出与删除已不需要的 (orphaned) 依赖关系
+
+dongwm@localhost ~ $sudo emerge -p depclean (在认真检查过输出的列表之后, 开始卸载不用的依赖关系包) dongwm@localhost ~ $sudo emerge depclean
+
+注：使用 depclean 很有可能严重地损坏gentoo系统 ，需要小心谨慎, 并在实际删除前反复检查依赖关系包列表.
+13 更新系统软件包 dongwm@localhost ~ $sudo emerge –update system
+14 更新整个系统 dongwm@localhost ~ $sudo emerge –update world
+15 预更新整个系统
+dongwm@localhost ~ $sudo emerge –pretend –update world
+在单词 “ebuild” 旁边您可以看到一个字母 (或字母的组合)：
+B (blocks) 左边列出来的软件因为冲突原因将阻碍右边列出来的软件的安装
+N (new) 对于您的系统来说这是一个新软件, 且为第一次安装
+R (replace) 不是新软件, 不过会被重新 emerge (reemerged)
+F (fetch) 该软件要求您先把源码手工地下载回来 (例如因为许可 (licencing issues) 的缘故)
+U (update) 软件包已安装, 不过将被升级
+UD (downgrade) 软件包已安装, 不过将被降级 注： 1 可能更新后重启登录到login界面出现键盘无响应的问题，需要使用安装光盘那chroot到系统重新安装xf86-input-evdev（热插拔）问题，或者在更新系统旧重新安装，防止重启出现无响应 sudo emerge xf86-input-evdev 2 当更新时出现某软件包 404 not found 你可以去找一个其它的源下载这个软件包到/usr/portage/distfiles/目录下（如果你没有修改Portage对存放软件包位置的配置）
+
+16 更新整个系统, 且包括所有依赖关系
+dongwm@localhost ~ $sudo  emerge –update –deep world 注：world 文件不包含依赖关系. 当您 运行 emerge –update world 时, 仅有 world 文件中列出的那些软件包及其直接的 (immediate) 依赖包会被检查或, 必要的话, 会被更新. 如果您想让 emerge 检查所有的依赖关系 (包括依赖包的依赖包), 则请加多一个 –deep 参数:
+
+17 卸载软件 emerge -C anjuta
