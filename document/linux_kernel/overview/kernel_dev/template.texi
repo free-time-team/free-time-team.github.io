@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle Linux kernel
+@settitle zzy_title
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,30 +35,22 @@ Published by
 
 @ifnottex
 @node Top
-@top Linux kernel
+@top zzy_top
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* overview::
-* hardware basic::
+* Introduction::
 @c * Copying::  free time team
 @end menu
 
-@node overview
-@chapter overview
+@node Introduction
+@chapter Introduction
 
-===> @url{./overview/kernel_analysis/index.html, kernel analysis}
 
-===> @url{./overview/kernel_debug/index.html, kernel debug}
 
-===> @url{./overview/kernel_dev/index.html, kernel development}
 
-@node hardware basic
-@chapter hardware basic
-
-===> @url{./hw_basic/index.html, hardware basic}
 
 
 

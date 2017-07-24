@@ -1,0 +1,20 @@
+778rgb 转 mipi
+晶振滤波电阻
+
+ddr
+// [攻克存储] 掌握SDRAM/DDR的结构与寻址
+http://ticktick.blog.51cto.com/823160/686447/
+
+eev blog
+https://www.youtube.com/playlist?list=PL2862BF3631A5C1AA // eev blog
+电焊视频英文关键字: solder 焊接 flux 助焊剂 iron 电烙铁 hot air gun 热风枪
+
+reserse engineering
+http://www.devttys0.com/2012/11/reverse-engineering-serial-ports/
+
+...
+Jtag
+http://blog.senr.io/blog/jtag-explained
+https://sysforensics.org/2016/08/jtaging-mobile-phones/  // JTAGing Mobile Phones
+...
+usb: gnd, vcc, d+, d-
