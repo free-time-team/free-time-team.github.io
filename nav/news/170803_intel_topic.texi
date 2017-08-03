@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle 最新文章及消息
+@settitle linux kernel maintainer YY 直播
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,21 +35,29 @@ Published by
 
 @ifnottex
 @node Top
-@top 最新文章及消息
+@top linux kernel maintainer YY 直播
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* 最新文章及消息::
+* linux kernel maintainer YY 直播::
 @c * Copying::  free time team
 @end menu
 
-@node 最新文章及消息
-@chapter 最新文章及消息
+@node linux kernel maintainer YY 直播
+@chapter linux kernel maintainer YY 直播
 
-@ @ @ @ linux kernel maintainer YY 直播 ===> @url{./news/170803_intel_topic.html, linux kernel topic}
+@b{作者: zhenyuw@@linux.intel.com}
 
-@ @ @ @ linux 内核打包学习环境 ===> @url{https://free-time-team.github.io/nav/linux_kernel_cn.html, linux kernel study}
+@b{整理: 周文嘉}
+
+
+近期将会有 Intel 工程师， linux kernel GVT-g 作者， 以个人名义，在YY平台做一个直播。
+
+和广大工程师一起做技术交流，内容会涵盖如何向 GVT-g 提交patch。
+渴望对linux kenrel做贡献的同学，可以关注直播时间。
+
+Ft2 team 将会把这些内容作为一个topic，整理、讨论，并且不定期在网站update。
 
 @bye
