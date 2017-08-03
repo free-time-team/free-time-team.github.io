@@ -102,10 +102,11 @@ android-21-arm64.tgz  ==> for arm64
 @b{For android}
 
 @example
-@b{get code}:
+@b{download toolchain}: https://github.com/zzy-program/arm/blob/master/00toolchain/android-21-arm64.tgz
+@b{get code}: https://github.com/zzy-program/arm.git
 
 @b{build/run}
-connect the android arm64 device and confirm development mode
+连上 android arm64 设备，并确保设备处于development mode。
 cd arm/neon/00tutorial
 make
 make run_neon_test
