@@ -48,7 +48,7 @@ This manual is for program, version version.
 @node linux kernel maintainer YY 直播
 @chapter linux kernel maintainer YY 直播
 
-@b{作者: zhenyuw@@linux.intel.com}
+@b{作者: zhi.a.wang@@linux.intel.com}
 
 @b{整理: 周文嘉}
 
