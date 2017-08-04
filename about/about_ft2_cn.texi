@@ -59,7 +59,7 @@ Free-time team, 简称 Ft2 Team，致力于创建全球的高质量免费教育�
 
 当官方论坛地址失效时，可尝试访问论坛备份地址。
 
-我们的团队，有来自HTC、SpreadTrum、Cisco、Leadcore、Qualcomm等各大公司的高级工程师， 有向 Linux kernel社区、 MySQL社区等提交patch并且被 Mainline 分支采纳的技术专家。
+我们的团队，有来自各大公司的高级工程师， 有向 Linux kernel社区、 MySQL社区等提交patch并且被 Mainline 分支采纳的技术专家。
 社区致力于创建百年老店。这就意味着，即使团队的创始人或者核心成员某一天去世了，Free-time team也将会通过交接的方式维持下去。这是我们的目标，虽然难度比较大。
 社区主要坚持两个底线，1. 不能有知识和技术壁垒。 2. 网站上不能有商业广告(当然以后网站上的友情链接可能会放上，学校、企业的logo和网址)。
 目前属于社区创建之初，后续会不断update， linux kernel、MySQL、Security、Android、Crack、Soc Chip等等方面的高质量patch、paper等研究成果。
