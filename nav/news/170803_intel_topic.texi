@@ -63,7 +63,9 @@ This manual is for program, version version.
 @node Abstract
 @section Abstract
 
-@b{Date:} About, 16:00, 8/6 2017, Sunday
+@b{Date: About }, 16:00, 8/6 2017, Sunday。
+
+@b{王叔叔飞机航班延误，直播时间可能会有延后，我们尽量赶在8月6日下午四点。}
 
 @b{Address:} @url{http://m.huya.com/1873077328, http://m.huya.com/1873077328}
 
