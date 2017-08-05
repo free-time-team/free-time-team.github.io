@@ -48,10 +48,28 @@ This manual is for program, version version.
 @node linux kernel maintainer YY 直播
 @chapter linux kernel maintainer YY 直播
 
-@b{作者: zhi.a.wang@@linux.intel.com}
+@b{作者: zhi.a.wang@@intel.com}
 
 @b{整理: 周文嘉}
 
+@menu
+* Abstract::
+* Description::
+* Related::
+@c * Copying::  free time team
+@end menu
+
+@node Abstract
+@section Abstract
+
+@b{Date:} About, 16:00, 8/6 2017, Sunday
+
+@b{Address:} @url{http://m.huya.com/1873077328, http://m.huya.com/1873077328}
+
+@b{Content:} How to commit your first linux kernel patch
+
+@node Description
+@section Description
 
 近期将会有 Intel 工程师， linux kernel GVT-g 作者， 以个人名义，在YY平台做一个直播。
 
@@ -59,5 +77,26 @@ This manual is for program, version version.
 渴望对linux kenrel做贡献的同学，可以关注直播时间。
 
 Ft2 team 将会把这些内容作为一个topic，整理、讨论，并且不定期在网站update。
+
+
+@node Related
+@section Related
+
+2. intel gpu
+@b{Ubuntu16.10:}
+Ubuntu16.10: http://old-releases.ubuntu.com/releases/16.10/
+
+@b{patch contribute}
+
+https://01.org/zh/node/9145
+
+https://01.org/zh/node/9140
+
+@b{GVTg Setup Guide}
+
+https://github.com/01org/gvt-linux/wiki/GVTg_Setup_Guide
+
+@b{A patch example}
+https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html
 
 @bye
