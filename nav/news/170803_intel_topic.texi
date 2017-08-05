@@ -55,6 +55,7 @@ This manual is for program, version version.
 @menu
 * Abstract::
 * Description::
+* App tutoiral::
 * Related::
 @c * Copying::  free time team
 @end menu
@@ -78,13 +79,33 @@ This manual is for program, version version.
 
 Ft2 team 将会把这些内容作为一个topic，整理、讨论，并且不定期在网站update。
 
+@node App tutoiral
+@section App tutoiral
+
+以下是针对手机并且需要下载app的朋友的一个简单入门教程。
+以下步骤，都是在手机上操作。
+
+@b{==> 1.} 打开王叔叔直播空间页面: http://m.huya.com/1873077328
+
+  记住王叔叔直播间的网名 "隔壁王叔叔" 以及左边的 Icon 图标，后面会用到。
+
+  点击右下角的 “打开APP”, 将会开始下载“虎牙直播” APP。
+
+@b{==> 2.} App安装完成打开后，注册帐号。
+
+@b{==> 3.} 从搜索栏搜索 "隔壁王叔叔"， 打开你刚才记住的那个用户，点击“订阅”
+
+@b{==> 4.}  此后从 “我的” -> “我的订阅” 将会看到隔壁王叔叔了。
+
+最后的效果图，如下。
+
+@image{./00resource/YY_Picture, jpg}
 
 @node Related
 @section Related
 
-2. intel gpu
 @b{Ubuntu16.10:}
-Ubuntu16.10: http://old-releases.ubuntu.com/releases/16.10/
+@url{Ubuntu16.10: http://old-releases.ubuntu.com/releases/16.10/, ubuntu 16.10 download address}
 
 @b{patch contribute}
 
@@ -96,7 +117,7 @@ https://01.org/zh/node/9140
 
 https://github.com/01org/gvt-linux/wiki/GVTg_Setup_Guide
 
-@b{A patch example}
-https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html
+@b{A patch example:}
+@url{https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html, example}
 
 @bye
