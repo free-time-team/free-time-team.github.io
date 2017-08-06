@@ -119,11 +119,11 @@ Ft2 team 将会把这些内容作为一个topic，整理、讨论，并且不定
 @b{Ubuntu16.10:}
 @url{Ubuntu16.10: http://old-releases.ubuntu.com/releases/16.10/, ubuntu 16.10 download address}
 
-@b{patch contribute}
+@b{GVT-g document}
 
-https://01.org/zh/node/9145
+@b{https://01.org/zh/node/9145, HOW TO CONTRIBUTE TO GVT-G PROJECT}
 
-https://01.org/zh/node/9140
+@b{https://01.org/zh/node/9140, GVT-G NEW ARCHITECTURE INTRODUCTION--UPDATE}
 
 @b{GVTg Setup Guide}
 
