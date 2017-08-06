@@ -107,7 +107,7 @@ Ft2 team 将会把这些内容作为一个topic，整理、讨论，并且不定
 @node Related topic
 @section Related topic
 
-@b{送老师作品}
+@b{宋老师作品}
 @url{https://mp.weixin.qq.com/s/vvGsn8zN0aLO27D71y3a6g, 怎么给Linux mainline发patch}
 
 @b{A patch example:}
