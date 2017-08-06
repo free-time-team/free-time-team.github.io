@@ -121,9 +121,9 @@ Ft2 team 将会把这些内容作为一个topic，整理、讨论，并且不定
 
 @b{GVT-g document}
 
-@b{https://01.org/zh/node/9145, HOW TO CONTRIBUTE TO GVT-G PROJECT}
+@url{https://01.org/zh/node/9145, HOW TO CONTRIBUTE TO GVT-G PROJECT}
 
-@b{https://01.org/zh/node/9140, GVT-G NEW ARCHITECTURE INTRODUCTION--UPDATE}
+@url{https://01.org/zh/node/9140, GVT-G NEW ARCHITECTURE INTRODUCTION--UPDATE}
 
 @b{GVTg Setup Guide}
 
