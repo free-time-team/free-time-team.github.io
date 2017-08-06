@@ -68,7 +68,7 @@ This manual is for program, version version.
 
 @b{王叔叔飞机航班延误，直播时间可能会有延后，我们尽量赶在8月6日下午四点。}
 
-@b{Address:} @url{http://m.huya.com/1873077328, http://m.huya.com/1873077328}
+@b{Address:} @url{http://www.huya.com/1272134181?platform=2&from=wx&source=android&fromyy=2094749164, 王叔叔直播间}
 
 @b{Content:} How to commit your first linux kernel patch
 
