@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle linux kernel maintainer YY 直播
+@settitle linux kernel maintainer 虎牙直播
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,18 +35,18 @@ Published by
 
 @ifnottex
 @node Top
-@top linux kernel maintainer YY 直播
+@top linux kernel maintainer 虎牙直播
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* linux kernel maintainer YY 直播::
+* linux kernel maintainer 虎牙直播::
 @c * Copying::  free time team
 @end menu
 
-@node linux kernel maintainer YY 直播
-@chapter linux kernel maintainer YY 直播
+@node linux kernel maintainer 虎牙直播
+@chapter linux kernel maintainer 虎牙直播
 
 @b{作者: zhi.a.wang@@intel.com}
 
@@ -56,7 +56,8 @@ This manual is for program, version version.
 * Abstract::
 * Description::
 * App tutoiral::
-* Related::
+* Related topic::
+* GVT-g ::
 @c * Copying::  free time team
 @end menu
 
@@ -103,8 +104,17 @@ Ft2 team 将会把这些内容作为一个topic，整理、讨论，并且不定
 
 @image{./00resource/YY_Picture, jpg}
 
-@node Related
-@section Related
+@node Related topic
+@section Related topic
+
+@b{送老师作品}
+@url{https://mp.weixin.qq.com/s/vvGsn8zN0aLO27D71y3a6g, 怎么给Linux mainline发patch}
+
+@b{A patch example:}
+@url{https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html, example}
+
+@node GVT-g
+@section GVT-g
 
 @b{Ubuntu16.10:}
 @url{Ubuntu16.10: http://old-releases.ubuntu.com/releases/16.10/, ubuntu 16.10 download address}
@@ -118,8 +128,5 @@ https://01.org/zh/node/9140
 @b{GVTg Setup Guide}
 
 https://github.com/01org/gvt-linux/wiki/GVTg_Setup_Guide
-
-@b{A patch example:}
-@url{https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html, example}
 
 @bye
