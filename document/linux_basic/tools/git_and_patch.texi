@@ -255,7 +255,7 @@ http://blog.it985.com/753.html
 @chapter create git server
 
 @b{create git server}
-
+@example
 sudo adduser git
 
 sudo mkdir -p /home/git/.ssh/
@@ -275,26 +275,31 @@ cd ~/backup/git_server
 sudo git init --bare my_doc.git
 
 git clone git@@localhost:/home/zzy/backup/git_server/my_doc.git
+@end example
 
 @b{reference}
+
+@example
 https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server
 
 https://www.linux.com/learn/how-run-your-own-git-server
 
 http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000
+@end example
 
 @b{git commands}
-
+@example
 git 有 url insteadOf 的功能，所以你放什么位置不重要，git config 一下就好了。
 
 git remote -v  // show remote branch
 
 git remote set-url origin git@@github.com:USERNAME/REPOSITORY.git
+@end example
 
 @b{reference}
-
+@example
 https://help.github.com/articles/changing-a-remote-s-url/
-
+@end example
 @node conflict
 @chapter conflict
 

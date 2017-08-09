@@ -329,46 +329,51 @@ Next: <a href="#conflict" accesskey="n" rel="next">conflict</a>, Previous: <a hr
 <h2 class="chapter">4 create git server</h2>
 
 <p><b>create git server</b>
-</p>
-<p>sudo adduser git
-</p>
-<p>sudo mkdir -p /home/git/.ssh/
-</p>
-<p>sudo vim /home/git/.ssh/authorized_keys
-</p>
-<p>sudo chmod a+w /home/git/.ssh/authorized_keys
-</p>
-<p>ssh-keygen -t rsa
-</p>
-<p>sudo cat ~/.ssh/id_rsa.pub &gt; /home/git/.ssh/authorized_keys
-</p>
-<p>mkdir -p ~/backup/git_server
-</p>
-<p>cd ~/backup/git_server
-</p>
-<p>sudo git init &ndash;bare my_doc.git
-</p>
-<p>git clone git@localhost:/home/zzy/backup/git_server/my_doc.git
-</p>
+</p><div class="example">
+<pre class="example">sudo adduser git
+
+sudo mkdir -p /home/git/.ssh/
+
+sudo vim /home/git/.ssh/authorized_keys
+
+sudo chmod a+w /home/git/.ssh/authorized_keys
+
+ssh-keygen -t rsa
+
+sudo cat ~/.ssh/id_rsa.pub &gt; /home/git/.ssh/authorized_keys
+
+mkdir -p ~/backup/git_server
+
+cd ~/backup/git_server
+
+sudo git init --bare my_doc.git
+
+git clone git@localhost:/home/zzy/backup/git_server/my_doc.git
+</pre></div>
+
 <p><b>reference</b>
-https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server
 </p>
-<p>https://www.linux.com/learn/how-run-your-own-git-server
-</p>
-<p>http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000
-</p>
+<div class="example">
+<pre class="example">https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server
+
+https://www.linux.com/learn/how-run-your-own-git-server
+
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000
+</pre></div>
+
 <p><b>git commands</b>
-</p>
-<p>git 有 url insteadOf 的功能，所以你放什么位置不重要，git config 一下就好了。
-</p>
-<p>git remote -v  // show remote branch
-</p>
-<p>git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
-</p>
+</p><div class="example">
+<pre class="example">git 有 url insteadOf 的功能，所以你放什么位置不重要，git config 一下就好了。
+
+git remote -v  // show remote branch
+
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+</pre></div>
+
 <p><b>reference</b>
-</p>
-<p>https://help.github.com/articles/changing-a-remote-s-url/
-</p>
+</p><div class="example">
+<pre class="example">https://help.github.com/articles/changing-a-remote-s-url/
+</pre></div>
 <hr>
 <a name="conflict"></a>
 <div class="header">
