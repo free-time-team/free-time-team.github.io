@@ -274,6 +274,8 @@ cd ~/backup/git_server
 
 sudo git init --bare my_doc.git
 
+sudo chown -R git:git my_doc.git
+
 git clone git@@localhost:/home/zzy/backup/git_server/my_doc.git
 @end example
 
