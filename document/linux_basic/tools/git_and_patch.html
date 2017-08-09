@@ -64,10 +64,11 @@ ul.no-bullet {list-style: none}
   <li><a name="toc-resource-1" href="#resource">1 resource</a></li>
   <li><a name="toc-started-1" href="#started">2 started</a></li>
   <li><a name="toc-usage-1" href="#usage">3 usage</a></li>
-  <li><a name="toc-conflict-1" href="#conflict">4 conflict</a></li>
-  <li><a name="toc-cherry-pick-1" href="#cherry-pick">5 cherry pick</a></li>
-  <li><a name="toc-rebase-1" href="#rebase">6 rebase</a></li>
-  <li><a name="toc-patch-1" href="#patch">7 patch</a></li>
+  <li><a name="toc-create-git-server-1" href="#create-git-server">4 create git server</a></li>
+  <li><a name="toc-conflict-1" href="#conflict">5 conflict</a></li>
+  <li><a name="toc-cherry-pick-1" href="#cherry-pick">6 cherry pick</a></li>
+  <li><a name="toc-rebase-1" href="#rebase">7 rebase</a></li>
+  <li><a name="toc-patch-1" href="#patch">8 patch</a></li>
 </ul>
 </div>
 
@@ -89,13 +90,15 @@ Next: <a href="#resource" accesskey="n" rel="next">resource</a>, Up: <a href="di
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#usage" accesskey="3">usage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#conflict" accesskey="4">conflict</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#create-git-server" accesskey="4">create git server</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#cherry-pick" accesskey="5">cherry pick</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#conflict" accesskey="5">conflict</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#rebase" accesskey="6">rebase</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#cherry-pick" accesskey="6">cherry pick</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#patch" accesskey="7">patch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#rebase" accesskey="7">rebase</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#patch" accesskey="8">patch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -295,7 +298,7 @@ use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working di
 <a name="usage"></a>
 <div class="header">
 <p>
-Next: <a href="#conflict" accesskey="n" rel="next">conflict</a>, Previous: <a href="#started" accesskey="p" rel="prev">started</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#create-git-server" accesskey="n" rel="next">create git server</a>, Previous: <a href="#started" accesskey="p" rel="prev">started</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="usage-1"></a>
 <h2 class="chapter">3 usage</h2>
@@ -317,13 +320,63 @@ http://blog.it985.com/753.html
 </pre></div>
 
 <hr>
+<a name="create-git-server"></a>
+<div class="header">
+<p>
+Next: <a href="#conflict" accesskey="n" rel="next">conflict</a>, Previous: <a href="#usage" accesskey="p" rel="prev">usage</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="create-git-server-1"></a>
+<h2 class="chapter">4 create git server</h2>
+
+<p><b>create git server</b>
+</p>
+<p>sudo adduser git
+</p>
+<p>sudo mkdir -p /home/git/.ssh/
+</p>
+<p>sudo vim /home/git/.ssh/authorized_keys
+</p>
+<p>sudo chmod a+w /home/git/.ssh/authorized_keys
+</p>
+<p>ssh-keygen -t rsa
+</p>
+<p>sudo cat ~/.ssh/id_rsa.pub &gt; /home/git/.ssh/authorized_keys
+</p>
+<p>mkdir -p ~/backup/git_server
+</p>
+<p>cd ~/backup/git_server
+</p>
+<p>sudo git init &ndash;bare my_doc.git
+</p>
+<p>git clone git@localhost:/home/zzy/backup/git_server/my_doc.git
+</p>
+<p><b>reference</b>
+https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server
+</p>
+<p>https://www.linux.com/learn/how-run-your-own-git-server
+</p>
+<p>http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000
+</p>
+<p><b>git commands</b>
+</p>
+<p>git 有 url insteadOf 的功能，所以你放什么位置不重要，git config 一下就好了。
+</p>
+<p>git remote -v  // show remote branch
+</p>
+<p>git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+</p>
+<p><b>reference</b>
+</p>
+<p>https://help.github.com/articles/changing-a-remote-s-url/
+</p>
+<hr>
 <a name="conflict"></a>
 <div class="header">
 <p>
-Next: <a href="#cherry-pick" accesskey="n" rel="next">cherry pick</a>, Previous: <a href="#usage" accesskey="p" rel="prev">usage</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#cherry-pick" accesskey="n" rel="next">cherry pick</a>, Previous: <a href="#create-git-server" accesskey="p" rel="prev">create git server</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="conflict-1"></a>
-<h2 class="chapter">4 conflict</h2>
+<h2 class="chapter">5 conflict</h2>
 
 <div class="example">
 <pre class="example">git conflict
@@ -371,7 +424,7 @@ git pull
 Next: <a href="#rebase" accesskey="n" rel="next">rebase</a>, Previous: <a href="#conflict" accesskey="p" rel="prev">conflict</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="cherry-pick-1"></a>
-<h2 class="chapter">5 cherry pick</h2>
+<h2 class="chapter">6 cherry pick</h2>
 
 <div class="example">
 <pre class="example">把某個分支上的提交轉到另一個分支上
@@ -389,7 +442,7 @@ http://sg552.iteye.com/blog/1300713
 Next: <a href="#patch" accesskey="n" rel="next">patch</a>, Previous: <a href="#cherry-pick" accesskey="p" rel="prev">cherry pick</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="rebase-1"></a>
-<h2 class="chapter">6 rebase</h2>
+<h2 class="chapter">7 rebase</h2>
 
 <div class="example">
 <pre class="example">提交出現衝突的時候，重新提交
@@ -406,7 +459,7 @@ http://blog.csdn.net/wangjia55/article/details/8776409
 Previous: <a href="#rebase" accesskey="p" rel="prev">rebase</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="patch-1"></a>
-<h2 class="chapter">7 patch</h2>
+<h2 class="chapter">8 patch</h2>
 
 <div class="example">
 <pre class="example">patch
