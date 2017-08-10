@@ -68,7 +68,7 @@ This manual is for program, version version.
 
 @b{本次直播已结束，谢谢关注。}
 
-@b{希望参与或者持续关注此项目，请移步: } @url{https://free-time-team.github.io/nav/new_cn.html#Linux-kernel-basic, Intel GVT-g project}
+@b{希望参与或者持续关注此项目，请移步: } @url{https://free-time-team.github.io/nav/new_cn.html#Intel-GVT-G-project, Intel GVT-g project}
 
 @b{Address:} @url{http://www.huya.com/1272134181?platform=2&from=wx&source=android&fromyy=2094749164, 王叔叔直播间}
 

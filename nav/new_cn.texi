@@ -52,6 +52,8 @@ This manual is for program, version version.
 @menu
 * Linux kernel basic::
 * Intel GVT G project::
+* ARM Neon study::
+* Books study::
 @c * Copying::  free time team
 @end menu
 
@@ -60,6 +62,76 @@ This manual is for program, version version.
 
 @node Intel GVT G project
 @section Intel GVT G project
+
+@url{https://01.org/zh, GVT-G} 是 Intel 的一个 open-source 的 GPU 虚拟化项目。
+
+作为项目的作者、负责人之一的王叔叔，通过业余时间为开源社区做出了巨大贡献。
+
+这次有幸请到了王叔叔为广大的开发者和 linux 技术爱好者，做免费的技术直播。
+
+想为 linux kernel 社区提交patch的广大技术人员、
+想拿到一个更好的实习机会的在校大学生、
+想提高自己技术能力的在职工作人员、都可以参与进来。
+
+@url{https://freetimeteam.org, Ft2 team} 将会把 GVT-G 项目作为一个topic，学习研究。
+
+感谢大家的参与。
+
+欢迎访问 GVT-G 项目主页面 ===> @url{https://free-time-team.github.io/nav/topic/intel_gvt_g.html, Intel GVT-G project main page}
+
+@node ARM Neon study
+@section ARM Neon study
+
+从 ARMv4 开始，ARM就为指令集优化做了大量的工作，其中 SIMD指令，在V4、V5的时候，就有引入。
+
+现在ARM指令集发展到了V7、V8，在一些ARM的介绍文档里面经常看到 Neon 这个词。Neon 是SIMD的一个升级版本。
+
+对 ARM 系统架构、ARM指令集、ARM汇编有兴趣的同学，可以一起学习、探讨。
+
+基于ARM平台的，优化工程师、嵌入式 AI、ML工程师，也可以参与进来学习、探讨。
+
+@url{https://freetimeteam.org, Ft2 team} 将会把 ARM neon 作为一个topic，学习研究。
+
+感谢大家的参与。
+
+欢迎访问 ARM neon 项目主页面 ===> @url{https://free-time-team.github.io/nav/topic/arm_neon_study.html, ARM Neon main page}
+
+@node Books study
+@section Books study
+
+@menu
+* perf book::
+* see linux kernel run::
+@c * Copying::  free time team
+@end menu
+
+@node perf book
+@subsection perf book
+
+原书英文名: 《Is Parallel Programming Hard, And, If So, What Can You Do About It?》
+
+这是一本open source的书，可以从 @url{https://www.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html, perfbook} 下载。
+
+中文版书名: 《深入理解并行编程》, 翻译者谢老师、鲁大侠。
+
+有书或这直接阅读英文版本的同学，可以交流、探讨书中的知识。
+
+@url{https://freetimeteam.org, Ft2 team} 将会把本书作为一个topic，学习研究。
+
+感谢大家的参与。
+
+欢迎访问本书讨论页面 ===> @url{https://free-time-team.github.io/nav/topic/perfbook.html, perfbook main page}
+
+@node see linux kernel run
+@subsection see linux kernel run
+
+《奔跑吧，linux内核》  -> todo -> 本书正在预售中，敬请期待。
+
+@url{https://freetimeteam.org, Ft2 team} 将会把本书作为一个topic，学习研究。
+
+感谢大家的参与。
+
+欢迎访问本书讨论页面 ===> @url{https://free-time-team.github.io/nav/topic/see_linux_kernel_run.html, see linux kernel run main page}
 
 @node News
 @chapter News
