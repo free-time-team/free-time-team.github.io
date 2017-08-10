@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle 最新文章及消息
+@settitle News
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,18 +35,34 @@ Published by
 
 @ifnottex
 @node Top
-@top 最新文章及消息
+@top News
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* 最新文章及消息::
+* Topic::
+* News::
 @c * Copying::  free time team
 @end menu
 
-@node 最新文章及消息
-@chapter 最新文章及消息
+@node Topic
+@chapter Topic
+
+@menu
+* Linux kernel basic::
+* Intel GVT-G project::
+@c * Copying::  free time team
+@end menu
+
+@node Linux kernel basic
+@section Linux kernel basic
+
+@node Intel GVT-G project
+@section Intel GVT-G project
+
+@node News
+@chapter News
 
 @ @ @ @ linux kernel maintainer YY 直播 ===> @url{./news/170803_intel_topic.html, linux kernel topic}
 

@@ -66,7 +66,7 @@ This manual is for program, version version.
 
 @b{Date: About }, 16:00, 8/6 2017, Sunday。
 
-@b{王叔叔飞机航班延误，直播时间可能会有延后，我们尽量赶在8月6日下午四点。}
+@b{本次直播已结束，谢谢关注。}
 
 @b{Address:} @url{http://www.huya.com/1272134181?platform=2&from=wx&source=android&fromyy=2094749164, 王叔叔直播间}
 
