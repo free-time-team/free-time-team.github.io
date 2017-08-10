@@ -48,9 +48,90 @@ This manual is for program, version version.
 @node Introduction
 @chapter Introduction
 
+@menu
+* App tutoiral::
+* GVT G tutoiral::
+@c * Copying::  free time team
+@end menu
 
+@b{直播列表}
+@itemize
+@item
+@b{How to commit your first linux kernel patch}
 
+=> 此直播，已于2017年8月6日成功录制并结束，录制地址如下:
 
+@ @ @ @ @b{百度网盘} => 链接: @url{http://pan.baidu.com/s/1dFENpuh, http://pan.baidu.com/s/1dFENpuh} 密码: jkw7
 
+@ @ @ @ @b{Mega网盘} => @url{https://mega.nz/#F!0N4FTCKa!fAtgx53oQybuH-3jlefx-Q, https://mega.nz/#F!0N4FTCKa!fAtgx53oQybuH-3jlefx-Q}
+
+=> Related topic
+
+@ @ @ @ @b{宋老师作品} @url{https://mp.weixin.qq.com/s/vvGsn8zN0aLO27D71y3a6g, 怎么给Linux mainline发patch}
+
+@ @ @ @ @b{A patch example:} @url{https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html, example}
+
+@end itemize
+
+期待后续直播的同学，可以订阅: @url{http://www.huya.com/1272134181?platform=2&from=wx&source=android&fromyy=2094749164, 王叔叔直播间}
+
+下一节是一个介绍如何在手机上订阅直播频道的简介。
+
+@node App tutoiral
+@section App tutoiral
+
+以下是针对手机并且需要下载app的朋友的一个简单入门教程。
+以下步骤，都是在手机上操作。
+
+@b{==> 1.} 打开王叔叔直播空间页面: http://m.huya.com/1873077328
+
+  记住王叔叔直播间的网名 "隔壁王叔叔" 以及左边的 Icon 图标，后面会用到。
+
+  点击右下角的 “打开APP”, 将会开始下载“虎牙直播” APP。
+
+@b{==> 2.} App安装完成打开后，注册帐号。
+
+@b{==> 3.} 从搜索栏搜索 "隔壁王叔叔"， 打开你刚才记住的那个用户，点击“订阅”
+
+@b{==> 4.}  此后从 “我的” -> “我的订阅” 将会看到隔壁王叔叔了。
+
+最后的效果图，如下。
+
+@image{../news/00resource/YY_Picture, jpg}
+
+@node GVT G tutoiral
+@section GVT G tutoiral
+
+@b{Ubuntu16.04:}
+
+@ @ @ @ @url{Ubuntu16.04: http://old-releases.ubuntu.com/releases/16.04.2/, ubuntu 16.04 download address}
+
+@b{GVT-g document}
+
+@ @ @ @ @url{https://01.org/zh/node/9145, HOW TO CONTRIBUTE TO GVT-G PROJECT}
+
+@ @ @ @ @url{https://01.org/zh/node/9140, GVT-G NEW ARCHITECTURE INTRODUCTION--UPDATE}
+
+@b{GVTg Setup Guide}
+
+@ @ @ @ @url{https://github.com/01org/gvt-linux/wiki/GVTg_Setup_Guide, GVT-G Setup Guide}
+
+@b{Website}
+
+@ @ @ @ @url{https://01.org/igvt-g, https://01.org/igvt-g}
+
+@b{Intel Mail-list}
+
+@ @ @ @ @url{https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev, https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev}
+
+@b{Code}
+
+@ @ @ @ @b{Kernel} @url{https://github.com/01org/gvt-linux/, gvt-linux/}
+
+@ @ @ @ @b{QEMU} @url{https://github.com/01org/igvtg-qemu/, igvtg-qemu/}
+
+@b{More...}
+
+@ @ @ @ @url{http://events.linuxfoundation.org/sites/events/files/slides/XenGT-Xen%20Summit-REWRITE%203RD%20v4.pdf, XenGT-Xen Summit-REWRITE 3RD v4.pdf}
 
 @bye
