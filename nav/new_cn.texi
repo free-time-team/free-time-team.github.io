@@ -51,15 +51,15 @@ This manual is for program, version version.
 
 @menu
 * Linux kernel basic::
-* Intel GVT-G project::
+* Intel GVT G project::
 @c * Copying::  free time team
 @end menu
 
 @node Linux kernel basic
 @section Linux kernel basic
 
-@node Intel GVT-G project
-@section Intel GVT-G project
+@node Intel GVT G project
+@section Intel GVT G project
 
 @node News
 @chapter News
