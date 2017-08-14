@@ -59,7 +59,6 @@ This manual is for program, version version.
 @b{Note}
 ubuntu-16.04.1-desktop-amd64.iso
 /dev/sdc is your USB device
-http://blog.sina.com.cn/s/blog_a6559d920101auj8.html
 @end example
 
 @itemize @bullet
@@ -171,6 +170,14 @@ sudo apt-get install google-chrome-stable
 @b{SwitchyOmega}
 	Rule List URL: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
 @end example
+
+@itemize
+@item
+@b{vim config}
+
+git clone @url{https://github.com/zzyjsjcom/vim.git, https://github.com/zzyjsjcom/vim.git}
+
+@end itemize
 
 @itemize
 @item

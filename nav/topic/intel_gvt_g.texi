@@ -104,7 +104,7 @@ This manual is for program, version version.
 
 @b{Ubuntu16.04:}
 
-@ @ @ @ @url{Ubuntu16.04: http://old-releases.ubuntu.com/releases/16.04.2/, ubuntu 16.04 download address}
+@ @ @ @ @url{http://old-releases.ubuntu.com/releases/16.04.2/, ubuntu 16.04 download address}
 
 @b{GVT-g document}
 
