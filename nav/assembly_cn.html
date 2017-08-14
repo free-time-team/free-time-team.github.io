@@ -7,10 +7,10 @@ Copyright (C) years free time team.
 Permission is granted to -->
 <!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>汇编语言学习</title>
+<title>Assembly</title>
 
-<meta name="description" content="汇编语言学习">
-<meta name="keywords" content="汇编语言学习">
+<meta name="description" content="Assembly">
+<meta name="keywords" content="Assembly">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -50,7 +50,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">汇编语言学习</h1>
+<h1 class="settitle" align="center">Assembly</h1>
 
 
 
@@ -61,18 +61,7 @@ ul.no-bullet {list-style: none}
 <div class="contents">
 
 <ul class="no-bullet">
-  <li><a name="toc-ARM-Hui-Bian-Yu-Yan-XueXi-Huan-Jing-Da-Jian-" href="#ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa">1 ARM 汇编语言学习环境搭建</a>
-  <ul class="no-bullet">
-    <li><a name="toc-Docker_002bUbuntu_002bQemu-1" href="#Docker_002bUbuntu_002bQemu">1.1 Docker+Ubuntu+Qemu</a></li>
-    <li><a name="toc-Ubuntu_002bQemu-1" href="#Ubuntu_002bQemu">1.2 Ubuntu+Qemu</a></li>
-    <li><a name="toc-Android-1" href="#Android">1.3 Android</a></li>
-  </ul></li>
-  <li><a name="toc-ARM32-Hui-Bian-XueXi-" href="#ARM32-_6c47_7f16_5b66_4e60">2 ARM32 汇编学习</a></li>
-  <li><a name="toc-ARM64-Hui-Bian-XueXi-" href="#ARM64-_6c47_7f16_5b66_4e60">3 ARM64 汇编学习</a></li>
-  <li><a name="toc-Neon-1" href="#Neon">4 Neon</a>
-  <ul class="no-bullet">
-    <li><a name="toc-tutorial-1" href="#tutorial">4.1 tutorial</a></li>
-  </ul></li>
+  <li><a name="toc-Assembly-2" href="#Assembly">1 Assembly</a></li>
 </ul>
 </div>
 
@@ -80,143 +69,30 @@ ul.no-bullet {list-style: none}
 <a name="Top"></a>
 <div class="header">
 <p>
-Next: <a href="#ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa" accesskey="n" rel="next">ARM 汇编语言学习环境搭建</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#Assembly" accesskey="n" rel="next">Assembly</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="Hui-Bian-Yu-Yan-XueXi-"></a>
-<h1 class="top">汇编语言学习</h1>
+<a name="Assembly-1"></a>
+<h1 class="top">Assembly</h1>
 
 <p>This manual is for program, version version.
 </p>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa" accesskey="1">ARM 汇编语言学习环境搭建</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ARM32-_6c47_7f16_5b66_4e60" accesskey="2">ARM32 汇编学习</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ARM64-_6c47_7f16_5b66_4e60" accesskey="3">ARM64 汇编学习</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Neon" accesskey="4">Neon </a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Assembly" accesskey="1">Assembly</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
-<a name="ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa"></a>
+<a name="Assembly"></a>
 <div class="header">
 <p>
-Next: <a href="#ARM32-_6c47_7f16_5b66_4e60" accesskey="n" rel="next">ARM32 汇编学习</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="ARM-Hui-Bian-Yu-Yan-XueXi-Huan-Jing-Da-Jian-"></a>
-<h2 class="chapter">1 ARM 汇编语言学习环境搭建</h2>
+<a name="Assembly-2"></a>
+<h2 class="chapter">1 Assembly</h2>
 
-<table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#Docker_002bUbuntu_002bQemu" accesskey="1">Docker+Ubuntu+Qemu</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Ubuntu_002bQemu" accesskey="2">Ubuntu+Qemu</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Android" accesskey="3">Android</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-</table>
-
-<hr>
-<a name="Docker_002bUbuntu_002bQemu"></a>
-<div class="header">
-<p>
-Next: <a href="#Ubuntu_002bQemu" accesskey="n" rel="next">Ubuntu+Qemu</a>, Up: <a href="#ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa" accesskey="u" rel="up">ARM 汇编语言学习环境搭建</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="Docker_002bUbuntu_002bQemu-1"></a>
-<h3 class="section">1.1 Docker+Ubuntu+Qemu</h3>
-<p>这是一个基于 Docker + Ubuntu + qemu 的打包集成命令行环境。
-</p>
-<p>&nbsp;&nbsp;<b>Docker安装 ==&gt; </b> <a href="https://free-time-team.github.io/document/container/docker/ubuntu.html">install docker on ubuntu</a>
-</p>
-<p>&nbsp;&nbsp;<b>开发环境下载及简介 ==&gt; </b> <a href="https://free-time-team.github.io/document/container/docker/ft2_team_images.html">ubuntu envrionment</a> -&gt; ubuntu_dev
+<p><b>ARM assembly</b> =&gt; <a href="./assembly/arm.html">arm</a>
 </p>
 <hr>
-<a name="Ubuntu_002bQemu"></a>
-<div class="header">
-<p>
-Next: <a href="#Android" accesskey="n" rel="next">Android</a>, Previous: <a href="#Docker_002bUbuntu_002bQemu" accesskey="p" rel="prev">Docker+Ubuntu+Qemu</a>, Up: <a href="#ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa" accesskey="u" rel="up">ARM 汇编语言学习环境搭建</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="Ubuntu_002bQemu-1"></a>
-<h3 class="section">1.2 Ubuntu+Qemu</h3>
-
-<hr>
-<a name="Android"></a>
-<div class="header">
-<p>
-Previous: <a href="#Ubuntu_002bQemu" accesskey="p" rel="prev">Ubuntu+Qemu</a>, Up: <a href="#ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa" accesskey="u" rel="up">ARM 汇编语言学习环境搭建</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="Android-1"></a>
-<h3 class="section">1.3 Android</h3>
-
-<p><b>download toolchain</b>
-</p>
-<p>android-21-arm64.tgz  ==&gt; for arm64
-</p>
-<hr>
-<a name="ARM32-_6c47_7f16_5b66_4e60"></a>
-<div class="header">
-<p>
-Next: <a href="#ARM64-_6c47_7f16_5b66_4e60" accesskey="n" rel="next">ARM64 汇编学习</a>, Previous: <a href="#ARM-_6c47_7f16_8bed_8a00_5b66_4e60_73af_5883_642d_5efa" accesskey="p" rel="prev">ARM 汇编语言学习环境搭建</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="ARM32-Hui-Bian-XueXi-"></a>
-<h2 class="chapter">2 ARM32 汇编学习</h2>
-
-<hr>
-<a name="ARM64-_6c47_7f16_5b66_4e60"></a>
-<div class="header">
-<p>
-Next: <a href="#Neon" accesskey="n" rel="next">Neon</a>, Previous: <a href="#ARM32-_6c47_7f16_5b66_4e60" accesskey="p" rel="prev">ARM32 汇编学习</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="ARM64-Hui-Bian-XueXi-"></a>
-<h2 class="chapter">3 ARM64 汇编学习</h2>
-
-<p>&nbsp;&nbsp;创建工作目录，从以下 link 获取 code， 运行docker: sudo docker run -v /path/to/host:/home/user/work -it ft2team/ubuntu_dev su - user
-</p>
-<p>&nbsp;&nbsp;/path/to/host ==&gt; 此目录只想你的 host 工作目录，然后按照以下 link 提供的方法编译运行 code。
-</p>
-<p>&nbsp;&nbsp;<b>Code example ==&gt; </b> <a href="https://free-time-team.github.io/document/assembly/arm64/start.html">Get arm64 code</a>
-</p>
-<hr>
-<a name="Neon"></a>
-<div class="header">
-<p>
-Previous: <a href="#ARM64-_6c47_7f16_5b66_4e60" accesskey="p" rel="prev">ARM64 汇编学习</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="Neon-1"></a>
-<h2 class="chapter">4 Neon</h2>
-
-<table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#tutorial" accesskey="1">tutorial</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-</table>
-
-<hr>
-<a name="tutorial"></a>
-<div class="header">
-<p>
-Up: <a href="#Neon" accesskey="u" rel="up">Neon</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="tutorial-1"></a>
-<h3 class="section">4.1 tutorial</h3>
-
-<p><b>For android</b>
-</p>
-<div class="example">
-<pre class="example"><b>download toolchain</b>: https://github.com/zzy-program/arm/blob/master/00toolchain/android-21-arm64.tgz
-<b>get code</b>: https://github.com/zzy-program/arm.git
-
-<b>build/run</b>
-connect the android arm64 device and confirm development mode
-cd arm/neon/00tutorial
-make
-make run_neon_test
-make run_total
-</pre></div>
-
-<p><b>program analysis</b>
-</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;TOOLCHAIN
-</p><hr>
 
 
 

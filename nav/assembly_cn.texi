@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle 汇编语言学习
+@settitle Assembly
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,85 +35,19 @@ Published by
 
 @ifnottex
 @node Top
-@top 汇编语言学习
+@top Assembly
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* ARM 汇编语言学习环境搭建::
-* ARM32 汇编学习::
-* ARM64 汇编学习::
-* Neon ::
+* Assembly::
 @c * Copying::  free time team
 @end menu
 
-@node ARM 汇编语言学习环境搭建
-@chapter ARM 汇编语言学习环境搭建
+@node Assembly
+@chapter Assembly
 
-@menu
-* Docker+Ubuntu+Qemu::
-* Ubuntu+Qemu::
-* Android::
-@c * Copying::  free time team
-@end menu
+@b{ARM assembly} => @url{./assembly/arm.html, arm}
 
-@node Docker+Ubuntu+Qemu
-@section Docker+Ubuntu+Qemu
-这是一个基于 Docker + Ubuntu + qemu 的打包集成命令行环境。
-
-@ @ @b{Docker安装 ==> } @url{https://free-time-team.github.io/document/container/docker/ubuntu.html, install docker on ubuntu}
-
-@ @ @b{开发环境下载及简介 ==> } @url{https://free-time-team.github.io/document/container/docker/ft2_team_images.html, ubuntu envrionment} -> ubuntu_dev
-
-@node Ubuntu+Qemu
-@section Ubuntu+Qemu
-
-@node Android
-@section Android
-
-@b{download toolchain}
-
-android-21-arm64.tgz  ==> for arm64
-
-@node ARM32 汇编学习
-@chapter ARM32 汇编学习
-
-@node ARM64 汇编学习
-@chapter ARM64 汇编学习
-
-@ @ 创建工作目录，从以下 link 获取 code， 运行docker: sudo docker run -v /path/to/host:/home/user/work -it ft2team/ubuntu_dev su - user
-
-@ @ /path/to/host ==> 此目录只想你的 host 工作目录，然后按照以下 link 提供的方法编译运行 code。
-
-@ @ @b{Code example ==> } @url{https://free-time-team.github.io/document/assembly/arm64/start.html, Get arm64 code}
-
-@node Neon
-@chapter Neon
-
-@menu
-* tutorial::
-@c * Copying::  free time team
-@end menu
-
-@node tutorial
-@section tutorial
-
-@b{For android}
-
-@example
-@b{download toolchain}: https://github.com/zzy-program/arm/blob/master/00toolchain/android-21-arm64.tgz
-@b{get code}: https://github.com/zzy-program/arm.git
-
-@b{build/run}
-连上 android arm64 设备，并确保设备处于development mode。
-cd arm/neon/00tutorial
-make
-make run_neon_test
-make run_total
-@end example
-
-@b{program analysis}
-
-@ @ @ @ TOOLCHAIN
 @bye
