@@ -67,7 +67,7 @@ This manual is for program, version version.
 
 => Related topic
 
-@ @ @ @ @b{宋老师作品} @url{https://mp.weixin.qq.com/s/vvGsn8zN0aLO27D71y3a6g, 怎么给Linux mainline发patch}
+@ @ @ @ @b{宋宝华老师作品} @url{https://mp.weixin.qq.com/s/vvGsn8zN0aLO27D71y3a6g, 怎么给Linux mainline发patch}
 
 @ @ @ @ @b{A patch example:} @url{https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html, example}
 
