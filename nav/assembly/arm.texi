@@ -99,21 +99,42 @@ android-21-arm64.tgz  ==> for arm64
 @node tutorial
 @section tutorial
 
+@itemize
+@item
 @b{For android}
 
-@example
 @b{download toolchain}: https://github.com/zzy-program/arm/blob/master/00toolchain/android-21-arm64.tgz
+
 @b{get code}: https://github.com/zzy-program/arm.git
 
 @b{build/run}
-连上 android arm64 设备，并确保设备处于development mode。
-cd arm/neon/00tutorial
-make
-make run_neon_test
-make run_total
-@end example
 
+连上 android arm64 设备，并确保设备处于development mode。
+
+cd arm/neon/00tutorial
+
+make
+
+make run_neon_test
+
+make run_total
+@end itemize
+
+@itemize
+@item
 @b{program analysis}
 
-@ @ @ @ TOOLCHAIN
+TOOLCHAIN 指向你本机 arm64 toolchain 的根目录; 其它变量有的是基于这个变量，有的是一些编译参数的配置。
+
+因此对于一个新的环境，只需要把 TOOLCHAIN 这个变量配置正确即可。
+
+这个toturial，包含两个程序，一个是由 hello_neon.cpp 和 neon.s 混编生成 neon_test 程序。
+
+另一个是由 total.c 编译生成 total 程序。
+
+运行 make，将会生成 neon_test 和 total 两个程序。
+
+连上arm64 的 android 手机，运行 make run_neon_test， 将会把 neon_test push到手机并且运行。
+@end itemize
+
 @bye

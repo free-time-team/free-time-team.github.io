@@ -199,24 +199,43 @@ Up: <a href="#Neon" accesskey="u" rel="up">Neon</a> &nbsp; [<a href="#SEC_Conten
 <a name="tutorial-1"></a>
 <h3 class="section">4.1 tutorial</h3>
 
-<p><b>For android</b>
-</p>
-<div class="example">
-<pre class="example"><b>download toolchain</b>: https://github.com/zzy-program/arm/blob/master/00toolchain/android-21-arm64.tgz
-<b>get code</b>: https://github.com/zzy-program/arm.git
+<ul>
+<li> <b>For android</b>
 
-<b>build/run</b>
-连上 android arm64 设备，并确保设备处于development mode。
-cd arm/neon/00tutorial
-make
-make run_neon_test
-make run_total
-</pre></div>
-
-<p><b>program analysis</b>
+<p><b>download toolchain</b>: https://github.com/zzy-program/arm/blob/master/00toolchain/android-21-arm64.tgz
 </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;TOOLCHAIN
-</p><hr>
+<p><b>get code</b>: https://github.com/zzy-program/arm.git
+</p>
+<p><b>build/run</b>
+</p>
+<p>连上 android arm64 设备，并确保设备处于development mode。
+</p>
+<p>cd arm/neon/00tutorial
+</p>
+<p>make
+</p>
+<p>make run_neon_test
+</p>
+<p>make run_total
+</p></li></ul>
+
+<ul>
+<li> <b>program analysis</b>
+
+<p>TOOLCHAIN 指向你本机 arm64 toolchain 的根目录; 其它变量有的是基于这个变量，有的是一些编译参数的配置。
+</p>
+<p>因此对于一个新的环境，只需要把 TOOLCHAIN 这个变量配置正确即可。
+</p>
+<p>这个toturial，包含两个程序，一个是由 hello_neon.cpp 和 neon.s 混编生成 neon_test 程序。
+</p>
+<p>另一个是由 total.c 编译生成 total 程序。
+</p>
+<p>运行 make，将会生成 neon_test 和 total 两个程序。
+</p>
+<p>连上arm64 的 android 手机，运行 make run_neon_test， 将会把 neon_test push到手机并且运行。
+</p></li></ul>
+
+<hr>
 
 
 
