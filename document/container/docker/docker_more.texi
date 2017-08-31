@@ -1,0 +1,138 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle docker more
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top docker more
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Introduction::
+@c * Copying::  free time team
+@end menu
+
+@node Introduction
+@chapter Introduction
+
+@b{docker}
+@example
+https://docs.docker.com/get-started/
+http://www.docker.org.cn/book/docker/what-is-docker-16.html
+# install docker
+sudo apt-get install docker.io
+@end example
+
+@b{run docker example}
+@example
+sudo docker run  -it ubuntu:16.04 /bin/bash
+@end example
+
+@b{add a new user}
+@example
+add sudo user
+apt-get update
+apt-get install sudo
+adduser user
+usermod -aG sudo user
+https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart
+https://www.pendrivelinux.com/how-to-add-a-user-to-the-sudoers-list/
+@end example
+
+@b{some application}
+@example
+nginx
+https://hub.docker.com/_/nginx/
+http://www.runoob.com/linux/nginx-install-setup.html
+
+jenkins
+https://hub.docker.com/_/jenkins/
+// start
+$ sudo docker run --name jenkins -p 8080:8080 -p 50000:50000 -d jenkins
+$ sudo docker cp jenkins:/var/jenkins_home/secrets/initialAdminPassword .
+@end example
+
+@b{Docker tutorial}
+@example
+sudo docker version
+https://prakhar.me/docker-curriculum/
+@end example
+
+@b{ubuntu multi arch}
+@example
+sudo dpkg --add-architecture i386
+apt-get update
+https://wiki.debian.org/Multiarch/HOWTO
+@end example
+
+@b{remove all stopped containers}
+@example
+sudo docker rm $(sudo docker ps -a -q)
+@end example
+
+@b{Docker restart}
+$ service docker restart
+
+@b{Document}
+@example
+https://docs.docker.com/reference/
+https://docs.docker.com/release-notes/  -> docker release
+https://www.flockport.com/lxc-vs-docker/#rd?sukey=014c68f407f2d3e1c33f9b5f88da94f1900605cde16cd070ce1cba433724f98688003e1e13e19fb9a45282998ea16795
+https://www.flockport.com/
+@end example
+
+@b{ft2team docker}
+@example
+docker pull ft2team/ubuntu_dev
+dockerhub account: ft2team
+
+push to docker hub:
+sudo docker tag ubuntu:16.04_arm_study ft2team/ubuntu_dev:16.04_arm_study
+sudo docker push ft2team/ubuntu_dev:16.04_arm_study
+
+strip layer
+sudo docker export 7e9ced42b149 > ubuntu_dev.tar
+cat ubuntu_dev.tar | sudo docker import - ft2team/ubuntu_dev:test1
+sudo docker tag ft2team/ubuntu_dev:test1 ft2team/ubuntu_dev:latest
+sudo docker push ft2team/ubuntu_dev:latest
+
+docker ubuntu-16.04
+sudo docker load -i 16.04_ubuntu
+sudo docker run -it ubuntu:16.04_ubuntu
+su - user // password: 123
+@end example
+
+@bye

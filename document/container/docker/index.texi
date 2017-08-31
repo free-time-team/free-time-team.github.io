@@ -49,13 +49,15 @@ This manual is for program, version version.
 @node Docker usage
 @chapter Docker usage
 
-@url{./ubuntu.html, Install docker on ubuntu}
+=> @url{./ubuntu.html, Install docker on ubuntu}
 
-@url{./docker_basic.html, Basic usage}
+=> @url{./docker_basic.html, Basic usage}
+
+=> @url{./docker_more.html, More}
 
 @node Docker Images
 @chapter Docker Images
 
-@url{./ft2_team_images.html, ft2 team docker images}
+=> @url{./ft2_team_images.html, ft2 team docker images}
 
 @bye
