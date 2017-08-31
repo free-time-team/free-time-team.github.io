@@ -104,7 +104,9 @@ sudo docker rm $(sudo docker ps -a -q)
 @end example
 
 @b{Docker restart}
+@example
 $ service docker restart
+@end example
 
 @b{Document}
 @example
@@ -134,5 +136,8 @@ sudo docker load -i 16.04_ubuntu
 sudo docker run -it ubuntu:16.04_ubuntu
 su - user // password: 123
 @end example
+
+run ubuntu-14.04
+sudo docker run -v /home/zzy/work:/home/user/code -it ft2team/ubuntu-14.04-dev  su - user
 
 @bye

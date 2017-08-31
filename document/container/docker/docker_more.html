@@ -146,8 +146,10 @@ https://wiki.debian.org/Multiarch/HOWTO
 </pre></div>
 
 <p><b>Docker restart</b>
-$ service docker restart
-</p>
+</p><div class="example">
+<pre class="example">$ service docker restart
+</pre></div>
+
 <p><b>Document</b>
 </p><div class="example">
 <pre class="example">https://docs.docker.com/reference/
@@ -177,6 +179,9 @@ sudo docker run -it ubuntu:16.04_ubuntu
 su - user // password: 123
 </pre></div>
 
+<p>run ubuntu-14.04
+sudo docker run -v /home/zzy/work:/home/user/code -it ft2team/ubuntu-14.04-dev  su - user
+</p>
 <hr>
 
 
