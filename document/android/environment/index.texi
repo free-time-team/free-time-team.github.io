@@ -41,21 +41,31 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Android Environment::
+* Android local mirror::
+* Codebase build::
 @c * Copying::  free time team
 @end menu
 
-@node Android Environment
-@chapter Android Environment
+@node Android local mirror
+@chapter Android local mirror
 
 @itemize @bullet
 @item
 @b{Android local mirror} @url{android_local_mirror.html, creat android local mirror}
 @end itemize
 
+@node Codebase build
+@chapter Codebase build
 
+@itemize
 
+@item
+@b{Ubuntu-16.04} @url{ubuntu-16.04.html, codebase build for ubuntu-16.04}
 
+@item
+@b{Ubuntu-12.04} @url{ubuntu-12.04.html, codebase build for ubuntu-12.04}
+
+@end itemize
 
 
 @bye

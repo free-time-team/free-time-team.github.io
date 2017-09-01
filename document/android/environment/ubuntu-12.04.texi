@@ -1,0 +1,74 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Build Environment for Ubuntu 12.04
+
+@copying
+This manual is for HTC, version version.
+
+Copyright @copyright{} years copyright-owner.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title HTC document
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Main index
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Build environment for ubuntu 12.04::
+@c * Copying:: Your rights and freedoms.
+@end menu
+
+@node Build environment for ubuntu 12.04
+@chapter Build environment for ubuntu 12.04
+
+@b{base enviroment}
+@example
+sudo apt-get install git-core gnupg flex bison gperf build-essential zip
+sudo apt-get install curl libc6-dev libncurses5-dev:i386 x11proto-core-dev libx11-dev:i386
+sudo apt-get install libreadline6-dev:i386 libglapi-mesa:i386=8.0.4-0ubuntu0.7
+sudo apt-get install libgl1-mesa-glx:i386 libgl1-mesa-dev mingw32 tofrodos
+sudo apt-get install python-markdown libxml2-utils xsltproc zlib1g-dev:i386
+sudo apt-get install gcc-4.4 g++-4.4 gcc-4.4-multilib g++-4.4-multilib
+sudo apt-get install ruby
+sudo mv /usr/bin/gcc /usr/bin/gcc.bak
+sudo mv /usr/bin/g++ /usr/bin/g++.bak
+sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
+sudo ln -s /usr/bin/gcc-4.4 /usr/bin/gcc
+sudo ln -s /usr/bin/g++-4.4 /usr/bin/g++
+@end example
+
+@b{install java environment}
+@example
+// install openjdk 1.7
+sudo apt-get install openjdk-7-jre
+sudo apt-get install openjdk-7-jdk
+@end example
+
+@bye

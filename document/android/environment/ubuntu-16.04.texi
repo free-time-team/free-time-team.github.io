@@ -1,0 +1,133 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Build Environment for Ubuntu 16.04
+
+@copying
+This manual is for HTC, version version.
+
+Copyright @copyright{} years copyright-owner.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title HTC document
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Main index
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Build environment for ubuntu 16.04::
+@c * Copying:: Your rights and freedoms.
+@end menu
+
+@node Build environment for ubuntu 16.04
+@chapter Build environment for ubuntu 16.04
+
+
+@itemize
+@item
+@b{Install OS}
+@end itemize
+
+@example
+@b{Get ISO}:  ubuntu-16.04.1-desktop-amd64.iso from ubuntu website
+    http://releases.ubuntu.com/16.04/
+
+@b{Make usb boot disk}
+sudo dd if=ubuntu-16.04.3-desktop-amd64.iso of=/dev/sdc bs=8M;sync
+
+Press F12 when PC bootup, choose USB install
+@end example
+
+@itemize
+@item
+@b{Copy basic config}
+@end itemize
+
+@example
+zzy@@zzy:~$ cat config_cp.sh
+scp -r $2@@$1:~/.ssh .
+scp -r $2@@$1:~/.vim .
+scp -r $2@@$1:~/.vimrc .
+scp -r $2@@$1:~/.gitconfig .
+scp -r $2@@$1:~/.git-template .
+@end example
+
+@itemize
+@item
+@b{Install Build tools}
+@end itemize
+
+@example
+sudo apt-get update
+sudo apt-get install git ccache automake lzop bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386
+sudo apt-get install g++-multilib python-networkx libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev
+sudo apt-get install squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven
+sudo apt-get install libssl-dev ruby
+
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update
+sudo apt-get install openjdk-7-jre
+sudo apt-get install openjdk-7-jdk
+sudo apt-get install  openjdk-8-jdk
+@end example
+
+@itemize
+@item
+@b{MTK build workaround}
+@end itemize
+
+@example
+sudo mv /usr/bin/make /usr/bin/make-4.1      # backup make 4.1
+scp ...:/usr/bin/make /usr/bin               # cp make 3.81
+sudo mv /usr/bin/make /usr/bin/make-3.81     # backup make 3.81
+sudo ln -s /usr/bin/make-3.81 /usr/bin/make  # create soft link to make 3.81
+@end example
+
+@itemize
+@item
+@b{Compatible old project}
+@end itemize
+
+@example
+// java version change
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+@end example
+
+@itemize
+@item
+@b{Zip images}
+@end itemize
+
+@example
+zip a.zip android-info.txt android-info2boot.img system.img ...
+@end example
+
+@bye
