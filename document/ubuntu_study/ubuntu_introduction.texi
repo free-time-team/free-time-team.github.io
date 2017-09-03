@@ -225,6 +225,8 @@ qemu-2.10.0 example => @url{https://download.qemu.org/, download qemu}
 @item
 @b{build & install}
 
+tar -Jxf qemu-2.10.0.tar.xz
+
 mkdir qemu-2.10.0/build/
 
 cd qemu-2.10.0/build/
