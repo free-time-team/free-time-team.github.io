@@ -27,7 +27,7 @@ Permission is granted to
 @vskip 0pt plus 1filll
 @insertcopying
 
-Published by 
+Published by
 @end titlepage
 
 @c So the toc is printed at the start.
@@ -41,6 +41,7 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
+* kernel download::
 * arm64 kerenel environment::
 * arm64 kerenel debug::
 * arm64 study::
@@ -50,6 +51,13 @@ This manual is for program, version version.
 * os diy::
 @c * Copying::  free time team
 @end menu
+
+@node kernel download
+@chapter kernel download
+
+https://www.kernel.org/
+
+https://cdn.kernel.org/pub/linux/kernel/
 
 @node arm64 kerenel environment
 @chapter arm64 kerenel environment
@@ -62,15 +70,15 @@ This manual is for program, version version.
 @example
 
 @b{install from binary}
-sudo apt-get install qemu-system-arm  
+sudo apt-get install qemu-system-arm
 
 @b{install from source code}
-git clone http://git.qemu.org/git/qemu.git  
-cd qemu  
-./configure --help  
-./configure --target-list=aarch64-softmmu  
-make  
-sudo make install  
+git clone http://git.qemu.org/git/qemu.git
+cd qemu
+./configure --help
+./configure --target-list=aarch64-softmmu
+make
+sudo make install
 @end example
 
 @itemize
@@ -212,7 +220,7 @@ git clone https://github.com/zzyjsjcom/zzy_kernel_code.git
 
 @itemize
 @item
-@b{compiler code} 
+@b{compiler code}
 @end itemize
 
 @example
@@ -332,7 +340,7 @@ r11 0xf6ffef14 -150999276
 r12 0x0 0
 sp 0xf6ffef10 0xf6ffef10
 lr 0x105d4 67028
-pc 0x105b4 0x105b4 
+pc 0x105b4 0x105b4
 cpsr 0x60000010 1610612752
 (gdb) s
 Single stepping until exit from function add,
@@ -354,7 +362,7 @@ r11 0xf6ffef14 -150999276
 r12 0x0 0
 sp 0xf6ffef10 0xf6ffef10
 lr 0x105d4 67028
-pc 0x105d4 0x105d4 
+pc 0x105d4 0x105d4
 cpsr 0x60000010 1610612752
 (gdb)
 @end example

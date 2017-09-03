@@ -61,13 +61,14 @@ ul.no-bullet {list-style: none}
 <div class="contents">
 
 <ul class="no-bullet">
-  <li><a name="toc-arm64-kerenel-environment-1" href="#arm64-kerenel-environment">1 arm64 kerenel environment</a></li>
-  <li><a name="toc-arm64-kerenel-debug-1" href="#arm64-kerenel-debug">2 arm64 kerenel debug</a></li>
-  <li><a name="toc-arm64-study-1" href="#arm64-study">3 arm64 study</a></li>
-  <li><a name="toc-arm64-study-environment-1" href="#arm64-study-environment">4 arm64 study environment</a></li>
-  <li><a name="toc-arm32-study-environment-1" href="#arm32-study-environment">5 arm32 study environment</a></li>
-  <li><a name="toc-arm32-embedded-environment-1" href="#arm32-embedded-environment">6 arm32 embedded environment</a></li>
-  <li><a name="toc-os-diy-1" href="#os-diy">7 os diy</a></li>
+  <li><a name="toc-kernel-download-1" href="#kernel-download">1 kernel download</a></li>
+  <li><a name="toc-arm64-kerenel-environment-1" href="#arm64-kerenel-environment">2 arm64 kerenel environment</a></li>
+  <li><a name="toc-arm64-kerenel-debug-1" href="#arm64-kerenel-debug">3 arm64 kerenel debug</a></li>
+  <li><a name="toc-arm64-study-1" href="#arm64-study">4 arm64 study</a></li>
+  <li><a name="toc-arm64-study-environment-1" href="#arm64-study-environment">5 arm64 study environment</a></li>
+  <li><a name="toc-arm32-study-environment-1" href="#arm32-study-environment">6 arm32 study environment</a></li>
+  <li><a name="toc-arm32-embedded-environment-1" href="#arm32-embedded-environment">7 arm32 embedded environment</a></li>
+  <li><a name="toc-os-diy-1" href="#os-diy">8 os diy</a></li>
 </ul>
 </div>
 
@@ -75,7 +76,7 @@ ul.no-bullet {list-style: none}
 <a name="Top"></a>
 <div class="header">
 <p>
-Next: <a href="#arm64-kerenel-environment" accesskey="n" rel="next">arm64 kerenel environment</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#kernel-download" accesskey="n" rel="next">kernel download</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="System-development"></a>
 <h1 class="top">System development</h1>
@@ -83,30 +84,45 @@ Next: <a href="#arm64-kerenel-environment" accesskey="n" rel="next">arm64 kerene
 <p>This manual is for program, version version.
 </p>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#arm64-kerenel-environment" accesskey="1">arm64 kerenel environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#kernel-download" accesskey="1">kernel download</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#arm64-kerenel-debug" accesskey="2">arm64 kerenel debug</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arm64-kerenel-environment" accesskey="2">arm64 kerenel environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#arm64-study" accesskey="3">arm64 study</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arm64-kerenel-debug" accesskey="3">arm64 kerenel debug</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#arm64-study-environment" accesskey="4">arm64 study environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arm64-study" accesskey="4">arm64 study</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#arm32-study-environment" accesskey="5">arm32 study environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arm64-study-environment" accesskey="5">arm64 study environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#arm32-embedded-environment" accesskey="6">arm32 embedded environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arm32-study-environment" accesskey="6">arm32 study environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#os-diy" accesskey="7">os diy</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arm32-embedded-environment" accesskey="7">arm32 embedded environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#os-diy" accesskey="8">os diy</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
+<a name="kernel-download"></a>
+<div class="header">
+<p>
+Next: <a href="#arm64-kerenel-environment" accesskey="n" rel="next">arm64 kerenel environment</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="kernel-download-1"></a>
+<h2 class="chapter">1 kernel download</h2>
+
+<p>https://www.kernel.org/
+</p>
+<p>https://cdn.kernel.org/pub/linux/kernel/
+</p>
+<hr>
 <a name="arm64-kerenel-environment"></a>
 <div class="header">
 <p>
-Next: <a href="#arm64-kerenel-debug" accesskey="n" rel="next">arm64 kerenel debug</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#arm64-kerenel-debug" accesskey="n" rel="next">arm64 kerenel debug</a>, Previous: <a href="#kernel-download" accesskey="p" rel="prev">kernel download</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="arm64-kerenel-environment-1"></a>
-<h2 class="chapter">1 arm64 kerenel environment</h2>
+<h2 class="chapter">2 arm64 kerenel environment</h2>
 
 <ul>
 <li> <b>install qemu</b>
@@ -115,15 +131,15 @@ Next: <a href="#arm64-kerenel-debug" accesskey="n" rel="next">arm64 kerenel debu
 <div class="example">
 <pre class="example">
 <b>install from binary</b>
-sudo apt-get install qemu-system-arm  
+sudo apt-get install qemu-system-arm
 
 <b>install from source code</b>
-git clone http://git.qemu.org/git/qemu.git  
-cd qemu  
-./configure --help  
-./configure --target-list=aarch64-softmmu  
-make  
-sudo make install  
+git clone http://git.qemu.org/git/qemu.git
+cd qemu
+./configure --help
+./configure --target-list=aarch64-softmmu
+make
+sudo make install
 </pre></div>
 
 <ul>
@@ -165,7 +181,7 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
 Next: <a href="#arm64-study" accesskey="n" rel="next">arm64 study</a>, Previous: <a href="#arm64-kerenel-environment" accesskey="p" rel="prev">arm64 kerenel environment</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="arm64-kerenel-debug-1"></a>
-<h2 class="chapter">2 arm64 kerenel debug</h2>
+<h2 class="chapter">3 arm64 kerenel debug</h2>
 
 <ul>
 <li> <b>run the kernel with rootfs on arm64 qemu</b>
@@ -266,10 +282,10 @@ echo Y &gt; /sys/module/printk/parameters/time
 Next: <a href="#arm64-study-environment" accesskey="n" rel="next">arm64 study environment</a>, Previous: <a href="#arm64-kerenel-debug" accesskey="p" rel="prev">arm64 kerenel debug</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="arm64-study-1"></a>
-<h2 class="chapter">3 arm64 study</h2>
+<h2 class="chapter">4 arm64 study</h2>
 
 <ul>
-<li> <b>compiler code</b> 
+<li> <b>compiler code</b>
 </li></ul>
 
 <div class="example">
@@ -298,7 +314,7 @@ cd /mnt
 Next: <a href="#arm32-study-environment" accesskey="n" rel="next">arm32 study environment</a>, Previous: <a href="#arm64-study" accesskey="p" rel="prev">arm64 study</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="arm64-study-environment-1"></a>
-<h2 class="chapter">4 arm64 study environment</h2>
+<h2 class="chapter">5 arm64 study environment</h2>
 
 <div class="example">
 <pre class="example">
@@ -321,7 +337,7 @@ qemu-aarch64 main
 Next: <a href="#arm32-embedded-environment" accesskey="n" rel="next">arm32 embedded environment</a>, Previous: <a href="#arm64-study-environment" accesskey="p" rel="prev">arm64 study environment</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="arm32-study-environment-1"></a>
-<h2 class="chapter">5 arm32 study environment</h2>
+<h2 class="chapter">6 arm32 study environment</h2>
 
 <ul>
 <li> <b>install qemu</b>
@@ -395,7 +411,7 @@ r11 0xf6ffef14 -150999276
 r12 0x0 0
 sp 0xf6ffef10 0xf6ffef10
 lr 0x105d4 67028
-pc 0x105b4 0x105b4 
+pc 0x105b4 0x105b4
 cpsr 0x60000010 1610612752
 (gdb) s
 Single stepping until exit from function add,
@@ -417,7 +433,7 @@ r11 0xf6ffef14 -150999276
 r12 0x0 0
 sp 0xf6ffef10 0xf6ffef10
 lr 0x105d4 67028
-pc 0x105d4 0x105d4 
+pc 0x105d4 0x105d4
 cpsr 0x60000010 1610612752
 (gdb)
 </pre></div>
@@ -429,7 +445,7 @@ cpsr 0x60000010 1610612752
 Next: <a href="#os-diy" accesskey="n" rel="next">os diy</a>, Previous: <a href="#arm32-study-environment" accesskey="p" rel="prev">arm32 study environment</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="arm32-embedded-environment-1"></a>
-<h2 class="chapter">6 arm32 embedded environment</h2>
+<h2 class="chapter">7 arm32 embedded environment</h2>
 
 <ul>
 <li> <b>install qemu</b>
@@ -496,7 +512,7 @@ system_reset // reset
 Previous: <a href="#arm32-embedded-environment" accesskey="p" rel="prev">arm32 embedded environment</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="os-diy-1"></a>
-<h2 class="chapter">7 os diy</h2>
+<h2 class="chapter">8 os diy</h2>
 
 <ul>
 <li> <b>install tools</b>
