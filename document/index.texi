@@ -74,7 +74,7 @@ This manual is for program, version version.
 
 @itemize
 @item
-@b{System development} @url{system_development.html, view}
+@b{System development} @url{system_dev/index.html, view}
 @end itemize
 
 @itemize
