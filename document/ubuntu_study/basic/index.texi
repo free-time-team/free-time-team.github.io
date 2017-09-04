@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle ubuntu study
+@settitle Ubuntu introduction
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,33 +35,21 @@ Published by
 
 @ifnottex
 @node Top
-@top ubuntu study
+@top Ubuntu introduction
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* Index::
+* Introduction::
 @c * Copying::  free time team
 @end menu
 
-@node Index
-@chapter Index
+@node Introduction
+@chapter Introduction
 
-@itemize
-@item
-@b{Ubuntu introduction} @url{./basic/index.html, introduction}
-@end itemize
+Ubuntu basic => @url{./basic.html, basic}
 
-@itemize
-@item
-@b{Ubuntu schedule} @url{ubuntu_schedule.html, schedule}
-@end itemize
-
-
-
-
-
-
+Qemu install => @url{./qemu_install.html, install qemu}
 
 @bye
