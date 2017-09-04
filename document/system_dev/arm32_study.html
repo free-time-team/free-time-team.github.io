@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>arm32 study</title>
+
+<meta name="description" content="arm32 study">
+<meta name="keywords" content="arm32 study">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">arm32 study</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-arm32-study-environment-1" href="#arm32-study-environment">1 arm32 study environment</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#arm32-study-environment" accesskey="n" rel="next">arm32 study environment</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="arm32-study"></a>
+<h1 class="top">arm32 study</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#arm32-study-environment" accesskey="1">arm32 study environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="arm32-study-environment"></a>
+<div class="header">
+<p>
+Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="arm32-study-environment-1"></a>
+<h2 class="chapter">1 arm32 study environment</h2>
+
+<ul>
+<li> <b>install qemu</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo apt-get install qemu
+</pre></div>
+
+<ul>
+<li> <b>install toolchain</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo apt-get install g++-arm-linux-gnueabi
+</pre></div>
+
+<ul>
+<li> <b>get code</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">git clone https://github.com/sys-build/embedded_env_arm32.git
+</pre></div>
+
+<ul>
+<li> <b>compiler &amp; run</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">arm-linux-gnueabi-gcc -o hello hello.s main.c -static
+qemu-arm hello
+</pre></div>
+
+<ul>
+<li> <b>debug</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">qemu-arm -g 1234 hello
+$ arm-none-eabi-gdb
+(gdb) target remote :1234
+Remote debugging using :1234
+warning: A handler for the OS ABI &quot;GNU/Linux&quot; is not built into this configuration
+of GDB. Attempting to continue with the default armv5t settings.
+
+0x0001044c in _start ()
+(gdb) file ./hello
+A program is being debugged already.
+Are you sure you want to change the file? (y or n) y
+Reading symbols from /home/zzy/sda7/virtual_platform/02codebase/02sys_build/embedded_env_arm32/hello...(no debugging symbols found)...done.
+(gdb) b add
+Breakpoint 1 at 0x105b4
+(gdb) c
+Continuing.
+
+Breakpoint 1, 0x000105b4 in add ()
+(gdb) info r
+r0 0x3 3
+r1 0xf6fff064 -150998940
+r2 0xf6fff06c -150998932
+r3 0x105c4 67012
+r4 0xf6ffef28 -150999256
+r5 0x10d48 68936
+r6 0x0 0
+r7 0x0 0
+r8 0x0 0
+r9 0x0 0
+r10 0x96f6c 618348
+r11 0xf6ffef14 -150999276
+r12 0x0 0
+sp 0xf6ffef10 0xf6ffef10
+lr 0x105d4 67028
+pc 0x105b4 0x105b4
+cpsr 0x60000010 1610612752
+(gdb) s
+Single stepping until exit from function add,
+which has no line number information.
+0x000105d4 in main ()
+(gdb) info r
+r0 0x3 3
+r1 0x1 1
+r2 0x2 2
+r3 0x105c4 67012
+r4 0xf6ffef28 -150999256
+r5 0x10d48 68936
+r6 0x0 0
+r7 0x0 0
+r8 0x0 0
+r9 0x0 0
+r10 0x96f6c 618348
+r11 0xf6ffef14 -150999276
+r12 0x0 0
+sp 0xf6ffef10 0xf6ffef10
+lr 0x105d4 67028
+pc 0x105d4 0x105d4
+cpsr 0x60000010 1610612752
+(gdb)
+</pre></div>
+
+
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

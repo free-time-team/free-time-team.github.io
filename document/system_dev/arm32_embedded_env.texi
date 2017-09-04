@@ -1,0 +1,120 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle arm32 embedded environment
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top arm32 embedded environment
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* arm32 embedded environment::
+@c * Copying::  free time team
+@end menu
+
+@node arm32 embedded environment
+@chapter arm32 embedded environment
+
+@itemize
+@item
+@b{install qemu}
+@end itemize
+
+@example
+sudo apt-get install qemu
+@end example
+
+@itemize
+@item
+@b{install toolchain}
+@end itemize
+
+@example
+sudo apt-get insatll gcc-arm-linux-gnueabi
+sudo apt-get install libc6-dev-armel-cross
+@end example
+
+@itemize
+@item
+@b{get code}
+@end itemize
+
+@example
+git clone https://github.com/sys-build/embedded_env_arm32.git
+@end example
+
+@itemize
+@item
+@b{build}
+@end itemize
+
+@example
+arm-linux-gnueabi-as -o test.o test.s
+arm-linux-gnueabi-ld -Ttext=0x0 -o test.elf test.o
+arm-linux-gnueabi-nm test.elf
+arm-linux-gnueabi-objcopy -O binary test.elf test.bin
+dd if=/dev/zero of=flash.bin bs=4096 count=4096
+dd if=test.bin of=flash.bin bs=4096 conv=notrunc
+@end example
+
+@itemize
+@item
+@b{run in qemu}
+@end itemize
+
+@example
+qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+@end example
+
+@itemize
+@item
+@b{qemu commands}
+@end itemize
+
+@example
+help // help info
+info registers // review registers
+quit // quit
+xp /fmt address // dump memory
+system_reset // reset
+@end example
+
+
+
+
+
+
+@bye

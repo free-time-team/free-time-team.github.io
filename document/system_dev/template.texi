@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle System development
+@settitle todo
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,29 +35,24 @@ Published by
 
 @ifnottex
 @node Top
-@top System development
+@top todo
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* system development::
+* todo::
 @c * Copying::  free time team
 @end menu
 
-@node system development
-@chapter system development
+@node todo
+@chapter todo
 
-linux kernel study => @url{./linux_kernel.html, linux kernel}
 
-arm64 kerenel environment => @url{./arm64_kernel_env.html, arm64 kernel}
 
-arm64 study => @url{./arm64_study.html, arm64 study}
 
-arm32 embedded environment => @url{./arm32_embedded_env.html, arm32 embedded environment}
 
-arm32 study => @url{./arm32_study.html, arm32 study}
 
-os diy => @url{./os_diy.html, os diy}
+
 
 @bye

@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle System development
+@settitle os diy
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,29 +35,60 @@ Published by
 
 @ifnottex
 @node Top
-@top System development
+@top os diy
 
 This manual is for program, version version.
 @end ifnottex
 
 @menu
-* system development::
+* os diy::
 @c * Copying::  free time team
 @end menu
 
-@node system development
-@chapter system development
+@node os diy
+@chapter os diy
 
-linux kernel study => @url{./linux_kernel.html, linux kernel}
+@itemize
+@item
+@b{install tools}
+@end itemize
 
-arm64 kerenel environment => @url{./arm64_kernel_env.html, arm64 kernel}
+@example
+sudo apt-get install qemu sudo apt-get install nasm
+@end example
 
-arm64 study => @url{./arm64_study.html, arm64 study}
+@itemize
+@item
+@b{get code}
+@end itemize
 
-arm32 embedded environment => @url{./arm32_embedded_env.html, arm32 embedded environment}
+@example
+git clone https://github.com/sys-build/os_diy.git
+@end example
 
-arm32 study => @url{./arm32_study.html, arm32 study}
+@itemize
+@item
+@b{compiler and run}
+@end itemize
 
-os diy => @url{./os_diy.html, os diy}
+@example
+cd os_diy/01_30days/day01/hello2
+make
+qemu-system-i386 os.img
+@end example
+
+@itemize
+@item
+@b{clean}
+@end itemize
+
+@example
+Ctrl+C to exit
+make clean
+@end example
+
+
+
+
 
 @bye

@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>arm64 kernel environment</title>
+
+<meta name="description" content="arm64 kernel environment">
+<meta name="keywords" content="arm64 kernel environment">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">arm64 kernel environment</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-arm64-kerenel-environment-1" href="#arm64-kerenel-environment">1 arm64 kerenel environment</a></li>
+  <li><a name="toc-arm64-kerenel-debug-1" href="#arm64-kerenel-debug">2 arm64 kerenel debug</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#arm64-kerenel-environment" accesskey="n" rel="next">arm64 kerenel environment</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="arm64-kernel-environment"></a>
+<h1 class="top">arm64 kernel environment</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#arm64-kerenel-environment" accesskey="1">arm64 kerenel environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#arm64-kerenel-debug" accesskey="2">arm64 kerenel debug</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="arm64-kerenel-environment"></a>
+<div class="header">
+<p>
+Next: <a href="#arm64-kerenel-debug" accesskey="n" rel="next">arm64 kerenel debug</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="arm64-kerenel-environment-1"></a>
+<h2 class="chapter">1 arm64 kerenel environment</h2>
+
+<ul>
+<li> <b>install qemu</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">
+<b>install from binary</b>
+sudo apt-get install qemu-system-arm
+
+<b>install from source code</b>
+git clone http://git.qemu.org/git/qemu.git
+cd qemu
+./configure --help
+./configure --target-list=aarch64-softmmu
+make
+sudo make install
+</pre></div>
+
+<ul>
+<li> <b>install toolchain</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">cd ~
+mkdir bin
+cd bin
+wget http://releases.linaro.org/14.09/components/toolchain/binaries/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+tar -Jxf gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+rm gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+cd gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin/
+pwd
+edit file ~/.profile, add the following content,
+
+PATH=&quot;$PATH:/home/zzy/bin/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin&quot;
+reboot PC
+</pre></div>
+
+<ul>
+<li> <b>build kernel</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">make directory for work, and change to it.
+git clone https://github.com/sys-build/kern4.1_arm64_env.git
+cd kern4.1_arm64_env/linux-4.1.16/
+chage &quot;CONFIG_INITRAMFS_SOURCE&quot; to the right directory
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out zzy_defconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
+</pre></div>
+
+<hr>
+<a name="arm64-kerenel-debug"></a>
+<div class="header">
+<p>
+Previous: <a href="#arm64-kerenel-environment" accesskey="p" rel="prev">arm64 kerenel environment</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="arm64-kerenel-debug-1"></a>
+<h2 class="chapter">2 arm64 kerenel debug</h2>
+
+<ul>
+<li> <b>run the kernel with rootfs on arm64 qemu</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">cd ..
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot;
+</pre></div>
+
+<ul>
+<li> <b>quit</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">C a c // press Ctrl+a and then press c -&gt; quit arm64 linux
+quit // quit qemu
+</pre></div>
+
+<ul>
+<li> <b>open a terminal</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">// start kernel and stop the first instruction
+$ qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -s -S
+
+start another console type the following commands
+// start gdb and load vmlinux
+$ aarch64-linux-gnu-gdb
+(gdb) file out/vmlinux
+Reading symbols from /media/disk2/03study/kern4.1_arm64_env/out/vmlinux...done.
+
+(gdb) directory linux-4.1.16/
+// read source code
+Source directories searched: /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16:cdir:cwd
+
+(gdb) target remote localhost:1234
+// access qemu guest
+Remote debugging using localhost:1234
+0x0000000040000000 in ?? ()
+
+(gdb) break start_kernel
+Breakpoint 2 at 0xffffffc0007ed5d8: file /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c, line 493.
+(gdb) c
+Continuing.
+
+Breakpoint 2, start_kernel () at /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c:493
+493 {
+(gdb) list
+488 vmalloc_init();
+489 ioremap_huge_init();
+490 }
+
+(gdb) s
+502 set_task_stack_end_magic(&amp;init_task);
+(gdb) info r
+x0 0x34d5d91d 886429981
+x1 0x40b68000 1085702144
+x2 0x40 64
+x3 0x3f 63
+x4 0xffffffc000ac7000 -274866606080
+x5 0xffffffc00081f000 -274869391360
+x6 0xffffffc000aca000 -274866593792
+x7 0xffffffc000b624a8 -274865970008
+x8 0x0 0
+x9 0x1124 4388
+x10 0x34b5193519 226376627481
+x11 0x0 0
+x12 0x0 0
+x13 0x16 22
+x14 0x0 0
+
+dmesg log have no timestamp
+echo Y &gt; /sys/module/printk/parameters/time
+</pre></div>
+
+<ul>
+<li> <b>gdb study</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">// todo
+</pre></div>
+
+<ul>
+<li> <b>my kernel code</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">git clone https://github.com/zzyjsjcom/zzy_kernel_code.git
+</pre></div>
+
+
+
+
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

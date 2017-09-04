@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>linux kernel study</title>
+
+<meta name="description" content="linux kernel study">
+<meta name="keywords" content="linux kernel study">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">linux kernel study</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-kernel-code-download-1" href="#kernel-code-download">1 kernel code download</a></li>
+  <li><a name="toc-install-qemu-1" href="#install-qemu">2 install qemu</a></li>
+  <li><a name="toc-rootfs-1" href="#rootfs">3 rootfs</a></li>
+  <li><a name="toc-install-toolchain-1" href="#install-toolchain">4 install toolchain</a></li>
+  <li><a name="toc-build-_0026-run-1" href="#build-_0026-run">5 build &amp; run</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#kernel-code-download" accesskey="n" rel="next">kernel code download</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="linux-kernel-study"></a>
+<h1 class="top">linux kernel study</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#kernel-code-download" accesskey="1">kernel code download</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#install-qemu" accesskey="2">install qemu</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#rootfs" accesskey="3">rootfs</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#install-toolchain" accesskey="4">install toolchain</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#build-_0026-run" accesskey="5">build &amp; run</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="kernel-code-download"></a>
+<div class="header">
+<p>
+Next: <a href="#install-qemu" accesskey="n" rel="next">install qemu</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="kernel-code-download-1"></a>
+<h2 class="chapter">1 kernel code download</h2>
+
+<p><a href="https://www.kernel.org/">https://www.kernel.org/</a>
+</p>
+<p><a href="https://cdn.kernel.org/pub/linux/kernel/">https://cdn.kernel.org/pub/linux/kernel/</a>
+</p>
+<hr>
+<a name="install-qemu"></a>
+<div class="header">
+<p>
+Next: <a href="#rootfs" accesskey="n" rel="next">rootfs</a>, Previous: <a href="#kernel-code-download" accesskey="p" rel="prev">kernel code download</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="install-qemu-1"></a>
+<h2 class="chapter">2 install qemu</h2>
+
+<p>install qemu =&gt; <a href="https://free-time-team.github.io/document/ubuntu_study/basic/qemu_install.html#install-from-source-code">install from source code</a>
+</p>
+<hr>
+<a name="rootfs"></a>
+<div class="header">
+<p>
+Next: <a href="#install-toolchain" accesskey="n" rel="next">install toolchain</a>, Previous: <a href="#install-qemu" accesskey="p" rel="prev">install qemu</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="rootfs-1"></a>
+<h2 class="chapter">3 rootfs</h2>
+
+<p>download rootfs =&gt; <a href="https://github.com/sys-build/resource_dev">rootfs.cpio</a>
+</p>
+<p>unpack kernel source code
+</p>
+<p>cp rootfs.cpio to your kernel source code&rsquo;s root directory
+</p>
+<hr>
+<a name="install-toolchain"></a>
+<div class="header">
+<p>
+Next: <a href="#build-_0026-run" accesskey="n" rel="next">build &amp; run</a>, Previous: <a href="#rootfs" accesskey="p" rel="prev">rootfs</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="install-toolchain-1"></a>
+<h2 class="chapter">4 install toolchain</h2>
+
+<p>sudo apt-get install g++-aarch64-linux-gnu
+</p>
+<hr>
+<a name="build-_0026-run"></a>
+<div class="header">
+<p>
+Previous: <a href="#install-toolchain" accesskey="p" rel="prev">install toolchain</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="build-_0026-run-1"></a>
+<h2 class="chapter">5 build &amp; run</h2>
+
+<div class="example">
+<pre class="example">make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out defconfig
+
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
+
+/to/your/path/qemu-2.10.0/bin/qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel ../out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot;
+</pre></div>
+
+<hr>
+
+
+
+</body>
+</html>

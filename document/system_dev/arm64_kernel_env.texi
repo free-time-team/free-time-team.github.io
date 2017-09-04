@@ -1,0 +1,212 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle arm64 kernel environment
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top arm64 kernel environment
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* arm64 kerenel environment::
+* arm64 kerenel debug::
+@c * Copying::  free time team
+@end menu
+
+@node arm64 kerenel environment
+@chapter arm64 kerenel environment
+
+@itemize
+@item
+@b{install qemu}
+@end itemize
+
+@example
+
+@b{install from binary}
+sudo apt-get install qemu-system-arm
+
+@b{install from source code}
+git clone http://git.qemu.org/git/qemu.git
+cd qemu
+./configure --help
+./configure --target-list=aarch64-softmmu
+make
+sudo make install
+@end example
+
+@itemize
+@item
+@b{install toolchain}
+@end itemize
+
+@example
+cd ~
+mkdir bin
+cd bin
+wget http://releases.linaro.org/14.09/components/toolchain/binaries/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+tar -Jxf gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+rm gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux.tar.xz
+cd gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin/
+pwd
+edit file ~/.profile, add the following content,
+
+PATH="$PATH:/home/zzy/bin/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin"
+reboot PC
+@end example
+
+@itemize
+@item
+@b{build kernel}
+@end itemize
+
+@example
+make directory for work, and change to it.
+git clone https://github.com/sys-build/kern4.1_arm64_env.git
+cd kern4.1_arm64_env/linux-4.1.16/
+chage "CONFIG_INITRAMFS_SOURCE" to the right directory
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out zzy_defconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
+@end example
+
+@node arm64 kerenel debug
+@chapter arm64 kerenel debug
+
+@itemize
+@item
+@b{run the kernel with rootfs on arm64 qemu}
+@end itemize
+
+@example
+cd ..
+$qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0"
+@end example
+
+@itemize
+@item
+@b{quit}
+@end itemize
+
+@example
+C a c // press Ctrl+a and then press c -> quit arm64 linux
+quit // quit qemu
+@end example
+
+@itemize
+@item
+@b{open a terminal}
+@end itemize
+
+@example
+// start kernel and stop the first instruction
+$ qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0" -s -S
+
+start another console type the following commands
+// start gdb and load vmlinux
+$ aarch64-linux-gnu-gdb
+(gdb) file out/vmlinux
+Reading symbols from /media/disk2/03study/kern4.1_arm64_env/out/vmlinux...done.
+
+(gdb) directory linux-4.1.16/
+// read source code
+Source directories searched: /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16:cdir:cwd
+
+(gdb) target remote localhost:1234
+// access qemu guest
+Remote debugging using localhost:1234
+0x0000000040000000 in ?? ()
+
+(gdb) break start_kernel
+Breakpoint 2 at 0xffffffc0007ed5d8: file /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c, line 493.
+(gdb) c
+Continuing.
+
+Breakpoint 2, start_kernel () at /media/disk2/03study/kern4.1_arm64_env/linux-4.1.16/init/main.c:493
+493 @{
+(gdb) list
+488 vmalloc_init();
+489 ioremap_huge_init();
+490 @}
+
+(gdb) s
+502 set_task_stack_end_magic(&init_task);
+(gdb) info r
+x0 0x34d5d91d 886429981
+x1 0x40b68000 1085702144
+x2 0x40 64
+x3 0x3f 63
+x4 0xffffffc000ac7000 -274866606080
+x5 0xffffffc00081f000 -274869391360
+x6 0xffffffc000aca000 -274866593792
+x7 0xffffffc000b624a8 -274865970008
+x8 0x0 0
+x9 0x1124 4388
+x10 0x34b5193519 226376627481
+x11 0x0 0
+x12 0x0 0
+x13 0x16 22
+x14 0x0 0
+
+dmesg log have no timestamp
+echo Y > /sys/module/printk/parameters/time
+@end example
+
+@itemize
+@item
+@b{gdb study}
+@end itemize
+
+@example
+// todo
+@end example
+
+@itemize
+@item
+@b{my kernel code}
+@end itemize
+
+@example
+git clone https://github.com/zzyjsjcom/zzy_kernel_code.git
+@end example
+
+
+
+
+
+
+
+
+@bye

@@ -7,10 +7,10 @@ Copyright (C) years free time team.
 Permission is granted to -->
 <!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>System development</title>
+<title>arm32 embedded environment</title>
 
-<meta name="description" content="System development">
-<meta name="keywords" content="System development">
+<meta name="description" content="arm32 embedded environment">
+<meta name="keywords" content="arm32 embedded environment">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -50,7 +50,7 @@ ul.no-bullet {list-style: none}
 </head>
 
 <body lang="en">
-<h1 class="settitle" align="center">System development</h1>
+<h1 class="settitle" align="center">arm32 embedded environment</h1>
 
 
 
@@ -61,7 +61,7 @@ ul.no-bullet {list-style: none}
 <div class="contents">
 
 <ul class="no-bullet">
-  <li><a name="toc-system-development-1" href="#system-development">1 system development</a></li>
+  <li><a name="toc-arm32-embedded-environment-2" href="#arm32-embedded-environment">1 arm32 embedded environment</a></li>
 </ul>
 </div>
 
@@ -69,39 +69,90 @@ ul.no-bullet {list-style: none}
 <a name="Top"></a>
 <div class="header">
 <p>
-Next: <a href="#system-development" accesskey="n" rel="next">system development</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#arm32-embedded-environment" accesskey="n" rel="next">arm32 embedded environment</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="System-development"></a>
-<h1 class="top">System development</h1>
+<a name="arm32-embedded-environment-1"></a>
+<h1 class="top">arm32 embedded environment</h1>
 
 <p>This manual is for program, version version.
 </p>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#system-development" accesskey="1">system development</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arm32-embedded-environment" accesskey="1">arm32 embedded environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
-<a name="system-development"></a>
+<a name="arm32-embedded-environment"></a>
 <div class="header">
 <p>
 Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="system-development-1"></a>
-<h2 class="chapter">1 system development</h2>
+<a name="arm32-embedded-environment-2"></a>
+<h2 class="chapter">1 arm32 embedded environment</h2>
 
-<p>linux kernel study =&gt; <a href="./linux_kernel.html">linux kernel</a>
-</p>
-<p>arm64 kerenel environment =&gt; <a href="./arm64_kernel_env.html">arm64 kernel</a>
-</p>
-<p>arm64 study =&gt; <a href="./arm64_study.html">arm64 study</a>
-</p>
-<p>arm32 embedded environment =&gt; <a href="./arm32_embedded_env.html">arm32 embedded environment</a>
-</p>
-<p>arm32 study =&gt; <a href="./arm32_study.html">arm32 study</a>
-</p>
-<p>os diy =&gt; <a href="./os_diy.html">os diy</a>
-</p>
+<ul>
+<li> <b>install qemu</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo apt-get install qemu
+</pre></div>
+
+<ul>
+<li> <b>install toolchain</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">sudo apt-get insatll gcc-arm-linux-gnueabi
+sudo apt-get install libc6-dev-armel-cross
+</pre></div>
+
+<ul>
+<li> <b>get code</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">git clone https://github.com/sys-build/embedded_env_arm32.git
+</pre></div>
+
+<ul>
+<li> <b>build</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">arm-linux-gnueabi-as -o test.o test.s
+arm-linux-gnueabi-ld -Ttext=0x0 -o test.elf test.o
+arm-linux-gnueabi-nm test.elf
+arm-linux-gnueabi-objcopy -O binary test.elf test.bin
+dd if=/dev/zero of=flash.bin bs=4096 count=4096
+dd if=test.bin of=flash.bin bs=4096 conv=notrunc
+</pre></div>
+
+<ul>
+<li> <b>run in qemu</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">qemu-system-arm -M connex -pflash flash.bin -nographic -serial /dev/null
+</pre></div>
+
+<ul>
+<li> <b>qemu commands</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">help // help info
+info registers // review registers
+quit // quit
+xp /fmt address // dump memory
+system_reset // reset
+</pre></div>
+
+
+
+
+
+
 <hr>
 
 

@@ -1,0 +1,94 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle arm64 study
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top arm64 study
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* arm64 study environment::
+* arm64 study::
+@c * Copying::  free time team
+@end menu
+
+@node arm64 study environment
+@chapter arm64 study environment
+
+@example
+
+@b{install toolchain}
+sudo apt-get install g++-aarch64-linux-gnu
+
+@b{get code}
+git clone https://github.com/sys-build/env_arm64_study.git
+
+@b{build & run}
+aarch64-linux-gnu-gcc -o main hello.s main.c -static
+qemu-aarch64 main
+
+@end example
+
+@node arm64 study
+@chapter arm64 study
+
+@itemize
+@item
+@b{compiler code}
+@end itemize
+
+@example
+change to directory arm64_code make // based on the previous chapter
+@end example
+
+@itemize
+@item
+@b{run}
+@end itemize
+
+@example
+qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append "console=ttyAMA0" -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
+
+mkdir /mnt
+mount -t 9p -o trans=virtio r /mnt
+cd /mnt
+./hello1
+./hello2
+./hello3
+@end example
+
+@bye
