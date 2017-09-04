@@ -174,7 +174,7 @@ Previous: <a href="#build-_0026-run" accesskey="p" rel="prev">build &amp; run</a
 <a name="access-host-directory-1"></a>
 <h2 class="chapter">6 access host directory</h2>
 
-<p>qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
+<p>qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel ../out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -fsdev local,id=r,path=../,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
 </p>
 <div class="example">
 <pre class="example">mkdir /mnt
