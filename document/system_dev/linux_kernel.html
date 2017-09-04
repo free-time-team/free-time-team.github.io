@@ -66,6 +66,7 @@ ul.no-bullet {list-style: none}
   <li><a name="toc-rootfs-1" href="#rootfs">3 rootfs</a></li>
   <li><a name="toc-install-toolchain-1" href="#install-toolchain">4 install toolchain</a></li>
   <li><a name="toc-build-_0026-run-1" href="#build-_0026-run">5 build &amp; run</a></li>
+  <li><a name="toc-access-host-directory-1" href="#access-host-directory">6 access host directory</a></li>
 </ul>
 </div>
 
@@ -90,6 +91,8 @@ Next: <a href="#kernel-code-download" accesskey="n" rel="next">kernel code downl
 <tr><td align="left" valign="top">&bull; <a href="#install-toolchain" accesskey="4">install toolchain</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#build-_0026-run" accesskey="5">build &amp; run</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#access-host-directory" accesskey="6">access host directory</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -147,7 +150,7 @@ Next: <a href="#build-_0026-run" accesskey="n" rel="next">build &amp; run</a>, P
 <a name="build-_0026-run"></a>
 <div class="header">
 <p>
-Previous: <a href="#install-toolchain" accesskey="p" rel="prev">install toolchain</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#access-host-directory" accesskey="n" rel="next">access host directory</a>, Previous: <a href="#install-toolchain" accesskey="p" rel="prev">install toolchain</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="build-_0026-run-1"></a>
 <h2 class="chapter">5 build &amp; run</h2>
@@ -160,6 +163,23 @@ Previous: <a href="#install-toolchain" accesskey="p" rel="prev">install toolchai
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
 
 /to/your/path/qemu-2.10.0/bin/qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel ../out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot;
+</pre></div>
+
+<hr>
+<a name="access-host-directory"></a>
+<div class="header">
+<p>
+Previous: <a href="#build-_0026-run" accesskey="p" rel="prev">build &amp; run</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="access-host-directory-1"></a>
+<h2 class="chapter">6 access host directory</h2>
+
+<p>qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image --append &quot;console=ttyAMA0&quot; -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
+</p>
+<div class="example">
+<pre class="example">mkdir /mnt
+mount -t 9p -o trans=virtio r /mnt
+cd /mnt
 </pre></div>
 
 <hr>

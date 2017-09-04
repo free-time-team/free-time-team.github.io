@@ -46,6 +46,7 @@ This manual is for program, version version.
 * rootfs::
 * install toolchain::
 * build & run::
+* access host directory::
 @c * Copying::  free time team
 @end menu
 
@@ -86,6 +87,17 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out defconfig
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
 
 /to/your/path/qemu-2.10.0/bin/qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel ../out/arch/arm64/boot/Image --append "console=ttyAMA0"
+@end example
+
+@node access host directory
+@chapter access host directory
+
+qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic -smp 1 -m 2048 -kernel out/arch/arm64/boot/Image @--@--append "console=ttyAMA0" -fsdev local,id=r,path=./arm64_code,security_model=none -device virtio-9p-device,fsdev=r,mount_tag=r
+
+@example
+mkdir /mnt
+mount -t 9p -o trans=virtio r /mnt
+cd /mnt
 @end example
 
 @bye
