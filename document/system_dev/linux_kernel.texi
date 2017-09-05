@@ -120,4 +120,13 @@ cd /mnt
 @url{https://github.com/sys-build/resource_dev.git, https://github.com/sys-build/resource_dev.git}
 @end example
 
+@itemize
+@item
+@b{apply patch}
+@end itemize
+
+patch -p1 < ...     # text format patch
+
+git apply -p1 < ... # patch with binary data
+
 @bye
