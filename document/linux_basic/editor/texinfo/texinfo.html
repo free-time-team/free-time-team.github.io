@@ -62,7 +62,8 @@ ul.no-bullet {list-style: none}
 
 <ul class="no-bullet">
   <li><a name="toc-learning-materials-for-texinfo-1" href="#learning-materials-for-texinfo">1 learning materials for texinfo</a></li>
-  <li><a name="toc-often-used-command-for-texinfo-1" href="#often-used-command-for-texinfo">2 often used command for texinfo</a></li>
+  <li><a name="toc-template-1" href="#template">2 template</a></li>
+  <li><a name="toc-often-used-command-for-texinfo-1" href="#often-used-command-for-texinfo">3 often used command for texinfo</a></li>
 </ul>
 </div>
 
@@ -80,7 +81,9 @@ Next: <a href="#learning-materials-for-texinfo" accesskey="n" rel="next">learnin
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="#learning-materials-for-texinfo" accesskey="1">learning materials for texinfo</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#often-used-command-for-texinfo" accesskey="2">often used command for texinfo</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#template" accesskey="2">template</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#often-used-command-for-texinfo" accesskey="3">often used command for texinfo</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -88,7 +91,7 @@ Next: <a href="#learning-materials-for-texinfo" accesskey="n" rel="next">learnin
 <a name="learning-materials-for-texinfo"></a>
 <div class="header">
 <p>
-Next: <a href="#often-used-command-for-texinfo" accesskey="n" rel="next">often used command for texinfo</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#template" accesskey="n" rel="next">template</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="learning-materials-for-texinfo-1"></a>
 <h2 class="chapter">1 learning materials for texinfo</h2>
@@ -97,13 +100,71 @@ Next: <a href="#often-used-command-for-texinfo" accesskey="n" rel="next">often u
 </li></ul>
 
 <hr>
+<a name="template"></a>
+<div class="header">
+<p>
+Next: <a href="#often-used-command-for-texinfo" accesskey="n" rel="next">often used command for texinfo</a>, Previous: <a href="#learning-materials-for-texinfo" accesskey="p" rel="prev">learning materials for texinfo</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="template-1"></a>
+<h2 class="chapter">2 template</h2>
+
+<ul>
+<li> <b>template</b>
+
+<p>texinfo source example =&gt; <a href="./template.texi">template</a>
+</p>
+<p>html example =&gt; <a href="./template.html">template html</a>
+</p>
+</li></ul>
+
+<ul>
+<li> <b>texinfo to html</b>
+</li></ul>
+
+<div class="example">
+<pre class="example">makeinfo --html --no-split template.texi
+</pre></div>
+
+<ul>
+<li> <b>change title</b>
+
+<p>拿到模板后先修改 @settitle 和 @top 后面的 &quot;todo&quot;， 改成自己的title。
+</p>
+</li></ul>
+
+<ul>
+<li> <b>添加一级菜单</b>
+
+<p>参考上面的模板，在 @menu 和 @end menu 的中间加入菜单的名字。
+</p>
+<p>在 @end menu 的后面加上 @node 和 @chapter, 每一个一级菜单都需要一个成对的 node/chapter.
+</p>
+<p>类似的，二级菜单是: node/section, 三级菜单是: node/subsection.
+</p>
+<p>可以在 node/chapter 的后面输入正文了。
+</p>
+</li></ul>
+
+<ul>
+<li> <b>more</b>
+
+<p>更多的常见语法规则，可以参考下面一章的介绍。
+</p>
+<p>texinfo 手册参考: <a href="http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html">http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html</a>
+</p>
+</li></ul>
+
+
+
+
+<hr>
 <a name="often-used-command-for-texinfo"></a>
 <div class="header">
 <p>
-Previous: <a href="#learning-materials-for-texinfo" accesskey="p" rel="prev">learning materials for texinfo</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Previous: <a href="#template" accesskey="p" rel="prev">template</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="often-used-command-for-texinfo-1"></a>
-<h2 class="chapter">2 often used command for texinfo</h2>
+<h2 class="chapter">3 often used command for texinfo</h2>
 
 <ul>
 <li> <b>comment</b>

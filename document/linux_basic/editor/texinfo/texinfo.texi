@@ -42,6 +42,7 @@ This manual is for program, version version.
 
 @menu
 * learning materials for texinfo::
+* template::
 * often used command for texinfo::
 @c * Copying:: free time team
 @end menu
@@ -52,6 +53,63 @@ This manual is for program, version version.
 @item
 @b{Reference} @url{http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html, texinfo document}
 @end itemize
+
+@node template
+@chapter template
+
+@itemize
+@item
+@b{template}
+
+texinfo source example => @url{./template.texi, template}
+
+html example => @url{./template.html, template html}
+
+@end itemize
+
+@itemize
+@item
+@b{texinfo to html}
+@end itemize
+
+@example
+makeinfo --html --no-split template.texi
+@end example
+
+@itemize
+@item
+@b{change title}
+
+拿到模板后先修改 @@settitle 和 @@top 后面的 "todo"， 改成自己的title。
+
+@end itemize
+
+@itemize
+@item
+@b{添加一级菜单}
+
+参考上面的模板，在 @@menu 和 @@end menu 的中间加入菜单的名字。
+
+在 @@end menu 的后面加上 @@node 和 @@chapter, 每一个一级菜单都需要一个成对的 node/chapter.
+
+类似的，二级菜单是: node/section, 三级菜单是: node/subsection.
+
+可以在 node/chapter 的后面输入正文了。
+
+@end itemize
+
+@itemize
+@item
+@b{more}
+
+更多的常见语法规则，可以参考下面一章的介绍。
+
+texinfo 手册参考: @url{http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html, http://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html}
+
+@end itemize
+
+
+
 
 @node often used command for texinfo
 @chapter often used command for texinfo
