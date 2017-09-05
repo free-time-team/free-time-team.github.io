@@ -48,9 +48,9 @@ This manual is for program, version version.
 @node tools
 @chapter tools
 
-==> @url{./basic_tools.html, basic tools}
-
 ==> @url{./shell.html, shell}
+
+==> @url{./basic_tools.html, basic tools}
 
 ==> @url{./git_and_patch.html, git and patch}
 

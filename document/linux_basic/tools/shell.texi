@@ -439,7 +439,13 @@ http://info.michael-simons.eu/2008/10/25/recursively-md5sum-all-files-in-a-direc
 @node development commands
 @chapter development commands
 
-@b{size}
+@menu
+* size::
+* cpio::
+@end menu
+
+@node size
+@section size
 
 list section sizes and total size.
 
@@ -450,6 +456,17 @@ $size a.out
 text  data  bss dec  hex filename
 
 1176  504  16 1696  6a0 a.out
+
+@node cpio
+@section cpio
+
+@example
+@b{cpio unpack}
+cpio -idmv < test.cpio
+
+@b{cpio pack}
+sudo find . | sudo cpio -H newc -o > test.cpio
+@end example
 
 @node trick
 @chapter trick

@@ -48,9 +48,9 @@ This manual is for linux basic, version1.0
 @node Linux basic
 @chapter Linux basic
 
-==> @url{./editor/index.html, editor}
-
 ==> @url{./tools/index.html, tools}
+
+==> @url{./editor/index.html, editor}
 
 ==> @url{./toolchain/index.html, toolchain}
 

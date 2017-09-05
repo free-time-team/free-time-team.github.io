@@ -63,7 +63,11 @@ ul.no-bullet {list-style: none}
 <ul class="no-bullet">
   <li><a name="toc-resource-1" href="#resource">1 resource</a></li>
   <li><a name="toc-basic-commands-1" href="#basic-commands">2 basic commands</a></li>
-  <li><a name="toc-development-commands-1" href="#development-commands">3 development commands</a></li>
+  <li><a name="toc-development-commands-1" href="#development-commands">3 development commands</a>
+  <ul class="no-bullet">
+    <li><a name="toc-size-1" href="#size">3.1 size</a></li>
+    <li><a name="toc-cpio-1" href="#cpio">3.2 cpio</a></li>
+  </ul></li>
   <li><a name="toc-trick-1" href="#trick">4 trick</a></li>
   <li><a name="toc-regular-expression-1" href="#regular-expression">5 regular expression</a></li>
   <li><a name="toc-environment-1" href="#environment">6 environment</a></li>
@@ -509,8 +513,22 @@ Next: <a href="#trick" accesskey="n" rel="next">trick</a>, Previous: <a href="#b
 <a name="development-commands-1"></a>
 <h2 class="chapter">3 development commands</h2>
 
-<p><b>size</b>
-</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#size" accesskey="1">size</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#cpio" accesskey="2">cpio</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="size"></a>
+<div class="header">
+<p>
+Next: <a href="#cpio" accesskey="n" rel="next">cpio</a>, Up: <a href="#development-commands" accesskey="u" rel="up">development commands</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="size-1"></a>
+<h3 class="section">3.1 size</h3>
+
 <p>list section sizes and total size.
 </p>
 <p>example
@@ -521,6 +539,23 @@ Next: <a href="#trick" accesskey="n" rel="next">trick</a>, Previous: <a href="#b
 </p>
 <p>1176  504  16 1696  6a0 a.out
 </p>
+<hr>
+<a name="cpio"></a>
+<div class="header">
+<p>
+Previous: <a href="#size" accesskey="p" rel="prev">size</a>, Up: <a href="#development-commands" accesskey="u" rel="up">development commands</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="cpio-1"></a>
+<h3 class="section">3.2 cpio</h3>
+
+<div class="example">
+<pre class="example"><b>cpio unpack</b>
+cpio -idmv &lt; test.cpio
+
+<b>cpio pack</b>
+sudo find . | sudo cpio -H newc -o &gt; test.cpio
+</pre></div>
+
 <hr>
 <a name="trick"></a>
 <div class="header">
