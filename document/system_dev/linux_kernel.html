@@ -67,6 +67,7 @@ ul.no-bullet {list-style: none}
   <li><a name="toc-install-toolchain-1" href="#install-toolchain">4 install toolchain</a></li>
   <li><a name="toc-build-_0026-run-1" href="#build-_0026-run">5 build &amp; run</a></li>
   <li><a name="toc-access-host-directory-1" href="#access-host-directory">6 access host directory</a></li>
+  <li><a name="toc-resource-1" href="#resource">7 resource</a></li>
 </ul>
 </div>
 
@@ -93,6 +94,8 @@ Next: <a href="#kernel-code-download" accesskey="n" rel="next">kernel code downl
 <tr><td align="left" valign="top">&bull; <a href="#build-_0026-run" accesskey="5">build &amp; run</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#access-host-directory" accesskey="6">access host directory</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#resource" accesskey="7">resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -157,6 +160,13 @@ Next: <a href="#access-host-directory" accesskey="n" rel="next">access host dire
 
 <p>change to your kernel&rsquo;s root directory
 </p>
+<p>add rootfs.cpio
+</p>
+<div class="example">
+<pre class="example">add the line: CONFIG_INITRAMFS_SOURCE=&quot;/your/rootfs/absolute/path/rootfs.cpio&quot;
+to the file: arch/arm64/configs/defconfig
+</pre></div>
+
 <div class="example">
 <pre class="example">make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out defconfig
 
@@ -169,7 +179,7 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out -j4 Image
 <a name="access-host-directory"></a>
 <div class="header">
 <p>
-Previous: <a href="#build-_0026-run" accesskey="p" rel="prev">build &amp; run</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#resource" accesskey="n" rel="next">resource</a>, Previous: <a href="#build-_0026-run" accesskey="p" rel="prev">build &amp; run</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="access-host-directory-1"></a>
 <h2 class="chapter">6 access host directory</h2>
@@ -180,6 +190,23 @@ Previous: <a href="#build-_0026-run" accesskey="p" rel="prev">build &amp; run</a
 <pre class="example">mkdir /mnt
 mount -t 9p -o trans=virtio r /mnt
 cd /mnt
+</pre></div>
+
+<hr>
+<a name="resource"></a>
+<div class="header">
+<p>
+Previous: <a href="#access-host-directory" accesskey="p" rel="prev">access host directory</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="resource-1"></a>
+<h2 class="chapter">7 resource</h2>
+
+<ul>
+<li> <b>development resource</b>
+</li></ul>
+
+<div class="example">
+<pre class="example"><a href="https://github.com/sys-build/resource_dev.git">https://github.com/sys-build/resource_dev.git</a>
 </pre></div>
 
 <hr>

@@ -47,6 +47,7 @@ This manual is for program, version version.
 * install toolchain::
 * build & run::
 * access host directory::
+* resource::
 @c * Copying::  free time team
 @end menu
 
@@ -81,6 +82,13 @@ sudo apt-get install g++-aarch64-linux-gnu
 
 change to your kernel's root directory
 
+add rootfs.cpio
+
+@example
+add the line: CONFIG_INITRAMFS_SOURCE="/your/rootfs/absolute/path/rootfs.cpio"
+to the file: arch/arm64/configs/defconfig
+@end example
+
 @example
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=../out defconfig
 
@@ -98,6 +106,18 @@ qemu-system-aarch64 -machine virt -cpu cortex-a57 -machine type=virt -nographic 
 mkdir /mnt
 mount -t 9p -o trans=virtio r /mnt
 cd /mnt
+@end example
+
+@node resource
+@chapter resource
+
+@itemize
+@item
+@b{development resource}
+@end itemize
+
+@example
+@url{https://github.com/sys-build/resource_dev.git, https://github.com/sys-build/resource_dev.git}
 @end example
 
 @bye
