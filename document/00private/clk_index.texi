@@ -1,0 +1,78 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle CLK topic
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top CLK topic
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* 背景资料::
+* CLK topic::
+* 问答::
+@c * Copying::  free time team
+@end menu
+
+@node 背景资料
+@chapter 背景资料
+
+PWN => @url{https://en.wikipedia.org/wiki/Pwn, pwn名词解释}
+
+PON => @url{https://en.wikipedia.org/wiki/Passive_optical_network, pon 基本结构}
+
+@node CLK topic
+@chapter CLK topic
+
+Topic => @url{./clk_topic.html, clk topic}
+
+@node 问答
+@chapter 问答
+
+@itemize
+@item
+@b{tcpdump build 方法}
+
+静态链接 tcpdump 不需要改什么代码，一个 --disable-shared 选项就解决的。
+
+@item
+@b{老的ont 没有ipv6 功能，为啥可以访问ipv6呢？}
+
+IPv6-in-IPv4，本质还是 IPv4 协议。
+
+@end itemize
+
+@bye
