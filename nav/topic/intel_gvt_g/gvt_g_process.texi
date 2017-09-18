@@ -1,0 +1,91 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle GVT-G process
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top GVT-G process
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Introduction::
+@c * Copying::  free time team
+@end menu
+
+@node Introduction
+@chapter Introduction
+
+@menu
+* GVT G tutoiral::
+@c * Copying::  free time team
+@end menu
+
+@node GVT G tutoiral
+@section GVT G tutoiral
+
+@b{Ubuntu16.04:}
+
+@ @ @ @ @url{http://old-releases.ubuntu.com/releases/16.04.2/, ubuntu 16.04 download address}
+
+@b{GVT-g document}
+
+@ @ @ @ @url{https://01.org/zh/node/9145, HOW TO CONTRIBUTE TO GVT-G PROJECT}
+
+@ @ @ @ @url{https://01.org/zh/node/9140, GVT-G NEW ARCHITECTURE INTRODUCTION--UPDATE}
+
+@b{GVTg Setup Guide}
+
+@ @ @ @ @url{https://github.com/01org/gvt-linux/wiki/GVTg_Setup_Guide, GVT-G Setup Guide}
+
+@b{Website}
+
+@ @ @ @ @url{https://01.org/igvt-g, https://01.org/igvt-g}
+
+@b{Intel Mail-list}
+
+@ @ @ @ @url{https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev, https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev}
+
+@b{Code}
+
+@ @ @ @ @b{Kernel} @url{https://github.com/01org/gvt-linux/, gvt-linux/}
+
+@ @ @ @ @b{QEMU} @url{https://github.com/01org/igvtg-qemu/, igvtg-qemu/}
+
+@b{More...}
+
+@ @ @ @ @url{http://events.linuxfoundation.org/sites/events/files/slides/XenGT-Xen%20Summit-REWRITE%203RD%20v4.pdf, XenGT-Xen Summit-REWRITE 3RD v4.pdf}
+
+@bye

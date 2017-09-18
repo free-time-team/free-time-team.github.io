@@ -1,0 +1,101 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle GVT-G start
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top GVT-G start
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* Introduction::
+@c * Copying::  free time team
+@end menu
+
+@node Introduction
+@chapter Introduction
+
+@menu
+* App tutoiral::
+@c * Copying::  free time team
+@end menu
+
+@b{直播列表}
+@itemize
+@item
+@b{How to commit your first linux kernel patch}
+
+=> 此直播，已于2017年8月6日成功录制并结束，录制地址如下:
+
+@ @ @ @ @b{百度网盘} => 链接: @url{http://pan.baidu.com/s/1dFENpuh, http://pan.baidu.com/s/1dFENpuh} 密码: jkw7
+
+@ @ @ @ @b{Mega网盘} => @url{https://mega.nz/#F!0N4FTCKa!fAtgx53oQybuH-3jlefx-Q, https://mega.nz/#F!0N4FTCKa!fAtgx53oQybuH-3jlefx-Q}
+
+=> Related topic
+
+@ @ @ @ @b{宋宝华老师作品} @url{https://mp.weixin.qq.com/s/vvGsn8zN0aLO27D71y3a6g, 怎么给Linux mainline发patch}
+
+@ @ @ @ @b{A patch example:} @url{https://free-time-team.github.io/document/linux_kernel/overview/kernel_dev/linux_dev_affairs.html, example}
+
+@end itemize
+
+期待后续直播的同学，可以订阅: @url{http://www.huya.com/1272134181?platform=2&from=wx&source=android&fromyy=2094749164, 王叔叔直播间}
+
+下一节是一个介绍如何在手机上订阅直播频道的简介。
+
+@node App tutoiral
+@section App tutoiral
+
+以下是针对手机并且需要下载app的朋友的一个简单入门教程。
+以下步骤，都是在手机上操作。
+
+@b{==> 1.} 打开王叔叔直播空间页面: http://m.huya.com/1873077328
+
+  记住王叔叔直播间的网名 "隔壁王叔叔" 以及左边的 Icon 图标，后面会用到。
+
+  点击右下角的 “打开APP”, 将会开始下载“虎牙直播” APP。
+
+@b{==> 2.} App安装完成打开后，注册帐号。
+
+@b{==> 3.} 从搜索栏搜索 "隔壁王叔叔"， 打开你刚才记住的那个用户，点击“订阅”
+
+@b{==> 4.}  此后从 “我的” -> “我的订阅” 将会看到隔壁王叔叔了。
+
+最后的效果图，如下。
+
+@image{../../news/00resource/YY_Picture, jpg}
+
+@bye
