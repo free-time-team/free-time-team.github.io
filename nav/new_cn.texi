@@ -136,6 +136,8 @@ This manual is for program, version version.
 @node News
 @chapter News
 
+@ @ @ @ Ft2 team 负责人在 2017 SDF@@SH 大会上做的ppt ===> @url{./news/170916/How_2_contribute_Mozilla_code_base.ppt, ppt}
+
 @ @ @ @ linux kernel maintainer YY 直播 ===> @url{./news/170803_intel_topic.html, linux kernel topic}
 
 @ @ @ @ linux 内核打包学习环境 ===> @url{https://free-time-team.github.io/nav/linux_kernel_cn.html, linux kernel study}
