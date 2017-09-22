@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle GVT-G process
+@settitle tutorial
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,7 +35,7 @@ Published by
 
 @ifnottex
 @node Top
-@top GVT-G process
+@top tutorial
 
 This manual is for program, version version.
 @end ifnottex

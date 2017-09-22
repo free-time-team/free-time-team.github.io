@@ -1,0 +1,68 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle build & run
+
+@copying
+This manual is for Document, version 1.0.
+
+Copyright @copyright{} years free time team.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title name-of-manual-when-printed en
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top build & run
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* install tools::
+* setup guide::
+@c * Copying::  free time team
+@end menu
+
+@b{Base on ubuntu-16.04}
+
+@node install tools
+@chapter install tools
+
+@example
+sudo apt-get update
+sudo apt-get install git ccache automake lzop bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386
+sudo apt-get install g++-multilib python-networkx libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev
+sudo apt-get install squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev ruby
+sudo apt-get install b86 bcc iasl uuid-dev ncurses-dev libaio-dev libyajl-dev pandoc markdown xfig
+@end example
+
+@node setup guide
+@chapter setup guide
+
+Following the guide => @url{https://github.com/01org/gvt-linux/wiki/GVTg_Setup_Guide, GVTg_Setup_Guide}
+
+
+@bye

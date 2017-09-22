@@ -41,15 +41,35 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
+* introduction::
 * GVT-G project::
 @c * Copying::  free time team
 @end menu
 
+@node introduction
+@chapter introduction
+
+@url{https://01.org/zh, GVT-G} 是 Intel 的一个 open-source 的 GPU 虚拟化项目。
+
+作为项目的作者、负责人之一的王叔叔，通过业余时间为开源社区做出了巨大贡献。
+
+想为 linux kernel 社区提交patch的广大技术人员、 想拿到一个更好的实习机会的在校大学生、 想提高自己技术能力的在职工作人员、都可以参与进来。
+
+@url{https://freetimeteam.org/, Ft2 team} 将会把 GVT-G 项目作为一个topic，学习研究。
+
+感谢大家的参与。
+
 @node GVT-G project
 @chapter GVT-G project
 
-==> @url{./intel_gvt_g/start.html, for start}
+==> @url{./intel_gvt_g/start.html, gvt-g start}
 
-==> @url{./intel_gvt_g/gvt_g_process.html, gvt-g process}
+==> @url{./intel_gvt_g/tutorial.html, tutorial}
+
+==> @url{./intel_gvt_g/build_run.html, build & run}
+
+==> @url{./intel_gvt_g/project_study.html, project study}
+
+==> @url{./intel_gvt_g/feature.html, feature plan}
 
 @bye
