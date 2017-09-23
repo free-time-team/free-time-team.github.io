@@ -63,7 +63,7 @@ This manual is for program, version version.
 @node Intel GVT G project
 @section Intel GVT G project
 
-@url{https://01.org/zh, GVT-G} 是 Intel 的一个 open-source 的 GPU 虚拟化项目。
+@url{https://01.org/zh, GVT-G} 是 Intel 中国 Gvt team 的一个 open-source 的 GPU 虚拟化项目。
 
 作为项目的作者、负责人之一的王叔叔，通过业余时间为开源社区做出了巨大贡献。
 
