@@ -63,7 +63,7 @@ sudo docker run  -it ubuntu:16.04 /bin/bash
 
 @b{add a new user}
 @example
-add sudo user
+// add sudo user
 apt-get update
 apt-get install sudo
 adduser user
@@ -96,6 +96,17 @@ https://prakhar.me/docker-curriculum/
 sudo dpkg --add-architecture i386
 apt-get update
 https://wiki.debian.org/Multiarch/HOWTO
+
+// for ubuntu-12.04
+check /etc/dpkg/dpkg.cfg.d/ 's output is "multiarch"
+
+@b{ls /etc/dpkg/dpkg.cfg.d/}
+multiarch
+
+@b{sudo sh -c "echo 'foreign-architecture i386' > /etc/dpkg/dpkg.cfg.d/multiarch"}
+
+https://askubuntu.com/questions/423083/cant-run-dpkg-add-architecture-i386-on-12-04-64-bit-to-run-eclipse-adt
+
 @end example
 
 @b{remove all stopped containers}
