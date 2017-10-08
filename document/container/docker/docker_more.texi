@@ -108,12 +108,15 @@ sudo docker rm $(sudo docker ps -a -q)
 $ service docker restart
 @end example
 
-@b{Document}
+@b{push}
 @example
-https://docs.docker.com/reference/
-https://docs.docker.com/release-notes/  -> docker release
-https://www.flockport.com/lxc-vs-docker/#rd?sukey=014c68f407f2d3e1c33f9b5f88da94f1900605cde16cd070ce1cba433724f98688003e1e13e19fb9a45282998ea16795
-https://www.flockport.com/
+sudo docker images
+sudo docker commit -m "android build env" d9e9660a9ef5 ft2team/ubuntu-14.04-dev
+
+sudo docker push ft2team/ubuntu-14.04-dev
+
+sudo docker tag ft2team/ubuntu-14.04-dev:latest ft2team/ubuntu-14.04-dev:android_v1
+sudo docker push ft2team/ubuntu-14.04-dev:android_v1
 @end example
 
 @b{ft2team docker}
@@ -137,7 +140,17 @@ sudo docker run -it ubuntu:16.04_ubuntu
 su - user // password: 123
 @end example
 
-run ubuntu-14.04
+@b{run ubuntu-14.04}
+@example
 sudo docker run -v /home/zzy/work:/home/user/code -it ft2team/ubuntu-14.04-dev  su - user
+@end example
+
+@b{Document}
+@example
+https://docs.docker.com/reference/
+https://docs.docker.com/release-notes/  -> docker release
+https://www.flockport.com/lxc-vs-docker/#rd?sukey=014c68f407f2d3e1c33f9b5f88da94f1900605cde16cd070ce1cba433724f98688003e1e13e19fb9a45282998ea16795
+https://www.flockport.com/
+@end example
 
 @bye

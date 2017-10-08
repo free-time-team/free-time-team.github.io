@@ -150,12 +150,15 @@ https://wiki.debian.org/Multiarch/HOWTO
 <pre class="example">$ service docker restart
 </pre></div>
 
-<p><b>Document</b>
+<p><b>push</b>
 </p><div class="example">
-<pre class="example">https://docs.docker.com/reference/
-https://docs.docker.com/release-notes/  -&gt; docker release
-https://www.flockport.com/lxc-vs-docker/#rd?sukey=014c68f407f2d3e1c33f9b5f88da94f1900605cde16cd070ce1cba433724f98688003e1e13e19fb9a45282998ea16795
-https://www.flockport.com/
+<pre class="example">sudo docker images
+sudo docker commit -m &quot;android build env&quot; d9e9660a9ef5 ft2team/ubuntu-14.04-dev
+
+sudo docker push ft2team/ubuntu-14.04-dev
+
+sudo docker tag ft2team/ubuntu-14.04-dev:latest ft2team/ubuntu-14.04-dev:android_v1
+sudo docker push ft2team/ubuntu-14.04-dev:android_v1
 </pre></div>
 
 <p><b>ft2team docker</b>
@@ -179,9 +182,19 @@ sudo docker run -it ubuntu:16.04_ubuntu
 su - user // password: 123
 </pre></div>
 
-<p>run ubuntu-14.04
-sudo docker run -v /home/zzy/work:/home/user/code -it ft2team/ubuntu-14.04-dev  su - user
-</p>
+<p><b>run ubuntu-14.04</b>
+</p><div class="example">
+<pre class="example">sudo docker run -v /home/zzy/work:/home/user/code -it ft2team/ubuntu-14.04-dev  su - user
+</pre></div>
+
+<p><b>Document</b>
+</p><div class="example">
+<pre class="example">https://docs.docker.com/reference/
+https://docs.docker.com/release-notes/  -&gt; docker release
+https://www.flockport.com/lxc-vs-docker/#rd?sukey=014c68f407f2d3e1c33f9b5f88da94f1900605cde16cd070ce1cba433724f98688003e1e13e19fb9a45282998ea16795
+https://www.flockport.com/
+</pre></div>
+
 <hr>
 
 
