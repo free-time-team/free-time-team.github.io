@@ -1,0 +1,51 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle test
+
+@copying
+This manual is for HTC, version version.
+
+Copyright @copyright{} years copyright-owner.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title HTC document
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top test
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* chapter1::
+@c * Copying:: Your rights and freedoms.
+@end menu
+
+@node chapter1
+@chapter chapter1
+
+@bye

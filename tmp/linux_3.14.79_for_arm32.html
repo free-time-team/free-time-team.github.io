@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This manual is for HTC, version version.
+
+Copyright (C) years copyright-owner.
+
+Permission is granted to -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>linux-3.14.79 on arm32</title>
+
+<meta name="description" content="linux-3.14.79 on arm32">
+<meta name="keywords" content="linux-3.14.79 on arm32">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">linux-3.14.79 on arm32</h1>
+
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-install-gcc-toolchain-1" href="#install-gcc-toolchain">1 install gcc toolchain</a></li>
+  <li><a name="toc-install-qemu-1" href="#install-qemu">2 install qemu</a></li>
+  <li><a name="toc-install-busybox-1" href="#install-busybox">3 install busybox</a></li>
+  <li><a name="toc-build-_0026-run-linux-kernel-1" href="#build-_0026-run-linux-kernel">4 build &amp; run linux kernel</a></li>
+</ul>
+</div>
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#install-gcc-toolchain" accesskey="n" rel="next">install gcc toolchain</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="linux_002d3_002e14_002e79-on-arm32"></a>
+<h1 class="top">linux-3.14.79 on arm32</h1>
+
+<p>This manual is for program, version version.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#install-gcc-toolchain" accesskey="1">install gcc toolchain</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#install-qemu" accesskey="2">install qemu</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#install-busybox" accesskey="3">install busybox</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#build-_0026-run-linux-kernel" accesskey="4">build &amp; run linux kernel</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="install-gcc-toolchain"></a>
+<div class="header">
+<p>
+Next: <a href="#install-qemu" accesskey="n" rel="next">install qemu</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="install-gcc-toolchain-1"></a>
+<h2 class="chapter">1 install gcc toolchain</h2>
+
+<div class="example">
+<pre class="example">// install gcc toolchain
+wget &quot;https://releases.linaro.org/components/toolchain/binaries/latest/arm-eabi/gcc-linaro-7.3.1-2018.05-i686_arm-eabi.tar.xz&quot;
+tar -Jxf gcc-linaro-7.3.1-2018.05-i686_arm-eabi.tar.xz
+export ROOT_BIN=/home/zzy/sda6/bin/gcc/gcc-linaro-7.3.1-2018.05-i686_arm-eabi/bin
+
+sudo apt-get install gcc-arm-linux-gnueabi
+</pre></div>
+
+<hr>
+<a name="install-qemu"></a>
+<div class="header">
+<p>
+Next: <a href="#install-busybox" accesskey="n" rel="next">install busybox</a>, Previous: <a href="#install-gcc-toolchain" accesskey="p" rel="prev">install gcc toolchain</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="install-qemu-1"></a>
+<h2 class="chapter">2 install qemu</h2>
+<div class="example">
+<pre class="example">// install qemu
+wget &quot;https://download.qemu.org/qemu-2.12.0.tar.xz&quot;
+tar -Jxf qemu-2.12.0.tar.xz
+cd qemu-2.12.0/
+mkdir build
+cd build
+../configure --prefix=/home/zzy/sda6/bin/qemu/qemu-2.12.0 --target-list=&quot;arm-softmmu,aarch64-softmmu&quot; --audio-drv-list=alsa
+/home/zzy/sda6/bin/qemu/
+
+make -j8
+make install
+
+// some errors
+ERROR: glib-2.12 gthread-2.0 is required to compiler QEMU
+sudo apt-get install libglib2.0-dev
+
+// install som package
+sudo apt-get install libpixman-1-dev
+sudo apt-get install flex
+</pre></div>
+
+<hr>
+<a name="install-busybox"></a>
+<div class="header">
+<p>
+Next: <a href="#build-_0026-run-linux-kernel" accesskey="n" rel="next">build &amp; run linux kernel</a>, Previous: <a href="#install-qemu" accesskey="p" rel="prev">install qemu</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="install-busybox-1"></a>
+<h2 class="chapter">3 install busybox</h2>
+<div class="example">
+<pre class="example">// busybox
+
+wget &quot;https://busybox.net/downloads/busybox-1.28.4.tar.bz2&quot;
+tar -jxf busybox-1.28.4.tar.bz2
+
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- install
+
+git clone https://github.com/zzy-program/resource.git
+cp -r resource/rootfs_arm32/* .
+mk_rootfs.sh
+The rootfs arm32_rootfs.ext4 will be created.
+
+</pre></div>
+
+<hr>
+<a name="build-_0026-run-linux-kernel"></a>
+<div class="header">
+<p>
+Previous: <a href="#install-busybox" accesskey="p" rel="prev">install busybox</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="build-_0026-run-linux-kernel-1"></a>
+<h2 class="chapter">4 build &amp; run linux kernel</h2>
+
+<p><b>Get code from kernel.org</b>
+</p><div class="example">
+<pre class="example">// build linux kernel
+wget http://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.14.79.tar.xz
+tar -Jxf linux-3.14.79.tar.xz
+cd linux-3.14.79/
+mkdir ../out_3.14.79
+export ROOT_BIN=/home/zzy/sda6/bin/gcc/gcc-linaro-7.3.1-2018.05-i686_arm-eabi/bin
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79 vexpress_defconfig
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79 -j4 zImage
+
+// run linux
+/home/zzy/sda6/bin/qemu/qemu-2.12.0/bin/qemu-system-arm -M vexpress-a9 -m 512M -kernel ../out_3.14.79/arch/arm/boot/zImage -nographic -append &quot;root=/dev/mmcblk0 console=ttyAMA0&quot; -sd ../arm32_rootfs.ext4
+</pre></div>
+
+<p><b>Get code from github</b>
+</p><div class="example">
+<pre class="example">git clone https://github.com/zzy-program/linux-3.14.79-study.git
+mkdir ../out_3.14.79-study
+export ROOT_BIN=/home/zzy/sda6/bin/gcc/gcc-linaro-7.3.1-2018.05-i686_arm-eabi/bin
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79-study vexpress_defconfig
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79-study -j4 zImage
+
+/home/zzy/sda6/bin/qemu/qemu-2.12.0/bin/qemu-system-arm -M vexpress-a9 -m 512M -kernel ../out_3.14.79/arch/arm/boot/zImage -nographic -append &quot;root=/dev/mmcblk0 console=ttyAMA0&quot; -sd ../arm32_rootfs.ext4
+</pre></div>
+
+<hr>
+
+
+
+</body>
+</html>

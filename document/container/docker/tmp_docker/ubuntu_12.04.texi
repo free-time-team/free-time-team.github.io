@@ -1,0 +1,79 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle Ubuntu-12.04
+
+@copying
+This manual is for HTC, version version.
+
+Copyright @copyright{} years copyright-owner.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title HTC document
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top Ubuntu-12.04
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* install docker on ubuntu-12.04::
+@c * Copying:: Your rights and freedoms.
+@end menu
+
+@node install docker on ubuntu-12.04
+@chapter install docker on ubuntu-12.04
+
+@example
+Docker 官网上要求Docker需要在64位版本的Ubuntu上安装，并且还要保证 Ubuntu 内核的最小版本不低于 3.10.
+
+$ uname -a
+Linux zxt-ThinkCentre-M81 3.5.0-23-generic #35~precise1-Ubuntu SMP Fri Jan 25 17:13:26 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+
+$ sudo apt-get update
+$ sudo apt-get install linux-generic-lts-trusty
+$ sudo reboot
+
+$ uname -a
+Linux zxt-ThinkCentre-M81 3.13.0-116-generic #163~precise1-Ubuntu SMP Fri Mar 31 15:22:04 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+
+install apparmor
+$ sudo apt-get install apparmor
+
+install docker
+curl -fsSL https://get.docker.com/ | sh
+
+sudo docker load -i ubuntu_14.04
+sudo docker run -v /home/zxt/sdb:/home/sdb -it ubuntu:14.04_android_env /bin/bash
+
+# cat /etc/issue
+Ubuntu 14.04.5 LTS \n \l
+
+Reference: @url{http://www.cnblogs.com/babycool/p/5255252.html}
+@end example
+
+@bye

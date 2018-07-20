@@ -1,0 +1,135 @@
+\input texinfo
+
+@documentlanguage en
+@documentencoding UTF-8
+
+@settitle linux-3.14.79 on arm32
+
+@copying
+This manual is for HTC, version version.
+
+Copyright @copyright{} years copyright-owner.
+
+@quotation
+Permission is granted to
+@end quotation
+@end copying
+
+@titlepage
+@title HTC document
+@subtitle subtitle-if-any
+@subtitle second-subtitle
+@author author
+
+@c  The following two commands
+@c  start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+Published by
+@end titlepage
+
+@c So the toc is printed at the start.
+@contents
+
+@ifnottex
+@node Top
+@top linux-3.14.79 on arm32
+
+This manual is for program, version version.
+@end ifnottex
+
+@menu
+* install gcc toolchain::
+* install qemu::
+* install busybox::
+* build & run linux kernel::
+@c * Copying:: Your rights and freedoms.
+@end menu
+
+@node install gcc toolchain
+@chapter install gcc toolchain
+
+@example
+// install gcc toolchain
+wget "https://releases.linaro.org/components/toolchain/binaries/latest/arm-eabi/gcc-linaro-7.3.1-2018.05-i686_arm-eabi.tar.xz"
+tar -Jxf gcc-linaro-7.3.1-2018.05-i686_arm-eabi.tar.xz
+export ROOT_BIN=/home/zzy/sda6/bin/gcc/gcc-linaro-7.3.1-2018.05-i686_arm-eabi/bin
+
+sudo apt-get install gcc-arm-linux-gnueabi
+@end example
+
+@node install qemu
+@chapter install qemu
+@example
+// install qemu
+wget "https://download.qemu.org/qemu-2.12.0.tar.xz"
+tar -Jxf qemu-2.12.0.tar.xz
+cd qemu-2.12.0/
+mkdir build
+cd build
+../configure --prefix=/home/zzy/sda6/bin/qemu/qemu-2.12.0 --target-list="arm-softmmu,aarch64-softmmu" --audio-drv-list=alsa
+/home/zzy/sda6/bin/qemu/
+
+make -j8
+make install
+
+// some errors
+ERROR: glib-2.12 gthread-2.0 is required to compiler QEMU
+sudo apt-get install libglib2.0-dev
+
+// install som package
+sudo apt-get install libpixman-1-dev
+sudo apt-get install flex
+@end example
+
+@node install busybox
+@chapter install busybox
+@example
+// busybox
+
+wget "https://busybox.net/downloads/busybox-1.28.4.tar.bz2"
+tar -jxf busybox-1.28.4.tar.bz2
+
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- install
+
+git clone https://github.com/zzy-program/resource.git
+cp -r resource/rootfs_arm32/* .
+mk_rootfs.sh
+The rootfs arm32_rootfs.ext4 will be created.
+
+@end example
+
+@node build & run linux kernel
+@chapter build & run linux kernel
+
+@b{Get code from kernel.org}
+@example
+// build linux kernel
+wget http://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.14.79.tar.xz
+tar -Jxf linux-3.14.79.tar.xz
+cd linux-3.14.79/
+mkdir ../out_3.14.79
+export ROOT_BIN=/home/zzy/sda6/bin/gcc/gcc-linaro-7.3.1-2018.05-i686_arm-eabi/bin
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79 vexpress_defconfig
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79 -j4 zImage
+
+// run linux
+/home/zzy/sda6/bin/qemu/qemu-2.12.0/bin/qemu-system-arm -M vexpress-a9 -m 512M -kernel ../out_3.14.79/arch/arm/boot/zImage -nographic -append "root=/dev/mmcblk0 console=ttyAMA0" -sd ../arm32_rootfs.ext4
+@end example
+
+@b{Get code from github}
+@example
+git clone https://github.com/zzy-program/linux-3.14.79-study.git
+mkdir ../out_3.14.79-study
+export ROOT_BIN=/home/zzy/sda6/bin/gcc/gcc-linaro-7.3.1-2018.05-i686_arm-eabi/bin
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79-study vexpress_defconfig
+make ARCH=arm CROSS_COMPILE=$ROOT_BIN/arm-eabi- O=../out_3.14.79-study -j4 zImage
+
+/home/zzy/sda6/bin/qemu/qemu-2.12.0/bin/qemu-system-arm -M vexpress-a9 -m 512M -kernel ../out_3.14.79/arch/arm/boot/zImage -nographic -append "root=/dev/mmcblk0 console=ttyAMA0" -sd ../arm32_rootfs.ext4
+@end example
+
+@bye
