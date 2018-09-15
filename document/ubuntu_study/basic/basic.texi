@@ -199,7 +199,7 @@ http://lawrit.lawr.ucdavis.edu/it-help-center/how-to/upgrading-ubuntu-via-comman
 @item
 @b{vim config}
 
-git clone @url{https://github.com/zzyjsjcom/vim.git, https://github.com/zzyjsjcom/vim.git}
+git clone @url{git clone https://github.com/zzy-program/00_script.git}
 
 @end itemize
 
