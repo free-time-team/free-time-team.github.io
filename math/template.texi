@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle 数学
+@settitle title
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,13 +35,22 @@ Published by
 
 @ifnottex
 @node Top
-@top 数学
+@top top
 
 This manual is for program, version version.
 @end ifnottex
 
-==> @url{introduction.html, 微信群规范及其相关事宜}
+@menu
+* Introduction::
+@c * Copying::  free time team
+@end menu
 
-==> todo
+@node Introduction
+@chapter Introduction
+
+
+
+
+
 
 @bye

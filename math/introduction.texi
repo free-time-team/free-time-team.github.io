@@ -3,7 +3,7 @@
 @documentlanguage en
 @documentencoding UTF-8
 
-@settitle 数学
+@settitle 微信群规范及其相关事宜
 
 @copying
 This manual is for Document, version 1.0.
@@ -35,13 +35,30 @@ Published by
 
 @ifnottex
 @node Top
-@top 数学
+@top 微信群规范及其相关事宜
 
 This manual is for program, version version.
 @end ifnottex
 
-==> @url{introduction.html, 微信群规范及其相关事宜}
+@menu
+* 微信群规范::
+@c * Copying::  free time team
+@end menu
 
-==> todo
+@node 微信群规范
+@chapter 微信群规范
+
+@example
+群规范
+1. 禁止发广告 =>  无警告移出。
+2. 禁止发数学无关的静态、动态图片 => 无警告移出。
+3. 禁止发表情包，可以容忍微信传统表情。
+4. 不鼓励讨论数学无关问题，不鼓励讨论职业生涯问题，不鼓励图形学、机器学习、区块链等话题。
+5. 多讨论具体的数学思路，具体的题目。
+@end example
+
+
+
+
 
 @bye
