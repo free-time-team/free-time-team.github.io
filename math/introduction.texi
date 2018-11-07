@@ -41,9 +41,30 @@ This manual is for program, version version.
 @end ifnottex
 
 @menu
+* 简介::
+* 相关网站::
 * 微信群规范::
-@c * Copying::  free time team
 @end menu
+
+@node 简介
+@chapter 简介
+
+您可以通过下面的方法加入我们，
+
+QQ群： 479198558， 群文件 => 00_数学
+
+@node 相关网站
+@chapter 相关网站
+
+leetcode => 偏计算机基础
+
+projecturler => 数学
+
+@url{https://www.khanacademy.org/}  => 可汗学院 en
+
+@url{https://zh.khanacademy.org/} => 可汗学院 cn
+
+@url{https://revisionmaths.com/} => Revision Maths
 
 @node 微信群规范
 @chapter 微信群规范
